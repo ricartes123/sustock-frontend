@@ -1,5 +1,4 @@
-import { Component, inject, computed, signal } from '@angular/core';
-import { AuthService } from '../../core/services/auth.service';
+import { Component, inject, computed } from '@angular/core';
 import { BusinessContextService } from '../../core/services/business-context.service';
 
 @Component({
@@ -8,7 +7,6 @@ import { BusinessContextService } from '../../core/services/business-context.ser
   templateUrl: './navbar.html',
 })
 export class Navbar {
-  private auth = inject(AuthService);
   private businessContext = inject(BusinessContextService);
 
   currency = computed(() => this.businessContext.currency);
@@ -19,10 +17,4 @@ export class Navbar {
     if (locale === 'en-US') return 'English (US)';
     return locale;
   });
-
-  theme = signal('Light');
-
-  logout() {
-    this.auth.logout();
-  }
 }
