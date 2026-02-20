@@ -1,0 +1,76 @@
+<h2 class="text-2xl font-bold mb-6">
+    Products
+</h2>
+
+@if (loading()) {
+<p>Loading...</p>
+}
+
+@if (!loading() && products().length === 0) {
+<div class="bg-white p-6 rounded shadow text-center text-gray-500">
+    No products yet.
+</div>
+}
+
+@if (products().length > 0) {
+
+<div class="bg-white rounded shadow overflow-hidden">
+    <table class="w-full text-left">
+
+        <thead class="bg-gray-50 border-b">
+            <tr>
+                <th class="p-4">Name</th>
+                <th class="p-4">Price</th>
+                <th class="p-4">Stock</th>
+                <th class="p-4">Created</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @for (product of products(); track product.id) {
+            <tr class="border-b hover:bg-gray-50 transition">
+                <td class="p-4 font-medium">
+                    {{ product.name }}
+                </td>
+
+                <td class="p-4">
+                    {{ currency() }} {{ product.price
+                    | currency:currency():'symbol':'1.0-0':locale }}
+                </td>
+
+                <td class="p-4">
+                    {{ product.stock }}
+                </td>
+
+                <td class="p-4 text-sm text-gray-500">
+                    {{ product.createdAt | date:'shortDate' }}
+                </td>
+            </tr>
+            }
+        </tbody>
+
+    </table>
+</div>
+
+<!-- Pagination -->
+@if (meta()) {
+<div class="flex justify-between items-center mt-6">
+
+    <button (click)="prevPage()" [disabled]="page() === 1"
+        class="px-4 py-2 bg-gray-200 rounded disabled:opacity-50 hover:bg-gray-300 transition">
+        Previous
+    </button>
+
+    <span class="text-sm text-gray-600">
+        Page {{ meta().page }} of {{ meta().totalPages }}
+    </span>
+
+    <button (click)="nextPage()" [disabled]="page() === meta().totalPages"
+        class="px-4 py-2 bg-gray-200 rounded disabled:opacity-50 hover:bg-gray-300 transition">
+        Next
+    </button>
+
+</div>
+}
+
+}

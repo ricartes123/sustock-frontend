@@ -1,39 +1,81 @@
-<h2 class="text-2xl font-bold mb-6">
-    Dashboard
-</h2>
-
 @if (loading()) {
-<p>Loading...</p>
+<div class="flex items-center justify-center h-64">
+    <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600"></div>
+</div>
 }
 
 @if (data()) {
 
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
 
-    <div class="bg-white p-6 rounded shadow">
-        <p class="text-sm text-gray-500">Total Products</p>
-        <p class="text-2xl font-bold">{{ data()!.totalProducts }}</p>
+    <!-- Total Products -->
+    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex items-start justify-between">
+        <div>
+            <p class="text-sm font-medium text-slate-500 mb-1">Total Products</p>
+            <p class="text-3xl font-bold text-slate-800">{{ data()!.totalProducts }}</p>
+        </div>
+        <div class="p-3 bg-purple-50 rounded-xl text-purple-600">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path
+                    d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z">
+                </path>
+                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                <line x1="12" y1="22.08" x2="12" y2="12"></line>
+            </svg>
+        </div>
     </div>
 
-    <div class="bg-white p-6 rounded shadow">
-        <p class="text-sm text-gray-500">Total Stock Value</p>
-        <p class="text-2xl font-bold">
-            {{ data()!.totalStockValue | currency:'ARS':'symbol':'1.0-0':'es-AR' }}
-        </p>
+    <!-- Total Stock Value -->
+    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex items-start justify-between">
+        <div>
+            <p class="text-sm font-medium text-slate-500 mb-1">Total Stock Value</p>
+            <p class="text-3xl font-bold text-slate-800">
+                {{ currency() }} {{ data()!.totalStockValue | currency:currency():'symbol':'1.0-0':locale }}
+            </p>
+        </div>
+        <div class="p-3 bg-green-50 rounded-xl text-green-600">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="1" x2="12" y2="23"></line>
+                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+            </svg>
+        </div>
     </div>
 
-    <div class="bg-white p-6 rounded shadow">
-        <p class="text-sm text-gray-500">Low Stock</p>
-        <p class="text-2xl font-bold text-red-500">
-            {{ data()!.lowStockCount }}
-        </p>
+    <!-- Low Stock -->
+    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex items-start justify-between">
+        <div>
+            <p class="text-sm font-medium text-slate-500 mb-1">Low Stock</p>
+            <p class="text-3xl font-bold text-red-500">
+                {{ data()!.lowStockCount }}
+            </p>
+        </div>
+        <div class="p-3 bg-red-50 rounded-xl text-red-500">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z">
+                </path>
+                <line x1="12" y1="9" x2="12" y2="13"></line>
+                <line x1="12" y1="17" x2="12.01" y2="17"></line>
+            </svg>
+        </div>
     </div>
 
-    <div class="bg-white p-6 rounded shadow">
-        <p class="text-sm text-gray-500">Total Movements</p>
-        <p class="text-2xl font-bold">
-            {{ data()!.totalMovements }}
-        </p>
+    <!-- Total Movements -->
+    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex items-start justify-between">
+        <div>
+            <p class="text-sm font-medium text-slate-500 mb-1">Total Movements</p>
+            <p class="text-3xl font-bold text-slate-800">
+                {{ data()!.totalMovements }}
+            </p>
+        </div>
+        <div class="p-3 bg-blue-50 rounded-xl text-blue-600">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+            </svg>
+        </div>
     </div>
 
 </div>

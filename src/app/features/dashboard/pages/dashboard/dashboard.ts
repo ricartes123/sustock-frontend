@@ -1,6 +1,7 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, computed } from '@angular/core';
 import { DashboardService, DashboardData } from '../../services/dashboard.service';
 import { CurrencyPipe } from '@angular/common';
+import { BusinessContextService } from '../../../../core/services/business-context.service';
 
 @Component({
   standalone: true,
@@ -10,6 +11,9 @@ import { CurrencyPipe } from '@angular/common';
 })
 export class Dashboard {
   private dashboardService = inject(DashboardService);
+  private businessContext = inject(BusinessContextService);
+
+  currency = computed(() => this.businessContext.currency);
 
   data = signal<DashboardData | null>(null);
   loading = signal(true);
@@ -24,5 +28,8 @@ export class Dashboard {
         this.loading.set(false);
       }
     });
+  }
+  get locale() {
+    return this.businessContext.locale;
   }
 }

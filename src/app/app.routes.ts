@@ -23,13 +23,13 @@ export const routes: Routes = [
             {
                 path: 'products',
                 loadComponent: () =>
-                    import('./features/products/pages/products/products')
+                    import('./features/product/pages/products/products')
                         .then(m => m.Products),
             },
             {
                 path: 'movements',
                 loadComponent: () =>
-                    import('./features/movements/pages/movements/movements')
+                    import('./features/movement/pages/movements/movements')
                         .then(m => m.Movements),
             },
         ],

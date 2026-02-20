@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 export interface DashboardData {
   totalProducts: number;
   totalStockValue: number;
+  currency: string;
   lowStockCount: number;
   totalMovements: number;
 }
