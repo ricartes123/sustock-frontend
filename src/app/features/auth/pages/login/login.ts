@@ -19,9 +19,20 @@ export class Login {
 
   email = '';
   password = '';
+  firstName = '';
+  lastName = '';
+  businessName = '';
+  currency = 'ARS';
+
+  isLoginMode = true;
   error: string | null = null;
   loading = false;
   showPassword = signal(false);
+
+  toggleMode() {
+    this.isLoginMode = !this.isLoginMode;
+    this.error = null;
+  }
 
   togglePassword() {
     this.showPassword.update(value => !value);
@@ -31,16 +42,25 @@ export class Login {
     this.loading = true;
     this.error = null;
 
-    this.auth.login({ email: this.email, password: this.password })
-      .subscribe({
-        next: (res) => {
+    const request$ = this.isLoginMode
+      ? this.auth.login({ email: this.email, password: this.password })
+      : this.auth.register({
+        email: this.email,
+        password: this.password,
+        firstName: this.firstName,
+        lastName: this.lastName,
+        businessName: this.businessName,
+        currency: this.currency,
+      });
 
-          this.auth.setToken(res.accessToken);
-
+    request$.subscribe({
+      next: (res: any) => {
+        // Handle successful operation (either login response with token, or register response without token)
+        const processLogin = (token: string) => {
+          this.auth.setToken(token);
           this.auth.fetchProfile().subscribe({
             next: (user) => {
               this.auth.setUser(user);
-
               this.businessService.getAll().subscribe({
                 next: (businesses) => {
                   this.businessContext.initialize(businesses);
@@ -49,11 +69,30 @@ export class Login {
               });
             }
           });
-        },
-        error: () => {
-          this.error = 'Invalid credentials';
-          this.loading = false;
+        };
+
+        if (this.isLoginMode) {
+          processLogin(res.accessToken);
+        } else {
+          // If we just registered successfully, automatically login to get the token
+          this.auth.login({ email: this.email, password: this.password }).subscribe({
+            next: (loginRes) => processLogin(loginRes.accessToken),
+            error: () => {
+              this.error = 'Registered successfully, but failed to auto-login. Please login manually.';
+              this.loading = false;
+              this.toggleMode();
+            }
+          });
         }
-      });
+      },
+      error: (err) => {
+        // Display precise validation errors from the backend class-validator pipeline
+        const errObj = err.error?.message;
+        const exactError = Array.isArray(errObj) ? errObj[0] : errObj;
+
+        this.error = exactError || (this.isLoginMode ? 'Invalid credentials' : 'Failed to register');
+        this.loading = false;
+      }
+    });
   }
 }

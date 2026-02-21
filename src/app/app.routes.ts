@@ -32,6 +32,12 @@ export const routes: Routes = [
                     import('./features/movement/pages/movements/movements')
                         .then(m => m.Movements),
             },
+            {
+                path: 'settings',
+                loadComponent: () =>
+                    import('./features/business/pages/settings/settings')
+                        .then(m => m.Settings),
+            },
         ],
     },
 ];

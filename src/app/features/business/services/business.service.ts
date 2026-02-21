@@ -16,4 +16,11 @@ export class BusinessService {
       'http://localhost:3000/businesses'
     );
   }
+
+  updateCurrency(id: string, newCurrency: string, conversionRate?: number) {
+    return this.http.patch<Business>(
+      `http://localhost:3000/businesses/${id}/currency`,
+      { newCurrency, conversionRate }
+    );
+  }
 }

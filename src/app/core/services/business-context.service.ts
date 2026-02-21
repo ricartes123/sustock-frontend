@@ -1,14 +1,26 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, signal, inject, computed } from '@angular/core';
 import { Business } from '../../features/business/services/business.service';
+import { AuthService } from './auth.service';
 
 @Injectable({ providedIn: 'root' })
 export class BusinessContextService {
+  private authService = inject(AuthService);
 
   private _businesses = signal<Business[]>([]);
   private _activeBusiness = signal<Business | null>(null);
 
   businesses = this._businesses.asReadonly();
   activeBusiness = this._activeBusiness.asReadonly();
+
+  isAdmin = computed(() => {
+    const user = this.authService.user();
+    const active = this._activeBusiness();
+
+    if (!user || !active) return false;
+
+    // Si el ID del negocio activo está en la lista de negocios propios del usuario, es admin.
+    return user.businesses.some(b => b.id === active.id);
+  });
 
   initialize(businesses: Business[]) {
     this._businesses.set(businesses);
@@ -33,6 +45,14 @@ export class BusinessContextService {
 
   get currency() {
     return this._activeBusiness()?.currency ?? 'USD';
+  }
+
+  get currencySymbol(): string {
+    switch (this.currency) {
+      case 'EUR': return '€';
+      case 'BRL': return 'R$';
+      default: return '$';
+    }
   }
 
   get locale(): string {

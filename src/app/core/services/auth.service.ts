@@ -11,6 +11,13 @@ interface LoginResponse {
   accessToken: string;
 }
 
+export interface RegisterDto extends LoginDto {
+  firstName: string;
+  lastName: string;
+  businessName: string;
+  currency?: string;
+}
+
 export interface User {
   id: string;
   email: string;
@@ -34,6 +41,13 @@ export class AuthService {
   login(dto: LoginDto) {
     return this.http.post<LoginResponse>(
       'http://localhost:3000/auth/login',
+      dto
+    );
+  }
+
+  register(dto: RegisterDto) {
+    return this.http.post<LoginResponse>(
+      'http://localhost:3000/auth/register',
       dto
     );
   }

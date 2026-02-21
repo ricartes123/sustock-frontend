@@ -1,56 +1,203 @@
-<div class="h-screen flex items-center justify-center bg-slate-100">
+<div class="min-h-screen flex flex-col md:flex-row bg-slate-50">
 
-  <div class="w-full max-w-sm bg-white p-8 rounded shadow">
+  <!-- Left Side - Branding / Welcome (Hidden on small screens) -->
+  <div
+    class="hidden md:flex md:w-1/2 flex-col justify-between p-12 lg:p-24 relative overflow-hidden bg-gradient-to-br from-purple-700 via-purple-800 to-indigo-900 text-white">
+    <!-- Decorative background blobs -->
+    <div class="absolute top-0 left-0 w-full h-full opacity-20 pointer-events-none">
+      <div class="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-purple-500 mix-blend-multiply filter blur-3xl">
+      </div>
+      <div class="absolute top-1/4 -right-24 w-96 h-96 rounded-full bg-indigo-500 mix-blend-multiply filter blur-3xl">
+      </div>
+      <div class="absolute -bottom-24 left-1/4 w-96 h-96 rounded-full bg-purple-400 mix-blend-multiply filter blur-3xl">
+      </div>
+    </div>
 
-    <h2 class="text-2xl font-bold mb-6 text-center">
-      Login
-    </h2>
-
-    <form (ngSubmit)="onSubmit()" class="space-y-4">
-
-      <input type="email" [(ngModel)]="email" name="email" placeholder="Email" class="w-full border px-3 py-2 rounded"
-        required />
-
-      <div class="relative">
-        <input [type]="showPassword() ? 'text' : 'password'" [(ngModel)]="password" name="password"
-          placeholder="Password" class="w-full border px-3 py-2 rounded pr-10" required />
-
-        <button type="button" (click)="togglePassword()"
-          class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none cursor-pointer">
-
-          @if (showPassword()) {
-          <!-- Eye Off Icon -->
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path
-              d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24">
-            </path>
-            <line x1="1" y1="1" x2="23" y2="23"></line>
+    <div class="relative z-10">
+      <div class="flex items-center gap-3 mb-16">
+        <div class="w-10 h-10 bg-white rounded-xl shadow-lg flex items-center justify-center">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            class="text-purple-700" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7"></path>
+            <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
+            <path d="M15 22v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4"></path>
+            <path d="M2 7h20"></path>
+            <path d="M22 7v3a2 2 0 0 1-2 2h-1.99"></path>
+            <path d="M18.01 12a2 2 0 0 1-2-2V7"></path>
+            <path d="M14.01 12a2 2 0 0 1-2-2V7"></path>
+            <path d="M10.01 12a2 2 0 0 1-2-2V7"></path>
+            <path d="M6.01 12a2 2 0 0 1-2-2V7"></path>
+            <path d="M2 7v3a2 2 0 0 0 2 2h1.99"></path>
           </svg>
+        </div>
+        <h1 class="text-2xl font-black tracking-tight">SuStock.</h1>
+      </div>
 
+      <h2 class="text-4xl lg:text-5xl font-bold mb-6 leading-tight">
+        Next-gen inventory <br>
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-200 to-indigo-200">management.</span>
+      </h2>
+      <p class="text-purple-100 text-lg mb-8 max-w-md">
+        Take absolute control of your business. Manage multiple warehouses, track low stock, and coordinate your team
+        seamlessly in one place.
+      </p>
+    </div>
+
+    <div class="relative z-10 text-sm text-purple-200">
+      &copy; 2026 SuStock Ecosystem. All rights reserved.
+    </div>
+  </div>
+
+  <!-- Right Side - Form -->
+  <div
+    class="w-full md:w-1/2 flex items-center justify-center p-8 sm:p-12 lg:p-24 bg-white shadow-[-10px_0_20px_-10px_rgba(0,0,0,0.05)] z-10">
+    <div class="w-full max-w-md">
+
+      <!-- Mobile Logo (Visible only on small screens) -->
+      <div class="flex items-center gap-2 mb-8 md:hidden text-purple-700">
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7"></path>
+          <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
+          <path d="M15 22v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4"></path>
+          <path d="M2 7h20"></path>
+        </svg>
+        <span class="text-xl font-black tracking-tight">SuStock.</span>
+      </div>
+
+      <div class="mb-10 text-center md:text-left">
+        <h2 class="text-3xl font-bold text-slate-800 mb-2">
+          {{ isLoginMode ? 'Welcome back' : 'Create an account' }}
+        </h2>
+        <p class="text-slate-500">
+          {{ isLoginMode ? 'Enter your details to access your business.' : 'Get your business up and running in
+          seconds.' }}
+        </p>
+      </div>
+
+      <form (ngSubmit)="onSubmit()" class="space-y-4">
+
+        @if (!isLoginMode) {
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-1">First Name</label>
+            <input type="text" [(ngModel)]="firstName" name="firstName" placeholder="Jane"
+              class="w-full border border-slate-200 px-4 py-2.5 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
+              required />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-1">Last Name</label>
+            <input type="text" [(ngModel)]="lastName" name="lastName" placeholder="Doe"
+              class="w-full border border-slate-200 px-4 py-2.5 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
+              required />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-3 gap-4">
+          <div class="col-span-2">
+            <label class="block text-sm font-medium text-slate-700 mb-1">Business Name</label>
+            <input type="text" [(ngModel)]="businessName" name="businessName" placeholder="Acme Inc."
+              class="w-full border border-slate-200 px-4 py-2.5 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
+              required />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-slate-700 mb-1">Currency</label>
+            <select [(ngModel)]="currency" name="currency"
+              class="w-full border border-slate-200 px-4 py-2.5 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all cursor-pointer bg-white"
+              required>
+              <option value="ARS">ARS ($)</option>
+              <option value="USD">USD ($)</option>
+              <option value="EUR">EUR (€)</option>
+              <option value="CLP">CLP ($)</option>
+              <option value="BRL">BRL (R$)</option>
+              <option value="MXN">MXN ($)</option>
+            </select>
+          </div>
+        </div>
+        }
+
+        <div>
+          <label class="block text-sm font-medium text-slate-700 mb-1">Email</label>
+          <input type="email" [(ngModel)]="email" name="email" placeholder="you@company.com"
+            class="w-full border border-slate-200 px-4 py-2.5 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
+            required />
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-slate-700 mb-1">Password</label>
+          <div class="relative">
+            <input [type]="showPassword() ? 'text' : 'password'" [(ngModel)]="password" name="password"
+              placeholder="••••••••"
+              class="w-full border border-slate-200 px-4 py-2.5 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all pr-12"
+              required />
+
+            <button type="button" (click)="togglePassword()"
+              class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 focus:outline-none cursor-pointer p-1">
+              @if (showPassword()) {
+              <!-- Eye Off Icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path
+                  d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24">
+                </path>
+                <line x1="1" y1="1" x2="23" y2="23"></line>
+              </svg>
+              } @else {
+              <!-- Eye Icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+              }
+            </button>
+          </div>
+        </div>
+
+        @if(error) {
+        <div class="bg-red-50 text-red-600 text-sm p-3 rounded-lg flex items-center gap-2 border border-red-100">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+          {{ error }}
+        </div>
+        }
+
+        <button type="submit"
+          class="w-full bg-purple-600 text-white py-2.5 rounded-lg font-medium hover:bg-purple-700 focus:ring-4 focus:ring-purple-500/30 transition-all cursor-pointer mt-4 shadow-sm"
+          [disabled]="loading">
+          @if (loading) {
+          <span class="flex items-center justify-center gap-2">
+            <svg class="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
+              viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+              </path>
+            </svg>
+            Processing...
+          </span>
           } @else {
-          <!-- Eye Icon -->
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-            <circle cx="12" cy="12" r="3"></circle>
-          </svg>
+          {{ isLoginMode ? 'Sign in' : 'Create account' }}
           }
+        </button>
+
+      </form>
+
+      <!-- Toggle State -->
+      <div class="mt-8 text-center text-sm text-slate-500">
+        {{ isLoginMode ? "Don't have an account?" : "Already have an account?" }}
+        <button type="button" (click)="toggleMode()"
+          class="text-purple-600 font-semibold hover:text-purple-800 transition-colors ml-1 focus:outline-none">
+          {{ isLoginMode ? 'Sign up for free' : 'Log in here' }}
         </button>
       </div>
 
-      <button type="submit"
-        class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition cursor-pointer"
-        [disabled]="loading">
-        {{ loading ? 'Logging in...' : 'Login' }}
-      </button>
-
-      @if(error) {
-      <p class="text-red-500 text-sm text-center">
-        {{ error }}
-      </p>
-      }
-
-    </form>
+    </div>
   </div>
+
 </div>
