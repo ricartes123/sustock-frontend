@@ -1,5 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../../environments/environment';
 
 export interface Business {
   id: string;
@@ -10,10 +11,11 @@ export interface Business {
 @Injectable({ providedIn: 'root' })
 export class BusinessService {
   private http = inject(HttpClient);
+  private apiUrl = environment.apiUrl;
 
   getAll() {
     return this.http.get<Business[]>(
-      'http://localhost:3000/businesses'
+      `${this.apiUrl}/businesses`
     );
   }
 }

@@ -17,7 +17,7 @@ export class Dashboard {
 
   data = signal<DashboardData | null>(null);
   loading = signal(true);
-
+  
   ngOnInit() {
     this.dashboardService.getDashboard().subscribe({
       next: (res) => {
