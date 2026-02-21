@@ -274,13 +274,13 @@
     <div class="border-t border-slate-100 p-4">
         <div class="flex items-center gap-3 mb-4" [ngClass]="isCollapsed ? 'justify-center' : ''">
             <div
-                class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-700 font-bold flex-shrink-0">
-                HN
+                class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-700 font-bold flex-shrink-0 uppercase">
+                {{ user()?.firstName?.charAt(0) || 'U' }}{{ user()?.lastName?.charAt(0) || '' }}
             </div>
             @if (!isCollapsed) {
             <div class="flex flex-col overflow-hidden">
-                <span class="text-sm font-bold text-slate-800 truncate">Harper Nelson</span>
-                <span class="text-xs text-slate-400 truncate">Admin Manager</span>
+                <span class="text-sm font-bold text-slate-800 truncate">{{ user()?.firstName || 'User' }} {{ user()?.lastName || '' }}</span>
+                <span class="text-xs text-slate-400 truncate">{{ user()?.email || 'admin@sustock.com' }}</span>
             </div>
             }
         </div>

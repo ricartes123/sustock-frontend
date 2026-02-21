@@ -37,10 +37,16 @@ export class Login {
 
           this.auth.setToken(res.accessToken);
 
-          this.businessService.getAll().subscribe({
-            next: (businesses) => {
-              this.businessContext.initialize(businesses);
-              this.router.navigate(['/']);
+          this.auth.fetchProfile().subscribe({
+            next: (user) => {
+              this.auth.setUser(user);
+
+              this.businessService.getAll().subscribe({
+                next: (businesses) => {
+                  this.businessContext.initialize(businesses);
+                  this.router.navigate(['/']);
+                }
+              });
             }
           });
         },

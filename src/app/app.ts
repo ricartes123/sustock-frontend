@@ -17,6 +17,14 @@ export class App implements OnInit {
 
   ngOnInit() {
     if (this.auth.isAuthenticated()) {
+      // Fetch User Profile
+      this.auth.fetchProfile().subscribe({
+        next: (user) => {
+          this.auth.setUser(user);
+        }
+      });
+
+      // Fetch Businesses for Context
       this.businessService.getAll().subscribe({
         next: (businesses) => {
           this.businessContext.initialize(businesses);

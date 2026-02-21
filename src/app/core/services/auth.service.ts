@@ -11,6 +11,15 @@ interface LoginResponse {
   accessToken: string;
 }
 
+export interface User {
+  id: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  businesses: { id: string; name: string; currency: string }[];
+  teamMemberships: { business: { id: string; name: string; currency: string } }[];
+}
+
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private http = inject(HttpClient);
@@ -19,6 +28,9 @@ export class AuthService {
   private _token = signal<string | null>(localStorage.getItem('token'));
   token = this._token.asReadonly();
 
+  private _user = signal<User | null>(null);
+  user = this._user.asReadonly();
+
   login(dto: LoginDto) {
     return this.http.post<LoginResponse>(
       'http://localhost:3000/auth/login',
@@ -26,14 +38,23 @@ export class AuthService {
     );
   }
 
+  fetchProfile() {
+    return this.http.get<User>('http://localhost:3000/auth/me');
+  }
+
   setToken(token: string) {
     localStorage.setItem('token', token);
     this._token.set(token);
   }
 
+  setUser(user: User) {
+    this._user.set(user);
+  }
+
   logout() {
     localStorage.removeItem('token');
     this._token.set(null);
+    this._user.set(null);
     this.router.navigate(['/login']);
   }
 

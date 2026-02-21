@@ -11,6 +11,8 @@ import { AuthService } from '../../core/services/auth.service';
 })
 export class Sidebar {
   private auth = inject(AuthService);
+  user = this.auth.user;
+
   isCollapsed = false;
   isTrackingOpen = false;
 
