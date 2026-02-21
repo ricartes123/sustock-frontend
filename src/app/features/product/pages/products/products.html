@@ -1,6 +1,51 @@
-<h2 class="text-2xl font-bold mb-6">
-    Products
-</h2>
+<div class="flex items-center justify-between mb-6">
+    <div class="flex items-center gap-3">
+        <h2 class="text-2xl font-bold text-slate-800">Products</h2>
+        @if (isLowStockFilter()) {
+        <span class="px-2.5 py-1 bg-red-100 text-red-700 text-xs font-bold rounded-md tracking-wide">
+            LOW STOCK
+        </span>
+        }
+    </div>
+
+    @if (isLowStockFilter() || searchQuery) {
+    <button (click)="clearFilter()"
+        class="text-sm text-slate-500 hover:text-slate-800 flex items-center gap-1 transition-colors bg-white px-3 py-1.5 rounded-lg border border-slate-200 hover:border-slate-300">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+        Clear Filters
+    </button>
+    }
+</div>
+
+<!-- Filters Bar -->
+<div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 flex flex-col sm:flex-row gap-4 mb-6">
+    <div class="flex-1 relative">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" [(ngModel)]="searchQuery" (keyup.enter)="applyFilters()"
+            placeholder="Search products by name, sku, or barcode..."
+            class="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:bg-white transition-all">
+    </div>
+    <div class="flex items-center gap-2">
+        <select [(ngModel)]="stockFilter" (change)="applyFilters()"
+            class="bg-slate-50 border border-slate-200 text-slate-700 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2 outline-none cursor-pointer">
+            <option value="ALL">All Products</option>
+            <option value="LOW_STOCK">Low Stock</option>
+        </select>
+        <button (click)="applyFilters()"
+            class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors shadow-sm">
+            Search
+        </button>
+    </div>
+</div>
 
 @if (loading()) {
 <p>Loading...</p>

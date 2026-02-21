@@ -3,10 +3,12 @@ import { DashboardService, DashboardData } from '../../services/dashboard.servic
 import { CurrencyPipe } from '@angular/common';
 import { BusinessContextService } from '../../../../core/services/business-context.service';
 
+import { RouterLink } from '@angular/router';
+
 @Component({
   standalone: true,
   selector: 'app-dashboard',
-  imports: [CurrencyPipe],
+  imports: [CurrencyPipe, RouterLink],
   templateUrl: './dashboard.html',
 })
 export class Dashboard {
