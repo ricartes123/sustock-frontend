@@ -1,5 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { environment } from '../../../../environments/environment';
 
 export interface Product {
     id: string;
@@ -20,7 +21,7 @@ export interface Product {
 @Injectable({ providedIn: 'root' })
 export class ProductService {
     private http = inject(HttpClient);
-    private apiUrl = 'http://localhost:3000';
+    private apiUrl = environment.apiUrl;
 
     getAll(page = 1, limit = 10, search = '', lowStock = false, status: 'ALL' | 'ACTIVE' | 'INACTIVE' = 'ACTIVE') {
         let url = `${this.apiUrl}/products?page=${page}&limit=${limit}`;

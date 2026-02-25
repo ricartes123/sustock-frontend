@@ -196,10 +196,10 @@
     </button>
 
     <span class="text-sm text-gray-600">
-        Page {{ meta().page }} of {{ meta().totalPages }}
+        Page {{ meta()?.page }} of {{ meta()?.totalPages }}
     </span>
 
-    <button (click)="nextPage()" [disabled]="page() === meta().totalPages"
+    <button (click)="nextPage()" [disabled]="page() === meta()?.totalPages"
         class="px-4 py-2 bg-gray-200 rounded disabled:opacity-50 hover:bg-gray-300 transition cursor-pointer disabled:cursor-not-allowed">
         Next
     </button>

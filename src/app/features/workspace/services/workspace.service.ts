@@ -1,5 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../../environments/environment';
 
 export interface Workspace {
   id: string;
@@ -13,13 +14,13 @@ export class WorkspaceService {
 
   getAll() {
     return this.http.get<Workspace[]>(
-      'http://localhost:3000/workspaces'
+      `${environment.apiUrl}/workspaces`
     );
   }
 
   updateCurrency(id: string, newCurrency: string, conversionRate?: number) {
     return this.http.patch<Workspace>(
-      `http://localhost:3000/workspaces/${id}/currency`,
+      `${environment.apiUrl}/workspaces/${id}/currency`,
       { newCurrency, conversionRate }
     );
   }

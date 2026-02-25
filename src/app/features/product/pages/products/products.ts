@@ -7,6 +7,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ProductForm } from '../../components/product-form/product-form';
 
+export interface PaginationMeta {
+  total: number;
+  page: number;
+  limit: number;
+  totalPages: number;
+}
+
 @Component({
   standalone: true,
   selector: 'app-products',
@@ -23,7 +30,7 @@ export class Products implements OnInit {
   isAdmin = computed(() => this.workspaceContext.isAdmin());
 
   products = signal<Product[]>([]);
-  meta = signal<any>(null);
+  meta = signal<PaginationMeta | null>(null);
   page = signal(1);
   loading = signal(true);
   isLowStockFilter = signal<boolean>(false);
@@ -93,7 +100,7 @@ export class Products implements OnInit {
   }
 
   nextPage() {
-    if (this.page() < this.meta().totalPages) {
+    if (this.meta() && this.page() < this.meta()!.totalPages) {
       this.page.update(p => p + 1);
       this.loadProducts();
     }

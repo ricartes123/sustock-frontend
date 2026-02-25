@@ -7,6 +7,10 @@ import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../../../core/services/auth.service';
 import { TranslateModule } from '@ngx-translate/core';
 
+interface ExchangeRateResponse {
+    rates: Record<string, number>;
+}
+
 @Component({
     standalone: true,
     selector: 'app-settings',
@@ -64,7 +68,7 @@ export class Settings implements OnInit {
         const oldCurr = this.workspaceContext.activeWorkspace()?.currency || 'ARS';
         const newCurr = this.selectedCurrency;
 
-        this.http.get<any>(`https://api.exchangerate-api.com/v4/latest/${oldCurr}`).subscribe({
+        this.http.get<ExchangeRateResponse>(`https://api.exchangerate-api.com/v4/latest/${oldCurr}`).subscribe({
             next: (res) => {
                 const rate = res.rates[newCurr];
                 if (rate) {

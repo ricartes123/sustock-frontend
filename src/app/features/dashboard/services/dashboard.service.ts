@@ -1,5 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../../environments/environment';
 
 export interface DashboardData {
   totalProducts: number;
@@ -15,7 +16,7 @@ export class DashboardService {
 
   getDashboard() {
     return this.http.get<DashboardData>(
-      'http://localhost:3000/dashboard'
+      `${environment.apiUrl}/dashboard`
     );
   }
 }

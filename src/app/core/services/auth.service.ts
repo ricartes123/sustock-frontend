@@ -1,6 +1,7 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 interface LoginDto {
   email: string;
@@ -40,20 +41,20 @@ export class AuthService {
 
   login(dto: LoginDto) {
     return this.http.post<LoginResponse>(
-      'http://localhost:3000/auth/login',
+      `${environment.apiUrl}/auth/login`,
       dto
     );
   }
 
   register(dto: RegisterDto) {
     return this.http.post<LoginResponse>(
-      'http://localhost:3000/auth/register',
+      `${environment.apiUrl}/auth/register`,
       dto
     );
   }
 
   fetchProfile() {
-    return this.http.get<User>('http://localhost:3000/auth/me');
+    return this.http.get<User>(`${environment.apiUrl}/auth/me`);
   }
 
   setToken(token: string) {

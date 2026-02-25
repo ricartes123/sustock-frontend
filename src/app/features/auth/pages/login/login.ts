@@ -5,6 +5,8 @@ import { AuthService } from '../../../../core/services/auth.service';
 import { WorkspaceService } from '../../../workspace/services/workspace.service';
 import { WorkspaceContextService } from '../../../../core/services/workspace-context.service';
 import { TranslateModule } from '@ngx-translate/core';
+import { switchMap, tap, catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 
 @Component({
   standalone: true,
@@ -43,7 +45,7 @@ export class Login {
     this.loading = true;
     this.error = null;
 
-    const request$ = this.isLoginMode
+    const authRequest$ = this.isLoginMode
       ? this.auth.login({ email: this.email, password: this.password })
       : this.auth.register({
         email: this.email,
@@ -52,47 +54,34 @@ export class Login {
         lastName: this.lastName,
         workspaceName: this.workspaceName,
         currency: this.currency,
-      });
+      }).pipe(
+        switchMap(() => this.auth.login({ email: this.email, password: this.password })),
+        catchError((err) => {
+          this.error = 'Registered successfully, but failed to auto-login. Please login manually.';
+          this.loading = false;
+          this.toggleMode();
+          return throwError(() => err);
+        })
+      );
 
-    request$.subscribe({
-      next: (res: any) => {
-        // Handle successful operation (either login response with token, or register response without token)
-        const processLogin = (token: string) => {
-          this.auth.setToken(token);
-          this.auth.fetchProfile().subscribe({
-            next: (user) => {
-              this.auth.setUser(user);
-              this.workspaceService.getAll().subscribe({
-                next: (workspaces) => {
-                  this.workspaceContext.initialize(workspaces);
-                  this.router.navigate(['/']);
-                }
-              });
-            }
-          });
-        };
-
-        if (this.isLoginMode) {
-          processLogin(res.accessToken);
-        } else {
-          // If we just registered successfully, automatically login to get the token
-          this.auth.login({ email: this.email, password: this.password }).subscribe({
-            next: (loginRes) => processLogin(loginRes.accessToken),
-            error: () => {
-              this.error = 'Registered successfully, but failed to auto-login. Please login manually.';
-              this.loading = false;
-              this.toggleMode();
-            }
-          });
-        }
+    authRequest$.pipe(
+      tap((res) => this.auth.setToken(res.accessToken)),
+      switchMap(() => this.auth.fetchProfile()),
+      tap((user) => this.auth.setUser(user)),
+      switchMap(() => this.workspaceService.getAll()),
+      tap((workspaces) => this.workspaceContext.initialize(workspaces))
+    ).subscribe({
+      next: () => {
+        this.router.navigate(['/']);
       },
       error: (err) => {
-        // Display precise validation errors from the backend class-validator pipeline
-        const errObj = err.error?.message;
-        const exactError = Array.isArray(errObj) ? errObj[0] : errObj;
-
-        this.error = exactError || (this.isLoginMode ? 'Invalid credentials' : 'Failed to register');
-        this.loading = false;
+        // Only override error if it wasn't already set by the auto-login catchError
+        if (!this.error) {
+          const errObj = err.error?.message;
+          const exactError = Array.isArray(errObj) ? errObj[0] : errObj;
+          this.error = exactError || (this.isLoginMode ? 'Invalid credentials' : 'Failed to register');
+          this.loading = false;
+        }
       }
     });
   }
