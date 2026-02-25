@@ -11,7 +11,7 @@
     <!-- Total Products -->
     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex items-start justify-between">
         <div>
-            <p class="text-sm font-medium text-slate-500 mb-1">Total Products</p>
+            <p class="text-sm font-medium text-slate-500 mb-1">{{ 'DASHBOARD.TOTAL_PRODUCTS' | translate }}</p>
             <p class="text-3xl font-bold text-slate-800">{{ data()!.totalProducts }}</p>
         </div>
         <div class="p-3 bg-purple-50 rounded-xl text-purple-600">
@@ -29,7 +29,7 @@
     <!-- Total Stock Value -->
     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex items-start justify-between">
         <div>
-            <p class="text-sm font-medium text-slate-500 mb-1">Total Stock Value</p>
+            <p class="text-sm font-medium text-slate-500 mb-1">{{ 'DASHBOARD.TOTAL_STOCK_VALUE' | translate }}</p>
             <p class="text-3xl font-bold text-slate-800">
                 {{ data()!.totalStockValue | currency:currency():'symbol-narrow':'1.0-0':locale }}
             </p>
@@ -47,7 +47,8 @@
     <a routerLink="/products" [queryParams]="{ lowStock: 'true' }"
         class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex items-start justify-between cursor-pointer hover:border-red-200 hover:shadow-md transition-all group">
         <div>
-            <p class="text-sm font-medium text-slate-500 mb-1 group-hover:text-red-600 transition-colors">Low Stock</p>
+            <p class="text-sm font-medium text-slate-500 mb-1 group-hover:text-red-600 transition-colors">{{
+                'DASHBOARD.LOW_STOCK' | translate }}</p>
             <p class="text-3xl font-bold text-red-500">
                 {{ data()!.lowStockCount }}
             </p>
@@ -66,7 +67,7 @@
     <!-- Total Movements -->
     <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex items-start justify-between">
         <div>
-            <p class="text-sm font-medium text-slate-500 mb-1">Total Movements</p>
+            <p class="text-sm font-medium text-slate-500 mb-1">{{ 'DASHBOARD.TOTAL_MOVEMENTS' | translate }}</p>
             <p class="text-3xl font-bold text-slate-800">
                 {{ data()!.totalMovements }}
             </p>

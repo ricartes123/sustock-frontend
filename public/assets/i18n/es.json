@@ -1,0 +1,121 @@
+{
+    "COMMON": {
+        "SAVE": "Guardar",
+        "CANCEL": "Cancelar",
+        "DELETE": "Eliminar",
+        "EDIT": "Editar",
+        "CREATE": "Crear",
+        "SEARCH": "Buscar",
+        "LOADING": "Cargando...",
+        "ACTIONS": "Acciones",
+        "CLEAR_FILTERS": "Limpiar Filtros",
+        "ARCHIVE": "Archivar",
+        "RESTORE": "Restaurar"
+    },
+    "SIDEBAR": {
+        "DASHBOARD": "Panel",
+        "PRODUCTS": "Productos",
+        "MOVEMENTS": "Movimientos",
+        "SETTINGS": "Configuración",
+        "LOGOUT": "Cerrar sesión"
+    },
+    "DASHBOARD": {
+        "TOTAL_PRODUCTS": "Total de productos",
+        "TOTAL_STOCK_VALUE": "Valor total del stock",
+        "LOW_STOCK": "Productos con stock bajo",
+        "TOTAL_MOVEMENTS": "Total de movimientos"
+    },
+    "PRODUCTS": {
+        "TITLE": "Productos",
+        "NEW_PRODUCT": "Nuevo producto",
+        "SEARCH_PLACEHOLDER": "Buscá productos por nombre, sku, o código de barras...",
+        "ALL_STATUS": "Todos los estados",
+        "ACTIVE": "Activo",
+        "ARCHIVED": "Archivado",
+        "ALL_STOCK": "Todo el stock",
+        "LOW_STOCK": "Stock bajo",
+        "NO_PRODUCTS": "Aún no hay productos.",
+        "TABLE": {
+            "PRODUCT": "Producto",
+            "COST_PRICE": "Precio costo",
+            "SELLING_PRICE": "Precio venta",
+            "STOCK": "Stock (Mín)",
+            "CREATED": "Creado"
+        }
+    },
+    "PRODUCT_FORM": {
+        "TITLE_EDIT": "Editar Producto",
+        "TITLE_NEW": "Nuevo Producto",
+        "NAME": "Nombre del Producto *",
+        "NAME_PLACEHOLDER": "Ej. Mouse inalámbrico",
+        "SKU": "SKU",
+        "SKU_PLACEHOLDER": "Ej. WM-001",
+        "BARCODE": "Cód. de Barras",
+        "BARCODE_PLACEHOLDER": "123456789",
+        "COST_PRICE": "Precio Costo",
+        "SELLING_PRICE": "Precio Venta",
+        "CURRENT_STOCK": "Stock Actual *",
+        "LOW_STOCK_ALERT": "Alerta de Stock Bajo",
+        "SAVING": "Guardando...",
+        "SAVE_CHANGES": "Guardar Cambios",
+        "CREATE_PRODUCT": "Crear Producto"
+    },
+    "MOVEMENTS": {
+        "TITLE": "Movimientos"
+    },
+    "AUTH": {
+        "SUSTOCK_BRAND": "SuStock.",
+        "HERO_TITLE": "Innovadora <br><span class=\"text-transparent bg-clip-text bg-gradient-to-r from-purple-200 to-indigo-200\">gestión de inventarios.</span>",
+        "HERO_SUBTITLE": "Tomá control absoluto de tu espacio de trabajo. Administrá varios depósitos, rastreá stock bajo y coordiná tu equipo de forma impecable en un solo lugar.",
+        "COPYRIGHT": "© 2026 Ecosistema SuStock. Todos los derechos reservados.",
+        "WELCOME_BACK": "Bienvenido/a de vuelta",
+        "CREATE_ACCOUNT": "Creá una cuenta",
+        "LOGIN_SUBTITLE": "Ingresá tus datos para acceder a tu entorno.",
+        "REGISTER_SUBTITLE": "Poné en marcha tu entorno de trabajo en segundos.",
+        "FIRST_NAME": "Nombre",
+        "FIRST_NAME_PLACEHOLDER": "Juana",
+        "LAST_NAME": "Apellido",
+        "LAST_NAME_PLACEHOLDER": "Pérez",
+        "WORKSPACE_NAME": "Nombre de la Empresa",
+        "WORKSPACE_NAME_PLACEHOLDER": "Acme Inc.",
+        "CURRENCY": "Moneda",
+        "EMAIL": "Correo Electrónico",
+        "EMAIL_PLACEHOLDER": "vos@empresa.com",
+        "PASSWORD": "Contraseña",
+        "PROCESSING": "Procesando...",
+        "SIGN_IN_BTN": "Iniciar sesión",
+        "REGISTER_BTN": "Crear cuenta",
+        "DONT_HAVE_ACCOUNT": "¿No tenés una cuenta?",
+        "ALREADY_HAVE_ACCOUNT": "¿Ya tenés una cuenta?",
+        "SIGN_UP_FREE": "Registrate gratis",
+        "LOG_IN_HERE": "Ingresá acá"
+    },
+    "SETTINGS": {
+        "LANGUAGE": "Idioma",
+        "ENGLISH": "Inglés",
+        "SPANISH": "Español",
+        "PAGE_TITLE": "Configuración",
+        "PAGE_SUBTITLE": "Administrá las preferencias y opciones de tu entorno de trabajo.",
+        "WORKSPACE_CONFIG_TITLE": "Configuración de la Empresa",
+        "WORKSPACE_CONFIG_DESC": "Actualizá detalles clave de cómo opera tu empresa.",
+        "BASE_CURRENCY": "Moneda Base",
+        "BASE_CURRENCY_DESC": "Determina el símbolo usado en los indicadores del panel y precios de productos. Al cambiarla, aparecerá la opción para ajustar o convertir los precios existentes.",
+        "SAVE_CONFIG": "Guardar Configuración",
+        "MODAL": {
+            "TITLE": "Cambio de Moneda Detectado",
+            "DESC_PREFIX": "Estás cambiando la moneda de la tienda de",
+            "DESC_TO": "a",
+            "QUESTION": "¿Cómo te gustaría manejar los precios de tus productos existentes?",
+            "OPT_NONE_TITLE": "No hacer nada",
+            "OPT_NONE_DESC": "Los precios existentes mantienen el mismo número (100 ARS pasa a ser 100 USD).",
+            "OPT_AUTO_TITLE": "Conversión Automática vía API",
+            "OPT_AUTO_DESC": "Toma la cotización en vivo del mercado para actualizar tu inventario automáticamente.",
+            "OPT_MANUAL_TITLE": "Multiplicador Manual",
+            "OPT_MANUAL_DESC": "Ingresá tu propio tipo de cambio para multiplicar los valores de todos los productos.",
+            "LIVE_RATE": "Cotización en Vivo:",
+            "MANUAL_RATE_PLACEHOLDER": "Ej. 0.0011",
+            "CONFIRM_UPDATE": "Confirmar y Actualizar",
+            "UPDATING": "Actualizando..."
+        }
+    }
+}

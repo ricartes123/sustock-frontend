@@ -4,11 +4,12 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../../../core/services/auth.service';
 import { WorkspaceService } from '../../../workspace/services/workspace.service';
 import { WorkspaceContextService } from '../../../../core/services/workspace-context.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   standalone: true,
   selector: 'app-login',
-  imports: [FormsModule],
+  imports: [FormsModule, TranslateModule],
   templateUrl: './login.html',
 })
 export class Login {

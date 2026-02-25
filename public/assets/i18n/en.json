@@ -1,0 +1,121 @@
+{
+    "COMMON": {
+        "SAVE": "Save",
+        "CANCEL": "Cancel",
+        "DELETE": "Delete",
+        "EDIT": "Edit",
+        "CREATE": "Create",
+        "SEARCH": "Search",
+        "LOADING": "Loading...",
+        "ACTIONS": "Actions",
+        "CLEAR_FILTERS": "Clear Filters",
+        "ARCHIVE": "Archive",
+        "RESTORE": "Restore"
+    },
+    "SIDEBAR": {
+        "DASHBOARD": "Dashboard",
+        "PRODUCTS": "Products",
+        "MOVEMENTS": "Movements",
+        "SETTINGS": "Settings",
+        "LOGOUT": "Logout"
+    },
+    "DASHBOARD": {
+        "TOTAL_PRODUCTS": "Total Products",
+        "TOTAL_STOCK_VALUE": "Total Stock Value",
+        "LOW_STOCK": "Products with Low Stock",
+        "TOTAL_MOVEMENTS": "Total Movements"
+    },
+    "PRODUCTS": {
+        "TITLE": "Products",
+        "NEW_PRODUCT": "New Product",
+        "SEARCH_PLACEHOLDER": "Search products by name, sku, or barcode...",
+        "ALL_STATUS": "All Status",
+        "ACTIVE": "Active",
+        "ARCHIVED": "Archived",
+        "ALL_STOCK": "All Stock",
+        "LOW_STOCK": "Low Stock",
+        "NO_PRODUCTS": "No products yet.",
+        "TABLE": {
+            "PRODUCT": "Product",
+            "COST_PRICE": "Cost Price",
+            "SELLING_PRICE": "Selling Price",
+            "STOCK": "Stock (Min)",
+            "CREATED": "Created"
+        }
+    },
+    "PRODUCT_FORM": {
+        "TITLE_EDIT": "Edit Product",
+        "TITLE_NEW": "New Product",
+        "NAME": "Product Name *",
+        "NAME_PLACEHOLDER": "E.g. Wireless Mouse",
+        "SKU": "SKU",
+        "SKU_PLACEHOLDER": "E.g. WM-001",
+        "BARCODE": "Barcode",
+        "BARCODE_PLACEHOLDER": "123456789",
+        "COST_PRICE": "Cost Price",
+        "SELLING_PRICE": "Selling Price",
+        "CURRENT_STOCK": "Current Stock *",
+        "LOW_STOCK_ALERT": "Low Stock Alert Level",
+        "SAVING": "Saving...",
+        "SAVE_CHANGES": "Save Changes",
+        "CREATE_PRODUCT": "Create Product"
+    },
+    "MOVEMENTS": {
+        "TITLE": "Movements"
+    },
+    "AUTH": {
+        "SUSTOCK_BRAND": "SuStock.",
+        "HERO_TITLE": "Next-gen inventory <br><span class=\"text-transparent bg-clip-text bg-gradient-to-r from-purple-200 to-indigo-200\">management.</span>",
+        "HERO_SUBTITLE": "Take absolute control of your workspace. Manage multiple warehouses, track low stock, and coordinate your team seamlessly in one place.",
+        "COPYRIGHT": "© 2026 SuStock Ecosystem. All rights reserved.",
+        "WELCOME_BACK": "Welcome back",
+        "CREATE_ACCOUNT": "Create an account",
+        "LOGIN_SUBTITLE": "Enter your details to access your workspace.",
+        "REGISTER_SUBTITLE": "Get your workspace up and running in seconds.",
+        "FIRST_NAME": "First Name",
+        "FIRST_NAME_PLACEHOLDER": "Jane",
+        "LAST_NAME": "Last Name",
+        "LAST_NAME_PLACEHOLDER": "Doe",
+        "WORKSPACE_NAME": "Workspace Name",
+        "WORKSPACE_NAME_PLACEHOLDER": "Acme Inc.",
+        "CURRENCY": "Currency",
+        "EMAIL": "Email",
+        "EMAIL_PLACEHOLDER": "you@company.com",
+        "PASSWORD": "Password",
+        "PROCESSING": "Processing...",
+        "SIGN_IN_BTN": "Sign in",
+        "REGISTER_BTN": "Create account",
+        "DONT_HAVE_ACCOUNT": "Don't have an account?",
+        "ALREADY_HAVE_ACCOUNT": "Already have an account?",
+        "SIGN_UP_FREE": "Sign up for free",
+        "LOG_IN_HERE": "Log in here"
+    },
+    "SETTINGS": {
+        "LANGUAGE": "Language",
+        "ENGLISH": "English",
+        "SPANISH": "Spanish",
+        "PAGE_TITLE": "Settings",
+        "PAGE_SUBTITLE": "Manage your workspace preferences and configuration.",
+        "WORKSPACE_CONFIG_TITLE": "Workspace Configuration",
+        "WORKSPACE_CONFIG_DESC": "Update core details regarding how your workspace operates.",
+        "BASE_CURRENCY": "Base Currency",
+        "BASE_CURRENCY_DESC": "This determines the symbol used across all your dashboard metrics and product prices. Changing this will trigger a conversion prompt to adjust existing product prices.",
+        "SAVE_CONFIG": "Save Configuration",
+        "MODAL": {
+            "TITLE": "Currency Change Detected",
+            "DESC_PREFIX": "You are changing the store currency from",
+            "DESC_TO": "to",
+            "QUESTION": "How would you like to handle your existing product prices?",
+            "OPT_NONE_TITLE": "Do nothing",
+            "OPT_NONE_DESC": "Existing prices remain the same number (100 ARS becomes 100 USD).",
+            "OPT_AUTO_TITLE": "Automatic API Conversion",
+            "OPT_AUTO_DESC": "Fetch live market rate to update your entire inventory automatically.",
+            "OPT_MANUAL_TITLE": "Manual Multiplier",
+            "OPT_MANUAL_DESC": "Enter your own conversion rate to multiply against all store items.",
+            "LIVE_RATE": "Live Rate:",
+            "MANUAL_RATE_PLACEHOLDER": "e.g. 0.0011",
+            "CONFIRM_UPDATE": "Confirm & Update",
+            "UPDATING": "Updating..."
+        }
+    }
+}

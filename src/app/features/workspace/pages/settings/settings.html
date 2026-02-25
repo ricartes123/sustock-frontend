@@ -1,8 +1,8 @@
 <div class="p-6 md:p-8 max-w-4xl mx-auto">
     <div class="flex items-center justify-between mb-8">
         <div>
-            <h1 class="text-2xl font-bold text-slate-800 tracking-tight">Settings</h1>
-            <p class="text-slate-500 text-sm mt-1">Manage your workspace preferences and configuration.</p>
+            <h1 class="text-2xl font-bold text-slate-800 tracking-tight">{{ 'SETTINGS.PAGE_TITLE' | translate }}</h1>
+            <p class="text-slate-500 text-sm mt-1">{{ 'SETTINGS.PAGE_SUBTITLE' | translate }}</p>
         </div>
     </div>
 
@@ -18,17 +18,17 @@
                 </svg>
             </div>
             <div>
-                <h2 class="text-base font-bold text-slate-800">Workspace Configuration</h2>
-                <p class="text-sm text-slate-500">Update core details regarding how your workspace operates.</p>
+                <h2 class="text-base font-bold text-slate-800">{{ 'SETTINGS.WORKSPACE_CONFIG_TITLE' | translate }}</h2>
+                <p class="text-sm text-slate-500">{{ 'SETTINGS.WORKSPACE_CONFIG_DESC' | translate }}</p>
             </div>
         </div>
 
         <div class="p-6">
             <div class="max-w-md">
-                <label class="block text-sm font-medium text-slate-700 mb-2">Base Currency</label>
-                <p class="text-xs text-slate-500 mb-4 leading-relaxed">This determines the symbol used across all your
-                    dashboard metrics and product prices. Changing this will trigger a conversion prompt to adjust
-                    existing product prices.</p>
+                <label class="block text-sm font-medium text-slate-700 mb-2">{{ 'SETTINGS.BASE_CURRENCY' | translate
+                    }}</label>
+                <p class="text-xs text-slate-500 mb-4 leading-relaxed">{{ 'SETTINGS.BASE_CURRENCY_DESC' | translate }}
+                </p>
 
                 <select [(ngModel)]="selectedCurrency"
                     class="w-full border border-slate-200 px-4 py-3 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all cursor-pointer bg-slate-50 hover:bg-white">
@@ -43,7 +43,7 @@
                 <div class="mt-8 flex justify-end">
                     <button (click)="onSaveInitiated()" [disabled]="!hasCurrencyChanged"
                         class="bg-purple-600 text-white px-6 py-2.5 rounded-xl font-medium hover:bg-purple-700 focus:ring-4 focus:ring-purple-500/30 transition-all shadow-sm disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer flex items-center gap-2">
-                        Save Configuration
+                        {{ 'SETTINGS.SAVE_CONFIG' | translate }}
                     </button>
                 </div>
             </div>
@@ -59,10 +59,11 @@
 
         <div class="p-6 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
             <div>
-                <h3 class="text-lg font-bold text-slate-800">Currency Change Detected</h3>
+                <h3 class="text-lg font-bold text-slate-800">{{ 'SETTINGS.MODAL.TITLE' | translate }}</h3>
                 <p class="text-sm text-slate-500 mt-1">
-                    You are changing the store currency from
-                    <span class="font-bold text-slate-700">{{ workspaceContext.activeWorkspace()?.currency }}</span> to
+                    {{ 'SETTINGS.MODAL.DESC_PREFIX' | translate }}
+                    <span class="font-bold text-slate-700">{{ workspaceContext.activeWorkspace()?.currency }}</span> {{
+                    'SETTINGS.MODAL.DESC_TO' | translate }}
                     <span class="font-bold text-purple-700">{{ selectedCurrency }}</span>.
                 </p>
             </div>
@@ -77,8 +78,7 @@
         </div>
 
         <div class="p-6">
-            <p class="text-slate-700 text-sm mb-4 font-medium">How would you like to handle your existing product
-                prices?</p>
+            <p class="text-slate-700 text-sm mb-4 font-medium">{{ 'SETTINGS.MODAL.QUESTION' | translate }}</p>
 
             <div class="space-y-3">
                 <!-- Option 1: None -->
@@ -89,9 +89,10 @@
                     <input type="radio" name="conversion" [checked]="conversionMode() === 'NONE'"
                         class="mt-1 text-purple-600 focus:ring-purple-500 cursor-pointer">
                     <div>
-                        <span class="block font-semibold text-slate-800 text-sm">Do nothing</span>
-                        <span class="block text-xs text-slate-500 mt-0.5">Existing prices remain the same number (100
-                            ARS becomes 100 USD).</span>
+                        <span class="block font-semibold text-slate-800 text-sm">{{ 'SETTINGS.MODAL.OPT_NONE_TITLE' |
+                            translate }}</span>
+                        <span class="block text-xs text-slate-500 mt-0.5">{{ 'SETTINGS.MODAL.OPT_NONE_DESC' | translate
+                            }}</span>
                     </div>
                 </label>
 
@@ -103,9 +104,10 @@
                     <input type="radio" name="conversion" [checked]="conversionMode() === 'AUTO'"
                         class="mt-1 text-purple-600 focus:ring-purple-500 cursor-pointer">
                     <div class="w-full">
-                        <span class="block font-semibold text-slate-800 text-sm">Automatic API Conversion</span>
-                        <span class="block text-xs text-slate-500 mt-0.5 mb-2">Fetch live market rate to update your
-                            entire inventory automatically.</span>
+                        <span class="block font-semibold text-slate-800 text-sm">{{ 'SETTINGS.MODAL.OPT_AUTO_TITLE' |
+                            translate }}</span>
+                        <span class="block text-xs text-slate-500 mt-0.5 mb-2">{{ 'SETTINGS.MODAL.OPT_AUTO_DESC' |
+                            translate }}</span>
 
                         @if (conversionMode() === 'AUTO') {
                         <div class="bg-white rounded-lg p-3 border border-purple-100 mt-2">
@@ -126,9 +128,10 @@
                             <span class="text-xs text-red-600 font-medium">{{ apiError() }}</span>
                             } @else if (apiRate()) {
                             <div class="flex items-center justify-between">
-                                <span class="text-xs text-slate-500">Live Rate:</span>
+                                <span class="text-xs text-slate-500">{{ 'SETTINGS.MODAL.LIVE_RATE' | translate }}</span>
                                 <span class="text-sm font-bold text-emerald-600">1 {{
-                                    workspaceContext.activeWorkspace()?.currency }} = {{ apiRate() }} {{ selectedCurrency
+                                    workspaceContext.activeWorkspace()?.currency }} = {{ apiRate() }} {{
+                                    selectedCurrency
                                     }}</span>
                             </div>
                             }
@@ -145,12 +148,13 @@
                     <input type="radio" name="conversion" [checked]="conversionMode() === 'MANUAL'"
                         class="mt-1 text-purple-600 focus:ring-purple-500 cursor-pointer">
                     <div class="w-full">
-                        <span class="block font-semibold text-slate-800 text-sm">Manual Multiplier</span>
-                        <span class="block text-xs text-slate-500 mt-0.5 mb-2">Enter your own conversion rate to
-                            multiply against all store items.</span>
+                        <span class="block font-semibold text-slate-800 text-sm">{{ 'SETTINGS.MODAL.OPT_MANUAL_TITLE' |
+                            translate }}</span>
+                        <span class="block text-xs text-slate-500 mt-0.5 mb-2">{{ 'SETTINGS.MODAL.OPT_MANUAL_DESC' |
+                            translate }}</span>
 
                         @if (conversionMode() === 'MANUAL') {
-                        <input type="number" [(ngModel)]="manualRate" placeholder="e.g. 0.0011"
+                        <input type="number" [(ngModel)]="manualRate" placeholder="{{ 'SETTINGS.MODAL.MANUAL_RATE_PLACEHOLDER' | translate }}"
                             class="w-full border border-slate-200 px-3 py-2 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all mt-1 bg-white" />
                         }
                     </div>
@@ -162,7 +166,7 @@
         <div class="p-4 border-t border-slate-100 flex justify-end gap-3 bg-slate-50">
             <button (click)="showConversionModal.set(false)"
                 class="px-4 py-2 text-sm font-medium text-slate-600 hover:bg-slate-200 rounded-lg transition-colors cursor-pointer">
-                Cancel
+                {{ 'COMMON.CANCEL' | translate }}
             </button>
             <button (click)="confirmUpdate()"
                 class="bg-purple-600 text-white px-6 py-2 rounded-lg text-sm font-medium hover:bg-purple-700 focus:ring-4 focus:ring-purple-500/30 transition-all shadow-sm cursor-pointer flex items-center gap-2"
@@ -174,9 +178,9 @@
                         d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
                     </path>
                 </svg>
-                Updating...
+                {{ 'SETTINGS.MODAL.UPDATING' | translate }}
                 } @else {
-                Confirm & Update
+                {{ 'SETTINGS.MODAL.CONFIRM_UPDATE' | translate }}
                 }
             </button>
         </div>

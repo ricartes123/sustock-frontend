@@ -14,6 +14,9 @@ registerLocaleData(localeEsMx);
 import { provideRouter } from '@angular/router';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { jwtInterceptor } from './core/interceptors/jwt.interceptor';
+import { provideTranslateService, TranslateLoader } from '@ngx-translate/core';
+import { provideTranslateHttpLoader, TranslateHttpLoader } from '@ngx-translate/http-loader';
+
 import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
@@ -22,5 +25,13 @@ export const appConfig: ApplicationConfig = {
     { provide: LOCALE_ID, useValue: 'es-AR' },
     provideRouter(routes),
     provideHttpClient(withInterceptors([jwtInterceptor])),
+    provideTranslateService({
+      defaultLanguage: 'es',
+      loader: {
+        provide: TranslateLoader,
+        useClass: TranslateHttpLoader
+      }
+    }),
+    provideTranslateHttpLoader()
   ]
 };

@@ -1,6 +1,7 @@
 import { Component, inject, signal, computed, OnInit } from '@angular/core';
 import { ProductService, Product } from '../../services/product.service';
-import { CurrencyPipe, DatePipe } from '@angular/common';
+import { CurrencyPipe, DatePipe, UpperCasePipe } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { WorkspaceContextService } from '../../../../core/services/workspace-context.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -9,7 +10,7 @@ import { ProductForm } from '../../components/product-form/product-form';
 @Component({
   standalone: true,
   selector: 'app-products',
-  imports: [CurrencyPipe, DatePipe, FormsModule, ProductForm],
+  imports: [CurrencyPipe, DatePipe, UpperCasePipe, FormsModule, ProductForm, TranslateModule],
   templateUrl: './products.html',
 })
 export class Products implements OnInit {

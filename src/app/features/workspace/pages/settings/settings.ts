@@ -5,11 +5,12 @@ import { WorkspaceContextService } from '../../../../core/services/workspace-con
 import { WorkspaceService } from '../../services/workspace.service';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../../../core/services/auth.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     standalone: true,
     selector: 'app-settings',
-    imports: [FormsModule, CommonModule],
+    imports: [FormsModule, CommonModule, TranslateModule],
     templateUrl: './settings.html'
 })
 export class Settings implements OnInit {

@@ -4,11 +4,12 @@ import { CurrencyPipe } from '@angular/common';
 import { WorkspaceContextService } from '../../../../core/services/workspace-context.service';
 
 import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   standalone: true,
   selector: 'app-dashboard',
-  imports: [CurrencyPipe, RouterLink],
+  imports: [CurrencyPipe, RouterLink, TranslateModule],
   templateUrl: './dashboard.html',
 })
 export class Dashboard {

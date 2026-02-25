@@ -67,7 +67,7 @@
                     <rect x="3" y="14" width="7" height="7"></rect>
                 </svg>
                 @if (!isCollapsed) {
-                <span class="whitespace-nowrap">Dashboard</span>
+                <span class="whitespace-nowrap">{{ 'SIDEBAR.DASHBOARD' | translate }}</span>
                 }
             </a>
 
@@ -99,7 +99,7 @@
                     <path d="M16 10a4 4 0 0 1-8 0"></path>
                 </svg>
                 @if (!isCollapsed) {
-                <span class="whitespace-nowrap">Orders</span>
+                <span class="whitespace-nowrap">{{ 'SIDEBAR.PRODUCTS' | translate }}</span>
                 }
             </a>
 
@@ -198,7 +198,7 @@
                     <rect x="3" y="2" width="18" height="19" rx="2"></rect>
                 </svg>
                 @if (!isCollapsed) {
-                <span class="whitespace-nowrap">Ledger</span>
+                <span class="whitespace-nowrap">{{ 'SIDEBAR.MOVEMENTS' | translate }}</span>
                 }
             </a>
 
@@ -244,7 +244,7 @@
                     </path>
                 </svg>
                 @if (!isCollapsed) {
-                <span class="whitespace-nowrap">Settings</span>
+                <span class="whitespace-nowrap">{{ 'SIDEBAR.SETTINGS' | translate }}</span>
                 }
             </a>
 
@@ -269,7 +269,6 @@
             </div>
         </nav>
     </div>
-
     <!-- Bottom Profile Area -->
     <div class="border-t border-slate-100 p-4">
         <div class="flex items-center gap-3 mb-4" [ngClass]="isCollapsed ? 'justify-center' : ''">
@@ -279,7 +278,8 @@
             </div>
             @if (!isCollapsed) {
             <div class="flex flex-col overflow-hidden">
-                <span class="text-sm font-bold text-slate-800 truncate">{{ user()?.firstName || 'User' }} {{ user()?.lastName || '' }}</span>
+                <span class="text-sm font-bold text-slate-800 truncate">{{ user()?.firstName || 'User' }} {{
+                    user()?.lastName || '' }}</span>
                 <span class="text-xs text-slate-400 truncate">{{ user()?.email || 'admin@sustock.com' }}</span>
             </div>
             }
@@ -296,7 +296,7 @@
                 <line x1="21" y1="12" x2="9" y2="12"></line>
             </svg>
             @if (!isCollapsed) {
-            <span class="whitespace-nowrap">Log out</span>
+            <span class="whitespace-nowrap">{{ 'SIDEBAR.LOGOUT' | translate }}</span>
             }
         </button>
     </div>
