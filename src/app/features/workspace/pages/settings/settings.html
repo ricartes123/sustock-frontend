@@ -2,7 +2,7 @@
     <div class="flex items-center justify-between mb-8">
         <div>
             <h1 class="text-2xl font-bold text-slate-800 tracking-tight">Settings</h1>
-            <p class="text-slate-500 text-sm mt-1">Manage your business preferences and configuration.</p>
+            <p class="text-slate-500 text-sm mt-1">Manage your workspace preferences and configuration.</p>
         </div>
     </div>
 
@@ -18,8 +18,8 @@
                 </svg>
             </div>
             <div>
-                <h2 class="text-base font-bold text-slate-800">Business Configuration</h2>
-                <p class="text-sm text-slate-500">Update core details regarding how your business operates.</p>
+                <h2 class="text-base font-bold text-slate-800">Workspace Configuration</h2>
+                <p class="text-sm text-slate-500">Update core details regarding how your workspace operates.</p>
             </div>
         </div>
 
@@ -62,7 +62,7 @@
                 <h3 class="text-lg font-bold text-slate-800">Currency Change Detected</h3>
                 <p class="text-sm text-slate-500 mt-1">
                     You are changing the store currency from
-                    <span class="font-bold text-slate-700">{{ businessContext.activeBusiness()?.currency }}</span> to
+                    <span class="font-bold text-slate-700">{{ workspaceContext.activeWorkspace()?.currency }}</span> to
                     <span class="font-bold text-purple-700">{{ selectedCurrency }}</span>.
                 </p>
             </div>
@@ -119,7 +119,7 @@
                                         d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
                                     </path>
                                 </svg>
-                                Fetching {{ businessContext.activeBusiness()?.currency }} to {{ selectedCurrency }}
+                                Fetching {{ workspaceContext.activeWorkspace()?.currency }} to {{ selectedCurrency }}
                                 rate...
                             </span>
                             } @else if (apiError()) {
@@ -128,7 +128,7 @@
                             <div class="flex items-center justify-between">
                                 <span class="text-xs text-slate-500">Live Rate:</span>
                                 <span class="text-sm font-bold text-emerald-600">1 {{
-                                    businessContext.activeBusiness()?.currency }} = {{ apiRate() }} {{ selectedCurrency
+                                    workspaceContext.activeWorkspace()?.currency }} = {{ apiRate() }} {{ selectedCurrency
                                     }}</span>
                             </div>
                             }

@@ -1,8 +1,8 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { AuthService } from './core/services/auth.service';
-import { BusinessService } from './features/business/services/business.service';
-import { BusinessContextService } from './core/services/business-context.service';
+import { WorkspaceService } from './features/workspace/services/workspace.service';
+import { WorkspaceContextService } from './core/services/workspace-context.service';
 
 @Component({
   selector: 'app-root',
@@ -12,8 +12,8 @@ import { BusinessContextService } from './core/services/business-context.service
 })
 export class App implements OnInit {
   private auth = inject(AuthService);
-  private businessService = inject(BusinessService);
-  private businessContext = inject(BusinessContextService);
+  private workspaceService = inject(WorkspaceService);
+  private workspaceContext = inject(WorkspaceContextService);
 
   ngOnInit() {
     if (this.auth.isAuthenticated()) {
@@ -24,10 +24,10 @@ export class App implements OnInit {
         }
       });
 
-      // Fetch Businesses for Context
-      this.businessService.getAll().subscribe({
-        next: (businesses) => {
-          this.businessContext.initialize(businesses);
+      // Fetch Workspaces for Context
+      this.workspaceService.getAll().subscribe({
+        next: (workspaces) => {
+          this.workspaceContext.initialize(workspaces);
         }
       });
     }

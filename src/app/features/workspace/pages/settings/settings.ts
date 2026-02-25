@@ -1,8 +1,8 @@
 import { Component, inject, signal, computed, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { BusinessContextService } from '../../../../core/services/business-context.service';
-import { BusinessService } from '../../services/business.service';
+import { WorkspaceContextService } from '../../../../core/services/workspace-context.service';
+import { WorkspaceService } from '../../services/workspace.service';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../../../core/services/auth.service';
 
@@ -13,8 +13,8 @@ import { AuthService } from '../../../../core/services/auth.service';
     templateUrl: './settings.html'
 })
 export class Settings implements OnInit {
-    businessContext = inject(BusinessContextService);
-    businessService = inject(BusinessService);
+    workspaceContext = inject(WorkspaceContextService);
+    workspaceService = inject(WorkspaceService);
     authService = inject(AuthService);
     http = inject(HttpClient);
 
@@ -29,14 +29,14 @@ export class Settings implements OnInit {
     apiError = signal<string | null>(null);
 
     ngOnInit() {
-        const active = this.businessContext.activeBusiness();
+        const active = this.workspaceContext.activeWorkspace();
         if (active) {
             this.selectedCurrency = active.currency;
         }
     }
 
     get hasCurrencyChanged() {
-        return this.selectedCurrency !== this.businessContext.activeBusiness()?.currency;
+        return this.selectedCurrency !== this.workspaceContext.activeWorkspace()?.currency;
     }
 
     onSaveInitiated() {
@@ -60,7 +60,7 @@ export class Settings implements OnInit {
         this.apiRate.set(null);
         this.loading.set(true);
 
-        const oldCurr = this.businessContext.activeBusiness()?.currency || 'ARS';
+        const oldCurr = this.workspaceContext.activeWorkspace()?.currency || 'ARS';
         const newCurr = this.selectedCurrency;
 
         this.http.get<any>(`https://api.exchangerate-api.com/v4/latest/${oldCurr}`).subscribe({
@@ -97,18 +97,18 @@ export class Settings implements OnInit {
             finalRate = this.apiRate()!;
         }
 
-        const bId = this.businessContext.activeBusiness()!.id;
+        const bId = this.workspaceContext.activeWorkspace()!.id;
         this.loading.set(true);
 
-        this.businessService.updateCurrency(bId, this.selectedCurrency, finalRate).subscribe({
+        this.workspaceService.updateCurrency(bId, this.selectedCurrency, finalRate).subscribe({
             next: () => {
                 // En vez de reload, actualizamos el perfil
                 this.authService.fetchProfile().subscribe({
                     next: (user) => {
                         this.authService.setUser(user);
-                        this.businessService.getAll().subscribe({
-                            next: (businesses) => {
-                                this.businessContext.initialize(businesses);
+                        this.workspaceService.getAll().subscribe({
+                            next: (workspaces) => {
+                                this.workspaceContext.initialize(workspaces);
                                 this.showConversionModal.set(false);
                                 this.loading.set(false);
                                 // Notification success could go here

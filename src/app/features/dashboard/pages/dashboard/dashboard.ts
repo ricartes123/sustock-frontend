@@ -1,7 +1,7 @@
 import { Component, inject, signal, computed } from '@angular/core';
 import { DashboardService, DashboardData } from '../../services/dashboard.service';
 import { CurrencyPipe } from '@angular/common';
-import { BusinessContextService } from '../../../../core/services/business-context.service';
+import { WorkspaceContextService } from '../../../../core/services/workspace-context.service';
 
 import { RouterLink } from '@angular/router';
 
@@ -13,9 +13,9 @@ import { RouterLink } from '@angular/router';
 })
 export class Dashboard {
   private dashboardService = inject(DashboardService);
-  private businessContext = inject(BusinessContextService);
+  private workspaceContext = inject(WorkspaceContextService);
 
-  currency = computed(() => this.businessContext.currency);
+  currency = computed(() => this.workspaceContext.currency);
 
   data = signal<DashboardData | null>(null);
   loading = signal(true);
@@ -32,6 +32,6 @@ export class Dashboard {
     });
   }
   get locale() {
-    return this.businessContext.locale;
+    return this.workspaceContext.locale;
   }
 }

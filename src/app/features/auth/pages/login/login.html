@@ -39,7 +39,7 @@
         <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-200 to-indigo-200">management.</span>
       </h2>
       <p class="text-purple-100 text-lg mb-8 max-w-md">
-        Take absolute control of your business. Manage multiple warehouses, track low stock, and coordinate your team
+        Take absolute control of your workspace. Manage multiple warehouses, track low stock, and coordinate your team
         seamlessly in one place.
       </p>
     </div>
@@ -71,7 +71,7 @@
           {{ isLoginMode ? 'Welcome back' : 'Create an account' }}
         </h2>
         <p class="text-slate-500">
-          {{ isLoginMode ? 'Enter your details to access your business.' : 'Get your business up and running in
+          {{ isLoginMode ? 'Enter your details to access your workspace.' : 'Get your workspace up and running in
           seconds.' }}
         </p>
       </div>
@@ -96,8 +96,8 @@
 
         <div class="grid grid-cols-3 gap-4">
           <div class="col-span-2">
-            <label class="block text-sm font-medium text-slate-700 mb-1">Business Name</label>
-            <input type="text" [(ngModel)]="businessName" name="businessName" placeholder="Acme Inc."
+            <label class="block text-sm font-medium text-slate-700 mb-1">Workspace Name</label>
+            <input type="text" [(ngModel)]="workspaceName" name="workspaceName" placeholder="Acme Inc."
               class="w-full border border-slate-200 px-4 py-2.5 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
               required />
           </div>

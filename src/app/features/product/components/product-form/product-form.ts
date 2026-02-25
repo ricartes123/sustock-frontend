@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output, OnInit, inject } from '@angular
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Product } from '../../services/product.service';
-import { BusinessContextService } from '../../../../core/services/business-context.service';
+import { WorkspaceContextService } from '../../../../core/services/workspace-context.service';
 
 @Component({
     standalone: true,
@@ -12,7 +12,7 @@ import { BusinessContextService } from '../../../../core/services/business-conte
 })
 export class ProductForm implements OnInit {
     private fb = inject(FormBuilder);
-    private context = inject(BusinessContextService);
+    private context = inject(WorkspaceContextService);
 
     @Input() product: Product | null = null;
     @Input() isSaving = false;
@@ -58,7 +58,7 @@ export class ProductForm implements OnInit {
         if (this.isEditMode) {
             this.save.emit({ id: this.product!.id, data: formData });
         } else {
-            // Si estamos creando, el businessId viaja por los interceptors (Headers)
+            // Si estamos creando, el workspaceId viaja por los interceptors (Headers)
             // No lo enviamos en el body para que el backend no tire error 400 por "non-whitelisted property".
             this.save.emit({ data: formData });
         }

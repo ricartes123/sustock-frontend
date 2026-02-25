@@ -1,7 +1,7 @@
 import { Component, inject, signal, computed, OnInit } from '@angular/core';
 import { ProductService, Product } from '../../services/product.service';
 import { CurrencyPipe, DatePipe } from '@angular/common';
-import { BusinessContextService } from '../../../../core/services/business-context.service';
+import { WorkspaceContextService } from '../../../../core/services/workspace-context.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ProductForm } from '../../components/product-form/product-form';
@@ -13,13 +13,13 @@ import { ProductForm } from '../../components/product-form/product-form';
   templateUrl: './products.html',
 })
 export class Products implements OnInit {
-  private businessContext = inject(BusinessContextService);
+  private workspaceContext = inject(WorkspaceContextService);
   private productService = inject(ProductService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
 
-  currency = computed(() => this.businessContext.currency);
-  isAdmin = computed(() => this.businessContext.isAdmin());
+  currency = computed(() => this.workspaceContext.currency);
+  isAdmin = computed(() => this.workspaceContext.isAdmin());
 
   products = signal<Product[]>([]);
   meta = signal<any>(null);
@@ -106,7 +106,7 @@ export class Products implements OnInit {
   }
 
   get locale() {
-    return this.businessContext.locale;
+    return this.workspaceContext.locale;
   }
 
   clearFilter() {

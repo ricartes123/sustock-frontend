@@ -2,8 +2,8 @@ import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../../core/services/auth.service';
-import { BusinessService } from '../../../business/services/business.service';
-import { BusinessContextService } from '../../../../core/services/business-context.service';
+import { WorkspaceService } from '../../../workspace/services/workspace.service';
+import { WorkspaceContextService } from '../../../../core/services/workspace-context.service';
 
 @Component({
   standalone: true,
@@ -14,14 +14,14 @@ import { BusinessContextService } from '../../../../core/services/business-conte
 export class Login {
   private auth = inject(AuthService);
   private router = inject(Router);
-  private businessService = inject(BusinessService);
-  private businessContext = inject(BusinessContextService);
+  private workspaceService = inject(WorkspaceService);
+  private workspaceContext = inject(WorkspaceContextService);
 
   email = '';
   password = '';
   firstName = '';
   lastName = '';
-  businessName = '';
+  workspaceName = '';
   currency = 'ARS';
 
   isLoginMode = true;
@@ -49,7 +49,7 @@ export class Login {
         password: this.password,
         firstName: this.firstName,
         lastName: this.lastName,
-        businessName: this.businessName,
+        workspaceName: this.workspaceName,
         currency: this.currency,
       });
 
@@ -61,9 +61,9 @@ export class Login {
           this.auth.fetchProfile().subscribe({
             next: (user) => {
               this.auth.setUser(user);
-              this.businessService.getAll().subscribe({
-                next: (businesses) => {
-                  this.businessContext.initialize(businesses);
+              this.workspaceService.getAll().subscribe({
+                next: (workspaces) => {
+                  this.workspaceContext.initialize(workspaces);
                   this.router.navigate(['/']);
                 }
               });

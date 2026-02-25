@@ -14,7 +14,7 @@ interface LoginResponse {
 export interface RegisterDto extends LoginDto {
   firstName: string;
   lastName: string;
-  businessName: string;
+  workspaceName: string;
   currency?: string;
 }
 
@@ -23,8 +23,8 @@ export interface User {
   email: string;
   firstName: string;
   lastName: string;
-  businesses: { id: string; name: string; currency: string }[];
-  teamMemberships: { business: { id: string; name: string; currency: string } }[];
+  workspaces: { id: string; name: string; currency: string }[];
+  teamMemberships: { workspace: { id: string; name: string; currency: string } }[];
 }
 
 @Injectable({ providedIn: 'root' })

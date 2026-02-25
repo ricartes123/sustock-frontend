@@ -35,7 +35,7 @@ export const routes: Routes = [
             {
                 path: 'settings',
                 loadComponent: () =>
-                    import('./features/business/pages/settings/settings')
+                    import('./features/workspace/pages/settings/settings')
                         .then(m => m.Settings),
             },
         ],

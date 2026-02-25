@@ -1,13 +1,13 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { BusinessContextService } from '../services/business-context.service';
+import { WorkspaceContextService } from '../services/workspace-context.service';
 
 export const jwtInterceptor: HttpInterceptorFn = (req, next) => {
 
   const token = localStorage.getItem('token');
-  const businessContext = inject(BusinessContextService);
+  const workspaceContext = inject(WorkspaceContextService);
 
-  const activeBusiness = businessContext.activeBusiness();
+  const activeWorkspace = workspaceContext.activeWorkspace();
 
   const headers: Record<string, string> = {};
 
@@ -15,8 +15,8 @@ export const jwtInterceptor: HttpInterceptorFn = (req, next) => {
     headers['Authorization'] = `Bearer ${token}`;
   }
 
-  if (activeBusiness) {
-    headers['x-business-id'] = activeBusiness.id;
+  if (activeWorkspace) {
+    headers['x-workspace-id'] = activeWorkspace.id;
   }
 
   if (Object.keys(headers).length > 0) {

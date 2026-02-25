@@ -9,7 +9,7 @@ export interface Product {
     price: number;
     stock: number;
     minStock: number;
-    businessId: string;
+    workspaceId: string;
     isActive: boolean;
     createdAt: string;
     updatedAt: string;
