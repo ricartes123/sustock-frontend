@@ -8,7 +8,7 @@
         "SEARCH": "Buscar",
         "LOADING": "Cargando...",
         "ACTIONS": "Acciones",
-        "CLEAR_FILTERS": "Limpiar Filtros",
+        "CLEAR_FILTERS": "Limpiar filtros",
         "ARCHIVE": "Archivar",
         "RESTORE": "Restaurar"
     },
@@ -22,7 +22,7 @@
     "DASHBOARD": {
         "TOTAL_PRODUCTS": "Total de productos",
         "TOTAL_STOCK_VALUE": "Valor total del stock",
-        "LOW_STOCK": "Productos con stock bajo",
+        "LOW_STOCK": "Productos con bajo stock",
         "TOTAL_MOVEMENTS": "Total de movimientos"
     },
     "PRODUCTS": {
@@ -44,21 +44,21 @@
         }
     },
     "PRODUCT_FORM": {
-        "TITLE_EDIT": "Editar Producto",
-        "TITLE_NEW": "Nuevo Producto",
-        "NAME": "Nombre del Producto *",
+        "TITLE_EDIT": "Editar producto",
+        "TITLE_NEW": "Nuevo producto",
+        "NAME": "Nombre del producto *",
         "NAME_PLACEHOLDER": "Ej. Mouse inalámbrico",
         "SKU": "SKU",
         "SKU_PLACEHOLDER": "Ej. WM-001",
-        "BARCODE": "Cód. de Barras",
+        "BARCODE": "Código de barras",
         "BARCODE_PLACEHOLDER": "123456789",
-        "COST_PRICE": "Precio Costo",
-        "SELLING_PRICE": "Precio Venta",
-        "CURRENT_STOCK": "Stock Actual *",
-        "LOW_STOCK_ALERT": "Alerta de Stock Bajo",
+        "COST_PRICE": "Precio costo",
+        "SELLING_PRICE": "Precio venta",
+        "CURRENT_STOCK": "Stock actual *",
+        "LOW_STOCK_ALERT": "Alerta de stock bajo",
         "SAVING": "Guardando...",
-        "SAVE_CHANGES": "Guardar Cambios",
-        "CREATE_PRODUCT": "Crear Producto"
+        "SAVE_CHANGES": "Guardar cambios",
+        "CREATE_PRODUCT": "Crear producto"
     },
     "MOVEMENTS": {
         "TITLE": "Movimientos"
@@ -76,10 +76,10 @@
         "FIRST_NAME_PLACEHOLDER": "Juana",
         "LAST_NAME": "Apellido",
         "LAST_NAME_PLACEHOLDER": "Pérez",
-        "WORKSPACE_NAME": "Nombre de la Empresa",
+        "WORKSPACE_NAME": "Nombre del espacio de trabajo",
         "WORKSPACE_NAME_PLACEHOLDER": "Acme Inc.",
         "CURRENCY": "Moneda",
-        "EMAIL": "Correo Electrónico",
+        "EMAIL": "Correo electrónico",
         "EMAIL_PLACEHOLDER": "vos@empresa.com",
         "PASSWORD": "Contraseña",
         "PROCESSING": "Procesando...",
@@ -96,25 +96,25 @@
         "SPANISH": "Español",
         "PAGE_TITLE": "Configuración",
         "PAGE_SUBTITLE": "Administrá las preferencias y opciones de tu entorno de trabajo.",
-        "WORKSPACE_CONFIG_TITLE": "Configuración de la Empresa",
+        "WORKSPACE_CONFIG_TITLE": "Configuración del espacio de trabajo",
         "WORKSPACE_CONFIG_DESC": "Actualizá detalles clave de cómo opera tu empresa.",
-        "BASE_CURRENCY": "Moneda Base",
+        "BASE_CURRENCY": "Moneda base",
         "BASE_CURRENCY_DESC": "Determina el símbolo usado en los indicadores del panel y precios de productos. Al cambiarla, aparecerá la opción para ajustar o convertir los precios existentes.",
-        "SAVE_CONFIG": "Guardar Configuración",
+        "SAVE_CONFIG": "Guardar configuración",
         "MODAL": {
-            "TITLE": "Cambio de Moneda Detectado",
-            "DESC_PREFIX": "Estás cambiando la moneda de la tienda de",
+            "TITLE": "Cambio de moneda detectado",
+            "DESC_PREFIX": "Estás cambiando la moneda del espacio de trabajo de",
             "DESC_TO": "a",
             "QUESTION": "¿Cómo te gustaría manejar los precios de tus productos existentes?",
             "OPT_NONE_TITLE": "No hacer nada",
             "OPT_NONE_DESC": "Los precios existentes mantienen el mismo número (100 ARS pasa a ser 100 USD).",
-            "OPT_AUTO_TITLE": "Conversión Automática vía API",
+            "OPT_AUTO_TITLE": "Conversión automática vía API",
             "OPT_AUTO_DESC": "Toma la cotización en vivo del mercado para actualizar tu inventario automáticamente.",
-            "OPT_MANUAL_TITLE": "Multiplicador Manual",
+            "OPT_MANUAL_TITLE": "Multiplicador manual",
             "OPT_MANUAL_DESC": "Ingresá tu propio tipo de cambio para multiplicar los valores de todos los productos.",
-            "LIVE_RATE": "Cotización en Vivo:",
+            "LIVE_RATE": "Cotización en vivo:",
             "MANUAL_RATE_PLACEHOLDER": "Ej. 0.0011",
-            "CONFIRM_UPDATE": "Confirmar y Actualizar",
+            "CONFIRM_UPDATE": "Confirmar y actualizar",
             "UPDATING": "Actualizando..."
         }
     }
