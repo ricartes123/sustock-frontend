@@ -26,7 +26,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(withInterceptors([jwtInterceptor])),
     provideTranslateService({
-      defaultLanguage: 'es',
+      fallbackLang: 'es',
       loader: {
         provide: TranslateLoader,
         useClass: TranslateHttpLoader
