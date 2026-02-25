@@ -26,9 +26,10 @@ export class ProductForm implements OnInit {
             name: [this.product?.name || '', [Validators.required, Validators.maxLength(100)]],
             sku: [this.product?.sku || ''],
             barcode: [this.product?.barcode || ''],
-            price: [this.product?.price || 0, [Validators.required, Validators.min(0)]],
-            stock: [this.product?.stock || 0, [Validators.required, Validators.min(0)]],
-            minStock: [this.product?.minStock || 0, [Validators.min(0)]],
+            price: [this.product?.price ?? null, [Validators.required, Validators.min(0)]],
+            costPrice: [this.product?.costPrice ?? null, [Validators.required, Validators.min(0)]],
+            stock: [this.product?.stock ?? null, [Validators.required, Validators.min(0)]],
+            stockMin: [this.product?.stockMin ?? null, [Validators.min(0)]],
         });
     }
 
@@ -50,8 +51,9 @@ export class ProductForm implements OnInit {
         const formData = {
             ...rawValue,
             price: Number(rawValue.price),
+            costPrice: Number(rawValue.costPrice),
             stock: Number(rawValue.stock),
-            minStock: rawValue.minStock ? Number(rawValue.minStock) : 0,
+            stockMin: rawValue.stockMin ? Number(rawValue.stockMin) : 0,
         };
 
         // Si estamos editando, emitimos el id y los nuevos datos

@@ -7,8 +7,9 @@ export interface Product {
     sku: string;
     barcode: string;
     price: number;
+    costPrice: number;
     stock: number;
-    minStock: number;
+    stockMin: number;
     workspaceId: string;
     isActive: boolean;
     createdAt: string;
