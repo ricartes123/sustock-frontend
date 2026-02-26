@@ -19,24 +19,28 @@ export const routes: Routes = [
                 loadComponent: () =>
                     import('./features/dashboard/pages/dashboard/dashboard')
                         .then(m => m.Dashboard),
+                data: { title: 'SIDEBAR.DASHBOARD' }
             },
             {
                 path: 'products',
                 loadComponent: () =>
                     import('./features/product/pages/products/products')
                         .then(m => m.Products),
+                data: { title: 'SIDEBAR.PRODUCTS' }
             },
             {
                 path: 'movements',
                 loadComponent: () =>
                     import('./features/movement/pages/movements/movements')
                         .then(m => m.Movements),
+                data: { title: 'SIDEBAR.MOVEMENTS' }
             },
             {
                 path: 'settings',
                 loadComponent: () =>
                     import('./features/workspace/pages/settings/settings')
                         .then(m => m.Settings),
+                data: { title: 'SIDEBAR.SETTINGS' }
             },
         ],
     },
