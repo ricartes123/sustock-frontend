@@ -31,4 +31,8 @@ export class SalesService {
     findOne(id: string): Observable<any> {
         return this.http.get<any>(`${this.apiUrl}/${id}`);
     }
+
+    remove(id: string): Observable<any> {
+        return this.http.delete<any>(`${this.apiUrl}/${id}`);
+    }
 }

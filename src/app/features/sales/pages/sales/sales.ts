@@ -3,11 +3,12 @@ import { CommonModule, DatePipe, DecimalPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { SalesService } from '../../services/sales.service';
 import { finalize } from 'rxjs';
+import { StockWarningComponent } from '../../../../shared/components/stock-warning/stock-warning.component';
 
 @Component({
   selector: 'app-sales',
   standalone: true,
-  imports: [CommonModule, RouterLink, DatePipe, DecimalPipe],
+  imports: [CommonModule, RouterLink, DatePipe, DecimalPipe, StockWarningComponent],
   templateUrl: './sales.html'
 })
 export class Sales {
@@ -30,5 +31,70 @@ export class Sales {
         const data = res;
         this.sales.set(Array.isArray(data) ? data : []);
       });
+  }
+
+  showWarning = signal(false);
+  warningMessage = signal('¿Estás seguro que deseas anular esta venta? La acción generará movimientos de entrada y podría impactar las estadísticas de tu inventario.');
+  saleToRevert = signal<any | null>(null);
+  isReverting = signal(false);
+
+  // Modal de detalles
+  showDetailsModal = signal(false);
+  selectedSaleDetail = signal<any | null>(null);
+  isLoadingDetails = signal(false);
+
+  viewDetails(saleId: string) {
+    this.isLoadingDetails.set(true);
+    this.showDetailsModal.set(true);
+
+    this.salesService.findOne(saleId).pipe(
+      finalize(() => this.isLoadingDetails.set(false))
+    ).subscribe({
+      next: (sale) => {
+        this.selectedSaleDetail.set(sale);
+      },
+      error: (err) => {
+        console.error('Error fetching sale details', err);
+        alert('Hubo un error al obtener los detalles de la venta.');
+        this.closeDetailsModal();
+      }
+    });
+  }
+
+  closeDetailsModal() {
+    this.showDetailsModal.set(false);
+    setTimeout(() => this.selectedSaleDetail.set(null), 300); // clear after animation
+  }
+
+  triggerRevert(sale: any) {
+    this.saleToRevert.set(sale);
+    this.showWarning.set(true);
+  }
+
+  cancelRevert() {
+    this.saleToRevert.set(null);
+    this.showWarning.set(false);
+  }
+
+  confirmRevert() {
+    const sale = this.saleToRevert();
+    if (!sale) return;
+
+    this.isReverting.set(true);
+    this.salesService.remove(sale.id).pipe(
+      finalize(() => {
+        this.isReverting.set(false);
+        this.showWarning.set(false);
+        this.saleToRevert.set(null);
+      })
+    ).subscribe({
+      next: () => {
+        this.loadSales();
+      },
+      error: (err) => {
+        alert('Hubo un problema al anular la venta.');
+        console.error(err);
+      }
+    });
   }
 }
