@@ -77,7 +77,7 @@ export class SaleCreate {
   @HostListener('document:click', ['$event'])
   clickout(event: Event) {
     if (this.searchContainer &&
-        !this.searchContainer.nativeElement.contains(event.target)) {
+      !this.searchContainer.nativeElement.contains(event.target)) {
       this.showDropdown.set(false);
     }
   }
@@ -187,7 +187,6 @@ export class SaleCreate {
     };
 
     this.salesService.create(payload)
-      .pipe(takeUntilDestroyed())
       .subscribe({
         next: () => {
           this.isSubmitting.set(false);
