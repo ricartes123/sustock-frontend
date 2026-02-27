@@ -71,23 +71,7 @@
                 }
             </a>
 
-            <!-- Marketplace -->
-            <a routerLink="/marketplace" routerLinkActive="bg-purple-50 text-purple-700 font-medium"
-                class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-500 hover:bg-slate-50 hover:text-slate-900 transition-colors duration-200"
-                [title]="isCollapsed ? 'Marketplace' : ''">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="flex-shrink-0">
-                    <circle cx="9" cy="21" r="1"></circle>
-                    <circle cx="20" cy="21" r="1"></circle>
-                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                </svg>
-                @if (!isCollapsed) {
-                <span class="whitespace-nowrap">Marketplace</span>
-                }
-            </a>
-
-            <!-- Orders/Products since they had /products earlier let's map Orders to /products -->
+            <!-- Products -->
             <a routerLink="/products" routerLinkActive="bg-purple-50 text-purple-700 font-medium"
                 class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-500 hover:bg-slate-50 hover:text-slate-900 transition-colors duration-200"
                 [title]="isCollapsed ? 'Orders' : ''">
@@ -103,70 +87,51 @@
                 }
             </a>
 
-            <!-- Tracking (with dropdown dummy) -->
-            <div class="flex flex-col">
-                <button (click)="toggleTracking()"
-                    class="flex items-center justify-between px-3 py-2.5 rounded-xl text-slate-500 hover:bg-slate-50 hover:text-slate-900 transition-colors duration-200 w-full"
-                    [title]="isCollapsed ? 'Tracking' : ''">
-                    <div class="flex items-center gap-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="flex-shrink-0">
-                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                            <circle cx="12" cy="10" r="3"></circle>
-                        </svg>
-                        @if (!isCollapsed) {
-                        <span class="whitespace-nowrap">Tracking</span>
-                        }
-                    </div>
-                    @if (!isCollapsed) {
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                        class="transition-transform duration-200 text-slate-400"
-                        [ngClass]="isTrackingOpen ? 'rotate-180' : ''">
-                        <polyline points="6 9 12 15 18 9"></polyline>
-                    </svg>
-                    }
-                </button>
-                @if (isTrackingOpen && !isCollapsed) {
-                <div class="flex flex-col gap-1 pl-11 pr-3 py-1">
-                    <a routerLink="/tracking/live"
-                        class="text-sm text-slate-500 hover:text-purple-600 py-1.5 transition-colors">Live Map</a>
-                    <a routerLink="/tracking/history"
-                        class="text-sm text-slate-500 hover:text-purple-600 py-1.5 transition-colors">History</a>
-                </div>
-                }
-            </div>
-
-            <!-- Customers -->
-            <a routerLink="/customers" routerLinkActive="bg-purple-50 text-purple-700 font-medium"
+            <!-- Sales -->
+            <a routerLink="/sales" routerLinkActive="bg-purple-50 text-purple-700 font-medium"
                 class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-500 hover:bg-slate-50 hover:text-slate-900 transition-colors duration-200"
-                [title]="isCollapsed ? 'Customers' : ''">
+                [title]="isCollapsed ? 'Sales' : ''">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                     class="flex-shrink-0">
-                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                    <circle cx="9" cy="7" r="4"></circle>
-                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <path d="M16 10a4 4 0 0 1-8 0"></path>
                 </svg>
                 @if (!isCollapsed) {
-                <span class="whitespace-nowrap">Customers</span>
+                <span class="whitespace-nowrap">{{ 'SIDEBAR.SALES' | translate }}</span>
                 }
             </a>
 
-            <!-- Discounts -->
-            <a routerLink="/discounts" routerLinkActive="bg-purple-50 text-purple-700 font-medium"
+            <!-- Movements -->
+            <a routerLink="/movements" routerLinkActive="bg-purple-50 text-purple-700 font-medium"
                 class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-500 hover:bg-slate-50 hover:text-slate-900 transition-colors duration-200"
-                [title]="isCollapsed ? 'Discounts' : ''">
+                [title]="isCollapsed ? 'Movements' : ''">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                     class="flex-shrink-0">
-                    <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
-                    <line x1="7" y1="7" x2="7.01" y2="7"></line>
+                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <path d="M16 10a4 4 0 0 1-8 0"></path>
                 </svg>
                 @if (!isCollapsed) {
-                <span class="whitespace-nowrap">Discounts</span>
+                <span class="whitespace-nowrap">{{ 'SIDEBAR.MOVEMENTS' | translate }}</span>
+                }
+            </a>
+
+            <!-- Reports -->
+            <a routerLink="/reports" routerLinkActive="bg-purple-50 text-purple-700 font-medium"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-500 hover:bg-slate-50 hover:text-slate-900 transition-colors duration-200"
+                [title]="isCollapsed ? 'Reports' : ''">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="flex-shrink-0">
+                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <path d="M16 10a4 4 0 0 1-8 0"></path>
+                </svg>
+                @if (!isCollapsed) {
+                <span class="whitespace-nowrap">{{ 'SIDEBAR.REPORTS' | translate }}</span>
                 }
             </a>
         </nav>
@@ -286,9 +251,9 @@
         </div>
 
         <button (click)="logout()"
-            class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-500 hover:bg-slate-50 hover:text-slate-900 transition-colors duration-200 w-full"
+            class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-500 hover:bg-red-50 hover:text-red-900 transition-colors cursor-pointer duration-200 w-full"
             [ngClass]="isCollapsed ? 'justify-center' : ''" [title]="isCollapsed ? 'Log out' : ''">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="28" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                 class="flex-shrink-0">
                 <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>

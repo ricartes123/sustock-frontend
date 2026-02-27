@@ -15,7 +15,10 @@
     "SIDEBAR": {
         "DASHBOARD": "Dashboard",
         "PRODUCTS": "Products",
+        "SALES": "Sales",
+        "NEW_SALE": "New Sale",
         "MOVEMENTS": "Movements",
+        "REPORTS": "Reports",
         "SETTINGS": "Settings",
         "LOGOUT": "Logout"
     },

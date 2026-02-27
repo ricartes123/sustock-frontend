@@ -15,7 +15,10 @@
     "SIDEBAR": {
         "DASHBOARD": "Panel",
         "PRODUCTS": "Productos",
+        "SALES": "Ventas",
+        "NEW_SALE": "Nueva Venta",
         "MOVEMENTS": "Movimientos",
+        "REPORTS": "Reportes",
         "SETTINGS": "Configuración",
         "LOGOUT": "Cerrar sesión"
     },

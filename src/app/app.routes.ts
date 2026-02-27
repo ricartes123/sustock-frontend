@@ -36,11 +36,32 @@ export const routes: Routes = [
                 data: { title: 'SIDEBAR.MOVEMENTS' }
             },
             {
+                path: 'movements/new',
+                loadComponent: () =>
+                    import('./features/movement/pages/movement-create/movement-create')
+                        .then(m => m.MovementCreate),
+                data: { title: 'SIDEBAR.NEW_MOVEMENT' }
+            },
+            {
                 path: 'settings',
                 loadComponent: () =>
                     import('./features/workspace/pages/settings/settings')
                         .then(m => m.Settings),
                 data: { title: 'SIDEBAR.SETTINGS' }
+            },
+            {
+                path: 'sales',
+                loadComponent: () =>
+                    import('./features/sales/pages/sales/sales')
+                        .then(m => m.Sales),
+                data: { title: 'SIDEBAR.SALES' }
+            },
+            {
+                path: 'sales/new',
+                loadComponent: () =>
+                    import('./features/sales/pages/sale-create/sale-create')
+                        .then(m => m.SaleCreate),
+                data: { title: 'SIDEBAR.NEW_SALE' }
             },
         ],
     },
