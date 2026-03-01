@@ -7,6 +7,7 @@ import { WorkspaceContextService } from '../../../../core/services/workspace-con
 import { TranslateModule } from '@ngx-translate/core';
 import { switchMap, tap, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import { HotToastService } from '@ngxpert/hot-toast';
 
 @Component({
   standalone: true,
@@ -19,6 +20,7 @@ export class Login {
   private router = inject(Router);
   private workspaceService = inject(WorkspaceService);
   private workspaceContext = inject(WorkspaceContextService);
+  private toast = inject(HotToastService);
 
   email = '';
   password = '';
@@ -72,6 +74,7 @@ export class Login {
       tap((workspaces) => this.workspaceContext.initialize(workspaces))
     ).subscribe({
       next: () => {
+        this.toast.success('¡Bienvenido/a!');
         this.router.navigate(['/']);
       },
       error: (err) => {
@@ -79,9 +82,10 @@ export class Login {
         if (!this.error) {
           const errObj = err.error?.message;
           const exactError = Array.isArray(errObj) ? errObj[0] : errObj;
-          this.error = exactError || (this.isLoginMode ? 'Invalid credentials' : 'Failed to register');
-          this.loading = false;
+          this.error = exactError || (this.isLoginMode ? 'Credenciales inválidas' : 'Error al registrarse');
         }
+        this.toast.error(this.error || 'Error');
+        this.loading = false;
       }
     });
   }

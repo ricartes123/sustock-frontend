@@ -8,6 +8,8 @@ import { FormsModule } from '@angular/forms';
 import { ProductForm } from '../../components/product-form/product-form';
 import { EmptyState } from '../../../../shared/components/empty-state/empty-state';
 import { LucideAngularModule } from 'lucide-angular';
+import { HotToastService } from '@ngxpert/hot-toast';
+import { finalize } from 'rxjs';
 
 export interface PaginationMeta {
   total: number;
@@ -19,7 +21,16 @@ export interface PaginationMeta {
 @Component({
   standalone: true,
   selector: 'app-products',
-  imports: [CurrencyPipe, DatePipe, UpperCasePipe, FormsModule, ProductForm, TranslateModule, EmptyState, LucideAngularModule],
+  imports: [
+    CurrencyPipe,
+    DatePipe,
+    UpperCasePipe,
+    FormsModule,
+    ProductForm,
+    TranslateModule,
+    EmptyState,
+    LucideAngularModule,
+  ],
   templateUrl: './products.html',
 })
 export class Products implements OnInit {
@@ -27,6 +38,7 @@ export class Products implements OnInit {
   private productService = inject(ProductService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
+  private toast = inject(HotToastService);
 
   currency = computed(() => this.workspaceContext.currency);
   isAdmin = computed(() => this.workspaceContext.isAdmin());
@@ -127,7 +139,13 @@ export class Products implements OnInit {
     if (!this.isAdmin()) return;
 
     const newStatus = !product.isActive;
-    this.productService.toggleStatus(product.id, newStatus).subscribe(() => {
+    this.productService.toggleStatus(product.id, newStatus).pipe(
+      this.toast.observe({
+        loading: 'Actualizando estado...',
+        success: 'Estado actualizado correctamente',
+        error: 'Error al actualizar el estado'
+      })
+    ).subscribe(() => {
       this.loadProducts();
     });
   }
@@ -154,16 +172,21 @@ export class Products implements OnInit {
       ? this.productService.update(payload.id, payload.data)
       : this.productService.create(payload.data);
 
-    request$.subscribe({
+    request$.pipe(
+      this.toast.observe({
+        loading: payload.id
+          ? 'Actualizando producto...'
+          : 'Creando producto...',
+        success: payload.id
+          ? 'Producto actualizado correctamente'
+          : 'Producto creado correctamente',
+        error: 'Error al guardar el producto'
+      }),
+      finalize(() => this.isSaving.set(false))
+    ).subscribe({
       next: () => {
-        this.isSaving.set(false);
         this.closeModal();
         this.loadProducts();
-      },
-      error: () => {
-        this.isSaving.set(false);
-        // Error handling visual (por consola momentaneamente o notificaciones)
-        console.error('Failed to save product');
       }
     });
   }

@@ -7,6 +7,7 @@ import { StockWarning } from '../../../../shared/components/stock-warning/stock-
 import { EmptyState } from '../../../../shared/components/empty-state/empty-state';
 import { Modal } from '../../../../shared/components/modal/modal';
 import { LucideAngularModule } from 'lucide-angular';
+import { HotToastService } from '@ngxpert/hot-toast';
 
 @Component({
   selector: 'app-sales',
@@ -17,6 +18,7 @@ import { LucideAngularModule } from 'lucide-angular';
 export class Sales {
 
   private salesService = inject(SalesService);
+  private toast = inject(HotToastService);
 
   sales = signal<any[]>([]);
   loading = signal(true);
@@ -58,7 +60,7 @@ export class Sales {
       },
       error: (err) => {
         console.error('Error fetching sale details', err);
-        alert('Hubo un error al obtener los detalles de la venta.');
+        this.toast.error('Hubo un error al obtener los detalles de la venta.');
         this.closeDetailsModal();
       }
     });
@@ -85,6 +87,11 @@ export class Sales {
 
     this.isReverting.set(true);
     this.salesService.remove(sale.id).pipe(
+      this.toast.observe({
+        loading: 'Anulando venta...',
+        success: 'Venta anulada correctamente',
+        error: 'Hubo un problema al anular la venta.'
+      }),
       finalize(() => {
         this.isReverting.set(false);
         this.showWarning.set(false);
@@ -93,10 +100,6 @@ export class Sales {
     ).subscribe({
       next: () => {
         this.loadSales();
-      },
-      error: (err) => {
-        alert('Hubo un problema al anular la venta.');
-        console.error(err);
       }
     });
   }

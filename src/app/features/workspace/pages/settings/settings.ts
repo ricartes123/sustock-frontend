@@ -6,6 +6,7 @@ import { WorkspaceService } from '../../services/workspace.service';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../../../core/services/auth.service';
 import { TranslateModule } from '@ngx-translate/core';
+import { HotToastService } from '@ngxpert/hot-toast';
 
 interface ExchangeRateResponse {
     rates: Record<string, number>;
@@ -22,6 +23,7 @@ export class Settings implements OnInit {
     workspaceService = inject(WorkspaceService);
     authService = inject(AuthService);
     http = inject(HttpClient);
+    toast = inject(HotToastService);
 
     selectedCurrency = 'ARS';
     showConversionModal = signal(false);
@@ -116,7 +118,7 @@ export class Settings implements OnInit {
                                 this.workspaceContext.initialize(workspaces);
                                 this.showConversionModal.set(false);
                                 this.loading.set(false);
-                                // Notification success could go here
+                                this.toast.success('Configuración guardada');
                                 window.location.reload(); // Quick refresh to ensure UI takes the new symbols via CurrencyPipe everywhere
                             }
                         });
@@ -126,7 +128,7 @@ export class Settings implements OnInit {
             error: (err) => {
                 console.error(err);
                 this.loading.set(false);
-                alert(err.error?.message || "Failed to update currency");
+                this.toast.error(err.error?.message || "Error al actualizar moneda");
             }
         });
     }

@@ -5,7 +5,8 @@ import { Router } from '@angular/router';
 import { ProductService, Product } from '../../../../features/product/services/product.service';
 import { MovementService, CreateMovementDto } from '../../services/movement.service';
 import { StockWarning } from '../../../../shared/components/stock-warning/stock-warning';
-import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
+import { HotToastService } from '@ngxpert/hot-toast';
+import { Subject, debounceTime, distinctUntilChanged, finalize } from 'rxjs';
 
 @Component({
     selector: 'app-movement-create',
@@ -17,6 +18,7 @@ export class MovementCreate implements OnInit {
     private productService = inject(ProductService);
     private movementService = inject(MovementService);
     private router = inject(Router);
+    private toast = inject(HotToastService);
 
     // Product search
     searchQuery = '';
@@ -103,20 +105,29 @@ export class MovementCreate implements OnInit {
             productId: this.selectedProduct.id
         };
 
-        this.movementService.create(payload).subscribe({
+        this.movementService.create(payload).pipe(
+            this.toast.observe({
+                loading: 'Registrando movimiento...',
+                success: 'Movimiento registrado correctamente',
+                error: (e: any) => {
+                    if (e.error?.message && typeof e.error.message === 'string' && e.error.message.includes('credibilidad')) {
+                        return 'Advertencia de stock detectada';
+                    }
+                    if (e.error?.message) {
+                        return Array.isArray(e.error.message) ? e.error.message.join(', ') : e.error.message;
+                    }
+                    return 'Error al registrar el movimiento';
+                }
+            }),
+            finalize(() => this.isSubmitting = false)
+        ).subscribe({
             next: () => {
-                this.isSubmitting = false;
                 this.router.navigate(['/movements']);
             },
             error: (err) => {
-                this.isSubmitting = false;
                 if (err.error?.message && typeof err.error.message === 'string' && err.error.message.includes('credibilidad')) {
                     this.warningMessage = err.error.message;
                     this.showWarning = true;
-                } else if (err.error?.message) {
-                    alert(Array.isArray(err.error.message) ? err.error.message.join(', ') : err.error.message);
-                } else {
-                    alert('Hubo un error al registrar el movimiento.');
                 }
             }
         });

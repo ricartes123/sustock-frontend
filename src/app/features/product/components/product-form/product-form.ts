@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Product } from '../../services/product.service';
 import { WorkspaceContextService } from '../../../../core/services/workspace-context.service';
 import { TranslateModule } from '@ngx-translate/core';
-import { Modal } from '../../../../shared/components/modal/modal';
+import { Modal} from '../../../../shared/components/modal/modal';
 
 @Component({
     standalone: true,

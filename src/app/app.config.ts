@@ -17,6 +17,7 @@ import { jwtInterceptor } from './core/interceptors/jwt.interceptor';
 import { provideTranslateService, TranslateLoader } from '@ngx-translate/core';
 import { provideTranslateHttpLoader, TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { provideLucideIcons } from './core/providers/lucide-icons.provider';
+import { provideHotToastConfig } from '@ngxpert/hot-toast';
 
 import { routes } from './app.routes';
 
@@ -34,6 +35,16 @@ export const appConfig: ApplicationConfig = {
       }
     }),
     provideTranslateHttpLoader(),
-    provideLucideIcons()
-  ]
+    provideLucideIcons(),
+    provideHotToastConfig({
+      position: 'top-center',
+      style: {
+        background: 'rgba(17, 24, 39, 0.9)',
+        backdropFilter: 'blur(8px)',
+        border: '1px solid rgba(139, 92, 246, 0.4)',
+        borderRadius: '16px',
+        color: '#fff',
+        boxShadow: '0 10px 25px rgba(0,0,0,0.3)'
+      }
+    })]
 };

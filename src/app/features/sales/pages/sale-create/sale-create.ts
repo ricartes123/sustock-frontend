@@ -14,8 +14,9 @@ import { ProductService, Product } from '../../../../features/product/services/p
 import { ClientsService } from '../../../../features/clients/services/clients.service';
 import { SalesService } from '../../services/sales.service';
 import { StockWarning } from '../../../../shared/components/stock-warning/stock-warning';
-import { Subject, debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
+import { Subject, debounceTime, distinctUntilChanged, switchMap, finalize } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { HotToastService } from '@ngxpert/hot-toast';
 
 interface SaleItem {
   product: Product;
@@ -34,6 +35,7 @@ export class SaleCreate {
   private clientsService = inject(ClientsService);
   private salesService = inject(SalesService);
   private router = inject(Router);
+  private toast = inject(HotToastService);
 
   // ─────────────────────────────
   // Signals
@@ -186,24 +188,29 @@ export class SaleCreate {
       }))
     };
 
-    this.salesService.create(payload)
-      .subscribe({
-        next: () => {
-          this.isSubmitting.set(false);
-          alert('¡Venta confirmada exitosamente!');
-          this.router.navigate(['/sales']);
-        },
-        error: (err) => {
-          this.isSubmitting.set(false);
-
-          if (err.error?.message?.includes('credibilidad')) {
-            this.warningMessage.set(err.error.message);
-            this.showWarning.set(true);
-          } else {
-            alert('Hubo un error al registrar la venta.');
+    this.salesService.create(payload).pipe(
+      this.toast.observe({
+        loading: 'Registrando venta...',
+        success: '¡Venta registrada exitosamente!',
+        error: (e: any) => {
+          if (e.error?.message?.includes('credibilidad')) {
+            return 'Advertencia de inventario';
           }
+          return 'Error al registrar la venta';
         }
-      });
+      }),
+      finalize(() => this.isSubmitting.set(false))
+    ).subscribe({
+      next: () => {
+        this.router.navigate(['/sales']);
+      },
+      error: (err) => {
+        if (err.error?.message?.includes('credibilidad')) {
+          this.warningMessage.set(err.error.message);
+          this.showWarning.set(true);
+        }
+      }
+    });
   }
 
   onWarningCancel() {
