@@ -5,9 +5,9 @@ import { CommonModule } from '@angular/common';
     selector: 'app-stock-warning',
     standalone: true,
     imports: [CommonModule],
-    templateUrl: './stock-warning.component.html',
+    templateUrl: './stock-warning.html',
 })
-export class StockWarningComponent {
+export class StockWarning {
     @Input() visible = false;
     @Input() message = 'La acción podría poner en peligro la credibilidad de los datos de su inventario. El stock del producto quedará en negativo.';
     @Input() title = 'Advertencia de Inventario';

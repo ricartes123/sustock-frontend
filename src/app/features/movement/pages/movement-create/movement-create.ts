@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ProductService, Product } from '../../../../features/product/services/product.service';
 import { MovementService, CreateMovementDto } from '../../services/movement.service';
-import { StockWarningComponent } from '../../../../shared/components/stock-warning/stock-warning.component';
+import { StockWarningComponent } from '../../../../shared/components/stock-warning/stock-warning';
 import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
 
 @Component({

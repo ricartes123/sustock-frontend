@@ -76,9 +76,16 @@
 }
 
 @if (!loading() && products().length === 0) {
-<div class="bg-white p-6 rounded shadow text-center text-gray-500">
-    {{ 'PRODUCTS.NO_PRODUCTS' | translate }}
-</div>
+<app-empty-state icon="package-open" [title]="'PRODUCTS.NO_PRODUCTS' | translate"
+    [description]="'PRODUCTS.NO_PRODUCTS_DESC' | translate">
+    @if (isAdmin()) {
+    <button (click)="openCreateModal()"
+        class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors shadow-sm flex items-center gap-2 mx-auto">
+        <lucide-icon name="plus" [size]="16" [strokeWidth]="2"></lucide-icon>
+        {{ 'PRODUCTS.NEW_PRODUCT' | translate }}
+    </button>
+    }
+</app-empty-state>
 }
 
 @if (products().length > 0) {

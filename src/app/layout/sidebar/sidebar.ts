@@ -1,16 +1,39 @@
-import { Component, HostBinding, inject } from '@angular/core';
+import { Component, HostBinding, inject, importProvidersFrom } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { AuthService } from '../../core/services/auth.service';
 import { LanguageService } from '../../core/services/language.service';
+import {
+  LucideAngularModule,
+  Box,
+  LayoutDashboard,
+  ShoppingCart,
+  ArrowRightLeft,
+  FileText,
+  Wallet,
+  Receipt,
+  Settings,
+  Moon,
+  LogOut,
+  ChevronLeft,
+  ChevronRight,
+  Package2
+} from 'lucide-angular';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, CommonModule, TranslateModule],
+  imports: [
+    RouterLink,
+    RouterLinkActive,
+    CommonModule,
+    TranslateModule,
+    LucideAngularModule
+  ],
   templateUrl: './sidebar.html',
 })
+
 export class Sidebar {
   private auth = inject(AuthService);
   languageService = inject(LanguageService);

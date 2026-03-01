@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 import { ProductService, Product } from '../../../../features/product/services/product.service';
 import { ClientsService } from '../../../../features/clients/services/clients.service';
 import { SalesService } from '../../services/sales.service';
-import { StockWarningComponent } from '../../../../shared/components/stock-warning/stock-warning.component';
+import { StockWarningComponent } from '../../../../shared/components/stock-warning/stock-warning';
 import { Subject, debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
@@ -190,6 +190,7 @@ export class SaleCreate {
       .subscribe({
         next: () => {
           this.isSubmitting.set(false);
+          alert('¡Venta confirmada exitosamente!');
           this.router.navigate(['/sales']);
         },
         error: (err) => {

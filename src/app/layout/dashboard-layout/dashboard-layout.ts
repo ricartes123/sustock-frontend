@@ -9,4 +9,4 @@ import { Navbar } from '../navbar/navbar';
   imports: [RouterOutlet, Sidebar, Navbar],
   templateUrl: './dashboard-layout.html',
 })
-export class DashboardLayoutComponent {}
+export class DashboardLayout { }
