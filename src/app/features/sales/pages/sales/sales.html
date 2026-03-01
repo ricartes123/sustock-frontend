@@ -70,25 +70,14 @@
                     </div>
                 </td>
                 <td class="p-4 text-right">
-                    <button (click)="viewDetails(sale.id)"
-                        class="text-blue-500 hover:text-blue-700 hover:bg-blue-50 p-2 rounded-lg transition-colors inline-flex items-center justify-center translate-y-[2px] mr-1"
-                        title="Ver detalles">
-                        <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            stroke-width="1.5" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                        </svg>
-                    </button>
-                    <button (click)="triggerRevert(sale)"
-                        class="text-red-500 hover:text-red-700 hover:bg-red-50 p-2 rounded-lg transition-colors inline-flex items-center justify-center translate-y-[2px]"
-                        title="Anular venta">
-                        <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            stroke-width="1.5" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
-                        </svg>
-                    </button>
+                    <app-button variant="icon-primary" (click)="viewDetails(sale.id)" title="Ver detalles"
+                        class="inline-flex items-center justify-center translate-y-[2px] mr-1">
+                        <lucide-icon name="info" [size]="20" [strokeWidth]="1.5"></lucide-icon>
+                    </app-button>
+                    <app-button variant="icon-danger" (click)="triggerRevert(sale)" title="Anular venta"
+                        class="inline-flex items-center justify-center translate-y-[2px]">
+                        <lucide-icon name="ban" [size]="20" [strokeWidth]="1.5"></lucide-icon>
+                    </app-button>
                 </td>
             </tr>
             }
@@ -98,9 +87,9 @@
 }
 
 @if (showWarning()) {
-<app-stock-warning [visible]="true" [message]="warningMessage()" [isLoading]="isReverting()" (cancel)="cancelRevert()"
+<app-data-warning [visible]="true" [message]="warningMessage()" [isLoading]="isReverting()" (cancel)="cancelRevert()"
     (confirm)="confirmRevert()">
-</app-stock-warning>
+</app-data-warning>
 }
 
 <!-- Sale Details Modal -->
@@ -108,12 +97,96 @@
 <app-modal [isOpen]="true" title="Detalle de Venta" (close)="closeDetailsModal()">
 
     <!-- Body -->
+    @if (selectedSaleDetail(); as detail) {
+    <div class="px-6 py-6 space-y-6 max-h-[70vh] overflow-y-auto">
+        <!-- Resumen -->
+        <div class="bg-slate-50 rounded-xl p-5 border border-slate-100 flex gap-4">
+            <div class="flex-1">
+                <p class="text-xs text-slate-500 mb-0.5">Fecha</p>
+                <p class="text-sm font-medium text-slate-800">{{ detail.createdAt | date:'short' }}</p>
+            </div>
+            <div class="flex-1">
+                <p class="text-xs text-slate-500 mb-0.5">Vendedor</p>
+                <p class="text-sm font-medium text-slate-800">{{ detail.user?.firstName }} {{ detail.user?.lastName }}
+                </p>
+            </div>
+            <div class="flex-1">
+                <p class="text-xs text-slate-500 mb-0.5">ID Venta</p>
+                <p class="text-[11px] font-mono text-slate-500 truncate" [title]="detail.id">{{ detail.id }}</p>
+            </div>
+        </div>
+
+        <!-- Info Cliente -->
+        <div class="bg-blue-50/50 p-4 rounded-xl border border-blue-100">
+            <h4 class="text-xs font-bold text-blue-400 uppercase tracking-wider mb-3">Datos del Cliente</h4>
+            @if (detail.client) {
+            <div class="space-y-3">
+                <div>
+                    <p class="text-xs text-blue-500/70 mb-0.5">Nombre</p>
+                    <p class="text-sm font-medium text-slate-800">{{ detail.client.name }}</p>
+                </div>
+                @if (detail.client.email || detail.client.phone) {
+                <div class="flex gap-4 text-sm text-slate-600">
+                    @if (detail.client.phone) {
+                    <div class="flex items-center gap-1">{{ detail.client.phone }}</div>
+                    }
+                    @if (detail.client.email) {
+                    <div class="flex items-center gap-1">{{ detail.client.email }}</div>
+                    }
+                </div>
+                }
+            </div>
+            } @else {
+            <div class="text-center text-slate-500 py-2">
+                <p class="text-sm font-medium">Consumidor Final</p>
+            </div>
+            }
+        </div>
+
+        <!-- Productos Vendidos -->
+        <h4 class="text-sm font-bold text-slate-800 !mb-3">Productos Vendidos</h4>
+        <div class="border border-slate-200 rounded-xl overflow-hidden">
+            <table class="w-full text-left text-sm">
+                <thead class="bg-slate-50 border-b border-slate-200">
+                    <tr>
+                        <th class="py-3 px-4 font-semibold text-slate-600">Producto</th>
+                        <th class="py-3 px-4 font-semibold text-slate-600 text-center">Cant.</th>
+                        <th class="py-3 px-4 font-semibold text-slate-600 text-right">Precio</th>
+                        <th class="py-3 px-4 font-semibold text-slate-600 text-right">Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100">
+                    @for (item of detail.items; track item.id) {
+                    <tr>
+                        <td class="py-3 px-4">
+                            <span class="font-medium text-slate-800">{{ item.product?.name || 'Eliminado' }}</span>
+                            @if(item.product?.sku) { <span class="block text-xs text-slate-400 mt-0.5">SKU:
+                                {{item.product.sku}}</span> }
+                        </td>
+                        <td class="py-3 px-4 text-center text-slate-600 font-medium">{{ item.quantity }}</td>
+                        <td class="py-3 px-4 text-right text-slate-600">${{ item.price | number:'1.2-2' }}</td>
+                        <td class="py-3 px-4 text-right font-medium text-slate-800">${{ (item.price * item.quantity) |
+                            number:'1.2-2' }}</td>
+                    </tr>
+                    }
+                </tbody>
+                <tfoot class="bg-slate-50 border-t border-slate-200">
+                    <tr>
+                        <td colspan="3" class="py-4 px-4 text-right font-semibold text-slate-600">Total Venta</td>
+                        <td class="py-4 px-4 text-right font-bold text-lg text-purple-700">${{ detail.totalAmount |
+                            number:'1.2-2' }}</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    }
+
+    <!-- Footer -->
     <ng-container modal-footer>
-        <button type="button"
-            class="bg-white border border-slate-300 text-slate-700 px-5 py-2 rounded-lg text-sm font-medium hover:bg-slate-50 transition-colors shadow-sm"
-            (click)="closeDetailsModal()">
+        <app-button variant="secondary" (click)="closeDetailsModal()">
             Cerrar
-        </button>
+        </app-button>
     </ng-container>
 </app-modal>
 }

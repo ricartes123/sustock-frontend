@@ -1,0 +1,13 @@
+<button [type]="type" [disabled]="disabled" [class]="classes">
+
+    <lucide-icon *ngIf="icon && iconPosition === 'left'" [name]="icon"
+        [size]="size === 'sm' || variant === 'icon' ? 16 : 18" [strokeWidth]="2"
+        [class.mr-2]="variant !== 'icon'"></lucide-icon>
+
+    <ng-content></ng-content>
+
+    <lucide-icon *ngIf="icon && iconPosition === 'right'" [name]="icon"
+        [size]="size === 'sm' || variant === 'icon' ? 16 : 18" [strokeWidth]="2"
+        [class.ml-2]="variant !== 'icon'"></lucide-icon>
+
+</button>

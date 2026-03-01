@@ -256,9 +256,10 @@
                     </div>
                 </div>
 
-                <button (click)="confirmSale()" [disabled]="items().length === 0 || isSubmitting()"
-                    class="w-full bg-purple-600 hover:bg-purple-700 active:bg-purple-800 text-white rounded-xl py-3.5 px-4 font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-sm shadow-purple-600/20 relative overflow-hidden group">
-                    <span class="relative z-10 flex items-center gap-2">
+                <app-button variant="primary" size="lg" (click)="confirmSale()"
+                    [disabled]="items().length === 0 || isSubmitting()"
+                    class="w-full flex font-semibold shadow-sm overflow-hidden group">
+                    <span class="flex items-center justify-center w-full gap-2">
                         @if (isSubmitting()) {
                         <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
                             viewBox="0 0 24 24">
@@ -276,12 +277,12 @@
                         Confirmar Venta
                         }
                     </span>
-                </button>
+                </app-button>
             </div>
         </div>
     </div>
 </div>
 
-<app-stock-warning [visible]="showWarning()" [message]="warningMessage()" (cancel)="onWarningCancel()"
+<app-data-warning [visible]="showWarning()" [message]="warningMessage()" (cancel)="onWarningCancel()"
     (confirm)="onWarningConfirm()">
-</app-stock-warning>
+</app-data-warning>

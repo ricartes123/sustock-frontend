@@ -78,12 +78,10 @@
 
     <!-- Footer Actions -->
     <ng-container modal-footer>
-        <button type="button" (click)="onCancel()" [disabled]="isSaving"
-            class="px-5 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors disabled:opacity-50">
+        <app-button variant="secondary" (click)="onCancel()">
             {{ 'COMMON.CANCEL' | translate }}
-        </button>
-        <button type="submit" form="productForm" [disabled]="productForm.invalid || isSaving"
-            class="px-5 py-2.5 rounded-xl text-sm font-medium text-white bg-purple-600 hover:bg-purple-700 transition-colors shadow-sm disabled:opacity-50 flex items-center gap-2">
+        </app-button>
+        <app-button variant="primary" type="submit" [disabled]="productForm.invalid || isSaving">
             @if (isSaving) {
             <svg class="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
                 viewBox="0 0 24 24">
@@ -97,6 +95,6 @@
             {{ isEditMode ? ('PRODUCT_FORM.SAVE_CHANGES' | translate) : ('PRODUCT_FORM.CREATE_PRODUCT' | translate)
             }}
             }
-        </button>
+        </app-button>
     </ng-container>
 </app-modal>

@@ -13,10 +13,11 @@ import { Router } from '@angular/router';
 import { ProductService, Product } from '../../../../features/product/services/product.service';
 import { ClientsService } from '../../../../features/clients/services/clients.service';
 import { SalesService } from '../../services/sales.service';
-import { StockWarning } from '../../../../shared/components/stock-warning/stock-warning';
+import { DataWarning } from '../../../../shared/components/data-warning/data-warning';
 import { Subject, debounceTime, distinctUntilChanged, switchMap, finalize } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { HotToastService } from '@ngxpert/hot-toast';
+import { Button } from '../../../../shared/components/button/button';
 
 interface SaleItem {
   product: Product;
@@ -26,7 +27,7 @@ interface SaleItem {
 @Component({
   selector: 'app-sale-create',
   standalone: true,
-  imports: [CommonModule, FormsModule, StockWarning, DecimalPipe],
+  imports: [CommonModule, FormsModule, DataWarning, DecimalPipe, Button],
   templateUrl: './sale-create.html',
 })
 export class SaleCreate {

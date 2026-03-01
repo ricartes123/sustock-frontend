@@ -3,16 +3,18 @@ import { CommonModule, DatePipe, DecimalPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { SalesService } from '../../services/sales.service';
 import { finalize } from 'rxjs';
-import { StockWarning } from '../../../../shared/components/stock-warning/stock-warning';
+import { DataWarning } from '../../../../shared/components/data-warning/data-warning';
 import { EmptyState } from '../../../../shared/components/empty-state/empty-state';
 import { Modal } from '../../../../shared/components/modal/modal';
 import { LucideAngularModule } from 'lucide-angular';
 import { HotToastService } from '@ngxpert/hot-toast';
 
+import { Button } from '../../../../shared/components/button/button';
+
 @Component({
   selector: 'app-sales',
   standalone: true,
-  imports: [CommonModule, RouterLink, DatePipe, DecimalPipe, StockWarning, EmptyState, Modal, LucideAngularModule],
+  imports: [CommonModule, RouterLink, DatePipe, DecimalPipe, DataWarning, EmptyState, Modal, Button, LucideAngularModule],
   templateUrl: './sales.html'
 })
 export class Sales {

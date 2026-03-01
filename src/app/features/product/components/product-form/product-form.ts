@@ -5,11 +5,12 @@ import { Product } from '../../services/product.service';
 import { WorkspaceContextService } from '../../../../core/services/workspace-context.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { Modal} from '../../../../shared/components/modal/modal';
+import { Button } from "../../../../shared/components/button/button";
 
 @Component({
     standalone: true,
     selector: 'app-product-form',
-    imports: [CommonModule, ReactiveFormsModule, TranslateModule, Modal],
+    imports: [CommonModule, ReactiveFormsModule, TranslateModule, Modal, Button],
     templateUrl: './product-form.html',
 })
 export class ProductForm implements OnInit {

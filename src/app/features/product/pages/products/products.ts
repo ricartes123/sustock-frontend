@@ -7,6 +7,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ProductForm } from '../../components/product-form/product-form';
 import { EmptyState } from '../../../../shared/components/empty-state/empty-state';
+import { Button } from '../../../../shared/components/button/button';
+import { Badge } from '../../../../shared/components/badge/badge';
 import { LucideAngularModule } from 'lucide-angular';
 import { HotToastService } from '@ngxpert/hot-toast';
 import { finalize } from 'rxjs';
@@ -29,6 +31,8 @@ export interface PaginationMeta {
     ProductForm,
     TranslateModule,
     EmptyState,
+    Button,
+    Badge,
     LucideAngularModule,
   ],
   templateUrl: './products.html',

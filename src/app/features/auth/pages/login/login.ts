@@ -8,11 +8,12 @@ import { TranslateModule } from '@ngx-translate/core';
 import { switchMap, tap, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { HotToastService } from '@ngxpert/hot-toast';
+import { Button } from '../../../../shared/components/button/button';
 
 @Component({
   standalone: true,
   selector: 'app-login',
-  imports: [FormsModule, TranslateModule],
+  imports: [FormsModule, TranslateModule, Button],
   templateUrl: './login.html',
 })
 export class Login {

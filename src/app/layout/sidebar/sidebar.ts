@@ -6,19 +6,6 @@ import { AuthService } from '../../core/services/auth.service';
 import { LanguageService } from '../../core/services/language.service';
 import {
   LucideAngularModule,
-  Box,
-  LayoutDashboard,
-  ShoppingCart,
-  ArrowRightLeft,
-  FileText,
-  Wallet,
-  Receipt,
-  Settings,
-  Moon,
-  LogOut,
-  ChevronLeft,
-  ChevronRight,
-  Package2
 } from 'lucide-angular';
 
 @Component({

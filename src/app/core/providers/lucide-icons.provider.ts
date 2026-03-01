@@ -13,7 +13,15 @@ import {
     LogOut,
     ChevronLeft,
     ChevronRight,
-    Package2
+    Package2,
+    Plus,
+    Pencil,
+    Info,
+    Archive,
+    ArchiveRestore,
+    Ban,
+    X,
+    PackageOpen
 } from 'lucide-angular';
 
 export function provideLucideIcons(): EnvironmentProviders {
@@ -31,7 +39,15 @@ export function provideLucideIcons(): EnvironmentProviders {
             LogOut,
             ChevronLeft,
             ChevronRight,
-            Package2
+            Package2,
+            Plus,
+            Pencil,
+            Info,
+            Archive,
+            ArchiveRestore,
+            Ban,
+            X,
+            PackageOpen
         })
     );
 }

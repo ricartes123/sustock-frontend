@@ -14,32 +14,30 @@
                         d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                 </svg>
             </div>
-            <h3 class="text-lg font-medium leading-6 text-gray-900 dark:text-gray-100" id="modal-title">
+            <h3 class="text-xl font-medium leading-6 text-gray-900 dark:text-gray-100" id="modal-title">
                 {{ title }}
             </h3>
         </div>
 
-        <div class="mt-2 text-sm text-gray-500 dark:text-gray-400">
+        <div class="mt-2 text-md text-gray-500 dark:text-gray-400">
             <p>
                 {{ message }}
             </p>
         </div>
 
-        <div class="mt-6 flex justify-end gap-3">
-            <button type="button"
-                class="inline-flex justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600 dark:focus:ring-offset-gray-800"
-                (click)="onCancel()">
+        <div class="mt-8 flex justify-end gap-3">
+            <app-button variant="secondary" (click)="onCancel()">
                 Cancelar
-            </button>
-            <button type="button"
-                class="inline-flex justify-center rounded-md border border-transparent bg-red-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 disabled:opacity-70 disabled:cursor-not-allowed"
-                [disabled]="isLoading" (click)="onConfirm()">
-                @if (isLoading) {
-                Cargando...
-                } @else {
+            </app-button>
+            @if (!isLoading) {
+            <app-button variant="danger" (click)="onConfirm()">
                 Continuar de todos modos
-                }
-            </button>
+            </app-button>
+            } @else {
+            <app-button variant="danger" (click)="onConfirm()">
+                Cargando...
+            </app-button>
+            }
         </div>
     </div>
 </div>

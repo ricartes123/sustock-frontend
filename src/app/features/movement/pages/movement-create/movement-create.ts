@@ -4,14 +4,14 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ProductService, Product } from '../../../../features/product/services/product.service';
 import { MovementService, CreateMovementDto } from '../../services/movement.service';
-import { StockWarning } from '../../../../shared/components/stock-warning/stock-warning';
+import { DataWarning } from '../../../../shared/components/data-warning/data-warning';
 import { HotToastService } from '@ngxpert/hot-toast';
 import { Subject, debounceTime, distinctUntilChanged, finalize } from 'rxjs';
 
 @Component({
     selector: 'app-movement-create',
     standalone: true,
-    imports: [CommonModule, FormsModule, StockWarning],
+    imports: [CommonModule, FormsModule, DataWarning],
     templateUrl: './movement-create.html',
 })
 export class MovementCreate implements OnInit {
