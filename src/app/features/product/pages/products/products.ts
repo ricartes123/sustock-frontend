@@ -6,7 +6,7 @@ import { WorkspaceContextService } from '../../../../core/services/workspace-con
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ProductForm } from '../../components/product-form/product-form';
-import { EmptyStateComponent } from '../../../../shared/components/empty-state/empty-state';
+import { EmptyState } from '../../../../shared/components/empty-state/empty-state';
 import { LucideAngularModule } from 'lucide-angular';
 
 export interface PaginationMeta {
@@ -19,7 +19,7 @@ export interface PaginationMeta {
 @Component({
   standalone: true,
   selector: 'app-products',
-  imports: [CurrencyPipe, DatePipe, UpperCasePipe, FormsModule, ProductForm, TranslateModule, EmptyStateComponent, LucideAngularModule],
+  imports: [CurrencyPipe, DatePipe, UpperCasePipe, FormsModule, ProductForm, TranslateModule, EmptyState, LucideAngularModule],
   templateUrl: './products.html',
 })
 export class Products implements OnInit {

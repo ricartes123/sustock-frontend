@@ -4,12 +4,12 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Product } from '../../services/product.service';
 import { WorkspaceContextService } from '../../../../core/services/workspace-context.service';
 import { TranslateModule } from '@ngx-translate/core';
-import { ModalComponent } from '../../../../shared/components/modal/modal';
+import { Modal } from '../../../../shared/components/modal/modal';
 
 @Component({
     standalone: true,
     selector: 'app-product-form',
-    imports: [CommonModule, ReactiveFormsModule, TranslateModule, ModalComponent],
+    imports: [CommonModule, ReactiveFormsModule, TranslateModule, Modal],
     templateUrl: './product-form.html',
 })
 export class ProductForm implements OnInit {

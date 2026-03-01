@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 import { ProductService, Product } from '../../../../features/product/services/product.service';
 import { ClientsService } from '../../../../features/clients/services/clients.service';
 import { SalesService } from '../../services/sales.service';
-import { StockWarningComponent } from '../../../../shared/components/stock-warning/stock-warning';
+import { StockWarning } from '../../../../shared/components/stock-warning/stock-warning';
 import { Subject, debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
@@ -25,7 +25,7 @@ interface SaleItem {
 @Component({
   selector: 'app-sale-create',
   standalone: true,
-  imports: [CommonModule, FormsModule, StockWarningComponent, DecimalPipe],
+  imports: [CommonModule, FormsModule, StockWarning, DecimalPipe],
   templateUrl: './sale-create.html',
 })
 export class SaleCreate {
