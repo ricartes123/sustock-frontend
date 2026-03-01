@@ -6,79 +6,247 @@
 
 @if (data()) {
 
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Header -->
+<div class="mb-8">
+    <h1 class="text-[28px] font-bold text-slate-800 tracking-tight leading-none mb-1">{{ 'DASHBOARD.OVERVIEW_TITLE' |
+        translate }}</h1>
+    <p class="text-sm text-slate-400 capitalize">{{ today | date:'fullDate':undefined:locale }}</p>
+</div>
 
-    <!-- Total Products -->
-    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex items-start justify-between">
-        <div>
-            <p class="text-sm font-medium text-slate-500 mb-1">{{ 'DASHBOARD.TOTAL_PRODUCTS' | translate }}</p>
-            <p class="text-3xl font-bold text-slate-800">{{ data()!.totalProducts }}</p>
+<!-- Top CTAs -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+
+    <a routerLink="/sales/new"
+        class="bg-[#6f56e5] hover:bg-[#5b45ce] transition-colors rounded-2xl p-5 flex flex-col items-center justify-center text-white cursor-pointer shadow-md group border border-[#5b45ce]">
+        <lucide-icon name="shopping-bag" [size]="24" strokeWidth="2.5"
+            class="mb-2 opacity-90 group-hover:scale-110 transition-transform text-white/90"></lucide-icon>
+        <span class="font-bold text-sm">{{ 'DASHBOARD.NEW_SALE_CTA' | translate }}</span>
+        <span class="text-[11px] opacity-75 font-medium mt-0.5">{{ 'DASHBOARD.NEW_SALE_DESC' | translate }}</span>
+    </a>
+
+    <a routerLink="/products" [queryParams]="{ action: 'new' }"
+        class="bg-white hover:bg-slate-50 border border-slate-200 transition-colors rounded-2xl p-5 flex flex-col items-center justify-center text-slate-700 cursor-pointer shadow-sm group">
+        <lucide-icon name="plus" [size]="24" strokeWidth="2.5"
+            class="mb-2 text-slate-400 group-hover:text-slate-600 group-hover:scale-110 transition-transform"></lucide-icon>
+        <span class="font-bold text-sm text-slate-800">{{ 'DASHBOARD.NEW_PRODUCT_CTA' | translate }}</span>
+        <span class="text-[11px] text-slate-400 font-medium mt-0.5">{{ 'DASHBOARD.NEW_PRODUCT_DESC' | translate
+            }}</span>
+    </a>
+
+    <a routerLink="/sales"
+        class="bg-white hover:bg-slate-50 border border-slate-200 transition-colors rounded-2xl p-5 flex flex-col items-center justify-center text-slate-700 cursor-pointer shadow-sm group">
+        <lucide-icon name="bar-chart-2" [size]="24" strokeWidth="2.5"
+            class="mb-2 text-slate-400 group-hover:text-slate-600 group-hover:scale-110 transition-transform"></lucide-icon>
+        <span class="font-bold text-sm text-slate-800">{{ 'DASHBOARD.HISTORY_CTA' | translate }}</span>
+        <span class="text-[11px] text-slate-400 font-medium mt-0.5">{{ 'DASHBOARD.HISTORY_DESC' | translate }}</span>
+    </a>
+</div>
+
+<!-- Main Metrics -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+
+    <div
+        class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-between hover:shadow-md transition-shadow relative overflow-hidden">
+        <div class="absolute -right-4 -top-4 w-24 h-24 bg-purple-50 rounded-full opacity-50 z-0 pointer-events-none">
         </div>
-        <div class="p-3 bg-purple-50 rounded-xl text-purple-600">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path
-                    d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z">
-                </path>
-                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-                <line x1="12" y1="22.08" x2="12" y2="12"></line>
-            </svg>
+        <div class="flex items-start justify-between mb-3 z-10 relative">
+            <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">{{ 'DASHBOARD.METRIC_SALES_TODAY' |
+                translate }}</p>
+            <div class="p-2 bg-purple-100 rounded-lg text-purple-600">
+                <lucide-icon name="shopping-cart" [size]="18" [strokeWidth]="2.5"></lucide-icon>
+            </div>
+        </div>
+        <div class="z-10 relative">
+            <p class="text-2xl font-black text-slate-800 tracking-tight leading-none mb-1">
+                {{ (data()!.salesToday ?? 0) | currency:currency():'symbol-narrow':'1.0-0':locale }}
+            </p>
+            <p class="text-[11px] text-slate-400 font-medium mt-1">
+                {{ 'DASHBOARD.METRIC_SALES_COUNT' | translate:{ count: data()!.salesTodayCount ?? 0 } }}
+            </p>
         </div>
     </div>
 
-    <!-- Total Stock Value -->
-    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex items-start justify-between">
+    <div
+        class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-between hover:shadow-md transition-shadow">
+        <div class="flex items-start justify-between mb-3">
+            <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">{{ 'DASHBOARD.METRIC_TOTAL_PRODUCTS' |
+                translate }}</p>
+            <div class="p-2 bg-blue-50 rounded-lg text-blue-600">
+                <lucide-icon name="box" [size]="18" [strokeWidth]="2.5"></lucide-icon>
+            </div>
+        </div>
         <div>
-            <p class="text-sm font-medium text-slate-500 mb-1">{{ 'DASHBOARD.TOTAL_STOCK_VALUE' | translate }}</p>
-            <p class="text-3xl font-bold text-slate-800">
+            <p class="text-2xl font-black text-slate-800 leading-none mb-1">
+                {{ data()!.totalProducts }}
+            </p>
+            <p class="text-[11px] text-slate-400 font-medium mt-1">
+                {{ 'DASHBOARD.METRIC_TOTAL_PRODUCTS_DESC' | translate }}
+            </p>
+        </div>
+    </div>
+
+    <div
+        class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-between hover:shadow-md transition-shadow">
+        <div class="flex items-start justify-between mb-3">
+            <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">{{ 'DASHBOARD.METRIC_STOCK_VALUE' |
+                translate }}</p>
+            <div class="p-2 bg-emerald-50 rounded-lg text-emerald-600">
+                <lucide-icon name="wallet" [size]="18" [strokeWidth]="2.5"></lucide-icon>
+            </div>
+        </div>
+        <div>
+            <p class="text-2xl font-black text-slate-800 leading-none mb-1">
                 {{ data()!.totalStockValue | currency:currency():'symbol-narrow':'1.0-0':locale }}
             </p>
-        </div>
-        <div class="p-3 bg-green-50 rounded-xl text-green-600">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="12" y1="1" x2="12" y2="23"></line>
-                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-            </svg>
+            <p class="text-[11px] text-slate-400 font-medium mt-1">
+                {{ 'DASHBOARD.METRIC_STOCK_VALUE_DESC' | translate }}
+            </p>
         </div>
     </div>
 
-    <!-- Low Stock -->
     <a routerLink="/products" [queryParams]="{ lowStock: 'true' }"
-        class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex items-start justify-between cursor-pointer hover:border-red-200 hover:shadow-md transition-all group">
+        class="bg-white p-5 rounded-2xl shadow-sm border flex flex-col justify-between hover:shadow-md transition-all cursor-pointer group"
+        [ngClass]="data()!.lowStockCount > 0 ? 'border-red-100' : 'border-slate-100'">
+        <div class="flex items-start justify-between mb-3">
+            <p class="text-xs font-bold uppercase tracking-wider transition-colors"
+                [ngClass]="data()!.lowStockCount > 0 ? 'text-red-500 group-hover:text-red-600' : 'text-slate-400'">{{
+                'DASHBOARD.METRIC_LOW_STOCK' | translate }}</p>
+            <div class="p-2 rounded-lg transition-colors"
+                [ngClass]="data()!.lowStockCount > 0 ? 'bg-red-50 text-red-500 group-hover:bg-red-100' : 'bg-slate-50 text-slate-400'">
+                <lucide-icon name="package-open" [size]="18" [strokeWidth]="2.5"></lucide-icon>
+            </div>
+        </div>
         <div>
-            <p class="text-sm font-medium text-slate-500 mb-1 group-hover:text-red-600 transition-colors">{{
-                'DASHBOARD.LOW_STOCK' | translate }}</p>
-            <p class="text-3xl font-bold text-red-500">
+            <p class="text-2xl font-black leading-none mb-1 transition-colors"
+                [ngClass]="data()!.lowStockCount > 0 ? 'text-red-600 group-hover:text-red-700' : 'text-slate-800'">
                 {{ data()!.lowStockCount }}
             </p>
-        </div>
-        <div class="p-3 bg-red-50 rounded-xl text-red-500 group-hover:bg-red-100 transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z">
-                </path>
-                <line x1="12" y1="9" x2="12" y2="13"></line>
-                <line x1="12" y1="17" x2="12.01" y2="17"></line>
-            </svg>
+            <p class="text-[11px] font-medium mt-1 transition-colors"
+                [ngClass]="data()!.lowStockCount > 0 ? 'text-red-500 opacity-80' : 'text-slate-400'">
+                {{ 'DASHBOARD.METRIC_LOW_STOCK_DESC' | translate:{ count: data()!.lowStockCount } }}
+            </p>
         </div>
     </a>
 
-    <!-- Total Movements -->
-    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex items-start justify-between">
-        <div>
-            <p class="text-sm font-medium text-slate-500 mb-1">{{ 'DASHBOARD.TOTAL_MOVEMENTS' | translate }}</p>
-            <p class="text-3xl font-bold text-slate-800">
-                {{ data()!.totalMovements }}
-            </p>
+</div>
+
+<!-- Chart Placeholder -->
+<div class="bg-white border border-slate-200 rounded-2xl p-6 mb-8 shadow-sm">
+    <div class="mb-4">
+        <h3 class="font-bold text-slate-800 text-base mb-1">{{ 'DASHBOARD.CHART_TITLE' | translate }}</h3>
+        <p class="text-sm font-medium text-slate-500">{{ 'DASHBOARD.CHART_TOTAL' | translate }} <span
+                class="font-bold text-slate-800">{{ (data()!.salesToday ?? 0) |
+                currency:currency():'symbol-narrow':'1.0-0':locale }}</span></p>
+    </div>
+
+    <div class="relative h-[200px] w-full flex flex-col justify-between pt-2">
+        <div class="border-b border-slate-100 border-dashed w-full h-0 flex items-center"><span
+                class="absolute -left-0 text-[11px] text-slate-400 bg-white pr-3 font-medium">$4</span></div>
+        <div class="border-b border-slate-100 border-dashed w-full h-0 flex items-center"><span
+                class="absolute -left-0 text-[11px] text-slate-400 bg-white pr-3 font-medium">$3</span></div>
+        <div class="border-b border-slate-100 border-dashed w-full h-0 flex items-center"><span
+                class="absolute -left-0 text-[11px] text-slate-400 bg-white pr-3 font-medium">$2</span></div>
+        <div class="border-b border-slate-100 border-dashed w-full h-0 flex items-center"><span
+                class="absolute -left-0 text-[11px] text-slate-400 bg-white pr-3 font-medium">$1</span></div>
+        <div class="border-b border-slate-200 w-full h-0 flex items-center"><span
+                class="absolute -left-0 text-[11px] text-slate-400 bg-white pr-3 font-medium">$0</span></div>
+
+        <div class="absolute bottom-0 w-full flex justify-between px-10 translate-y-7">
+            <span class="text-[11px] text-slate-400 font-medium">Lun</span>
+            <span class="text-[11px] text-slate-400 font-medium">Mar</span>
+            <span class="text-[11px] text-slate-400 font-medium">Mié</span>
+            <span class="text-[11px] text-slate-400 font-medium">Jue</span>
+            <span class="text-[11px] text-slate-400 font-medium">Vie</span>
+            <span class="text-[11px] text-slate-400 font-medium">Sáb</span>
+            <span class="text-[11px] text-slate-400 font-medium">Dom</span>
         </div>
-        <div class="p-3 bg-blue-50 rounded-xl text-blue-600">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
-            </svg>
+    </div>
+    <div class="h-8"></div>
+</div>
+
+<!-- Bottom Grids -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+    <!-- Productos más vendidos -->
+    <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm flex flex-col">
+        <h3 class="font-bold text-slate-800 text-sm mb-6">{{ 'DASHBOARD.TOP_PRODUCTS_TITLE' | translate }}</h3>
+
+        @if((data()!.topProducts?.length ?? 0) === 0) {
+        <div class="flex-1 flex items-center justify-center min-h-[120px]">
+            <p class="text-sm text-slate-400 font-medium">{{ 'DASHBOARD.NO_DATA_SALES_YET' | translate }}</p>
         </div>
+        } @else {
+        <div class="flex flex-col gap-4">
+            @for(product of data()!.topProducts || []; track product.id) {
+            <div class="flex items-center justify-between border-b border-slate-50 pb-3 last:border-0 last:pb-0">
+                <span class="text-sm font-semibold text-slate-700 truncate pr-4">{{ product.name }}</span>
+                <span
+                    class="text-xs font-bold text-slate-500 bg-slate-50 border border-slate-100 px-2 py-1 rounded-md">{{
+                    product.totalSold }} unid.</span>
+            </div>
+            }
+        </div>
+        }
+    </div>
+
+    <!-- Últimas ventas -->
+    <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm flex flex-col">
+        <div class="flex items-center justify-between mb-6">
+            <h3 class="font-bold text-slate-800 text-sm">{{ 'DASHBOARD.LATEST_SALES_TITLE' | translate }}</h3>
+            <a routerLink="/sales" class="text-xs font-semibold text-[#6f56e5] hover:underline">{{ 'DASHBOARD.SEE_ALL' |
+                translate }}</a>
+        </div>
+
+        @if((data()!.recentSales?.length ?? 0) === 0) {
+        <div class="flex-1 flex items-center justify-center min-h-[120px]">
+            <p class="text-sm text-slate-400 font-medium">{{ 'DASHBOARD.NO_SALES_REGISTERED' | translate }}</p>
+        </div>
+        } @else {
+        <div class="flex flex-col gap-4">
+            @for(sale of data()!.recentSales || []; track sale.id) {
+            <div class="flex items-center justify-between border-b border-slate-50 pb-3 last:border-0 last:pb-0">
+                <div class="flex flex-col">
+                    <span class="text-sm font-semibold text-slate-700">{{ sale.client?.name || 'Consumidor Final'
+                        }}</span>
+                    <span class="text-[11px] text-slate-400 mt-0.5">{{ sale.createdAt | date:'shortTime' }}</span>
+                </div>
+                <span class="text-sm font-bold text-slate-800">{{ sale.totalAmount |
+                    currency:currency():'symbol-narrow':'1.0-0':locale }}</span>
+            </div>
+            }
+        </div>
+        }
+    </div>
+
+    <!-- Stock bajo -->
+    <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm flex flex-col">
+        <div class="flex items-center justify-between mb-6">
+            <h3 class="font-bold text-slate-800 text-sm">{{ 'DASHBOARD.LOW_STOCK_LIST_TITLE' | translate }}</h3>
+            <a routerLink="/products" [queryParams]="{ lowStock: 'true' }"
+                class="text-xs font-semibold text-[#6f56e5] hover:underline">{{ 'DASHBOARD.MANAGE' | translate }}</a>
+        </div>
+
+        @if((data()!.lowStockProducts?.length ?? 0) === 0) {
+        <div class="flex-1 flex items-center justify-center min-h-[120px]">
+            <p class="text-sm text-slate-400 font-medium">No hay productos con stock bajo 🎉</p>
+        </div>
+        } @else {
+        <div class="flex flex-col gap-4">
+            @for(product of data()!.lowStockProducts || []; track product.id) {
+            <div class="flex items-center justify-between border-b border-slate-50 pb-3 last:border-0 last:pb-0">
+                <div class="flex flex-col">
+                    <span class="text-sm font-semibold text-slate-700 truncate max-w-[150px]">{{ product.name }}</span>
+                    <span class="text-[11px] text-slate-400 mt-0.5">Mínimo sugerido: {{ product.stockMin }}</span>
+                </div>
+                <span
+                    class="text-xs font-bold text-amber-700 bg-amber-50 border border-amber-100 px-2 py-1 rounded-md">{{
+                    'DASHBOARD.UNITS' | translate:{ count: product.stock } }}</span>
+            </div>
+            }
+        </div>
+        }
     </div>
 
 </div>
+
 }

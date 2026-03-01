@@ -1,15 +1,17 @@
 import { Component, inject, signal, computed } from '@angular/core';
+import { CommonModule, DatePipe } from '@angular/common';
 import { DashboardService, DashboardData } from '../../services/dashboard.service';
-import { CurrencyPipe } from '@angular/common';
 import { WorkspaceContextService } from '../../../../core/services/workspace-context.service';
 
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { LucideAngularModule } from 'lucide-angular';
+import { Badge } from '../../../../shared/components/badge/badge';
 
 @Component({
   standalone: true,
   selector: 'app-dashboard',
-  imports: [CurrencyPipe, RouterLink, TranslateModule],
+  imports: [CommonModule, RouterLink, TranslateModule, LucideAngularModule, DatePipe],
   templateUrl: './dashboard.html',
 })
 export class Dashboard {
@@ -20,6 +22,13 @@ export class Dashboard {
 
   data = signal<DashboardData | null>(null);
   loading = signal(true);
+  today = new Date();
+
+  readonly alerts = computed(() => this.data()?.alerts ?? {
+    lowStock: 0,
+    noPrice: 0,
+    noSales30Days: 0
+  });
 
   ngOnInit() {
     this.dashboardService.getDashboard().subscribe({

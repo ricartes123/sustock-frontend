@@ -1,65 +1,80 @@
-<header class="h-16 bg-white border-b border-slate-100 flex items-center justify-between px-8">
+<header class="h-20 bg-white border-b border-slate-100 flex items-center justify-between px-8">
 
-    <div class="flex items-center gap-2 text-slate-800 font-semibold text-lg">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-            class="text-slate-400">
-            <rect x="3" y="3" width="7" height="7"></rect>
-            <rect x="14" y="3" width="7" height="7"></rect>
-            <rect x="14" y="14" width="7" height="7"></rect>
-            <rect x="3" y="14" width="7" height="7"></rect>
-        </svg>
-        {{ pageTitle() | translate }}
+    <div class="flex items-center gap-2 text-slate-800 font-bold text-xl">
+        {{ greeting() }}
     </div>
 
-    <div class="flex items-center gap-6">
+    <div class="flex items-center gap-4">
 
-        <!-- Global Context -->
-        <div
-            class="hidden md:flex items-center gap-4 text-xs font-medium text-slate-500 border-r border-slate-100 pr-6">
-            <div class="flex items-center gap-1" title="Currency">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="12" y1="1" x2="12" y2="23"></line>
-                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-                </svg>
-                <span>{{ currency() }}</span>
-            </div>
-            <button (click)="toggleLanguage()"
-                class="flex items-center gap-1 hover:text-slate-800 transition-colors cursor-pointer"
-                [title]="'SETTINGS.LANGUAGE' | translate">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <line x1="2" y1="12" x2="22" y2="12"></line>
-                    <path
-                        d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
-                    </path>
-                </svg>
-                <span class="uppercase font-bold text-slate-800">{{ languageService.currentLanguage }}</span>
+        <button class="p-2 rounded-full text-slate-400 hover:text-yellow-500 hover:bg-yellow-50 transition-colors"
+            title="Cambiar tema">
+            <lucide-icon name="sun" [size]="20" [strokeWidth]="2"></lucide-icon>
+        </button>
+
+        <div class="relative flex items-center gap-3">
+
+            <!-- Trigger -->
+            <button (click)="toggleDropdown()"
+                class="flex items-center gap-3 p-1.5 rounded-full hover:bg-purple-50 hover:ring-2 hover:ring-purple-300 hover:ring-offset-2 transition-all cursor-pointer focus:outline-none mb-0">
+
+                <div
+                    class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-700 font-bold flex-shrink-0 uppercase">
+                    {{ user()?.firstName?.charAt(0) || 'U' }}{{ user()?.lastName?.charAt(0) || '' }}
+                </div>
+
+                <div class="flex flex-col text-left hidden sm:flex pr-2">
+                    <span class="text-sm font-bold text-slate-800">{{ user()?.firstName || 'User' }} {{ user()?.lastName
+                        || '' }}</span>
+                    <span class="text-xs text-slate-400 font-medium">{{ user()?.email || 'admin@sustock.com' }}</span>
+                </div>
+
+                <lucide-icon name="chevron-down" [size]="25" [strokeWidth]="2.5"
+                    class="text-slate-400 pr-2 transition-transform" [class.rotate-180]="showDropdown()"></lucide-icon>
+
             </button>
+
+            <!-- Dropdown Menu -->
+            @if (showDropdown()) {
+            <div
+                class="absolute right-0 top-full mt-2 w-56 bg-white rounded-xl shadow-lg border border-slate-100 overflow-hidden z-50 py-2">
+
+                <a routerLink="/settings" (click)="showDropdown.set(false)"
+                    class="w-full flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-purple-700 transition-colors">
+                    <lucide-icon name="settings" [size]="18" [strokeWidth]="2"></lucide-icon>
+                    Configurar cuenta
+                </a>
+
+                <div class="h-px w-full bg-slate-100 my-1"></div>
+
+                <button (click)="triggerLogout(); showDropdown.set(false)"
+                    class="w-full flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-red-600 hover:bg-red-50 hover:text-red-700 transition-colors text-left">
+                    <lucide-icon name="log-out" [size]="18" [strokeWidth]="2"></lucide-icon>
+                    Cerrar sesión
+                </button>
+
+            </div>
+            }
+
         </div>
-
-
-
-        <button class="text-slate-400 hover:text-slate-600 transition relative">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-            </svg>
-            <span class="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full border border-white"></span>
-        </button>
-
-        <button class="text-slate-400 hover:text-slate-600 transition">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-            </svg>
-        </button>
-
-
 
     </div>
 
 </header>
+
+@if (showLogoutModal()) {
+<app-modal [isOpen]="true" title="Cerrar sesión" (close)="cancelLogout()">
+    <div class="p-6 text-slate-600">
+        ¿Seguro que querés cerrar sesión?
+    </div>
+    <ng-container modal-footer>
+        <div class="flex justify-end gap-3 w-full">
+            <app-button variant="secondary" (click)="cancelLogout()">
+                Cancelar
+            </app-button>
+            <app-button variant="danger" (click)="confirmLogout()">
+                Cerrar sesión
+            </app-button>
+        </div>
+    </ng-container>
+</app-modal>
+}

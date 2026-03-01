@@ -22,9 +22,7 @@ import {
 })
 
 export class Sidebar {
-  private auth = inject(AuthService);
   languageService = inject(LanguageService);
-  user = this.auth.user;
 
   isCollapsed = false;
   isTrackingOpen = false;
@@ -39,10 +37,6 @@ export class Sidebar {
 
   toggleTracking() {
     this.isTrackingOpen = !this.isTrackingOpen;
-  }
-
-  logout() {
-    this.auth.logout();
   }
 
   toggleLanguage() {

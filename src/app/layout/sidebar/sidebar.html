@@ -29,18 +29,7 @@
     <!-- Scrollable Nav -->
     <div class="flex-1 overflow-x-hidden overflow-y-auto px-4 pb-4 styled-scrollbar flex flex-col gap-6 mt-2">
 
-        <!-- MARKETING SECTION -->
         <nav class="flex flex-col gap-1">
-            @if (!isCollapsed) {
-            <h2 class="px-3 mb-2 text-[11px] font-bold text-slate-400 tracking-widest">
-                MARKETING
-            </h2>
-            }
-            @if (isCollapsed) {
-            <div class="w-full flex justify-center mb-2">
-                <div class="w-6 border-b border-slate-200"></div>
-            </div>
-            }
 
             <!-- Dashboard -->
             <a routerLink="/" routerLinkActive="bg-purple-50 text-purple-700 font-medium"
@@ -94,52 +83,7 @@
             </a>
         </nav>
 
-        <!-- PAYMENTS SECTION -->
-        <nav class="flex flex-col gap-1">
-            @if (!isCollapsed) {
-            <h2 class="px-3 mb-2 text-[11px] font-bold text-slate-400 tracking-widest">
-                PAYMENTS
-            </h2>
-            }
-            @if (isCollapsed) {
-            <div class="w-full flex justify-center mb-2 mt-4">
-                <div class="w-6 border-b border-slate-200"></div>
-            </div>
-            }
-
-            <!-- Ledger (using Movements earlier route /movements) -->
-            <a routerLink="/movements" routerLinkActive="bg-purple-50 text-purple-700 font-medium"
-                class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-500 hover:bg-slate-50 hover:text-slate-900 transition-colors duration-200"
-                [title]="isCollapsed ? 'Ledger' : ''">
-                <lucide-icon name="wallet" class="flex-shrink-0" [size]="20" [strokeWidth]="2"></lucide-icon>
-                @if (!isCollapsed) {
-                <span class="whitespace-nowrap">{{ 'SIDEBAR.MOVEMENTS' | translate }}</span>
-                }
-            </a>
-
-            <!-- Taxes -->
-            <a routerLink="/taxes" routerLinkActive="bg-purple-50 text-purple-700 font-medium"
-                class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-500 hover:bg-slate-50 hover:text-slate-900 transition-colors duration-200"
-                [title]="isCollapsed ? 'Taxes' : ''">
-                <lucide-icon name="receipt" class="flex-shrink-0" [size]="20" [strokeWidth]="2"></lucide-icon>
-                @if (!isCollapsed) {
-                <span class="whitespace-nowrap">Taxes</span>
-                }
-            </a>
-        </nav>
-
-        <!-- SYSTEM SECTION -->
-        <nav class="flex flex-col gap-1">
-            @if (!isCollapsed) {
-            <h2 class="px-3 mb-2 text-[11px] font-bold text-slate-400 tracking-widest mt-2">
-                SYSTEM
-            </h2>
-            }
-            @if (isCollapsed) {
-            <div class="w-full flex justify-center mb-2 mt-4">
-                <div class="w-6 border-b border-slate-200"></div>
-            </div>
-            }
+        <nav class="flex flex-col gap-1 mt-auto border-t border-slate-200 pt-4">
 
             <!-- Settings -->
             <a routerLink="/settings" routerLinkActive="bg-purple-50 text-purple-700 font-medium"
@@ -151,48 +95,6 @@
                 }
             </a>
 
-            <!-- Dark mode toggle -->
-            <div class="flex items-center px-3 py-2.5 rounded-xl text-slate-500 w-full"
-                [ngClass]="isCollapsed ? 'justify-center' : 'justify-between'" [title]="isCollapsed ? 'Dark mode' : ''">
-                <div class="flex items-center gap-3">
-                    <lucide-icon name="moon" class="flex-shrink-0 cursor-pointer hover:text-slate-900 transition-colors"
-                        [size]="20" [strokeWidth]="2"></lucide-icon>
-                    @if (!isCollapsed) {
-                    <span class="whitespace-nowrap">Dark mode</span>
-                    }
-                </div>
-                @if (!isCollapsed) {
-                <div class="w-8 h-4 bg-slate-200 rounded-full relative cursor-pointer flex items-center">
-                    <div class="w-3 h-3 bg-white rounded-full absolute left-0.5 shadow-sm"></div>
-                </div>
-                }
-            </div>
         </nav>
     </div>
-    <!-- Bottom Profile Area -->
-    <div class="border-t border-slate-100 p-4">
-        <div class="flex items-center gap-3 mb-4" [ngClass]="isCollapsed ? 'justify-center' : ''">
-            <div
-                class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-700 font-bold flex-shrink-0 uppercase">
-                {{ user()?.firstName?.charAt(0) || 'U' }}{{ user()?.lastName?.charAt(0) || '' }}
-            </div>
-            @if (!isCollapsed) {
-            <div class="flex flex-col overflow-hidden">
-                <span class="text-sm font-bold text-slate-800 truncate">{{ user()?.firstName || 'User' }} {{
-                    user()?.lastName || '' }}</span>
-                <span class="text-xs text-slate-400 truncate">{{ user()?.email || 'admin@sustock.com' }}</span>
-            </div>
-            }
-        </div>
-
-        <button (click)="logout()"
-            class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-500 hover:bg-red-50 hover:text-red-900 transition-colors cursor-pointer duration-200 w-full"
-            [ngClass]="isCollapsed ? 'justify-center' : ''" [title]="isCollapsed ? 'Log out' : ''">
-            <lucide-icon name="log-out" class="flex-shrink-0" [size]="20" [strokeWidth]="2"></lucide-icon>
-            @if (!isCollapsed) {
-            <span class="whitespace-nowrap">{{ 'SIDEBAR.LOGOUT' | translate }}</span>
-            }
-        </button>
-    </div>
-
 </aside>

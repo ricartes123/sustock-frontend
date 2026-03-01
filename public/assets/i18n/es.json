@@ -10,7 +10,9 @@
         "ACTIONS": "Acciones",
         "CLEAR_FILTERS": "Limpiar filtros",
         "ARCHIVE": "Archivar",
-        "RESTORE": "Restaurar"
+        "RESTORE": "Restaurar",
+        "PREVIOUS": "Anterior",
+        "NEXT": "Siguiente"
     },
     "SIDEBAR": {
         "DASHBOARD": "Panel",
@@ -23,10 +25,32 @@
         "LOGOUT": "Cerrar sesión"
     },
     "DASHBOARD": {
-        "TOTAL_PRODUCTS": "Total de productos",
-        "TOTAL_STOCK_VALUE": "Valor total del stock",
-        "LOW_STOCK": "Productos con bajo stock",
-        "TOTAL_MOVEMENTS": "Total de movimientos"
+        "OVERVIEW_TITLE": "Panel principal",
+        "NEW_SALE_CTA": "Nueva venta",
+        "NEW_SALE_DESC": "Registrar una venta",
+        "NEW_PRODUCT_CTA": "Nuevo producto",
+        "NEW_PRODUCT_DESC": "Agregar al catálogo",
+        "HISTORY_CTA": "Ver historial",
+        "HISTORY_DESC": "Todas las ventas",
+        "METRIC_SALES_TODAY": "VENTAS HOY",
+        "METRIC_SALES_COUNT": "{{count}} ventas",
+        "METRIC_TOTAL_PRODUCTS": "CANTIDAD PRODUCTOS",
+        "METRIC_TOTAL_PRODUCTS_DESC": "Catálogo activo",
+        "METRIC_STOCK_VALUE": "DINERO INVERTIDO",
+        "METRIC_STOCK_VALUE_DESC": "Valor estimado",
+        "METRIC_LOW_STOCK": "STOCK BAJO",
+        "METRIC_LOW_STOCK_DESC": "{{count}} productos",
+        "CHART_TITLE": "Ingresos últimos 7 días",
+        "CHART_TOTAL": "Total:",
+        "TOP_PRODUCTS_TITLE": "Productos más vendidos",
+        "NO_DATA_SALES_YET": "Sin datos de ventas aún.",
+        "LATEST_SALES_TITLE": "Últimas ventas",
+        "SEE_ALL": "Ver todo",
+        "NO_SALES_REGISTERED": "Sin ventas registradas aún.",
+        "LOW_STOCK_LIST_TITLE": "Stock bajo",
+        "MANAGE": "Gestionar",
+        "UNITS": "{{count}} unid.",
+        "ALL_GOOD": "¡Todo está bajo control!"
     },
     "PRODUCTS": {
         "TITLE": "Productos",

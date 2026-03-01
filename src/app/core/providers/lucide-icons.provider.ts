@@ -21,7 +21,11 @@ import {
     ArchiveRestore,
     Ban,
     X,
-    PackageOpen
+    PackageOpen,
+    ChevronDown,
+    Sun,
+    ShoppingBag,
+    BarChart2,
 } from 'lucide-angular';
 
 export function provideLucideIcons(): EnvironmentProviders {
@@ -47,7 +51,11 @@ export function provideLucideIcons(): EnvironmentProviders {
             ArchiveRestore,
             Ban,
             X,
-            PackageOpen
+            PackageOpen,
+            ChevronDown,
+            Sun,
+            ShoppingBag,
+            BarChart2,
         })
     );
 }

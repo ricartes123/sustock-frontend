@@ -10,7 +10,9 @@
         "ACTIONS": "Actions",
         "CLEAR_FILTERS": "Clear Filters",
         "ARCHIVE": "Archive",
-        "RESTORE": "Restore"
+        "RESTORE": "Restore",
+        "PREVIOUS": "Previous",
+        "NEXT": "Next"
     },
     "SIDEBAR": {
         "DASHBOARD": "Dashboard",
@@ -23,10 +25,31 @@
         "LOGOUT": "Logout"
     },
     "DASHBOARD": {
-        "TOTAL_PRODUCTS": "Total Products",
-        "TOTAL_STOCK_VALUE": "Total Stock Value",
-        "LOW_STOCK": "Products with Low Stock",
-        "TOTAL_MOVEMENTS": "Total Movements"
+        "OVERVIEW_TITLE": "Main Dashboard",
+        "NEW_SALE_CTA": "New Sale",
+        "NEW_SALE_DESC": "Register a sale",
+        "NEW_PRODUCT_CTA": "New Product",
+        "NEW_PRODUCT_DESC": "Add to catalog",
+        "HISTORY_CTA": "View History",
+        "HISTORY_DESC": "All sales",
+        "METRIC_SALES_TODAY": "SALES TODAY",
+        "METRIC_SALES_COUNT": "{{count}} sales",
+        "METRIC_TOTAL_PRODUCTS": "TOTAL PRODUCTS",
+        "METRIC_TOTAL_PRODUCTS_DESC": "Active catalog",
+        "METRIC_STOCK_VALUE": "INVESTED MONEY",
+        "METRIC_STOCK_VALUE_DESC": "Estimated value",
+        "METRIC_LOW_STOCK": "LOW STOCK",
+        "METRIC_LOW_STOCK_DESC": "{{count}} products",
+        "CHART_TITLE": "Revenue last 7 days",
+        "CHART_TOTAL": "Total:",
+        "TOP_PRODUCTS_TITLE": "Top Selling Products",
+        "NO_DATA_SALES_YET": "No sales data yet.",
+        "LATEST_SALES_TITLE": "Latest Sales",
+        "SEE_ALL": "See all",
+        "NO_SALES_REGISTERED": "No registered sales yet.",
+        "LOW_STOCK_LIST_TITLE": "Low Stock",
+        "MANAGE": "Manage",
+        "UNITS": "{{count}} units"
     },
     "PRODUCTS": {
         "TITLE": "Products",
