@@ -2,3 +2,16 @@
 
 @import "tailwindcss";
 @import '@ngxpert/hot-toast/styles.css';
+
+@font-face {
+    font-family: 'CalSans';
+    src: url('/fonts/CalSans-Regular.woff2') format('woff2'),
+        url('/fonts/CalSans-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+body {
+    font-family: 'CalSans', sans-serif;
+}
