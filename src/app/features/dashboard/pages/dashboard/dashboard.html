@@ -18,16 +18,16 @@
 
     <a routerLink="/sales/new"
         class="bg-[#6f56e5] hover:bg-[#5b45ce] transition-colors rounded-2xl p-5 flex flex-col items-center justify-center text-white cursor-pointer shadow-md group border border-[#5b45ce]">
-        <lucide-icon name="shopping-bag" [size]="24" strokeWidth="2.5"
-            class="mb-2 opacity-90 group-hover:scale-110 transition-transform text-white/90"></lucide-icon>
+        <lucide-icon name="shopping-bag" [size]="30" strokeWidth="2.5"
+            class="mb-1 opacity-90 group-hover:scale-110 transition-transform text-white/90"></lucide-icon>
         <span class="font-bold text-sm">{{ 'DASHBOARD.NEW_SALE_CTA' | translate }}</span>
         <span class="text-[11px] opacity-75 font-medium mt-0.5">{{ 'DASHBOARD.NEW_SALE_DESC' | translate }}</span>
     </a>
 
     <a routerLink="/products" [queryParams]="{ action: 'new' }"
         class="bg-white hover:bg-slate-50 border border-slate-200 transition-colors rounded-2xl p-5 flex flex-col items-center justify-center text-slate-700 cursor-pointer shadow-sm group">
-        <lucide-icon name="plus" [size]="24" strokeWidth="2.5"
-            class="mb-2 text-slate-400 group-hover:text-slate-600 group-hover:scale-110 transition-transform"></lucide-icon>
+        <lucide-icon name="plus" [size]="30" strokeWidth="2.5"
+            class="mb-1 text-slate-400 group-hover:text-slate-600 group-hover:scale-110 transition-transform"></lucide-icon>
         <span class="font-bold text-sm text-slate-800">{{ 'DASHBOARD.NEW_PRODUCT_CTA' | translate }}</span>
         <span class="text-[11px] text-slate-400 font-medium mt-0.5">{{ 'DASHBOARD.NEW_PRODUCT_DESC' | translate
             }}</span>
@@ -35,8 +35,8 @@
 
     <a routerLink="/sales"
         class="bg-white hover:bg-slate-50 border border-slate-200 transition-colors rounded-2xl p-5 flex flex-col items-center justify-center text-slate-700 cursor-pointer shadow-sm group">
-        <lucide-icon name="bar-chart-2" [size]="24" strokeWidth="2.5"
-            class="mb-2 text-slate-400 group-hover:text-slate-600 group-hover:scale-110 transition-transform"></lucide-icon>
+        <lucide-icon name="bar-chart-2" [size]="30" strokeWidth="2.5"
+            class="mb-1 text-slate-400 group-hover:text-slate-600 group-hover:scale-110 transition-transform"></lucide-icon>
         <span class="font-bold text-sm text-slate-800">{{ 'DASHBOARD.HISTORY_CTA' | translate }}</span>
         <span class="text-[11px] text-slate-400 font-medium mt-0.5">{{ 'DASHBOARD.HISTORY_DESC' | translate }}</span>
     </a>
