@@ -26,6 +26,10 @@ import {
     Sun,
     ShoppingBag,
     BarChart2,
+    User,
+    TrendingUp,
+    DollarSign,
+    AlertTriangle,
 } from 'lucide-angular';
 
 export function provideLucideIcons(): EnvironmentProviders {
@@ -56,6 +60,10 @@ export function provideLucideIcons(): EnvironmentProviders {
             Sun,
             ShoppingBag,
             BarChart2,
+            User,
+            TrendingUp,
+            DollarSign,
+            AlertTriangle,
         })
     );
 }

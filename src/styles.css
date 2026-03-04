@@ -16,22 +16,17 @@ body {
     font-family: 'CalSans', sans-serif;
 }
 
-/* You can add global styles to this file, and also import other style files */
-
-@import "tailwindcss";
-@import '@ngxpert/hot-toast/styles.css';
-
-@font-face {
-    font-family: 'CalSans';
-    src: url('/fonts/CalSans-Regular.woff2') format('woff2'),
-        url('/fonts/CalSans-Regular.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
+/* Hide scrollbar for Chrome, Safari and Opera */
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
 }
 
-body {
-    font-family: 'CalSans', sans-serif;
+/* Hide scrollbar for IE, Edge and Firefox */
+.hide-scrollbar {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
 }
 
 @theme {
