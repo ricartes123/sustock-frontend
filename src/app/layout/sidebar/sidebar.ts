@@ -28,7 +28,7 @@ export class Sidebar {
   isTrackingOpen = false;
 
   @HostBinding('class') get hostClasses() {
-    return `block shrink-0 h-full transition-all duration-300 ${this.isCollapsed ? 'w-20' : 'w-64'}`;
+    return `hidden md:flex flex-col shrink-0 h-full transition-all duration-300 ${this.isCollapsed ? 'w-20' : 'w-64'}`;
   }
 
   toggleSidebar() {

@@ -241,13 +241,11 @@
                         class="w-10 h-10 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
                         <lucide-icon name="trending-up" [size]="18"></lucide-icon>
                     </div>
-                    <div class="flex flex-col overflow-hidden">
-                        <span class="text-sm font-bold text-slate-800 truncate">{{ product.name }}</span>
-                        <span
-                            class="text-[11px] font-semibold text-slate-500 bg-slate-50 px-2 py-0.5 rounded-full w-fit mt-1">{{
-                            product.totalSold }} unid.</span>
-                    </div>
+                    <span class="text-sm font-bold text-slate-800 truncate">{{ product.name }}</span>
                 </div>
+                <span
+                    class="text-[11px] font-semibold text-slate-500 bg-slate-50 border border-slate-100 px-2.5 py-1 rounded-full shrink-0 ml-3">{{
+                    product.totalSold }} unid.</span>
             </div>
             }
         </div>
@@ -315,12 +313,13 @@
                     </div>
                     <div class="flex flex-col overflow-hidden">
                         <span class="text-sm font-bold text-slate-800 truncate">{{ product.name }}</span>
-                        <span
-                            class="text-[11px] font-semibold text-amber-600 bg-amber-50 px-2 py-0.5 rounded-full w-fit mt-1">
-                            {{ 'DASHBOARD.UNITS' | translate:{ count: product.stock } }} (Mín: {{ product.stockMin }})
-                        </span>
+                        <span class="text-[11px] font-medium text-slate-400 mt-0.5">Mín: {{ product.stockMin }}</span>
                     </div>
                 </div>
+                <span
+                    class="text-[11px] font-bold text-amber-600 bg-amber-50 border border-amber-100 px-2.5 py-1 rounded-full shrink-0 ml-3">
+                    {{ product.stock }} unid.
+                </span>
             </div>
             }
         </div>
