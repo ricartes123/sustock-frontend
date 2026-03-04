@@ -5,7 +5,7 @@
 
     <div class="flex items-center gap-3">
         <a routerLink="/sales/new"
-            class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors shadow-sm flex items-center gap-2">
+            class="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors shadow-sm flex items-center gap-2">
             <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <line x1="12" y1="5" x2="12" y2="19"></line>
@@ -18,7 +18,7 @@
 
 @if (loading()) {
 <div class="flex justify-center items-center py-12">
-    <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600"></div>
+    <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
     <span class="ml-3 text-slate-500">Cargando ventas...</span>
 </div>
 }
@@ -27,7 +27,7 @@
 <app-empty-state icon="receipt" title="Sin ventas"
     description="Aún no se han registrado ventas en este espacio de trabajo. Creá tu primera venta para comenzar.">
     <a routerLink="/sales/new"
-        class="bg-purple-600 hover:bg-purple-700 text-white px-5 py-2.5 rounded-lg text-sm font-medium transition-colors shadow-sm flex items-center gap-2 mx-auto">
+        class="bg-primary-600 hover:bg-primary-700 text-white px-5 py-2.5 rounded-lg text-sm font-medium transition-colors shadow-sm flex items-center gap-2 mx-auto">
         <lucide-icon name="plus" [size]="16" [strokeWidth]="2"></lucide-icon>
         Registrar Venta
     </a>
@@ -62,7 +62,7 @@
                 <td class="p-4">
                     <div class="flex items-center gap-2">
                         <div
-                            class="w-7 h-7 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center text-xs font-bold uppercase">
+                            class="w-7 h-7 rounded-full bg-primary-100 text-primary-700 flex items-center justify-center text-xs font-bold uppercase">
                             {{ (sale.user?.firstName?.[0] || 'U') + (sale.user?.lastName?.[0] || '') }}
                         </div>
                         <span class="text-sm font-medium text-slate-700">{{ sale.user?.firstName }} {{
@@ -173,7 +173,7 @@
                 <tfoot class="bg-slate-50 border-t border-slate-200">
                     <tr>
                         <td colspan="3" class="py-4 px-4 text-right font-semibold text-slate-600">Total Venta</td>
-                        <td class="py-4 px-4 text-right font-bold text-lg text-purple-700">${{ detail.totalAmount |
+                        <td class="py-4 px-4 text-right font-bold text-lg text-primary-700">${{ detail.totalAmount |
                             number:'1.2-2' }}</td>
                     </tr>
                 </tfoot>

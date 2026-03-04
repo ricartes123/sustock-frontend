@@ -17,7 +17,7 @@
                 <div class="relative" #searchContainer>
                     <div class="relative">
                         <input type="text"
-                            class="form-input w-full pl-11 py-3 text-sm md:text-base border-slate-200 focus:ring-purple-500 focus:border-purple-500 rounded-xl bg-slate-50 focus:bg-white transition-colors shadow-sm"
+                            class="form-input w-full pl-11 py-3 text-sm md:text-base border-slate-200 focus:ring-primary-500 focus:border-primary-500 rounded-xl bg-slate-50 focus:bg-white transition-colors shadow-sm"
                             placeholder="Escribe el nombre, SKU o código de barras..." [ngModel]="searchQuery()"
                             (ngModelChange)="onSearchChange($event)"
                             (focus)="searchQuery().length >= 2 ? showDropdown.set(true) : null" />
@@ -47,7 +47,7 @@
 
                         @if (isSearching()) {
                         <div class="p-6 flex flex-col items-center justify-center text-sm text-slate-500">
-                            <svg class="animate-spin h-6 w-6 text-purple-600 mb-2" xmlns="http://www.w3.org/2000/svg"
+                            <svg class="animate-spin h-6 w-6 text-primary-600 mb-2" xmlns="http://www.w3.org/2000/svg"
                                 fill="none" viewBox="0 0 24 24">
                                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
                                     stroke-width="4"></circle>
@@ -79,7 +79,7 @@
                                     <div class="flex-1 min-w-0 pr-4">
                                         <div class="flex justify-between items-baseline mb-1">
                                             <h4
-                                                class="text-sm font-semibold text-slate-800 truncate group-hover:text-purple-700 transition-colors">
+                                                class="text-sm font-semibold text-slate-800 truncate group-hover:text-primary-700 transition-colors">
                                                 {{ p.name }}
                                             </h4>
                                             <span class="text-xs text-slate-500 ml-2 whitespace-nowrap">SKU: {{ p.sku ||
@@ -166,7 +166,7 @@
                                 <td class="px-5 py-4">
                                     <div class="flex items-center justify-center">
                                         <input type="number"
-                                            class="form-input w-20 text-center text-sm border-slate-300 rounded-lg focus:ring-purple-500 focus:border-purple-500 bg-white font-medium"
+                                            class="form-input w-20 text-center text-sm border-slate-300 rounded-lg focus:ring-primary-500 focus:border-primary-500 bg-white font-medium"
                                             [ngModel]="item.quantity" (ngModelChange)="updateQuantity(i, $event)"
                                             min="1" />
                                     </div>
@@ -213,7 +213,7 @@
                     </label>
                     <div class="relative">
                         <select [ngModel]="selectedClientId()" (ngModelChange)="selectedClientId.set($event)"
-                            class="form-select w-full pl-10 py-2.5 border-slate-300 rounded-lg focus:ring-purple-500 focus:border-purple-500 bg-slate-50 focus:bg-white transition-colors text-sm cursor-pointer shadow-sm appearance-none">
+                            class="form-select w-full pl-10 py-2.5 border-slate-300 rounded-lg focus:ring-primary-500 focus:border-primary-500 bg-slate-50 focus:bg-white transition-colors text-sm cursor-pointer shadow-sm appearance-none">
                             <option value="">Consumidor Final</option>
                             @for (c of clients(); track c.id) {
                             <option [value]="c.id">{{ c.name }}</option>
@@ -230,7 +230,7 @@
 
                 <div class="bg-slate-50 rounded-xl p-5 border border-slate-200 mb-6 relative overflow-hidden">
                     <div
-                        class="absolute -right-6 -top-6 w-24 h-24 bg-purple-100 rounded-full opacity-50 blur-2xl pointer-events-none">
+                        class="absolute -right-6 -top-6 w-24 h-24 bg-primary-100 rounded-full opacity-50 blur-2xl pointer-events-none">
                     </div>
 
                     <div class="relative z-10">
@@ -248,7 +248,7 @@
                             <div class="flex flex-col items-center">
                                 <span class="text-xs uppercase tracking-wider text-slate-500 font-semibold mb-1">Total
                                     a Pagar</span>
-                                <span class="text-3xl font-black text-purple-600 tracking-tight">
+                                <span class="text-3xl font-black text-primary-600 tracking-tight">
                                     ${{ totalAmount() | number:'1.2-2' }}
                                 </span>
                             </div>

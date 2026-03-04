@@ -5,11 +5,11 @@
     <div class="px-6 py-6 flex items-center justify-between"
         [ngClass]="isCollapsed ? 'justify-center flex-col gap-4' : ''">
         <div class="flex items-center gap-2 overflow-hidden whitespace-nowrap">
-            <lucide-icon name="package-2" class="text-purple-600 flex-shrink-0" [size]="28"
+            <lucide-icon name="package-2" class="text-primary-600 flex-shrink-0" [size]="28"
                 [strokeWidth]="2"></lucide-icon>
             @if (!isCollapsed) {
             <h1 class="text-2xl font-bold text-slate-800">
-                <span class="text-[#AD006B]">Su</span><span class="text-[#007ED9]">Stock</span>
+                <span class="text-primary-600">Su</span><span class="text-secondary-600">Stock</span>
             </h1>
             }
         </div>
@@ -32,7 +32,7 @@
         <nav class="flex flex-col gap-1">
 
             <!-- Dashboard -->
-            <a routerLink="/" routerLinkActive="bg-purple-50 text-purple-700 font-medium"
+            <a routerLink="/" routerLinkActive="bg-primary-50 text-primary-700 font-medium"
                 [routerLinkActiveOptions]="{ exact: true }"
                 class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-500 hover:bg-slate-50 hover:text-slate-900 transition-colors duration-200"
                 [title]="isCollapsed ? 'Dashboard' : ''">
@@ -43,7 +43,7 @@
             </a>
 
             <!-- Products -->
-            <a routerLink="/products" routerLinkActive="bg-purple-50 text-purple-700 font-medium"
+            <a routerLink="/products" routerLinkActive="bg-primary-50 text-primary-700 font-medium"
                 class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-500 hover:bg-slate-50 hover:text-slate-900 transition-colors duration-200"
                 [title]="isCollapsed ? 'Orders' : ''">
                 <lucide-icon name="box" class="w-5 h-5 flex-shrink-0"></lucide-icon>
@@ -53,7 +53,7 @@
             </a>
 
             <!-- Sales -->
-            <a routerLink="/sales" routerLinkActive="bg-purple-50 text-purple-700 font-medium"
+            <a routerLink="/sales" routerLinkActive="bg-primary-50 text-primary-700 font-medium"
                 class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-500 hover:bg-slate-50 hover:text-slate-900 transition-colors duration-200"
                 [title]="isCollapsed ? 'Sales' : ''">
                 <lucide-icon name="shopping-cart" class="flex-shrink-0" [size]="20" [strokeWidth]="2"></lucide-icon>
@@ -63,7 +63,7 @@
             </a>
 
             <!-- Movements -->
-            <a routerLink="/movements" routerLinkActive="bg-purple-50 text-purple-700 font-medium"
+            <a routerLink="/movements" routerLinkActive="bg-primary-50 text-primary-700 font-medium"
                 class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-500 hover:bg-slate-50 hover:text-slate-900 transition-colors duration-200"
                 [title]="isCollapsed ? 'Movements' : ''">
                 <lucide-icon name="arrow-right-left" class="flex-shrink-0" [size]="20" [strokeWidth]="2"></lucide-icon>
@@ -73,7 +73,7 @@
             </a>
 
             <!-- Reports -->
-            <a routerLink="/reports" routerLinkActive="bg-purple-50 text-purple-700 font-medium"
+            <a routerLink="/reports" routerLinkActive="bg-primary-50 text-primary-700 font-medium"
                 class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-500 hover:bg-slate-50 hover:text-slate-900 transition-colors duration-200"
                 [title]="isCollapsed ? 'Reports' : ''">
                 <lucide-icon name="file-text" class="flex-shrink-0" [size]="20" [strokeWidth]="2"></lucide-icon>
@@ -86,7 +86,7 @@
         <nav class="flex flex-col gap-1 mt-auto border-t border-slate-200 pt-4">
 
             <!-- Settings -->
-            <a routerLink="/settings" routerLinkActive="bg-purple-50 text-purple-700 font-medium"
+            <a routerLink="/settings" routerLinkActive="bg-primary-50 text-primary-700 font-medium"
                 class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-500 hover:bg-slate-50 hover:text-slate-900 transition-colors duration-200"
                 [title]="isCollapsed ? 'Settings' : ''">
                 <lucide-icon name="settings" class="flex-shrink-0" [size]="20" [strokeWidth]="2"></lucide-icon>

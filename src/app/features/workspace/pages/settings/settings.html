@@ -8,7 +8,7 @@
 
     <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
         <div class="p-6 border-b border-slate-100 flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-purple-50 flex items-center justify-center text-purple-600">
+            <div class="w-10 h-10 rounded-xl bg-primary-50 flex items-center justify-center text-primary-600">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="12" cy="12" r="3"></circle>
@@ -31,7 +31,7 @@
                 </p>
 
                 <select [(ngModel)]="selectedCurrency"
-                    class="w-full border border-slate-200 px-4 py-3 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all cursor-pointer bg-slate-50 hover:bg-white">
+                    class="w-full border border-slate-200 px-4 py-3 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all cursor-pointer bg-slate-50 hover:bg-white">
                     <option value="ARS">ARS ($)</option>
                     <option value="USD">USD ($)</option>
                     <option value="EUR">EUR (€)</option>
@@ -42,7 +42,7 @@
 
                 <div class="mt-8 flex justify-end">
                     <button (click)="onSaveInitiated()" [disabled]="!hasCurrencyChanged"
-                        class="bg-purple-600 text-white px-6 py-2.5 rounded-xl font-medium hover:bg-purple-700 focus:ring-4 focus:ring-purple-500/30 transition-all shadow-sm disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer flex items-center gap-2">
+                        class="bg-primary-600 text-white px-6 py-2.5 rounded-xl font-medium hover:bg-primary-700 focus:ring-4 focus:ring-primary-500/30 transition-all shadow-sm disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer flex items-center gap-2">
                         {{ 'SETTINGS.SAVE_CONFIG' | translate }}
                     </button>
                 </div>
@@ -64,7 +64,7 @@
                     {{ 'SETTINGS.MODAL.DESC_PREFIX' | translate }}
                     <span class="font-bold text-slate-700">{{ workspaceContext.activeWorkspace()?.currency }}</span> {{
                     'SETTINGS.MODAL.DESC_TO' | translate }}
-                    <span class="font-bold text-purple-700">{{ selectedCurrency }}</span>.
+                    <span class="font-bold text-primary-700">{{ selectedCurrency }}</span>.
                 </p>
             </div>
             <button (click)="showConversionModal.set(false)"
@@ -83,11 +83,11 @@
             <div class="space-y-3">
                 <!-- Option 1: None -->
                 <label
-                    class="flex items-start gap-4 p-4 border rounded-xl cursor-pointer transition-all border-slate-200 hover:border-purple-300"
-                    [ngClass]="{'border-purple-500 bg-purple-50 ring-1 ring-purple-500': conversionMode() === 'NONE'}"
+                    class="flex items-start gap-4 p-4 border rounded-xl cursor-pointer transition-all border-slate-200 hover:border-primary-300"
+                    [ngClass]="{'border-primary-500 bg-primary-50 ring-1 ring-primary-500': conversionMode() === 'NONE'}"
                     (click)="setMode('NONE')">
                     <input type="radio" name="conversion" [checked]="conversionMode() === 'NONE'"
-                        class="mt-1 text-purple-600 focus:ring-purple-500 cursor-pointer">
+                        class="mt-1 text-primary-600 focus:ring-primary-500 cursor-pointer">
                     <div>
                         <span class="block font-semibold text-slate-800 text-sm">{{ 'SETTINGS.MODAL.OPT_NONE_TITLE' |
                             translate }}</span>
@@ -98,11 +98,11 @@
 
                 <!-- Option 2: Auto / API -->
                 <label
-                    class="flex items-start gap-4 p-4 border rounded-xl cursor-pointer transition-all border-slate-200 hover:border-purple-300"
-                    [ngClass]="{'border-purple-500 bg-purple-50 ring-1 ring-purple-500': conversionMode() === 'AUTO'}"
+                    class="flex items-start gap-4 p-4 border rounded-xl cursor-pointer transition-all border-slate-200 hover:border-primary-300"
+                    [ngClass]="{'border-primary-500 bg-primary-50 ring-1 ring-primary-500': conversionMode() === 'AUTO'}"
                     (click)="setMode('AUTO')">
                     <input type="radio" name="conversion" [checked]="conversionMode() === 'AUTO'"
-                        class="mt-1 text-purple-600 focus:ring-purple-500 cursor-pointer">
+                        class="mt-1 text-primary-600 focus:ring-primary-500 cursor-pointer">
                     <div class="w-full">
                         <span class="block font-semibold text-slate-800 text-sm">{{ 'SETTINGS.MODAL.OPT_AUTO_TITLE' |
                             translate }}</span>
@@ -110,9 +110,9 @@
                             translate }}</span>
 
                         @if (conversionMode() === 'AUTO') {
-                        <div class="bg-white rounded-lg p-3 border border-purple-100 mt-2">
+                        <div class="bg-white rounded-lg p-3 border border-primary-100 mt-2">
                             @if (loading() && !apiRate()) {
-                            <span class="text-xs text-purple-600 flex items-center gap-2">
+                            <span class="text-xs text-primary-600 flex items-center gap-2">
                                 <svg class="animate-spin h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none"
                                     viewBox="0 0 24 24">
                                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
@@ -142,11 +142,11 @@
 
                 <!-- Option 3: Manual -->
                 <label
-                    class="flex items-start gap-4 p-4 border rounded-xl cursor-pointer transition-all border-slate-200 hover:border-purple-300"
-                    [ngClass]="{'border-purple-500 bg-purple-50 ring-1 ring-purple-500': conversionMode() === 'MANUAL'}"
+                    class="flex items-start gap-4 p-4 border rounded-xl cursor-pointer transition-all border-slate-200 hover:border-primary-300"
+                    [ngClass]="{'border-primary-500 bg-primary-50 ring-1 ring-primary-500': conversionMode() === 'MANUAL'}"
                     (click)="setMode('MANUAL')">
                     <input type="radio" name="conversion" [checked]="conversionMode() === 'MANUAL'"
-                        class="mt-1 text-purple-600 focus:ring-purple-500 cursor-pointer">
+                        class="mt-1 text-primary-600 focus:ring-primary-500 cursor-pointer">
                     <div class="w-full">
                         <span class="block font-semibold text-slate-800 text-sm">{{ 'SETTINGS.MODAL.OPT_MANUAL_TITLE' |
                             translate }}</span>
@@ -155,7 +155,7 @@
 
                         @if (conversionMode() === 'MANUAL') {
                         <input type="number" [(ngModel)]="manualRate" placeholder="{{ 'SETTINGS.MODAL.MANUAL_RATE_PLACEHOLDER' | translate }}"
-                            class="w-full border border-slate-200 px-3 py-2 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all mt-1 bg-white" />
+                            class="w-full border border-slate-200 px-3 py-2 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all mt-1 bg-white" />
                         }
                     </div>
                 </label>
@@ -169,7 +169,7 @@
                 {{ 'COMMON.CANCEL' | translate }}
             </button>
             <button (click)="confirmUpdate()"
-                class="bg-purple-600 text-white px-6 py-2 rounded-lg text-sm font-medium hover:bg-purple-700 focus:ring-4 focus:ring-purple-500/30 transition-all shadow-sm cursor-pointer flex items-center gap-2"
+                class="bg-primary-600 text-white px-6 py-2 rounded-lg text-sm font-medium hover:bg-primary-700 focus:ring-4 focus:ring-primary-500/30 transition-all shadow-sm cursor-pointer flex items-center gap-2"
                 [disabled]="loading() || (conversionMode() === 'AUTO' && !apiRate()) || (conversionMode() === 'MANUAL' && !manualRate())">
                 @if (loading() && apiRate()) {
                 <svg class="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">

@@ -15,3 +15,47 @@
 body {
     font-family: 'CalSans', sans-serif;
 }
+
+/* You can add global styles to this file, and also import other style files */
+
+@import "tailwindcss";
+@import '@ngxpert/hot-toast/styles.css';
+
+@font-face {
+    font-family: 'CalSans';
+    src: url('/fonts/CalSans-Regular.woff2') format('woff2'),
+        url('/fonts/CalSans-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+body {
+    font-family: 'CalSans', sans-serif;
+}
+
+@theme {
+    --color-primary-50: #faf5f9;
+    --color-primary-100: #f4ebf4;
+    --color-primary-200: #e4cee3;
+    --color-primary-300: #d3b1d2;
+    --color-primary-400: #bd89bb;
+    --color-primary-500: #a762a5;
+    --color-primary-600: #913b8e;
+    --color-primary-700: #7a3177;
+    --color-primary-800: #632860;
+    --color-primary-900: #4c1a4b;
+    --color-primary-950: #2b0b2b;
+
+    --color-secondary-50: #f5f5f7;
+    --color-secondary-100: #ebebf0;
+    --color-secondary-200: #ccccd9;
+    --color-secondary-300: #adadc2;
+    --color-secondary-400: #8485a3;
+    --color-secondary-500: #5b5c85;
+    --color-secondary-600: #323366;
+    --color-secondary-700: #2a2a56;
+    --color-secondary-800: #24244a;
+    --color-secondary-900: #1a1a36;
+    --color-secondary-950: #0f0f1f;
+}

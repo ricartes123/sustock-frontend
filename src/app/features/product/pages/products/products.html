@@ -39,12 +39,12 @@
         </svg>
         <input type="text" [(ngModel)]="searchQuery" (keyup.enter)="applyFilters()"
             [placeholder]="'PRODUCTS.SEARCH_PLACEHOLDER' | translate"
-            class="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:bg-white transition-all">
+            class="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all">
     </div>
     <div class="flex flex-wrap sm:flex-nowrap items-center gap-2">
         @if (isAdmin()) {
         <select [(ngModel)]="formStatusFilter" (change)="applyFilters()"
-            class="bg-slate-50 border border-slate-200 text-slate-700 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2 outline-none cursor-pointer">
+            class="bg-slate-50 border border-slate-200 text-slate-700 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block p-2 outline-none cursor-pointer">
             <option value="ACTIVE">{{ 'PRODUCTS.ACTIVE' | translate }}</option>
             <option value="INACTIVE">{{ 'PRODUCTS.ARCHIVED' | translate }}</option>
             <option value="ALL">{{ 'PRODUCTS.ALL_STATUS' | translate }}</option>
@@ -52,7 +52,7 @@
         }
 
         <select [(ngModel)]="stockFilter" (change)="applyFilters()"
-            class="bg-slate-50 border border-slate-200 text-slate-700 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block p-2 outline-none cursor-pointer">
+            class="bg-slate-50 border border-slate-200 text-slate-700 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block p-2 outline-none cursor-pointer">
             <option value="ALL">{{ 'PRODUCTS.ALL_STOCK' | translate }}</option>
             <option value="LOW_STOCK">{{ 'PRODUCTS.LOW_STOCK' | translate }}</option>
         </select>

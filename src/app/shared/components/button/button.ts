@@ -33,7 +33,7 @@ export class Button {
 
         // Variant Classes
         const variantClasses = {
-            'primary': 'cursor-pointer bg-purple-600 text-white hover:bg-purple-700 focus:ring-purple-500 shadow-sm',
+            'primary': 'cursor-pointer bg-primary-600 text-white hover:bg-primary-700 focus:ring-primary-500 shadow-sm',
             'secondary': 'cursor-pointer bg-white text-slate-700 hover:bg-slate-50 focus:ring-slate-500 shadow-sm border border-slate-300',
             'danger': 'cursor-pointer bg-red-600 text-white hover:bg-red-700 focus:ring-red-500 shadow-sm border border-transparent',
             'ghost': 'cursor-pointer bg-transparent text-slate-600 hover:bg-slate-100 focus:ring-slate-500 border border-transparent',

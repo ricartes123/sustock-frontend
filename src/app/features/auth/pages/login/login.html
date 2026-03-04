@@ -2,14 +2,14 @@
 
   <!-- Left Side - Branding / Welcome (Hidden on small screens) -->
   <div
-    class="hidden md:flex md:w-1/2 flex-col justify-between p-12 lg:p-24 relative overflow-hidden bg-gradient-to-br from-purple-700 via-purple-800 to-indigo-900 text-white">
+    class="hidden md:flex md:w-1/2 flex-col justify-between p-12 lg:p-24 relative overflow-hidden bg-gradient-to-br from-primary-950 via-primary-900 to-secondary-950 text-white">
     <!-- Decorative background blobs -->
     <div class="absolute top-0 left-0 w-full h-full opacity-20 pointer-events-none">
-      <div class="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-purple-500 mix-blend-multiply filter blur-3xl">
+      <div class="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-primary-700 mix-blend-multiply filter blur-3xl">
       </div>
-      <div class="absolute top-1/4 -right-24 w-96 h-96 rounded-full bg-indigo-500 mix-blend-multiply filter blur-3xl">
+      <div class="absolute top-1/4 -right-24 w-96 h-96 rounded-full bg-secondary-600 mix-blend-multiply filter blur-3xl">
       </div>
-      <div class="absolute -bottom-24 left-1/4 w-96 h-96 rounded-full bg-purple-400 mix-blend-multiply filter blur-3xl">
+      <div class="absolute -bottom-24 left-1/4 w-96 h-96 rounded-full bg-primary-500 mix-blend-multiply filter blur-3xl">
       </div>
     </div>
 
@@ -17,7 +17,7 @@
       <div class="flex items-center gap-3 mb-16">
         <div class="w-10 h-10 bg-white rounded-xl shadow-lg flex items-center justify-center">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-            class="text-purple-700" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            class="text-primary-700" stroke="currentColor" stroke-width="2" stroke-linecap="round"
             stroke-linejoin="round">
             <path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7"></path>
             <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
@@ -31,15 +31,15 @@
             <path d="M2 7v3a2 2 0 0 0 2 2h1.99"></path>
           </svg>
         </div>
-        <h1 class="text-2xl font-black tracking-tight"><span class="text-[#AD006B]">Su</span><span
-            class="text-[#007ED9]">Stock</span></h1>
+        <h1 class="text-2xl font-black tracking-tight"><span class="text-primary-600">Su</span><span
+            class="text-secondary-600">Stock</span></h1>
       </div>
 
       <h2 class="text-4xl lg:text-5xl font-bold mb-6 leading-tight" [innerHTML]="'AUTH.HERO_TITLE' | translate"></h2>
-      <p class="text-purple-100 text-lg mb-8 max-w-md">{{ 'AUTH.HERO_SUBTITLE' | translate }}</p>
+      <p class="text-primary-100 text-lg mb-8 max-w-md">{{ 'AUTH.HERO_SUBTITLE' | translate }}</p>
     </div>
 
-    <div class="relative z-10 text-sm text-purple-200">
+    <div class="relative z-10 text-sm text-primary-200">
       {{ 'AUTH.COPYRIGHT' | translate }}
     </div>
   </div>
@@ -50,7 +50,7 @@
     <div class="w-full max-w-md">
 
       <!-- Mobile Logo (Visible only on small screens) -->
-      <div class="flex items-center gap-2 mb-8 md:hidden text-purple-700">
+      <div class="flex items-center gap-2 mb-8 md:hidden text-primary-700">
         <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7"></path>
@@ -58,8 +58,8 @@
           <path d="M15 22v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4"></path>
           <path d="M2 7h20"></path>
         </svg>
-        <span class="text-xl font-black tracking-tight "><span class="text-[#AD006B]">Su</span><span
-            class="text-[#007ED9]">Stock</span></span>
+        <span class="text-xl font-black tracking-tight "><span class="text-primary-600">Su</span><span
+            class="text-secondary-600">Stock</span></span>
       </div>
 
       <div class="mb-10 text-center md:text-left">
@@ -79,14 +79,14 @@
             <label class="block text-sm font-medium text-slate-700 mb-1">{{ 'AUTH.FIRST_NAME' | translate }}</label>
             <input type="text" [(ngModel)]="firstName" name="firstName"
               [placeholder]="'AUTH.FIRST_NAME_PLACEHOLDER' | translate"
-              class="w-full border border-slate-200 px-4 py-2.5 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
+              class="w-full border border-slate-200 px-4 py-2.5 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
               required />
           </div>
           <div>
             <label class="block text-sm font-medium text-slate-700 mb-1">{{ 'AUTH.LAST_NAME' | translate }}</label>
             <input type="text" [(ngModel)]="lastName" name="lastName"
               [placeholder]="'AUTH.LAST_NAME_PLACEHOLDER' | translate"
-              class="w-full border border-slate-200 px-4 py-2.5 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
+              class="w-full border border-slate-200 px-4 py-2.5 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
               required />
           </div>
         </div>
@@ -96,13 +96,13 @@
             <label class="block text-sm font-medium text-slate-700 mb-1">{{ 'AUTH.WORKSPACE_NAME' | translate }}</label>
             <input type="text" [(ngModel)]="workspaceName" name="workspaceName"
               [placeholder]="'AUTH.WORKSPACE_NAME_PLACEHOLDER' | translate"
-              class="w-full border border-slate-200 px-4 py-2.5 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
+              class="w-full border border-slate-200 px-4 py-2.5 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
               required />
           </div>
           <div>
             <label class="block text-sm font-medium text-slate-700 mb-1">{{ 'AUTH.CURRENCY' | translate }}</label>
             <select [(ngModel)]="currency" name="currency"
-              class="w-full border border-slate-200 px-4 py-2.5 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all cursor-pointer bg-white"
+              class="w-full border border-slate-200 px-4 py-2.5 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all cursor-pointer bg-white"
               required>
               <option value="ARS">ARS ($)</option>
               <option value="USD">USD ($)</option>
@@ -118,7 +118,7 @@
         <div>
           <label class="block text-sm font-medium text-slate-700 mb-1">{{ 'AUTH.EMAIL' | translate }}</label>
           <input type="email" [(ngModel)]="email" name="email" [placeholder]="'AUTH.EMAIL_PLACEHOLDER' | translate"
-            class="w-full border border-slate-200 px-4 py-2.5 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
+            class="w-full border border-slate-200 px-4 py-2.5 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
             required />
         </div>
 
@@ -127,7 +127,7 @@
           <div class="relative">
             <input [type]="showPassword() ? 'text' : 'password'" [(ngModel)]="password" name="password"
               placeholder="••••••••"
-              class="w-full border border-slate-200 px-4 py-2.5 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all pr-12"
+              class="w-full border border-slate-200 px-4 py-2.5 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all pr-12"
               required />
 
             <button type="button" (click)="togglePassword()"
@@ -189,7 +189,7 @@
       <div class="mt-8 text-center text-sm text-slate-500">
         {{ isLoginMode ? ('AUTH.DONT_HAVE_ACCOUNT' | translate) : ('AUTH.ALREADY_HAVE_ACCOUNT' | translate) }}
         <button type="button" (click)="toggleMode()"
-          class="text-purple-600 font-semibold hover:text-purple-800 transition-colors ml-1 focus:outline-none">
+          class="text-primary-600 font-semibold hover:text-primary-800 transition-colors ml-1 focus:outline-none">
           {{ isLoginMode ? ('AUTH.SIGN_UP_FREE' | translate) : ('AUTH.LOG_IN_HERE' | translate) }}
         </button>
       </div>
