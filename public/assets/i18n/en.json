@@ -61,6 +61,8 @@
         "ALL_STOCK": "All Stock",
         "LOW_STOCK": "Low Stock",
         "NO_PRODUCTS": "No products yet.",
+        "ARCHIVE_WARNING_TITLE": "Archive Product",
+        "ARCHIVE_WARNING_MESSAGE": "Are you sure you want to archive this product?",
         "TABLE": {
             "PRODUCT": "Product",
             "COST_PRICE": "Cost Price",

@@ -13,30 +13,7 @@
             'DASHBOARD.OVERVIEW_TITLE' | translate }}</h1>
         <p class="text-sm text-slate-400 capitalize">{{ today | date:'fullDate':undefined:locale }}</p>
     </div>
-    <!-- Possible place for mobile avatar/icons if needed, hidden on desktop -->
-    <div class="sm:hidden flex items-center gap-2">
-        <div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-600">
-            <lucide-icon name="user" [size]="20"></lucide-icon>
-        </div>
-    </div>
 </div>
-
-<!-- Date Scroller Placeholder (Optional, mapping to the image) -->
-<!-- You can uncomment this if you want an actual date scroller -->
-<!-- <div class="flex overflow-x-auto gap-3 pb-4 mb-4 -mx-4 px-4 sm:hidden scrollbar-hide">
-    <div class="flex-shrink-0 flex flex-col items-center justify-center w-12 h-16 rounded-2xl bg-slate-50 text-slate-500">
-        <span class="text-[10px] font-medium uppercase">Mar</span>
-        <span class="text-lg font-bold">26</span>
-    </div>
-    <div class="flex-shrink-0 flex flex-col items-center justify-center w-12 h-16 rounded-2xl bg-slate-800 text-white shadow-md">
-        <span class="text-[10px] font-medium uppercase">Mié</span>
-        <span class="text-lg font-bold">27</span>
-    </div>
-    <div class="flex-shrink-0 flex flex-col items-center justify-center w-12 h-16 rounded-2xl bg-slate-50 text-slate-500">
-        <span class="text-[10px] font-medium uppercase">Jue</span>
-        <span class="text-lg font-bold">28</span>
-    </div>
-</div> -->
 
 <!-- Top CTAs / Quick Actions -->
 <div class="mb-8">
@@ -118,47 +95,6 @@
         </div>
     </div>
 
-    <div
-        class="bg-white p-4 sm:p-5 rounded-[20px] sm:rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-between hover:shadow-md transition-shadow">
-        <div class="flex items-start justify-between mb-2 sm:mb-3">
-            <p class="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider">{{
-                'DASHBOARD.METRIC_TOTAL_PRODUCTS' |
-                translate }}</p>
-            <div class="p-1.5 sm:p-2 bg-blue-50 rounded-lg text-blue-600">
-                <lucide-icon name="box" [size]="16" [strokeWidth]="2.5" class="sm:w-[18px] sm:h-[18px]"></lucide-icon>
-            </div>
-        </div>
-        <div>
-            <p class="text-lg sm:text-2xl font-black text-slate-800 leading-none mb-0.5 sm:mb-1">
-                {{ data()!.totalProducts }}
-            </p>
-            <p class="text-[10px] sm:text-[11px] text-slate-400 font-medium mt-1 leading-tight sm:leading-normal">
-                {{ 'DASHBOARD.METRIC_TOTAL_PRODUCTS_DESC' | translate }}
-            </p>
-        </div>
-    </div>
-
-    <div
-        class="bg-white p-4 sm:p-5 rounded-[20px] sm:rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-between hover:shadow-md transition-shadow">
-        <div class="flex items-start justify-between mb-2 sm:mb-3">
-            <p class="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider">{{
-                'DASHBOARD.METRIC_STOCK_VALUE' |
-                translate }}</p>
-            <div class="p-1.5 sm:p-2 bg-emerald-50 rounded-lg text-emerald-600">
-                <lucide-icon name="wallet" [size]="16" [strokeWidth]="2.5"
-                    class="sm:w-[18px] sm:h-[18px]"></lucide-icon>
-            </div>
-        </div>
-        <div>
-            <p class="text-lg sm:text-2xl font-black text-slate-800 leading-none mb-0.5 sm:mb-1">
-                {{ data()!.totalStockValue | currency:currency():'symbol-narrow':'1.0-0':locale }}
-            </p>
-            <p class="text-[10px] sm:text-[11px] text-slate-400 font-medium mt-1 leading-tight sm:leading-normal">
-                {{ 'DASHBOARD.METRIC_STOCK_VALUE_DESC' | translate }}
-            </p>
-        </div>
-    </div>
-
     <a routerLink="/products" [queryParams]="{ lowStock: 'true' }"
         class="bg-white p-4 sm:p-5 rounded-[20px] sm:rounded-2xl shadow-sm border flex flex-col justify-between hover:shadow-md transition-all cursor-pointer group"
         [ngClass]="data()!.lowStockCount > 0 ? 'border-red-100' : 'border-slate-100'">
@@ -184,6 +120,46 @@
         </div>
     </a>
 
+    <div
+        class="bg-white p-4 sm:p-5 rounded-[20px] sm:rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-between hover:shadow-md transition-shadow">
+        <div class="flex items-start justify-between mb-2 sm:mb-3">
+            <p class="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider">{{
+                'DASHBOARD.METRIC_STOCK_VALUE' |
+                translate }}</p>
+            <div class="p-1.5 sm:p-2 bg-emerald-50 rounded-lg text-emerald-600">
+                <lucide-icon name="wallet" [size]="16" [strokeWidth]="2.5"
+                    class="sm:w-[18px] sm:h-[18px]"></lucide-icon>
+            </div>
+        </div>
+        <div>
+            <p class="text-lg sm:text-2xl font-black text-slate-800 leading-none mb-0.5 sm:mb-1">
+                {{ data()!.totalStockValue | currency:currency():'symbol-narrow':'1.0-0':locale }}
+            </p>
+            <p class="text-[10px] sm:text-[11px] text-slate-400 font-medium mt-1 leading-tight sm:leading-normal">
+                {{ 'DASHBOARD.METRIC_STOCK_VALUE_DESC' | translate }}
+            </p>
+        </div>
+    </div>
+
+    <div
+        class="bg-white p-4 sm:p-5 rounded-[20px] sm:rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-between hover:shadow-md transition-shadow">
+        <div class="flex items-start justify-between mb-2 sm:mb-3">
+            <p class="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider">{{
+                'DASHBOARD.METRIC_TOTAL_PRODUCTS' |
+                translate }}</p>
+            <div class="p-1.5 sm:p-2 bg-blue-50 rounded-lg text-blue-600">
+                <lucide-icon name="box" [size]="16" [strokeWidth]="2.5" class="sm:w-[18px] sm:h-[18px]"></lucide-icon>
+            </div>
+        </div>
+        <div>
+            <p class="text-lg sm:text-2xl font-black text-slate-800 leading-none mb-0.5 sm:mb-1">
+                {{ data()!.totalProducts }}
+            </p>
+            <p class="text-[10px] sm:text-[11px] text-slate-400 font-medium mt-1 leading-tight sm:leading-normal">
+                {{ 'DASHBOARD.METRIC_TOTAL_PRODUCTS_DESC' | translate }}
+            </p>
+        </div>
+    </div>
 </div>
 
 <!-- Chart Placeholder -->

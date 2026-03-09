@@ -186,3 +186,8 @@
     (save)="handleSaveProduct($event)">
 </app-product-form>
 }
+
+<app-data-warning [visible]="isArchiveWarningOpen()" [isLoading]="isArchiving()"
+    [title]="'PRODUCTS.ARCHIVE_WARNING_TITLE' | translate" [message]="'PRODUCTS.ARCHIVE_WARNING_MESSAGE' | translate"
+    (confirm)="confirmArchive()" (cancel)="closeArchiveWarning()">
+</app-data-warning>

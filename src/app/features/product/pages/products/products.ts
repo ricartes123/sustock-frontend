@@ -12,6 +12,7 @@ import { Badge } from '../../../../shared/components/badge/badge';
 import { LucideAngularModule } from 'lucide-angular';
 import { HotToastService } from '@ngxpert/hot-toast';
 import { finalize } from 'rxjs';
+import { DataWarning } from '../../../../shared/components/data-warning/data-warning';
 
 export interface PaginationMeta {
   total: number;
@@ -34,6 +35,7 @@ export interface PaginationMeta {
     Button,
     Badge,
     LucideAngularModule,
+    DataWarning,
   ],
   templateUrl: './products.html',
 })
@@ -62,6 +64,11 @@ export class Products implements OnInit {
   isModalOpen = signal(false);
   productToEdit = signal<Product | null>(null);
   isSaving = signal(false);
+
+  // Archive Warning State
+  isArchiveWarningOpen = signal(false);
+  productToArchive = signal<Product | null>(null);
+  isArchiving = signal(false);
 
   loadProducts() {
     this.loading.set(true);
@@ -142,12 +149,40 @@ export class Products implements OnInit {
   toggleProductStatus(product: Product) {
     if (!this.isAdmin()) return;
 
+    if (product.isActive) {
+      this.productToArchive.set(product);
+      this.isArchiveWarningOpen.set(true);
+    } else {
+      this.executeToggleStatus(product);
+    }
+  }
+
+  confirmArchive() {
+    const product = this.productToArchive();
+    if (product) {
+      this.isArchiving.set(true);
+      this.executeToggleStatus(product);
+    }
+  }
+
+  closeArchiveWarning() {
+    this.isArchiveWarningOpen.set(false);
+    this.productToArchive.set(null);
+    this.isArchiving.set(false);
+  }
+
+  executeToggleStatus(product: Product) {
     const newStatus = !product.isActive;
     this.productService.toggleStatus(product.id, newStatus).pipe(
       this.toast.observe({
         loading: 'Actualizando estado...',
         success: 'Estado actualizado correctamente',
         error: 'Error al actualizar el estado'
+      }),
+      finalize(() => {
+        if (!newStatus) {
+          this.closeArchiveWarning();
+        }
       })
     ).subscribe(() => {
       this.loadProducts();

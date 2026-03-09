@@ -33,7 +33,7 @@ export class Navbar {
       timeGreeting = 'Buenas noches';
     }
 
-    return name ? `${timeGreeting}, ${name}` : timeGreeting;
+    return name ? `${timeGreeting}, ${name} 👋` : timeGreeting;
   });
 
   constructor() { }
