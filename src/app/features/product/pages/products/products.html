@@ -135,6 +135,12 @@
                 @if (isAdmin()) {
                 <td class="p-4 text-right">
                     <div class="flex items-center justify-end gap-2">
+
+                        <app-button variant="icon" (click)="openHistoryModal(product)"
+                            [title]="'PRODUCTS.HISTORY' | translate">
+                            <lucide-icon name="clock" [size]="16" [strokeWidth]="2"></lucide-icon>
+                        </app-button>
+
                         <app-button variant="icon-primary" (click)="openEditModal(product)"
                             [title]="'COMMON.EDIT' | translate">
                             <lucide-icon name="pencil" [size]="16" [strokeWidth]="2"></lucide-icon>
@@ -191,3 +197,10 @@
     [title]="'PRODUCTS.ARCHIVE_WARNING_TITLE' | translate" [message]="'PRODUCTS.ARCHIVE_WARNING_MESSAGE' | translate"
     (confirm)="confirmArchive()" (cancel)="closeArchiveWarning()">
 </app-data-warning>
+
+<app-quick-stock-modal [visible]="isQuickStockModalOpen()" (close)="closeQuickStockModal($event)">
+</app-quick-stock-modal>
+
+<app-product-history-modal [visible]="isHistoryModalOpen()" [product]="productForHistory()"
+    (close)="closeHistoryModal()">
+</app-product-history-modal>

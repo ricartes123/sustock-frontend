@@ -30,6 +30,8 @@ import {
     TrendingUp,
     DollarSign,
     AlertTriangle,
+    PackagePlus,
+    Clock,
 } from 'lucide-angular';
 
 export function provideLucideIcons(): EnvironmentProviders {
@@ -64,6 +66,8 @@ export function provideLucideIcons(): EnvironmentProviders {
             TrendingUp,
             DollarSign,
             AlertTriangle,
+            PackagePlus,
+            Clock,
         })
     );
 }

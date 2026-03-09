@@ -30,8 +30,8 @@
         "NEW_SALE_DESC": "Register a sale",
         "NEW_PRODUCT_CTA": "New Product",
         "NEW_PRODUCT_DESC": "Add to catalog",
-        "HISTORY_CTA": "View History",
-        "HISTORY_DESC": "All sales",
+        "QUICK_STOCK_CTA": "Quick Stock",
+        "QUICK_STOCK_DESC": "Fast stock entry",
         "METRIC_SALES_TODAY": "SALES TODAY",
         "METRIC_SALES_COUNT": "{{count}} sales",
         "METRIC_TOTAL_PRODUCTS": "TOTAL PRODUCTS",
@@ -61,6 +61,7 @@
         "ALL_STOCK": "All Stock",
         "LOW_STOCK": "Low Stock",
         "NO_PRODUCTS": "No products yet.",
+        "NO_PRODUCTS_DESC": "Start by creating your first product to manage your inventory.",
         "ARCHIVE_WARNING_TITLE": "Archive Product",
         "ARCHIVE_WARNING_MESSAGE": "Are you sure you want to archive this product?",
         "TABLE": {
@@ -69,7 +70,18 @@
             "SELLING_PRICE": "Selling Price",
             "STOCK": "Stock (Min)",
             "CREATED": "Created"
-        }
+        },
+        "HISTORY": "History",
+        "PRODUCT_HISTORY_TITLE": "Product History",
+        "PRODUCT_HISTORY_SUBTITLE": "Movements register for {{product}}",
+        "QUICK_STOCK_TITLE": "Quick Stock Entry",
+        "QUICK_STOCK_SUBTITLE": "Fast way to update stock quantities",
+        "SEARCH_PRODUCT_STOCK": "Search product by name, SKU or Barcode...",
+        "SELECTED_PRODUCT": "Selected Product",
+        "ADD_QUANTITY": "Quantity to Add",
+        "NOTES": "Notes (Optional)",
+        "NOTES_PLACEHOLDER": "e.g. Supplier XYZ purchase",
+        "REGISTER_STOCK": "Register Stock"
     },
     "PRODUCT_FORM": {
         "TITLE_EDIT": "Edit Product",

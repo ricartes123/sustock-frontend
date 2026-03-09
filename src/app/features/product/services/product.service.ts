@@ -52,4 +52,8 @@ export class ProductService {
         // Asumiendo que el backend maneja PATCH para cambiar el isActive (soft-delete)
         return this.http.patch<Product>(`${this.apiUrl}/products/${id}`, { isActive: active });
     }
+
+    getProductMovements(id: string) {
+        return this.http.get<any[]>(`${this.apiUrl}/products/${id}/movements`);
+    }
 }

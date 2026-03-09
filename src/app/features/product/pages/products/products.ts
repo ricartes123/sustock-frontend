@@ -13,6 +13,8 @@ import { LucideAngularModule } from 'lucide-angular';
 import { HotToastService } from '@ngxpert/hot-toast';
 import { finalize } from 'rxjs';
 import { DataWarning } from '../../../../shared/components/data-warning/data-warning';
+import { QuickStockModal } from '../../components/quick-stock-modal/quick-stock-modal';
+import { ProductHistoryModal } from '../../components/product-history-modal/product-history-modal';
 
 export interface PaginationMeta {
   total: number;
@@ -36,6 +38,8 @@ export interface PaginationMeta {
     Badge,
     LucideAngularModule,
     DataWarning,
+    QuickStockModal,
+    ProductHistoryModal,
   ],
   templateUrl: './products.html',
 })
@@ -69,6 +73,13 @@ export class Products implements OnInit {
   isArchiveWarningOpen = signal(false);
   productToArchive = signal<Product | null>(null);
   isArchiving = signal(false);
+
+  // Quick Stock State
+  isQuickStockModalOpen = signal(false);
+
+  // History State
+  isHistoryModalOpen = signal(false);
+  productForHistory = signal<Product | null>(null);
 
   loadProducts() {
     this.loading.set(true);
@@ -109,6 +120,13 @@ export class Products implements OnInit {
         this.isLowStockFilter.set(false);
         this.stockFilter = 'ALL';
       }
+
+      if (params['action'] === 'quick-stock') {
+        this.isQuickStockModalOpen.set(true);
+      } else if (params['action'] === 'new') {
+        this.openCreateModal();
+      }
+
       this.page.set(1);
       this.loadProducts();
     });
@@ -202,6 +220,35 @@ export class Products implements OnInit {
   closeModal() {
     this.isModalOpen.set(false);
     this.productToEdit.set(null);
+
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { action: null },
+      queryParamsHandling: 'merge'
+    });
+  }
+
+  closeQuickStockModal(success: boolean) {
+    this.isQuickStockModalOpen.set(false);
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { action: null },
+      queryParamsHandling: 'merge'
+    });
+
+    if (success) {
+      this.loadProducts();
+    }
+  }
+
+  openHistoryModal(product: Product) {
+    this.productForHistory.set(product);
+    this.isHistoryModalOpen.set(true);
+  }
+
+  closeHistoryModal() {
+    this.isHistoryModalOpen.set(false);
+    this.productForHistory.set(null);
   }
 
   handleSaveProduct(payload: { id?: string; data: Partial<Product> }) {

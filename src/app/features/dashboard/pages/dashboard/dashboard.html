@@ -37,6 +37,22 @@
             </div>
         </a>
 
+        <a routerLink="/products" [queryParams]="{ action: 'quick-stock' }"
+            class="min-w-[150px] sm:min-w-0 snap-start flex-shrink-0 bg-white hover:bg-slate-50 border border-slate-200 transition-colors rounded-[24px] p-5 flex flex-col sm:items-center sm:justify-center text-slate-700 cursor-pointer shadow-sm group min-h-[160px] sm:min-h-0 justify-between">
+            <div
+                class="bg-slate-100 sm:bg-transparent w-10 h-10 sm:w-auto sm:h-auto rounded-full flex items-center justify-center sm:block mb-1">
+                <lucide-icon name="package-plus" [size]="24" strokeWidth="2.5"
+                    class="text-slate-400 group-hover:text-slate-600 group-hover:scale-110 transition-transform"></lucide-icon>
+            </div>
+            <div class="sm:text-center mt-auto sm:mt-0">
+                <span class="font-bold text-sm text-slate-800 block leading-tight">{{ 'DASHBOARD.QUICK_STOCK_CTA' |
+                    translate }}</span>
+                <span class="text-[11px] text-slate-400 font-medium mt-0.5 hidden sm:block">{{
+                    'DASHBOARD.QUICK_STOCK_DESC'
+                    | translate }}</span>
+            </div>
+        </a>
+        
         <a routerLink="/products" [queryParams]="{ action: 'new' }"
             class="min-w-[150px] sm:min-w-0 snap-start flex-shrink-0 bg-white hover:bg-slate-50 border border-slate-200 transition-colors rounded-[24px] p-5 flex flex-col sm:items-center sm:justify-center text-slate-700 cursor-pointer shadow-sm group min-h-[160px] sm:min-h-0 justify-between">
             <div
@@ -49,21 +65,6 @@
                     translate }}</span>
                 <span class="text-[11px] text-slate-400 font-medium mt-0.5 hidden sm:block">{{
                     'DASHBOARD.NEW_PRODUCT_DESC' | translate }}</span>
-            </div>
-        </a>
-
-        <a routerLink="/sales"
-            class="min-w-[150px] sm:min-w-0 snap-start flex-shrink-0 bg-white hover:bg-slate-50 border border-slate-200 transition-colors rounded-[24px] p-5 flex flex-col sm:items-center sm:justify-center text-slate-700 cursor-pointer shadow-sm group min-h-[160px] sm:min-h-0 justify-between">
-            <div
-                class="bg-slate-100 sm:bg-transparent w-10 h-10 sm:w-auto sm:h-auto rounded-full flex items-center justify-center sm:block mb-1">
-                <lucide-icon name="bar-chart-2" [size]="24" strokeWidth="2.5"
-                    class="text-slate-400 group-hover:text-slate-600 group-hover:scale-110 transition-transform"></lucide-icon>
-            </div>
-            <div class="sm:text-center mt-auto sm:mt-0">
-                <span class="font-bold text-sm text-slate-800 block leading-tight">{{ 'DASHBOARD.HISTORY_CTA' |
-                    translate }}</span>
-                <span class="text-[11px] text-slate-400 font-medium mt-0.5 hidden sm:block">{{ 'DASHBOARD.HISTORY_DESC'
-                    | translate }}</span>
             </div>
         </a>
     </div>

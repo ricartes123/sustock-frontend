@@ -30,8 +30,8 @@
         "NEW_SALE_DESC": "Registrar una venta",
         "NEW_PRODUCT_CTA": "Nuevo producto",
         "NEW_PRODUCT_DESC": "Agregar al catálogo",
-        "HISTORY_CTA": "Ver historial",
-        "HISTORY_DESC": "Todas las ventas",
+        "QUICK_STOCK_CTA": "Ingreso rápido",
+        "QUICK_STOCK_DESC": "Cargar stock al instante",
         "METRIC_SALES_TODAY": "VENTAS HOY",
         "METRIC_SALES_COUNT": "{{count}} ventas",
         "METRIC_TOTAL_PRODUCTS": "CANTIDAD PRODUCTOS",
@@ -62,6 +62,7 @@
         "ALL_STOCK": "Todo el stock",
         "LOW_STOCK": "Stock bajo",
         "NO_PRODUCTS": "Aún no hay productos.",
+        "NO_PRODUCTS_DESC": "Comenzá creando tu primer producto para gestionar tu inventario.",
         "ARCHIVE_WARNING_TITLE": "Archivar Producto",
         "ARCHIVE_WARNING_MESSAGE": "¿Estás seguro de que querés archivar este producto?",
         "TABLE": {
@@ -70,7 +71,18 @@
             "SELLING_PRICE": "Precio venta",
             "STOCK": "Stock (Mín)",
             "CREATED": "Creado"
-        }
+        },
+        "HISTORY": "Historial",
+        "PRODUCT_HISTORY_TITLE": "Historial del producto",
+        "PRODUCT_HISTORY_SUBTITLE": "Registro de movimientos para {{product}}",
+        "QUICK_STOCK_TITLE": "Ingreso rápido de stock",
+        "QUICK_STOCK_SUBTITLE": "Añade más unidades a tu inventario fácilmente",
+        "SEARCH_PRODUCT_STOCK": "Busca el producto por nombre, SKU o código...",
+        "SELECTED_PRODUCT": "Producto seleccionado",
+        "ADD_QUANTITY": "Cantidad a ingresar",
+        "NOTES": "Notas (Opcional)",
+        "NOTES_PLACEHOLDER": "Ej. Compra a proveedor",
+        "REGISTER_STOCK": "Registrar ingreso"
     },
     "PRODUCT_FORM": {
         "TITLE_EDIT": "Editar producto",
