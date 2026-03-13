@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Product } from '../../services/product.service';
+import { Product } from '../../../../core/models/product.model';
 import { WorkspaceContextService } from '../../../../core/services/workspace-context.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { Modal} from '../../../../shared/components/modal/modal';

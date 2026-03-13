@@ -10,7 +10,8 @@ import {
 import { CommonModule, DecimalPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ProductService, Product } from '../../../../features/product/services/product.service';
+import { ProductService } from '../../../../features/product/services/product.service';
+import { Product } from '../../../../core/models/product.model';
 import { ClientsService } from '../../../../features/clients/services/clients.service';
 import { SalesService } from '../../services/sales.service';
 import { DataWarning } from '../../../../shared/components/data-warning/data-warning';

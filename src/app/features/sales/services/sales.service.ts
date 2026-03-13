@@ -2,16 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
 import { Observable } from 'rxjs';
-
-export interface SaleItemDto {
-    productId: string;
-    quantity: number;
-}
-
-export interface CreateSaleDto {
-    clientId?: string;
-    items: SaleItemDto[];
-}
+import { Sale, CreateSaleDto } from '../../../core/models/sale.model';
 
 @Injectable({
     providedIn: 'root'
@@ -20,19 +11,19 @@ export class SalesService {
     private http = inject(HttpClient);
     private apiUrl = `${environment.apiUrl}/sales`;
 
-    create(data: CreateSaleDto): Observable<any> {
-        return this.http.post(this.apiUrl, data);
+    create(data: CreateSaleDto): Observable<Sale> {
+        return this.http.post<Sale>(this.apiUrl, data);
     }
 
-    findAll(): Observable<any[]> {
-        return this.http.get<any[]>(this.apiUrl);
+    findAll(): Observable<Sale[]> {
+        return this.http.get<Sale[]>(this.apiUrl);
     }
 
-    findOne(id: string): Observable<any> {
-        return this.http.get<any>(`${this.apiUrl}/${id}`);
+    findOne(id: string): Observable<Sale> {
+        return this.http.get<Sale>(`${this.apiUrl}/${id}`);
     }
 
-    remove(id: string): Observable<any> {
-        return this.http.delete<any>(`${this.apiUrl}/${id}`);
+    remove(id: string): Observable<void> {
+        return this.http.delete<void>(`${this.apiUrl}/${id}`);
     }
 }

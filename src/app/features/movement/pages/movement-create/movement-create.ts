@@ -2,8 +2,10 @@ import { Component, inject, OnInit, ViewChild, ElementRef, HostListener } from '
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ProductService, Product } from '../../../../features/product/services/product.service';
-import { MovementService, CreateMovementDto } from '../../services/movement.service';
+import { ProductService } from '../../../../features/product/services/product.service';
+import { Product } from '../../../../core/models/product.model';
+import { MovementService } from '../../services/movement.service';
+import { CreateMovementDto } from '../../../../core/models/movement.model';
 import { DataWarning } from '../../../../shared/components/data-warning/data-warning';
 import { HotToastService } from '@ngxpert/hot-toast';
 import { Subject, debounceTime, distinctUntilChanged, finalize } from 'rxjs';

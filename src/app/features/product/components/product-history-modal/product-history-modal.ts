@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, Output, OnChanges, SimpleChanges, inject, signal } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
-import { ProductService, Product } from '../../services/product.service';
+import { ProductService } from '../../services/product.service';
+import { Product } from '../../../../core/models/product.model';
 import { Button } from '../../../../shared/components/button/button';
 import { Badge } from '../../../../shared/components/badge/badge';
 import { finalize } from 'rxjs';

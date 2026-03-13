@@ -2,7 +2,8 @@ import { Component, EventEmitter, Input, Output, ViewChild, ElementRef, HostList
 import { CommonModule, DecimalPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
-import { ProductService, Product } from '../../services/product.service';
+import { ProductService } from '../../services/product.service';
+import { Product } from '../../../../core/models/product.model';
 import { MovementService } from '../../../movement/services/movement.service';
 import { Button } from '../../../../shared/components/button/button';
 import { HotToastService } from '@ngxpert/hot-toast';

@@ -1,12 +1,12 @@
 import { Component, inject, signal, computed } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
-import { DashboardService, DashboardData } from '../../services/dashboard.service';
+import { DashboardService } from '../../services/dashboard.service';
+import { DashboardData } from '../../../../core/models/dashboard.model';
 import { WorkspaceContextService } from '../../../../core/services/workspace-context.service';
 
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { LucideAngularModule } from 'lucide-angular';
-import { Badge } from '../../../../shared/components/badge/badge';
 
 @Component({
   standalone: true,

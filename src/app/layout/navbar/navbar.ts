@@ -23,15 +23,12 @@ export class Navbar {
   greeting = computed(() => {
     const hour = new Date().getHours();
     const name = this.user()?.firstName || '';
-    let timeGreeting = '';
-
-    if (hour >= 5 && hour < 12) {
-      timeGreeting = 'Buenos días';
-    } else if (hour >= 12 && hour < 20) {
-      timeGreeting = 'Buenas tardes';
-    } else {
-      timeGreeting = 'Buenas noches';
-    }
+    const timeGreeting =
+      hour >= 5 && hour < 12
+        ? 'Buenos días'
+        : hour >= 12 && hour < 20
+          ? 'Buenas tardes'
+          : 'Buenas noches';
 
     return name ? `${timeGreeting}, ${name} 👋` : timeGreeting;
   });

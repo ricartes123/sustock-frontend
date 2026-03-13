@@ -16,6 +16,7 @@ import { Button } from '../../../../shared/components/button/button';
   imports: [FormsModule, TranslateModule, Button],
   templateUrl: './login.html',
 })
+
 export class Login {
   private auth = inject(AuthService);
   private router = inject(Router);

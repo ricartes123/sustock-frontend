@@ -1,5 +1,6 @@
 import { Component, inject, signal, computed, OnInit } from '@angular/core';
-import { ProductService, Product } from '../../services/product.service';
+import { ProductService } from '../../services/product.service';
+import { Product } from '../../../../core/models/product.model';
 import { CurrencyPipe, DatePipe, UpperCasePipe } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { WorkspaceContextService } from '../../../../core/services/workspace-context.service';
