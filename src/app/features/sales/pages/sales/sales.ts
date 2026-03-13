@@ -2,6 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { CommonModule, DatePipe, DecimalPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { SalesService } from '../../services/sales.service';
+import { Sale } from '../../../../core/models/sale.model';
 import { finalize } from 'rxjs';
 import { DataWarning } from '../../../../shared/components/data-warning/data-warning';
 import { EmptyState } from '../../../../shared/components/empty-state/empty-state';
@@ -22,7 +23,7 @@ export class Sales {
   private salesService = inject(SalesService);
   private toast = inject(HotToastService);
 
-  sales = signal<any[]>([]);
+  sales = signal<Sale[]>([]);
   loading = signal(true);
 
   constructor() {
@@ -42,12 +43,12 @@ export class Sales {
 
   showWarning = signal(false);
   warningMessage = signal('¿Estás seguro que deseas anular esta venta? La acción generará movimientos de entrada y podría impactar las estadísticas de tu inventario.');
-  saleToRevert = signal<any | null>(null);
+  saleToRevert = signal<Sale | null>(null);
   isReverting = signal(false);
 
   // Modal de detalles
   showDetailsModal = signal(false);
-  selectedSaleDetail = signal<any | null>(null);
+  selectedSaleDetail = signal<Sale | null>(null);
   isLoadingDetails = signal(false);
 
   viewDetails(saleId: string) {
@@ -73,7 +74,7 @@ export class Sales {
     setTimeout(() => this.selectedSaleDetail.set(null), 300); // clear after animation
   }
 
-  triggerRevert(sale: any) {
+  triggerRevert(sale: Sale) {
     this.saleToRevert.set(sale);
     this.showWarning.set(true);
   }

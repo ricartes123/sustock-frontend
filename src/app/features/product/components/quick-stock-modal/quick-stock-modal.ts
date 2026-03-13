@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output, ViewChild, ElementRef, HostListener, inject, signal } from '@angular/core';
-import { CommonModule, DecimalPipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { ProductService } from '../../services/product.service';
@@ -9,7 +9,6 @@ import { Button } from '../../../../shared/components/button/button';
 import { HotToastService } from '@ngxpert/hot-toast';
 import { Subject, debounceTime, distinctUntilChanged, switchMap, finalize } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
     selector: 'app-quick-stock-modal',
@@ -19,7 +18,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class QuickStockModal {
     @Input() visible = false;
-    @Output() close = new EventEmitter<boolean>(); // Emites true si hubo éxito para recargar
+    @Output() close = new EventEmitter<boolean>();
 
     private productService = inject(ProductService);
     private movementService = inject(MovementService);
@@ -117,8 +116,9 @@ export class QuickStockModal {
             this.toast.observe({
                 loading: 'Registrando ingreso...',
                 success: 'Stock actualizado correctamente',
-                error: (e: any) => {
-                    return e.error?.message || 'Error al actualizar el stock';
+                error: (e: unknown) => {
+                    const err = e as { error?: { message?: string } };
+                    return err.error?.message || 'Error al actualizar el stock';
                 }
             }),
             finalize(() => this.isSubmitting.set(false))

@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 import { ProductService } from '../../../../features/product/services/product.service';
 import { Product } from '../../../../core/models/product.model';
 import { ClientsService } from '../../../../features/clients/services/clients.service';
+import { Client } from '../../../../core/models/client.model';
 import { SalesService } from '../../services/sales.service';
 import { DataWarning } from '../../../../shared/components/data-warning/data-warning';
 import { Subject, debounceTime, distinctUntilChanged, switchMap, finalize } from 'rxjs';
@@ -43,7 +44,7 @@ export class SaleCreate {
   // Signals
   // ─────────────────────────────
 
-  clients = signal<any[]>([]);
+  clients = signal<Client[]>([]);
   selectedClientId = signal<string>('');
 
   searchQuery = signal('');
@@ -194,8 +195,9 @@ export class SaleCreate {
       this.toast.observe({
         loading: 'Registrando venta...',
         success: '¡Venta registrada exitosamente!',
-        error: (e: any) => {
-          if (e.error?.message?.includes('credibilidad')) {
+        error: (e: unknown) => {
+          const err = e as { error?: { message?: string } };
+          if (err.error?.message?.includes('credibilidad')) {
             return 'Advertencia de inventario';
           }
           return 'Error al registrar la venta';

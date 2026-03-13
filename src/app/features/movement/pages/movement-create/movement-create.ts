@@ -111,12 +111,13 @@ export class MovementCreate implements OnInit {
             this.toast.observe({
                 loading: 'Registrando movimiento...',
                 success: 'Movimiento registrado correctamente',
-                error: (e: any) => {
-                    if (e.error?.message && typeof e.error.message === 'string' && e.error.message.includes('credibilidad')) {
+                error: (e: unknown) => {
+                    const err = e as { error?: { message?: string | string[] } };
+                    if (typeof err.error?.message === 'string' && err.error.message.includes('credibilidad')) {
                         return 'Advertencia de stock detectada';
                     }
-                    if (e.error?.message) {
-                        return Array.isArray(e.error.message) ? e.error.message.join(', ') : e.error.message;
+                    if (err.error?.message) {
+                        return Array.isArray(err.error.message) ? err.error.message.join(', ') : err.error.message;
                     }
                     return 'Error al registrar el movimiento';
                 }
