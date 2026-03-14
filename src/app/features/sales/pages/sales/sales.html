@@ -94,7 +94,7 @@
 
 <!-- Sale Details Modal -->
 @if (showDetailsModal()) {
-<app-modal [isOpen]="true" title="Detalle de Venta" (close)="closeDetailsModal()">
+<app-modal [isOpen]="true" [title]="'Detalle de Venta'" (close)="closeDetailsModal()">
 
     <!-- Body -->
     @if (selectedSaleDetail(); as detail) {
@@ -160,9 +160,11 @@
                     @for (item of detail.items; track item.id) {
                     <tr>
                         <td class="py-3 px-4">
-                            <span class="font-medium text-slate-800">{{ item.product?.name || 'Eliminado' }}</span>
-                            @if(item.product?.sku) { <span class="block text-xs text-slate-400 mt-0.5">SKU:
+                            <span class="font-medium text-slate-800">{{ item.product.name || 'Eliminado' }}</span>
+                            @if(item.product.sku) { <span class="block text-xs text-slate-400 mt-0.5">SKU:
                                 {{item.product.sku}}</span> }
+                            @if(item.product.barcode) { <span class="block text-xs text-slate-400 mt-0.5">Barcode:
+                                {{item.product.barcode}}</span> }
                         </td>
                         <td class="py-3 px-4 text-center text-slate-600 font-medium">{{ item.quantity }}</td>
                         <td class="py-3 px-4 text-right text-slate-600">${{ item.price | number:'1.2-2' }}</td>

@@ -5,7 +5,7 @@ export interface SaleItem {
   quantity: number;
   price: number;
   unitCost: number;
-  product?: { name: string };
+  product: { name: string, sku: string, barcode: string };
 }
 
 export interface CreateSaleItemDto {
@@ -23,9 +23,9 @@ export interface Sale {
   totalAmount: number;
   clientId?: string;
   workspaceId: string;
-  userId?: string;
+  user?: {firstName: string, lastName: string};
   createdAt: string;
   updatedAt: string;
-  client?: { id: string; name: string };
+  client?: { id: string; name: string, email: string, phone: string };
   items: SaleItem[];
 }
