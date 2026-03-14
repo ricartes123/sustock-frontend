@@ -72,7 +72,7 @@ export class QuickStockModal {
     onSearchChange(query: string) {
         this.searchQuery.set(query);
 
-        if (query.length >= 2) {
+        if (query.length >= 1) {
             this.showDropdown.set(true);
             this.searchSubject.next(query);
         } else {
