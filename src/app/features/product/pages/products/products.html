@@ -63,42 +63,39 @@
     </div>
 </div>
 
-@if (loading()) {
-<p>{{ 'COMMON.LOADING' | translate }}</p>
-}
+<app-table 
+    [isLoading]="loading()"
+    [loadingText]="'COMMON.LOADING' | translate"
+    [isEmpty]="!loading() && products().length === 0"
+    emptyIcon="package-open"
+    [emptyTitle]="'PRODUCTS.NO_PRODUCTS' | translate"
+    [emptyDescription]="'PRODUCTS.NO_PRODUCTS_DESC' | translate"
+    [showEmptyAction]="true">
 
-@if (!loading() && products().length === 0) {
-<app-empty-state icon="package-open" [title]="'PRODUCTS.NO_PRODUCTS' | translate"
-    [description]="'PRODUCTS.NO_PRODUCTS_DESC' | translate">
-    @if (isAdmin()) {
-    <app-button variant="primary" (click)="openCreateModal()" icon="plus">
-        {{ 'PRODUCTS.NEW_PRODUCT' | translate }}
-    </app-button>
-    }
-</app-empty-state>
-}
+    <ng-container empty-actions>
+        @if (isAdmin()) {
+        <app-button variant="primary" (click)="openCreateModal()" icon="plus">
+            {{ 'PRODUCTS.NEW_PRODUCT' | translate }}
+        </app-button>
+        }
+    </ng-container>
 
-@if (products().length > 0) {
+    <thead table-header class="bg-gray-50 border-b">
+        <tr>
+            <th class="p-4 text-sm font-semibold text-slate-600">{{ 'PRODUCTS.TABLE.PRODUCT' | translate }}</th>
+            <th class="p-4 text-sm font-semibold text-slate-600">{{ 'PRODUCTS.TABLE.COST_PRICE' | translate }}</th>
+            <th class="p-4 text-sm font-semibold text-slate-600">{{ 'PRODUCTS.TABLE.SELLING_PRICE' | translate }}
+            </th>
+            <th class="p-4 text-sm font-semibold text-slate-600">{{ 'PRODUCTS.TABLE.STOCK' | translate }}</th>
+            <th class="p-4 text-sm font-semibold text-slate-600">{{ 'PRODUCTS.TABLE.CREATED' | translate }}</th>
+            @if (isAdmin()) {
+            <th class="p-4 text-sm font-semibold text-slate-600 text-right">{{ 'COMMON.ACTIONS' | translate }}</th>
+            }
+        </tr>
+    </thead>
 
-<div class="bg-white rounded shadow overflow-hidden">
-    <table class="w-full text-left">
-
-        <thead class="bg-gray-50 border-b">
-            <tr>
-                <th class="p-4 text-sm font-semibold text-slate-600">{{ 'PRODUCTS.TABLE.PRODUCT' | translate }}</th>
-                <th class="p-4 text-sm font-semibold text-slate-600">{{ 'PRODUCTS.TABLE.COST_PRICE' | translate }}</th>
-                <th class="p-4 text-sm font-semibold text-slate-600">{{ 'PRODUCTS.TABLE.SELLING_PRICE' | translate }}
-                </th>
-                <th class="p-4 text-sm font-semibold text-slate-600">{{ 'PRODUCTS.TABLE.STOCK' | translate }}</th>
-                <th class="p-4 text-sm font-semibold text-slate-600">{{ 'PRODUCTS.TABLE.CREATED' | translate }}</th>
-                @if (isAdmin()) {
-                <th class="p-4 text-sm font-semibold text-slate-600 text-right">{{ 'COMMON.ACTIONS' | translate }}</th>
-                }
-            </tr>
-        </thead>
-
-        <tbody>
-            @for (product of products(); track product.id) {
+    <tbody table-body>
+        @for (product of products(); track product.id) {
             <tr class="border-b hover:bg-slate-50 transition" [class.opacity-50]="!product.isActive"
                 [class.bg-slate-50]="!product.isActive">
                 <td class="p-4">
@@ -162,11 +159,10 @@
                 }
             </tr>
             }
-        </tbody>
+    </tbody>
+</app-table>
 
-    </table>
-</div>
-
+@if (products().length > 0) {
 <!-- Pagination -->
 @if (meta()) {
 <div class="flex justify-between items-center mt-6">

@@ -1,0 +1,25 @@
+@if (isLoading) {
+<div class="flex justify-center items-center py-12">
+    <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
+    <span class="ml-3 text-slate-500">{{ loadingText }}</span>
+</div>
+}
+
+@if (!isLoading && isEmpty) {
+<app-empty-state 
+    [icon]="emptyIcon" 
+    [title]="emptyTitle"
+    [description]="emptyDescription"
+    [showAction]="showEmptyAction">
+    <ng-content select="[empty-actions]"></ng-content>
+</app-empty-state>
+}
+
+@if (!isLoading && !isEmpty) {
+<div class="bg-white rounded-xl shadow border border-slate-100 overflow-hidden">
+    <table class="w-full text-left">
+        <ng-content select="[table-header]"></ng-content>
+        <ng-content select="[table-body]"></ng-content>
+    </table>
+</div>
+}

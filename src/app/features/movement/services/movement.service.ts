@@ -15,7 +15,7 @@ export class MovementService {
         return this.http.post<Movement>(this.apiUrl, data);
     }
 
-    findAll(page = 1, limit = 10, type?: string): Observable<MovementPagedResult> {
+    getAll(page = 1, limit = 10, type?: string): Observable<MovementPagedResult> {
         let url = `${this.apiUrl}?page=${page}&limit=${limit}`;
         if (type) {
             url += `&type=${type}`;

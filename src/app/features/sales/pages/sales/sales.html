@@ -16,38 +16,34 @@
     </div>
 </div>
 
-@if (loading()) {
-<div class="flex justify-center items-center py-12">
-    <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
-    <span class="ml-3 text-slate-500">Cargando ventas...</span>
-</div>
-}
+<app-table
+    [isLoading]="loading()"
+    loadingText="Cargando ventas..."
+    [isEmpty]="!loading() && sales().length === 0"
+    emptyIcon="receipt"
+    emptyTitle="Sin ventas"
+    emptyDescription="Aún no se han registrado ventas en este espacio de trabajo. Creá tu primera venta para comenzar."
+    [showEmptyAction]="true">
 
-@if (!loading() && sales().length === 0) {
-<app-empty-state icon="receipt" title="Sin ventas"
-    description="Aún no se han registrado ventas en este espacio de trabajo. Creá tu primera venta para comenzar.">
-    <a routerLink="/sales/new"
-        class="bg-primary-600 hover:bg-primary-700 text-white px-5 py-2.5 rounded-lg text-sm font-medium transition-colors shadow-sm flex items-center gap-2 mx-auto">
-        <lucide-icon name="plus" [size]="16" [strokeWidth]="2"></lucide-icon>
-        Registrar Venta
-    </a>
-</app-empty-state>
-}
+    <ng-container empty-actions>
+        <a routerLink="/sales/new"
+            class="bg-primary-600 hover:bg-primary-700 text-white px-5 py-2.5 rounded-lg text-sm font-medium transition-colors shadow-sm inline-flex items-center gap-2 mx-auto">
+            <lucide-icon name="plus" [size]="16" [strokeWidth]="2"></lucide-icon>
+            Registrar Venta
+        </a>
+    </ng-container>
 
-@if (!loading() && sales().length > 0) {
-<div class="bg-white rounded-xl shadow border border-slate-100 overflow-hidden">
-    <table class="w-full text-left">
-        <thead class="bg-slate-50 border-b border-slate-200">
-            <tr>
-                <th class="p-4 text-sm font-semibold text-slate-600">Fecha</th>
-                <th class="p-4 text-sm font-semibold text-slate-600">Cliente</th>
-                <th class="p-4 text-sm font-semibold text-slate-600">Total</th>
-                <th class="p-4 text-sm font-semibold text-slate-600">Usuario</th>
-                <th class="p-4 text-sm font-semibold text-slate-600 text-right">Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            @for (sale of sales(); track sale.id) {
+    <thead table-header class="bg-slate-50 border-b border-slate-200">
+        <tr>
+            <th class="p-4 text-sm font-semibold text-slate-600">Fecha</th>
+            <th class="p-4 text-sm font-semibold text-slate-600">Cliente</th>
+            <th class="p-4 text-sm font-semibold text-slate-600">Total</th>
+            <th class="p-4 text-sm font-semibold text-slate-600">Usuario</th>
+            <th class="p-4 text-sm font-semibold text-slate-600 text-right">Acciones</th>
+        </tr>
+    </thead>
+    <tbody table-body>
+        @for (sale of sales(); track sale.id) {
             <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
                 <td class="p-4 text-slate-700">
                     <div class="font-medium">{{ sale.createdAt | date:'shortDate' }}</div>
@@ -81,10 +77,8 @@
                 </td>
             </tr>
             }
-        </tbody>
-    </table>
-</div>
-}
+    </tbody>
+</app-table>
 
 @if (showWarning()) {
 <app-data-warning [visible]="true" [message]="warningMessage()" [isLoading]="isReverting()" (cancel)="cancelRevert()"

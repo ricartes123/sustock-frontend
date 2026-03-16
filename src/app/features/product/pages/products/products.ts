@@ -1,13 +1,13 @@
-import { Component, inject, signal, computed, OnInit } from '@angular/core';
+import { Component, inject, signal, computed, OnInit, DestroyRef } from '@angular/core';
 import { ProductService } from '../../services/product.service';
 import { Product } from '../../../../core/models/product.model';
 import { CurrencyPipe, DatePipe, UpperCasePipe } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { WorkspaceContextService } from '../../../../core/services/workspace-context.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ProductForm } from '../../components/product-form/product-form';
-import { EmptyState } from '../../../../shared/components/empty-state/empty-state';
+
 import { Button } from '../../../../shared/components/button/button';
 import { Badge } from '../../../../shared/components/badge/badge';
 import { LucideAngularModule } from 'lucide-angular';
@@ -16,13 +16,9 @@ import { finalize } from 'rxjs';
 import { DataWarning } from '../../../../shared/components/data-warning/data-warning';
 import { QuickStockModal } from '../../components/quick-stock-modal/quick-stock-modal';
 import { ProductHistoryModal } from '../../components/product-history-modal/product-history-modal';
-
-export interface PaginationMeta {
-  total: number;
-  page: number;
-  limit: number;
-  totalPages: number;
-}
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { PaginationMeta } from '../../../../core/models/pagination-meta.model';
+import { TableComponent } from '../../../../shared/components/table/table';
 
 @Component({
   standalone: true,
@@ -34,13 +30,13 @@ export interface PaginationMeta {
     FormsModule,
     ProductForm,
     TranslateModule,
-    EmptyState,
     Button,
     Badge,
     LucideAngularModule,
     DataWarning,
     QuickStockModal,
     ProductHistoryModal,
+    TableComponent,
   ],
   templateUrl: './products.html',
 })
@@ -50,6 +46,7 @@ export class Products implements OnInit {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private toast = inject(HotToastService);
+  private destroyRef = inject(DestroyRef);
 
   currency = computed(() => this.workspaceContext.currency);
   isAdmin = computed(() => this.workspaceContext.isAdmin());
@@ -102,7 +99,7 @@ export class Products implements OnInit {
   }
 
   ngOnInit() {
-    this.route.queryParams.subscribe(params => {
+    this.route.queryParams.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((params: Params) => {
       this.searchQuery = params['search'] || '';
 
       const status = params['status'];

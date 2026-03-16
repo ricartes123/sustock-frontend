@@ -5,17 +5,18 @@ import { SalesService } from '../../services/sales.service';
 import { Sale } from '../../../../core/models/sale.model';
 import { finalize } from 'rxjs';
 import { DataWarning } from '../../../../shared/components/data-warning/data-warning';
-import { EmptyState } from '../../../../shared/components/empty-state/empty-state';
+
 import { Modal } from '../../../../shared/components/modal/modal';
 import { LucideAngularModule } from 'lucide-angular';
 import { HotToastService } from '@ngxpert/hot-toast';
 
 import { Button } from '../../../../shared/components/button/button';
+import { TableComponent } from '../../../../shared/components/table/table';
 
 @Component({
   selector: 'app-sales',
   standalone: true,
-  imports: [CommonModule, RouterLink, DatePipe, DecimalPipe, DataWarning, EmptyState, Modal, Button, LucideAngularModule],
+  imports: [CommonModule, RouterLink, DatePipe, DecimalPipe, DataWarning, Modal, Button, LucideAngularModule, TableComponent],
   templateUrl: './sales.html'
 })
 export class Sales {
