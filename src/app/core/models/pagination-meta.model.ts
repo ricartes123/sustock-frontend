@@ -1,4 +1,5 @@
-export interface PaginationMeta {
+export interface PaginationMeta<T> {
+  data: T[];
   total: number;
   page: number;
   limit: number;

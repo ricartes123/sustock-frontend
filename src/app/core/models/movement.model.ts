@@ -5,9 +5,9 @@ export interface Movement {
   type: MovementType;
   quantity: number;
   reason?: string;
-  productId: string;
+  product: { id: string, name: string };
   workspaceId: string;
-  userId?: string;
+  user: { id: string, name: string };
   createdAt: string;
 }
 
@@ -16,14 +16,4 @@ export interface CreateMovementDto {
   quantity: number;
   reason?: string;
   productId: string;
-}
-
-export interface MovementPagedResult {
-  data: Movement[];
-  meta: {
-    total: number;
-    page: number;
-    limit: number;
-    totalPages: number;
-  };
 }
