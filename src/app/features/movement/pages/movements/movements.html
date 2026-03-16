@@ -1,1 +1,96 @@
-<h2 class="text-2xl font-bold">{{ 'MOVEMENTS.TITLE' | translate }}</h2>
+<div class="flex items-center justify-between mb-6">
+    <div class="flex items-center gap-3">
+        <h2 class="text-2xl font-bold text-slate-800">{{ 'MOVEMENTS.TITLE' | translate }}</h2>
+    </div>
+</div>
+
+<!-- Filters Bar -->
+<div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 flex flex-col sm:flex-row gap-4 mb-6">
+    <div class="flex-1 relative">
+        <lucide-icon name="search" [size]="18"
+            class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"></lucide-icon>
+        <input type="text" [(ngModel)]="searchQuery" (keyup.enter)="applyFilters()"
+            placeholder="Buscar por código u observación..."
+            class="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all">
+    </div>
+    <div class="flex flex-wrap sm:flex-nowrap items-center gap-2">
+        <app-button variant="primary" (click)="applyFilters()">
+            {{ 'COMMON.SEARCH' | translate }}
+        </app-button>
+    </div>
+</div>
+
+<app-table 
+    [isLoading]="loading()"
+    loadingText="Cargando movimientos..."
+    [isEmpty]="!loading() && movements().length === 0"
+    emptyIcon="arrow-left-right"
+    emptyTitle="Sin movimientos"
+    emptyDescription="No hay movimientos registrados por el momento.">
+
+    <thead table-header class="bg-gray-50 border-b">
+        <tr>
+            <th class="p-4 text-sm font-semibold text-slate-600">Fecha</th>
+            <th class="p-4 text-sm font-semibold text-slate-600">Tipo</th>
+            <th class="p-4 text-sm font-semibold text-slate-600">Producto</th>
+            <th class="p-4 text-sm font-semibold text-slate-600">Cantidad</th>
+            <th class="p-4 text-sm font-semibold text-slate-600">Usuario / Razón</th>
+        </tr>
+    </thead>
+
+    <tbody table-body>
+        @for (mov of movements(); track mov.id) {
+            <tr class="border-b hover:bg-slate-50 transition">
+                <td class="p-4 text-slate-700">
+                    <div class="font-medium">{{ mov.createdAt | date:'shortDate' }}</div>
+                    <div class="text-xs text-slate-400 mt-0.5">{{ mov.createdAt | date:'shortTime' }}</div>
+                </td>
+                <td class="p-4">
+                    @if (mov.type === 'IN') {
+                        <app-badge variant="success">Entrada</app-badge>
+                    }
+                    @if (mov.type === 'OUT') {
+                        <app-badge variant="error">Salida</app-badge>
+                    }
+                    @if (mov.type === 'ADJUSTMENT') {
+                        <app-badge variant="neutral">Ajuste</app-badge>
+                    }
+                </td>
+                <td class="p-4">
+                    <div class="font-medium text-slate-800">{{ mov.productId }}</div>
+                </td>
+                <td class="p-4 font-bold text-slate-700">
+                    {{ mov.quantity > 0 ? '+' : '' }}{{ mov.quantity }}
+                </td>
+                <td class="p-4">
+                    <div class="text-sm font-medium text-slate-700">{{ mov.userId || 'Sistema' }}</div>
+                    @if (mov.reason) {
+                        <div class="text-xs text-slate-500 mt-0.5">{{ mov.reason }}</div>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</app-table>
+
+@if (movements().length > 0) {
+<!-- Pagination -->
+@if (meta()) {
+<div class="flex justify-between items-center mt-6">
+
+    <app-button variant="secondary" size="sm" (click)="prevPage()" [disabled]="page() === 1">
+        {{ 'COMMON.PREVIOUS' | translate }}
+    </app-button>
+
+    <span class="text-sm text-gray-600">
+        Página {{ meta()?.page }} de {{ meta()?.totalPages }}
+    </span>
+
+    <app-button variant="secondary" size="sm" (click)="nextPage()" [disabled]="page() === meta()?.totalPages">
+        {{ 'COMMON.NEXT' | translate }}
+    </app-button>
+
+</div>
+}
+}
