@@ -63,6 +63,13 @@ export const routes: Routes = [
                         .then(m => m.SaleCreate),
                 data: { title: 'SIDEBAR.NEW_SALE' }
             },
+            {
+                path: 'clients',
+                loadComponent: () =>
+                    import('./features/clients/pages/clients/clients')
+                        .then(m => m.ClientsComponent),
+                data: { title: 'SIDEBAR.CLIENTS' }
+            },
         ],
     },
 ];
