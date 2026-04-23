@@ -18,9 +18,9 @@
         "DASHBOARD": "Panel",
         "PRODUCTS": "Productos",
         "SALES": "Ventas",
-        "NEW_SALE": "Nueva Venta",
+        "NEW_SALE": "Nueva venta",
         "MOVEMENTS": "Movimientos",
-        "REPORTS": "Reportes",
+        "CLIENTS": "Clientes",
         "SETTINGS": "Configuración",
         "LOGOUT": "Cerrar sesión"
     },

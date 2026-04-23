@@ -72,13 +72,13 @@
                 }
             </a>
 
-            <!-- Reports -->
-            <a routerLink="/reports" routerLinkActive="bg-primary-50 text-primary-700 font-medium"
+            <!-- Clients -->
+            <a routerLink="/clients" routerLinkActive="bg-primary-50 text-primary-700 font-medium"
                 class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-500 hover:bg-slate-50 hover:text-slate-900 transition-colors duration-200"
-                [title]="isCollapsed ? 'Reports' : ''">
-                <lucide-icon name="file-text" class="flex-shrink-0" [size]="20" [strokeWidth]="2"></lucide-icon>
+                [title]="isCollapsed ? 'Clients' : ''">
+                <lucide-icon name="users" class="flex-shrink-0" [size]="20" [strokeWidth]="2"></lucide-icon>
                 @if (!isCollapsed) {
-                <span class="whitespace-nowrap">{{ 'SIDEBAR.REPORTS' | translate }}</span>
+                <span class="whitespace-nowrap">{{ 'SIDEBAR.CLIENTS' | translate }}</span>
                 }
             </a>
         </nav>

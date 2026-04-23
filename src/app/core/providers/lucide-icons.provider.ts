@@ -32,6 +32,11 @@ import {
     AlertTriangle,
     PackagePlus,
     Clock,
+    Search,
+    ArrowLeftRight,
+    Users,
+    Mail,
+    Phone,
 } from 'lucide-angular';
 
 export function provideLucideIcons(): EnvironmentProviders {
@@ -68,6 +73,11 @@ export function provideLucideIcons(): EnvironmentProviders {
             AlertTriangle,
             PackagePlus,
             Clock,
+            Search,
+            ArrowLeftRight,
+            Users,
+            Mail,
+            Phone,
         })
     );
 }
