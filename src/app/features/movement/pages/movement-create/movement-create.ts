@@ -8,6 +8,7 @@ import { MovementService } from '../../services/movement.service';
 import { CreateMovementDto } from '../../../../core/models/movement.model';
 import { DataWarning } from '../../../../shared/components/data-warning/data-warning';
 import { HotToastService } from '@ngxpert/hot-toast';
+import { TranslateService } from '@ngx-translate/core';
 import { Subject, debounceTime, distinctUntilChanged, finalize } from 'rxjs';
 
 @Component({
@@ -21,6 +22,7 @@ export class MovementCreate implements OnInit {
     private movementService = inject(MovementService);
     private router = inject(Router);
     private toast = inject(HotToastService);
+    private translate = inject(TranslateService);
 
     // Product search
     searchQuery = '';
@@ -109,17 +111,17 @@ export class MovementCreate implements OnInit {
 
         this.movementService.create(payload).pipe(
             this.toast.observe({
-                loading: 'Registrando movimiento...',
-                success: 'Movimiento registrado correctamente',
+                loading: this.translate.instant('TOAST.REGISTERING_MOVEMENT'),
+                success: this.translate.instant('TOAST.MOVEMENT_REGISTERED'),
                 error: (e: unknown) => {
                     const err = e as { error?: { message?: string | string[] } };
                     if (typeof err.error?.message === 'string' && err.error.message.includes('credibilidad')) {
-                        return 'Advertencia de stock detectada';
+                        return this.translate.instant('TOAST.STOCK_WARNING_DETECTED');
                     }
                     if (err.error?.message) {
                         return Array.isArray(err.error.message) ? err.error.message.join(', ') : err.error.message;
                     }
-                    return 'Error al registrar el movimiento';
+                    return this.translate.instant('TOAST.ERROR_REGISTERING_MOVEMENT');
                 }
             }),
             finalize(() => this.isSubmitting = false)

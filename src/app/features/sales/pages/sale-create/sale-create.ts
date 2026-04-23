@@ -19,6 +19,7 @@ import { DataWarning } from '../../../../shared/components/data-warning/data-war
 import { Subject, debounceTime, distinctUntilChanged, switchMap, finalize } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { HotToastService } from '@ngxpert/hot-toast';
+import { TranslateService } from '@ngx-translate/core';
 import { Button } from '../../../../shared/components/button/button';
 
 interface SaleItem {
@@ -39,6 +40,7 @@ export class SaleCreate {
   private salesService = inject(SalesService);
   private router = inject(Router);
   private toast = inject(HotToastService);
+  private translate = inject(TranslateService);
 
   // ─────────────────────────────
   // Signals
@@ -193,14 +195,14 @@ export class SaleCreate {
 
     this.salesService.create(payload).pipe(
       this.toast.observe({
-        loading: 'Registrando venta...',
-        success: '¡Venta registrada exitosamente!',
+        loading: this.translate.instant('TOAST.REGISTERING_SALE'),
+        success: this.translate.instant('TOAST.SALE_REGISTERED'),
         error: (e: unknown) => {
           const err = e as { error?: { message?: string } };
           if (err.error?.message?.includes('credibilidad')) {
-            return 'Advertencia de inventario';
+            return this.translate.instant('TOAST.STOCK_WARNING');
           }
-          return 'Error al registrar la venta';
+          return this.translate.instant('TOAST.ERROR_REGISTERING_SALE');
         }
       }),
       finalize(() => this.isSubmitting.set(false))

@@ -17,6 +17,7 @@ import { Client } from '../../../../core/models/client.model';
 import { PaginationMeta } from '../../../../core/models/pagination-meta.model';
 import { ClientsService } from '../../services/clients.service';
 import { HotToastService } from '@ngxpert/hot-toast';
+import { TranslateService } from '@ngx-translate/core';
 
 import { ClientFormModal } from '../client-form-modal/client-form-modal';
 import { ClientDetailsModal } from '../client-details-modal/client-details-modal';
@@ -43,6 +44,7 @@ import { ClientDetailsModal } from '../client-details-modal/client-details-modal
 export class ClientsComponent implements OnInit {
   private clientsService = inject(ClientsService);
   private toastService = inject(HotToastService);
+  private translate = inject(TranslateService);
 
   // State
   clients = signal<Client[]>([]);
@@ -79,7 +81,7 @@ export class ClientsComponent implements OnInit {
       },
       error: (err) => {
         console.error('Error loading clients', err);
-        this.toastService.error('Error al cargar clientes');
+        this.toastService.error(this.translate.instant('TOAST.ERROR_LOADING_CLIENTS'));
         this.loading.set(false);
       }
     });
@@ -167,10 +169,10 @@ export class ClientsComponent implements OnInit {
       // Restore directly
       this.clientsService.restore(client.id).subscribe({
         next: () => {
-          this.toastService.success('Cliente restaurado correctamente');
+          this.toastService.success(this.translate.instant('TOAST.CLIENT_RESTORED'));
           this.loadClients();
         },
-        error: () => this.toastService.error('Error al restaurar cliente')
+        error: () => this.toastService.error(this.translate.instant('TOAST.ERROR_RESTORING_CLIENT'))
       });
     }
   }
@@ -182,13 +184,13 @@ export class ClientsComponent implements OnInit {
     this.isArchiving.set(true);
     this.clientsService.remove(client.id).subscribe({
       next: () => {
-        this.toastService.success('Cliente archivado correctamente');
+        this.toastService.success(this.translate.instant('TOAST.CLIENT_ARCHIVED'));
         this.isArchiving.set(false);
         this.closeArchiveWarning();
         this.loadClients();
       },
       error: () => {
-        this.toastService.error('Error al archivar cliente');
+        this.toastService.error(this.translate.instant('TOAST.ERROR_ARCHIVING_CLIENT'));
         this.isArchiving.set(false);
         this.closeArchiveWarning();
       }

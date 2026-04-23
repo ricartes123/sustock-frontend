@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output, ViewChild, ElementRef, HostListener, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ProductService } from '../../services/product.service';
 import { Product } from '../../../../core/models/product.model';
 import { MovementService } from '../../../movement/services/movement.service';
@@ -23,6 +23,7 @@ export class QuickStockModal {
     private productService = inject(ProductService);
     private movementService = inject(MovementService);
     private toast = inject(HotToastService);
+    private translate = inject(TranslateService);
 
     searchQuery = signal('');
     searchResults = signal<Product[]>([]);
@@ -114,11 +115,11 @@ export class QuickStockModal {
             productId: product.id
         }).pipe(
             this.toast.observe({
-                loading: 'Registrando ingreso...',
-                success: 'Stock actualizado correctamente',
+                loading: this.translate.instant('TOAST.REGISTERING_STOCK'),
+                success: this.translate.instant('TOAST.STOCK_UPDATED'),
                 error: (e: unknown) => {
                     const err = e as { error?: { message?: string } };
-                    return err.error?.message || 'Error al actualizar el stock';
+                    return err.error?.message || this.translate.instant('TOAST.ERROR_UPDATING_STOCK');
                 }
             }),
             finalize(() => this.isSubmitting.set(false))

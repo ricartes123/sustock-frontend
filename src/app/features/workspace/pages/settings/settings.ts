@@ -5,7 +5,7 @@ import { WorkspaceContextService } from '../../../../core/services/workspace-con
 import { WorkspaceService } from '../../services/workspace.service';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../../../core/services/auth.service';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { HotToastService } from '@ngxpert/hot-toast';
 
 interface ExchangeRateResponse {
@@ -24,6 +24,7 @@ export class Settings implements OnInit {
     authService = inject(AuthService);
     http = inject(HttpClient);
     toast = inject(HotToastService);
+    translate = inject(TranslateService);
 
     selectedCurrency = 'ARS';
     showConversionModal = signal(false);
@@ -76,12 +77,12 @@ export class Settings implements OnInit {
                 if (rate) {
                     this.apiRate.set(rate);
                 } else {
-                    this.apiError.set('No exchange rate available for this currency pair.');
+                    this.apiError.set(this.translate.instant('TOAST.NO_EXCHANGE_RATE'));
                 }
                 this.loading.set(false);
             },
             error: () => {
-                this.apiError.set('Failed to connect to Exchange Rate API.');
+                this.apiError.set(this.translate.instant('TOAST.EXCHANGE_API_ERROR'));
                 this.loading.set(false);
             }
         });
@@ -92,13 +93,13 @@ export class Settings implements OnInit {
 
         if (this.conversionMode() === 'MANUAL') {
             if (!this.manualRate() || this.manualRate()! <= 0) {
-                this.toast.error("Please enter a valid conversion multiplier.");
+                this.toast.error(this.translate.instant('TOAST.INVALID_MULTIPLIER'));
                 return;
             }
             finalRate = this.manualRate()!;
         } else if (this.conversionMode() === 'AUTO') {
             if (!this.apiRate()) {
-                this.toast.error("Exchange rate is not loaded yet.");
+                this.toast.error(this.translate.instant('TOAST.EXCHANGE_NOT_LOADED'));
                 return;
             }
             finalRate = this.apiRate()!;
@@ -118,7 +119,7 @@ export class Settings implements OnInit {
                                 this.workspaceContext.initialize(workspaces);
                                 this.showConversionModal.set(false);
                                 this.loading.set(false);
-                                this.toast.success('Configuración guardada');
+                                this.toast.success(this.translate.instant('TOAST.CONFIG_SAVED'));
                                 window.location.reload(); // Quick refresh to ensure UI takes the new symbols via CurrencyPipe everywhere
                             }
                         });
@@ -128,7 +129,7 @@ export class Settings implements OnInit {
             error: (err) => {
                 console.error(err);
                 this.loading.set(false);
-                this.toast.error(err.error?.message || "Error al actualizar moneda");
+                this.toast.error(err.error?.message || this.translate.instant('TOAST.CURRENCY_UPDATE_ERROR'));
             }
         });
     }

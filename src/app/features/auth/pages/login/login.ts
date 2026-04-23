@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../../../core/services/auth.service';
 import { WorkspaceService } from '../../../workspace/services/workspace.service';
 import { WorkspaceContextService } from '../../../../core/services/workspace-context.service';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { switchMap, tap, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { HotToastService } from '@ngxpert/hot-toast';
@@ -23,6 +23,7 @@ export class Login {
   private workspaceService = inject(WorkspaceService);
   private workspaceContext = inject(WorkspaceContextService);
   private toast = inject(HotToastService);
+  private translate = inject(TranslateService);
 
   email = '';
   password = '';
@@ -61,7 +62,7 @@ export class Login {
       }).pipe(
         switchMap(() => this.auth.login({ email: this.email, password: this.password })),
         catchError((err) => {
-          this.error = 'Registered successfully, but failed to auto-login. Please login manually.';
+          this.error = this.translate.instant('ERRORS.REGISTER_SUCCESS_LOGIN_FAIL');
           this.loading = false;
           this.toggleMode();
           return throwError(() => err);
@@ -76,7 +77,7 @@ export class Login {
       tap((workspaces) => this.workspaceContext.initialize(workspaces))
     ).subscribe({
       next: () => {
-        this.toast.success('¡Bienvenido/a!');
+        this.toast.success(this.translate.instant('TOAST.WELCOME'));
         this.router.navigate(['/']);
       },
       error: (err) => {
@@ -84,9 +85,9 @@ export class Login {
         if (!this.error) {
           const errObj = err.error?.message;
           const exactError = Array.isArray(errObj) ? errObj[0] : errObj;
-          this.error = exactError || (this.isLoginMode ? 'Credenciales inválidas' : 'Error al registrarse');
+          this.error = exactError || (this.isLoginMode ? this.translate.instant('ERRORS.INVALID_CREDENTIALS') : this.translate.instant('ERRORS.REGISTER_FAILED'));
         }
-        this.toast.error(this.error || 'Error');
+        this.toast.error(this.error || this.translate.instant('TOAST.ERROR'));
         this.loading = false;
       }
     });

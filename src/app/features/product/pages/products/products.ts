@@ -12,6 +12,7 @@ import { Button } from '../../../../shared/components/button/button';
 import { Badge } from '../../../../shared/components/badge/badge';
 import { LucideAngularModule } from 'lucide-angular';
 import { HotToastService } from '@ngxpert/hot-toast';
+import { TranslateService } from '@ngx-translate/core';
 import { finalize } from 'rxjs';
 import { DataWarning } from '../../../../shared/components/data-warning/data-warning';
 import { QuickStockModal } from '../../components/quick-stock-modal/quick-stock-modal';
@@ -48,6 +49,7 @@ export class Products implements OnInit {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private toast = inject(HotToastService);
+  private translate = inject(TranslateService);
   private destroyRef = inject(DestroyRef);
 
   currency = computed(() => this.workspaceContext.currency);
@@ -193,9 +195,9 @@ export class Products implements OnInit {
     const newStatus = !product.isActive;
     this.productService.toggleStatus(product.id, newStatus).pipe(
       this.toast.observe({
-        loading: 'Actualizando estado...',
-        success: 'Estado actualizado correctamente',
-        error: 'Error al actualizar el estado'
+        loading: this.translate.instant('TOAST.UPDATING_STATUS'),
+        success: this.translate.instant('TOAST.STATUS_UPDATED'),
+        error: this.translate.instant('TOAST.ERROR_UPDATING_STATUS')
       }),
       finalize(() => {
         if (!newStatus) {
@@ -261,12 +263,12 @@ export class Products implements OnInit {
     request$.pipe(
       this.toast.observe({
         loading: payload.id
-          ? 'Actualizando producto...'
-          : 'Creando producto...',
+          ? this.translate.instant('TOAST.UPDATING_PRODUCT')
+          : this.translate.instant('TOAST.CREATING_PRODUCT'),
         success: payload.id
-          ? 'Producto actualizado correctamente'
-          : 'Producto creado correctamente',
-        error: 'Error al guardar el producto'
+          ? this.translate.instant('TOAST.PRODUCT_UPDATED')
+          : this.translate.instant('TOAST.PRODUCT_CREATED'),
+        error: this.translate.instant('TOAST.ERROR_SAVING_PRODUCT')
       }),
       finalize(() => this.isSaving.set(false))
     ).subscribe({
