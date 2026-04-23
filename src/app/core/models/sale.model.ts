@@ -20,6 +20,8 @@ export interface CreateSaleDto {
 export interface Sale {
   id: string;
   totalAmount: number;
+  status: 'ACTIVE' | 'CANCELLED';
+  cancelledAt?: string;
   workspaceId: string;
   user?: {firstName: string, lastName: string};
   createdAt: string;

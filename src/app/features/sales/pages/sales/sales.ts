@@ -11,6 +11,7 @@ import { Modal } from '../../../../shared/components/modal/modal';
 import { LucideAngularModule } from 'lucide-angular';
 import { HotToastService } from '@ngxpert/hot-toast';
 import { Button } from '../../../../shared/components/button/button';
+import { Badge } from '../../../../shared/components/badge/badge';
 import { TableComponent } from '../../../../shared/components/table/table';
 import { SearchInput } from '../../../../shared/components/search-input/search-input';
 import { WorkspaceContextService } from '../../../../core/services/workspace-context.service';
@@ -21,7 +22,7 @@ import { PaginationMeta } from '../../../../core/models/pagination-meta.model';
   standalone: true,
   imports: [
     CommonModule, RouterLink, DatePipe, CurrencyPipe,
-    FormsModule, DataWarning, Modal, Button, LucideAngularModule,
+    FormsModule, DataWarning, Modal, Button, Badge, LucideAngularModule,
     TableComponent, SearchInput
   ],
   templateUrl: './sales.html'
