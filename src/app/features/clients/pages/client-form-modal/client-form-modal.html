@@ -1,0 +1,48 @@
+@if (visible) {
+<app-modal [isOpen]="true" [title]="client ? 'Editar Cliente' : 'Nuevo Cliente'" (close)="close.emit()">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col h-full max-h-[70vh]">
+        <div class="p-2 space-y-4 overflow-y-auto flex-1">
+
+            <div class="space-y-2">
+                <label class="block text-sm font-medium text-slate-700">Nombre del cliente *</label>
+                <input type="text" formControlName="name"
+                    class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block p-2.5 outline-none transition-all placeholder:text-slate-400"
+                    placeholder="Ej. Juan Pérez"
+                    [class.border-red-500]="form.get('name')?.invalid && form.get('name')?.touched">
+                @if (form.get('name')?.invalid && form.get('name')?.touched) {
+                <p class="text-xs text-red-500">El nombre es requerido y debe tener al menos 3 caracteres.</p>
+                }
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="space-y-2">
+                    <label class="block text-sm font-medium text-slate-700">Teléfono</label>
+                    <input type="text" formControlName="phone"
+                        class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block p-2.5 outline-none transition-all placeholder:text-slate-400"
+                        placeholder="Sin espacios ni guiones">
+                </div>
+
+                <div class="space-y-2">
+                    <label class="block text-sm font-medium text-slate-700">Correo electrónico</label>
+                    <input type="email" formControlName="email"
+                        class="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block p-2.5 outline-none transition-all placeholder:text-slate-400"
+                        placeholder="Ej. juan@correo.com"
+                        [class.border-red-500]="form.get('email')?.invalid && form.get('email')?.touched">
+                    @if (form.get('email')?.invalid && form.get('email')?.touched) {
+                    <p class="text-xs text-red-500">Debe ser un email válido.</p>
+                    }
+                </div>
+            </div>
+        </div>
+            <ng-container modal-footer>
+        <app-button variant="secondary" type="button" (click)="close.emit()" [disabled]="isSaving">
+            Cancelar
+        </app-button>
+        <app-button variant="primary" type="submit" [disabled]="isSaving">
+            Guardar
+        </app-button>
+    </ng-container>
+    </form>
+
+</app-modal>
+}
