@@ -64,7 +64,7 @@ export class Sales implements OnInit {
         },
         error: (err) => {
           console.error(err);
-          this.toast.error('Error al cargar metas');
+          this.toast.error('Error al cargar ventas');
         }
       });
   }
