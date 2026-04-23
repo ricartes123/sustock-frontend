@@ -5,9 +5,9 @@ export interface Movement {
   type: MovementType;
   quantity: number;
   reason?: string;
+  sale?: { id: string; totalAmount: number; createdAt: string; client?: { id: string, name: string } };
   product: { id: string, name: string };
-  workspaceId: string;
-  user: { id: string, name: string };
+  user: { id: string, firstName: string, lastName: string };
   createdAt: string;
 }
 
