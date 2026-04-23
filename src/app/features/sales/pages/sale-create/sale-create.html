@@ -2,7 +2,7 @@
     <!-- Page Header -->
     <div class="sm:flex sm:justify-between sm:items-center mb-8">
         <div class="mb-4 sm:mb-0">
-            <h1 class="text-2xl font-bold text-slate-800">Nueva Venta</h1>
+            <h1 class="text-2xl font-bold text-slate-800">Nueva venta</h1>
         </div>
     </div>
 
@@ -12,13 +12,13 @@
 
             <!-- Search Product Card -->
             <div class="bg-white shadow-sm rounded-xl border border-slate-200 p-5 lg:p-6 transition-all">
-                <label class="block text-sm font-semibold text-slate-700 mb-3">Buscar Producto</label>
+                <label class="block text-sm font-semibold text-slate-700 mb-3">Buscar producto</label>
 
                 <div class="relative" #searchContainer>
                     <div class="relative">
                         <input type="text"
                             class="form-input w-full pl-11 py-3 text-sm md:text-base border-slate-200 focus:ring-primary-500 focus:border-primary-500 rounded-xl bg-slate-50 focus:bg-white transition-colors shadow-sm"
-                            placeholder="Escribe el nombre, SKU o código de barras..." [ngModel]="searchQuery()"
+                            placeholder="Escribí el nombre, SKU o código de barras..." [ngModel]="searchQuery()"
                             (ngModelChange)="onSearchChange($event)"
                             (focus)="searchQuery().length >= 2 ? showDropdown.set(true) : null" />
                         <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
@@ -117,7 +117,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                         </svg>
-                        Productos en la Venta
+                        Productos en la venta
                     </h2>
                     <span
                         class="inline-flex items-center justify-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-white border border-slate-200 text-slate-800">
@@ -135,7 +135,7 @@
                         </svg>
                     </div>
                     <h3 class="text-lg font-medium text-slate-800 mb-1">Tu carrito está vacío</h3>
-                    <p class="text-slate-500 text-sm max-w-sm">Busca y selecciona productos utilizando
+                    <p class="text-slate-500 text-sm max-w-sm">Buscá y seleccioná productos utilizando
                         el buscador de arriba para agregarlos a la venta actual.</p>
                 </div>
                 }

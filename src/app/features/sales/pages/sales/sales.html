@@ -1,9 +1,20 @@
-<div class="flex items-center justify-between mb-8">
+<div class="flex items-center justify-between mb-6">
     <div class="flex items-center gap-3">
         <h2 class="text-2xl font-bold text-slate-800">Ventas</h2>
     </div>
 
     <div class="flex items-center gap-3">
+        @if (searchQuery) {
+        <app-button variant="secondary" size="sm" (click)="clearFilter()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+            Limpiar Filtros
+        </app-button>
+        }
+
         <a routerLink="/sales/new"
             class="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors shadow-sm flex items-center gap-2">
             <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
@@ -11,8 +22,23 @@
                 <line x1="12" y1="5" x2="12" y2="19"></line>
                 <line x1="5" y1="12" x2="19" y2="12"></line>
             </svg>
-            Nueva Venta
+            Nueva venta
         </a>
+    </div>
+</div>
+
+<!-- Filters Bar -->
+<div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 flex flex-col sm:flex-row gap-4 mb-6">
+    <app-search-input
+        [(ngModel)]="searchQuery"
+        (search)="applyFilters()"
+        placeholder="Buscar por cliente o usuario"
+        class="flex-1">
+    </app-search-input>
+    <div class="flex flex-wrap sm:flex-nowrap items-center gap-2">
+        <app-button variant="primary" (click)="applyFilters()">
+            Buscar
+        </app-button>
     </div>
 </div>
 
@@ -52,8 +78,8 @@
                 <td class="p-4">
                     <div class="font-medium text-slate-800">{{ sale.client?.name || 'Consumidor Final' }}</div>
                 </td>
-                <td class="p-4 font-semibold text-slate-800">
-                    ${{ sale.totalAmount | number:'1.0' }}
+                <td class="p-4 font-semibold text-green-600">
+                    {{ sale.totalAmount | currency:currency():'symbol-narrow':'1.0-0':locale() }}
                 </td>
                 <td class="p-4">
                     <div class="flex items-center gap-2">
@@ -79,6 +105,27 @@
             }
     </tbody>
 </app-table>
+
+@if (sales().length > 0) {
+<!-- Pagination -->
+@if (meta()) {
+<div class="flex justify-between items-center mt-6">
+
+    <app-button variant="secondary" size="sm" (click)="prevPage()" [disabled]="page() === 1">
+        Anterior
+    </app-button>
+
+    <span class="text-sm text-gray-600">
+        Página {{ meta()?.page }} de {{ meta()?.totalPages }}
+    </span>
+
+    <app-button variant="secondary" size="sm" (click)="nextPage()" [disabled]="page() === meta()?.totalPages">
+        Siguiente
+    </app-button>
+
+</div>
+}
+}
 
 @if (showWarning()) {
 <app-data-warning [visible]="true" [message]="warningMessage()" [isLoading]="isReverting()" (cancel)="cancelRevert()"
@@ -161,17 +208,15 @@
                                 {{item.product.barcode}}</span> }
                         </td>
                         <td class="py-3 px-4 text-center text-slate-600 font-medium">{{ item.quantity }}</td>
-                        <td class="py-3 px-4 text-right text-slate-600">${{ item.price | number:'1.2-2' }}</td>
-                        <td class="py-3 px-4 text-right font-medium text-slate-800">${{ (item.price * item.quantity) |
-                            number:'1.2-2' }}</td>
+                        <td class="py-3 px-4 text-right text-slate-600">{{ item.price | currency:currency():'symbol-narrow':'1.0-2':locale() }}</td>
+                        <td class="py-3 px-4 text-right font-medium text-slate-800">{{ (item.price * item.quantity) | currency:currency():'symbol-narrow':'1.0-2':locale() }}</td>
                     </tr>
                     }
                 </tbody>
                 <tfoot class="bg-slate-50 border-t border-slate-200">
                     <tr>
                         <td colspan="3" class="py-4 px-4 text-right font-semibold text-slate-600">Total Venta</td>
-                        <td class="py-4 px-4 text-right font-bold text-lg text-primary-700">${{ detail.totalAmount |
-                            number:'1.2-2' }}</td>
+                        <td class="py-4 px-4 text-right font-bold text-lg text-primary-700">{{ detail.totalAmount | currency:currency():'symbol-narrow':'1.0-2':locale() }}</td>
                     </tr>
                 </tfoot>
             </table>

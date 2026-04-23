@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
 import { Observable } from 'rxjs';
 import { Sale, CreateSaleDto } from '../../../core/models/sale.model';
@@ -15,8 +15,17 @@ export class SalesService {
         return this.http.post<Sale>(this.apiUrl, data);
     }
 
-    findAll(): Observable<Sale[]> {
-        return this.http.get<Sale[]>(this.apiUrl);
+    findAll(page: number = 1, limit: number = 10, search?: string, status: string = 'ACTIVE'): Observable<{ data: Sale[], meta: any }> {
+        let params = new HttpParams()
+            .set('page', page.toString())
+            .set('limit', limit.toString())
+            .set('status', status);
+
+        if (search) {
+            params = params.set('search', search);
+        }
+
+        return this.http.get<{ data: Sale[], meta: any }>(this.apiUrl, { params });
     }
 
     findOne(id: string): Observable<Sale> {

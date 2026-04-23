@@ -115,10 +115,10 @@ export class SaleCreate {
   }
 
   private loadClients() {
-    this.clientsService.findAll()
+    this.clientsService.findAll(1, 1000, '', 'ACTIVE')
       .pipe(takeUntilDestroyed())
       .subscribe({
-        next: data => this.clients.set(data)
+        next: res => this.clients.set(res.data)
       });
   }
 

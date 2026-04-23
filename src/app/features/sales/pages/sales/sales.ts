@@ -1,47 +1,106 @@
-import { Component, inject, signal } from '@angular/core';
-import { CommonModule, DatePipe, DecimalPipe } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Component, inject, signal, computed, OnInit, DestroyRef } from '@angular/core';
+import { CommonModule, DatePipe, CurrencyPipe } from '@angular/common';
+import { RouterLink, ActivatedRoute, Router, Params } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { SalesService } from '../../services/sales.service';
 import { Sale } from '../../../../core/models/sale.model';
 import { finalize } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DataWarning } from '../../../../shared/components/data-warning/data-warning';
-
 import { Modal } from '../../../../shared/components/modal/modal';
 import { LucideAngularModule } from 'lucide-angular';
 import { HotToastService } from '@ngxpert/hot-toast';
-
 import { Button } from '../../../../shared/components/button/button';
 import { TableComponent } from '../../../../shared/components/table/table';
+import { SearchInput } from '../../../../shared/components/search-input/search-input';
+import { WorkspaceContextService } from '../../../../core/services/workspace-context.service';
+import { PaginationMeta } from '../../../../core/models/pagination-meta.model';
 
 @Component({
   selector: 'app-sales',
   standalone: true,
-  imports: [CommonModule, RouterLink, DatePipe, DecimalPipe, DataWarning, Modal, Button, LucideAngularModule, TableComponent],
+  imports: [
+    CommonModule, RouterLink, DatePipe, CurrencyPipe,
+    FormsModule, DataWarning, Modal, Button, LucideAngularModule,
+    TableComponent, SearchInput
+  ],
   templateUrl: './sales.html'
 })
-export class Sales {
-
+export class Sales implements OnInit {
+  private workspaceContext = inject(WorkspaceContextService);
   private salesService = inject(SalesService);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
   private toast = inject(HotToastService);
+  private destroyRef = inject(DestroyRef);
+
+  currency = computed(() => this.workspaceContext.currency);
+  locale = computed(() => this.workspaceContext.locale);
 
   sales = signal<Sale[]>([]);
+  meta = signal<PaginationMeta<Sale>['meta'] | null>(null);
+  page = signal(1);
   loading = signal(true);
+  
+  searchQuery = '';
 
-  constructor() {
-    this.loadSales();
+  ngOnInit() {
+    this.route.queryParams.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((params: Params) => {
+      this.searchQuery = params['search'] || '';
+      this.page.set(Number(params['page']) || 1);
+      this.loadSales();
+    });
   }
 
   loadSales() {
     this.loading.set(true);
 
-    this.salesService.findAll()
+    this.salesService.findAll(this.page(), 10, this.searchQuery, 'ACTIVE')
       .pipe(finalize(() => this.loading.set(false)))
-      .subscribe(res => {
-        const data = res;
-        this.sales.set(Array.isArray(data) ? data : []);
+      .subscribe({
+        next: (res) => {
+          this.sales.set(res.data);
+          this.meta.set(res.meta);
+        },
+        error: (err) => {
+          console.error(err);
+          this.toast.error('Error al cargar metas');
+        }
       });
   }
 
+  applyFilters() {
+    this.router.navigate(['/sales'], {
+      queryParams: {
+        search: this.searchQuery || null,
+        page: 1
+      }
+    });
+  }
+
+  clearFilter() {
+    this.router.navigate(['/sales']);
+  }
+
+  nextPage() {
+    if (this.meta() && this.page() < this.meta()!.totalPages) {
+      this.router.navigate([], {
+        queryParams: { page: this.page() + 1 },
+        queryParamsHandling: 'merge'
+      });
+    }
+  }
+
+  prevPage() {
+    if (this.page() > 1) {
+      this.router.navigate([], {
+        queryParams: { page: this.page() - 1 },
+        queryParamsHandling: 'merge'
+      });
+    }
+  }
+
+  // Warning & Revert
   showWarning = signal(false);
   warningMessage = signal('¿Estás seguro que deseas anular esta venta? La acción generará movimientos de entrada y podría impactar las estadísticas de tu inventario.');
   saleToRevert = signal<Sale | null>(null);
@@ -72,7 +131,7 @@ export class Sales {
 
   closeDetailsModal() {
     this.showDetailsModal.set(false);
-    setTimeout(() => this.selectedSaleDetail.set(null), 300); // clear after animation
+    setTimeout(() => this.selectedSaleDetail.set(null), 300);
   }
 
   triggerRevert(sale: Sale) {
