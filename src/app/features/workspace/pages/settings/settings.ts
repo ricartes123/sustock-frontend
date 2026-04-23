@@ -92,13 +92,13 @@ export class Settings implements OnInit {
 
         if (this.conversionMode() === 'MANUAL') {
             if (!this.manualRate() || this.manualRate()! <= 0) {
-                alert("Please enter a valid conversion multiplier.");
+                this.toast.error("Please enter a valid conversion multiplier.");
                 return;
             }
             finalRate = this.manualRate()!;
         } else if (this.conversionMode() === 'AUTO') {
             if (!this.apiRate()) {
-                alert("Exchange rate is not loaded yet.");
+                this.toast.error("Exchange rate is not loaded yet.");
                 return;
             }
             finalRate = this.apiRate()!;
