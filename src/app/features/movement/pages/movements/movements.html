@@ -16,10 +16,10 @@
         [(ngModel)]="selectedType"
         (change)="applyFilters()"
         class="border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-700 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-300">
-        <option value="">Todos los tipos</option>
-        <option value="IN">Entrada</option>
-        <option value="OUT">Venta</option>
-        <option value="ADJUSTMENT">Ajuste</option>
+        <option value="">{{ 'MOVEMENT_TYPE.ALL' | translate }}</option>
+        <option value="IN">{{ 'MOVEMENT_TYPE.IN' | translate }}</option>
+        <option value="OUT">{{ 'MOVEMENT_TYPE.OUT' | translate }}</option>
+        <option value="ADJUSTMENT">{{ 'MOVEMENT_TYPE.ADJUSTMENT' | translate }}</option>
     </select>
     <div class="flex flex-wrap sm:flex-nowrap items-center gap-2">
         <app-button variant="primary" (click)="applyFilters()">
@@ -55,13 +55,13 @@
                 </td>
                 <td class="p-4">
                     @if (mov.type === 'IN') {
-                        <app-badge variant="success">Entrada</app-badge>
+                        <app-badge variant="success">{{ 'MOVEMENT_TYPE.IN' | translate }}</app-badge>
                     }
                     @if (mov.type === 'OUT') {
-                        <app-badge variant="error">Venta</app-badge>
+                        <app-badge variant="error">{{ 'MOVEMENT_TYPE.OUT' | translate }}</app-badge>
                     }
                     @if (mov.type === 'ADJUSTMENT') {
-                        <app-badge variant="neutral">Ajuste</app-badge>
+                        <app-badge variant="neutral">{{ 'MOVEMENT_TYPE.ADJUSTMENT' | translate }}</app-badge>
                     }
                 </td>
                 <td class="p-4">
