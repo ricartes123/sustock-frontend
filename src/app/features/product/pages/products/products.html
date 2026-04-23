@@ -30,17 +30,12 @@
 
 <!-- Filters Bar -->
 <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 flex flex-col sm:flex-row gap-4 mb-6">
-    <div class="flex-1 relative">
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-            class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
-            <circle cx="11" cy="11" r="8"></circle>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-        </svg>
-        <input type="text" [(ngModel)]="searchQuery" (keyup.enter)="applyFilters()"
-            [placeholder]="'PRODUCTS.SEARCH_PLACEHOLDER' | translate"
-            class="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all">
-    </div>
+    <app-search-input
+        [(ngModel)]="searchQuery"
+        (search)="applyFilters()"
+        [placeholder]="'PRODUCTS.SEARCH_PLACEHOLDER' | translate"
+        class="flex-1">
+    </app-search-input>
     <div class="flex flex-wrap sm:flex-nowrap items-center gap-2">
         @if (isAdmin()) {
         <select [(ngModel)]="formStatusFilter" (change)="applyFilters()"
@@ -63,13 +58,9 @@
     </div>
 </div>
 
-<app-table 
-    [isLoading]="loading()"
-    [loadingText]="'COMMON.LOADING' | translate"
-    [isEmpty]="!loading() && products().length === 0"
-    emptyIcon="package-open"
-    [emptyTitle]="'PRODUCTS.NO_PRODUCTS' | translate"
-    [emptyDescription]="'PRODUCTS.NO_PRODUCTS_DESC' | translate"
+<app-table [isLoading]="loading()" [loadingText]="'COMMON.LOADING' | translate"
+    [isEmpty]="!loading() && products().length === 0" emptyIcon="package-open"
+    [emptyTitle]="'PRODUCTS.NO_PRODUCTS' | translate" [emptyDescription]="'PRODUCTS.NO_PRODUCTS_DESC' | translate"
     [showEmptyAction]="true">
 
     <ng-container empty-actions>
@@ -96,69 +87,69 @@
 
     <tbody table-body>
         @for (product of products(); track product.id) {
-            <tr class="border-b hover:bg-slate-50 transition" [class.opacity-50]="!product.isActive"
-                [class.bg-slate-50]="!product.isActive">
-                <td class="p-4">
-                    <div class="font-medium text-slate-800">{{ product.name }}</div>
-                    @if (product.barcode) {
-                    <div class="text-xs text-slate-400 mt-0.5 font-mono">{{ product.barcode }}</div>
-                    }
-                    @if (!product.isActive) {
-                    <app-badge variant="neutral" class="mt-1">
-                        {{ 'PRODUCTS.ARCHIVED' | translate }}
-                    </app-badge>
-                    }
-                </td>
-
-                <td class="p-4 text-slate-700">
-                    {{ product.costPrice | currency:currency():'symbol-narrow':'1.0-0':locale }}
-                </td>
-
-                <td class="p-4 font-bold text-slate-700">
-                    {{ product.price | currency:currency():'symbol-narrow':'1.0-0':locale }}
-                </td>
-
-                <td class="p-4">
-                    <app-badge [variant]="product.stock > product.stockMin ? 'success' : 'error'"
-                        [title]="'Alert threshold: ' + product.stockMin">
-                        {{ product.stock }}
-                    </app-badge>
-                </td>
-
-                <td class="p-4 text-sm text-slate-500 whitespace-nowrap">
-                    {{ product.createdAt | date:'shortDate' }}
-                </td>
-
-                @if (isAdmin()) {
-                <td class="p-4 text-right">
-                    <div class="flex items-center justify-end gap-2">
-
-                        <app-button variant="icon" (click)="openHistoryModal(product)"
-                            [title]="'PRODUCTS.HISTORY' | translate">
-                            <lucide-icon name="clock" [size]="16" [strokeWidth]="2"></lucide-icon>
-                        </app-button>
-
-                        <app-button variant="icon-primary" (click)="openEditModal(product)"
-                            [title]="'COMMON.EDIT' | translate">
-                            <lucide-icon name="pencil" [size]="16" [strokeWidth]="2"></lucide-icon>
-                        </app-button>
-
-                        <app-button [variant]="product.isActive ? 'icon-danger' : 'icon-primary'"
-                            (click)="toggleProductStatus(product)"
-                            [title]="product.isActive ? ('COMMON.ARCHIVE' | translate) : ('COMMON.RESTORE' | translate)">
-                            @if (product.isActive) {
-                            <!-- Switch off / Archive icon -->
-                            <lucide-icon name="archive" [size]="16" [strokeWidth]="2"></lucide-icon>
-                            } @else {
-                            <!-- Restore icon -->
-                            <lucide-icon name="archive-restore" [size]="16" [strokeWidth]="2"></lucide-icon>
-                            }
-                        </app-button>
-                    </div>
-                </td>
+        <tr class="border-b hover:bg-slate-50 transition" [class.opacity-50]="!product.isActive"
+            [class.bg-slate-50]="!product.isActive">
+            <td class="p-4">
+                <div class="font-medium text-slate-800">{{ product.name }}</div>
+                @if (product.barcode) {
+                <div class="text-xs text-slate-400 mt-0.5 font-mono">{{ product.barcode }}</div>
                 }
-            </tr>
+                @if (!product.isActive) {
+                <app-badge variant="neutral" class="mt-1">
+                    {{ 'PRODUCTS.ARCHIVED' | translate }}
+                </app-badge>
+                }
+            </td>
+
+            <td class="p-4 text-slate-700">
+                {{ product.costPrice | currency:currency():'symbol-narrow':'1.0-0':locale }}
+            </td>
+
+            <td class="p-4 font-bold text-slate-700">
+                {{ product.price | currency:currency():'symbol-narrow':'1.0-0':locale }}
+            </td>
+
+            <td class="p-4">
+                <app-badge [variant]="product.stock > product.stockMin ? 'success' : 'error'"
+                    [title]="'Alert threshold: ' + product.stockMin">
+                    {{ product.stock }}
+                </app-badge>
+            </td>
+
+            <td class="p-4 text-sm text-slate-500 whitespace-nowrap">
+                {{ product.createdAt | date:'shortDate' }}
+            </td>
+
+            @if (isAdmin()) {
+            <td class="p-4 text-right">
+                <div class="flex items-center justify-end gap-2">
+
+                    <app-button variant="icon" (click)="openHistoryModal(product)"
+                        [title]="'PRODUCTS.HISTORY' | translate">
+                        <lucide-icon name="clock" [size]="16" [strokeWidth]="2"></lucide-icon>
+                    </app-button>
+
+                    <app-button variant="icon-primary" (click)="openEditModal(product)"
+                        [title]="'COMMON.EDIT' | translate">
+                        <lucide-icon name="pencil" [size]="16" [strokeWidth]="2"></lucide-icon>
+                    </app-button>
+
+                    <app-button [variant]="product.isActive ? 'icon-danger' : 'icon-primary'"
+                        (click)="toggleProductStatus(product)"
+                        [title]="product.isActive ? ('COMMON.ARCHIVE' | translate) : ('COMMON.RESTORE' | translate)">
+                        @if (product.isActive) {
+                        <!-- Switch off / Archive icon -->
+                        <lucide-icon name="archive" [size]="16" [strokeWidth]="2"></lucide-icon>
+                        } @else {
+                        <!-- Restore icon -->
+                        <lucide-icon name="archive-restore" [size]="16" [strokeWidth]="2"></lucide-icon>
+                        }
+                    </app-button>
+                </div>
+            </td>
             }
+        </tr>
+        }
     </tbody>
 </app-table>
 

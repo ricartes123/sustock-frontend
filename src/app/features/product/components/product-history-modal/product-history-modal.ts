@@ -6,21 +6,9 @@ import { Product } from '../../../../core/models/product.model';
 import { Button } from '../../../../shared/components/button/button';
 import { Badge } from '../../../../shared/components/badge/badge';
 import { finalize } from 'rxjs';
-
-export interface Movement {
-    id: string;
-    type: 'IN' | 'OUT' | 'ADJUSTMENT';
-    quantity: number;
-    reason?: string;
-    createdAt: string;
-    user?: {
-        firstName: string;
-        lastName: string;
-    };
-    sale?: {
-        id: string;
-    };
-}
+import { Movement } from '../../../../core/models/movement.model';
+import { MovementService } from '../../../movement/services/movement.service';
+import { PaginationMeta } from '../../../../core/models/pagination-meta.model';
 
 @Component({
     selector: 'app-product-history-modal',
@@ -34,7 +22,9 @@ export class ProductHistoryModal implements OnChanges {
     @Output() close = new EventEmitter<void>();
 
     private productService = inject(ProductService);
+    private movementsService = inject(MovementService);
 
+    meta = signal<PaginationMeta<Movement>['meta'] | null>(null);
     movements = signal<Movement[]>([]);
     isLoading = signal(false);
 
@@ -49,11 +39,12 @@ export class ProductHistoryModal implements OnChanges {
     loadHistory() {
         if (!this.product) return;
         this.isLoading.set(true);
-        this.productService.getProductMovements(this.product.id)
+        this.movementsService.getProductMovements(this.product.id)
             .pipe(finalize(() => this.isLoading.set(false)))
             .subscribe({
                 next: (res) => {
-                    this.movements.set(res || []);
+                    this.movements.set(res.data || []);
+                    this.meta.set(res.meta);
                 }
             });
     }

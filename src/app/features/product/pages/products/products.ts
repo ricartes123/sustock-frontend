@@ -19,6 +19,7 @@ import { ProductHistoryModal } from '../../components/product-history-modal/prod
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { PaginationMeta } from '../../../../core/models/pagination-meta.model';
 import { TableComponent } from '../../../../shared/components/table/table';
+import { SearchInput } from '../../../../shared/components/search-input/search-input';
 
 @Component({
   standalone: true,
@@ -37,6 +38,7 @@ import { TableComponent } from '../../../../shared/components/table/table';
     QuickStockModal,
     ProductHistoryModal,
     TableComponent,
+    SearchInput,
   ],
   templateUrl: './products.html',
 })
@@ -52,7 +54,7 @@ export class Products implements OnInit {
   isAdmin = computed(() => this.workspaceContext.isAdmin());
 
   products = signal<Product[]>([]);
-  meta = signal<PaginationMeta | null>(null);
+  meta = signal<PaginationMeta<Product>['meta'] | null>(null);
   page = signal(1);
   loading = signal(true);
   isLowStockFilter = signal<boolean>(false);

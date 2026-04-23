@@ -56,7 +56,7 @@
                             <th class="px-4 py-3">Fecha</th>
                             <th class="px-4 py-3">Tipo</th>
                             <th class="px-4 py-3 text-right">Cantidad</th>
-                            <th class="px-4 py-3">Detalle</th>
+                            <th class="px-4 py-3">Cliente</th>
                             <th class="px-4 py-3">Usuario</th>
                         </tr>
                     </thead>
@@ -71,17 +71,17 @@
                                 @if(mov.type === 'IN') {
                                 <app-badge variant="success">Ingreso</app-badge>
                                 } @else if(mov.type === 'OUT') {
-                                <app-badge variant="neutral">Venta</app-badge>
+                                <app-badge variant="error">Venta</app-badge>
                                 } @else {
                                 <app-badge variant="warning">Ajuste</app-badge>
                                 }
                             </td>
                             <td class="px-4 py-3 text-right font-semibold"
-                                [ngClass]="{'text-green-600': mov.type === 'IN', 'text-slate-700': mov.type === 'OUT', 'text-amber-600': mov.type === 'ADJUSTMENT'}">
+                                [ngClass]="{'text-green-600': mov.type === 'IN', 'text-red-600': mov.type === 'OUT', 'text-amber-600': mov.type === 'ADJUSTMENT'}">
                                 {{ mov.type === 'OUT' ? '-' : '+' }}{{ mov.quantity }}
                             </td>
                             <td class="px-4 py-3 text-slate-600 max-w-[200px] truncate"
-                                [title]="mov.reason || (mov.sale ? 'Venta #' + mov.sale.id : '')">
+                                [title]="mov.reason || (mov.sale?.id ? 'Venta #' + mov.sale?.id : '')">
                                 @if(mov.reason) {
                                 {{ mov.reason }}
                                 } @else if(mov.sale) {
