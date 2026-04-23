@@ -6,13 +6,12 @@
 
 <!-- Filters Bar -->
 <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 flex flex-col sm:flex-row gap-4 mb-6">
-    <div class="flex-1 relative">
-        <lucide-icon name="search" [size]="18"
-            class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"></lucide-icon>
-        <input type="text" [(ngModel)]="searchQuery" (keyup.enter)="applyFilters()"
-            placeholder="Buscar por código u observación..."
-            class="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all">
-    </div>
+    <app-search-input
+        [(ngModel)]="searchQuery"
+        (search)="applyFilters()"
+        placeholder="Buscar por código u observación..."
+        class="flex-1">
+    </app-search-input>
     <div class="flex flex-wrap sm:flex-nowrap items-center gap-2">
         <app-button variant="primary" (click)="applyFilters()">
             {{ 'COMMON.SEARCH' | translate }}
@@ -34,7 +33,7 @@
             <th class="p-4 text-sm font-semibold text-slate-600">Tipo</th>
             <th class="p-4 text-sm font-semibold text-slate-600">Producto</th>
             <th class="p-4 text-sm font-semibold text-slate-600">Cantidad</th>
-            <th class="p-4 text-sm font-semibold text-slate-600">Usuario / Razón</th>
+            <th class="p-4 text-sm font-semibold text-slate-600">Usuario</th>
         </tr>
     </thead>
 
@@ -50,23 +49,20 @@
                         <app-badge variant="success">Entrada</app-badge>
                     }
                     @if (mov.type === 'OUT') {
-                        <app-badge variant="error">Salida</app-badge>
+                        <app-badge variant="error">Venta</app-badge>
                     }
                     @if (mov.type === 'ADJUSTMENT') {
                         <app-badge variant="neutral">Ajuste</app-badge>
                     }
                 </td>
                 <td class="p-4">
-                    <div class="font-medium text-slate-800">{{ mov.productId }}</div>
+                    <div class="font-medium text-slate-800">{{ mov.product.name }}</div>
                 </td>
-                <td class="p-4 font-bold text-slate-700">
-                    {{ mov.quantity > 0 ? '+' : '' }}{{ mov.quantity }}
+                <td class="p-4 font-bold text-red-600">
+                    {{ mov.quantity > 0 ? '-' : '+' }}{{ mov.quantity }}
                 </td>
                 <td class="p-4">
-                    <div class="text-sm font-medium text-slate-700">{{ mov.userId || 'Sistema' }}</div>
-                    @if (mov.reason) {
-                        <div class="text-xs text-slate-500 mt-0.5">{{ mov.reason }}</div>
-                    }
+                    <div class="text-sm font-medium text-slate-700">{{ mov.user.firstName + ' ' + mov.user.lastName }}</div>
                 </td>
             </tr>
         }

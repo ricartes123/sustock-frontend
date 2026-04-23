@@ -12,14 +12,14 @@
             <!-- Search Product -->
             <div
                 class="bg-white dark:bg-gray-800 shadow-sm rounded-xl border border-gray-200 dark:border-gray-700/60 p-5">
-                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Buscar Producto</label>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Buscar producto</label>
 
                 <div class="relative" #searchContainer>
                     <div class="relative">
                         <input type="text"
                             class="form-input w-full pl-10 border-gray-200 dark:border-gray-600 focus:ring-primary-500 rounded-lg"
                             [ngClass]="selectedProduct ? 'bg-gray-100 dark:bg-gray-700 cursor-not-allowed opacity-50' : 'bg-gray-50 dark:bg-gray-700/50 hover:bg-white'"
-                            placeholder="Escribe el nombre, SKU o código de barras..." [ngModel]="searchQuery"
+                            placeholder="Escribí el nombre, SKU o código de barras..." [ngModel]="searchQuery"
                             (ngModelChange)="onSearchChange($event)"
                             (focus)="!selectedProduct && searchQuery.length >= 2 ? showDropdown = true : null"
                             [disabled]="selectedProduct !== null">

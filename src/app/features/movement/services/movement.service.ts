@@ -16,8 +16,8 @@ export class MovementService {
         return this.http.post<Movement>(this.apiUrl, data);
     }
 
-    getAll(page = 1, limit = 10, type?: string): Observable<PaginationMeta<Movement>> {
-        let url = `${this.apiUrl}?page=${page}&limit=${limit}`;
+    getAll(workspaceId: string, page = 1, limit = 10, type?: string): Observable<PaginationMeta<Movement>> {
+        let url = `${this.apiUrl}?workspaceId=${workspaceId}&page=${page}&limit=${limit}`;
         if (type) {
             url += `&type=${type}`;
         }

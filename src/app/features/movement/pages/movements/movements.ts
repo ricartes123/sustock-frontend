@@ -1,8 +1,7 @@
-import { Component, inject, signal, OnInit } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
-import { WorkspaceContextService } from '../../../../core/services/workspace-context.service';
 import { Movement } from '../../../../core/models/movement.model';
 import { MovementService } from '../../services/movement.service';
 import { PaginationMeta } from '../../../../core/models/pagination-meta.model';
@@ -11,19 +10,21 @@ import { TableComponent } from '../../../../shared/components/table/table';
 import { Button } from '../../../../shared/components/button/button';
 import { Badge } from '../../../../shared/components/badge/badge';
 import { LucideAngularModule } from 'lucide-angular';
+import { SearchInput } from '../../../../shared/components/search-input/search-input';
+import { WorkspaceContextService } from '../../../../core/services/workspace-context.service';
 
 @Component({
   selector: 'app-movements',
-  imports: [CommonModule, FormsModule, TranslateModule, TableComponent, Button, Badge, LucideAngularModule],
+  imports: [CommonModule, FormsModule, TranslateModule, TableComponent, Button, Badge, LucideAngularModule, SearchInput],
   templateUrl: './movements.html',
   styleUrl: './movements.css',
 })
 export class Movements {
-  private workspaceContext = inject(WorkspaceContextService);
   private movementService = inject(MovementService);
+  private workspaceContext = inject(WorkspaceContextService);
 
   movements = signal<Movement[]>([]);
-  meta = signal<PaginationMeta | null>(null);
+  meta = signal<PaginationMeta<Movement>['meta'] | null>(null);
   page = signal(1);
 
   loading = signal(false);
@@ -38,6 +39,7 @@ export class Movements {
     this.loading.set(true);
 
     this.movementService.getAll(
+      this.workspaceContext.activeWorkspace()!.id,
       this.page(),
       10,
       this.searchQuery,
