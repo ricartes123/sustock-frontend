@@ -30,6 +30,7 @@ export class Movements {
   loading = signal(false);
 
   searchQuery = '';
+  selectedType = '';
 
   ngOnInit() {
     this.loadMovements();
@@ -42,7 +43,7 @@ export class Movements {
       this.workspaceContext.activeWorkspace()!.id,
       this.page(),
       10,
-      this.searchQuery,
+      this.selectedType || undefined,
     ).subscribe({
       next: (res) => {
         this.movements.set(res.data);
