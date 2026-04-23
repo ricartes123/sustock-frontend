@@ -20,6 +20,7 @@
         "SALES": "Ventas",
         "NEW_SALE": "Nueva venta",
         "MOVEMENTS": "Movimientos",
+        "NEW_MOVEMENT": "Nuevo movimiento",
         "CLIENTS": "Clientes",
         "SETTINGS": "Configuración",
         "LOGOUT": "Cerrar sesión"
