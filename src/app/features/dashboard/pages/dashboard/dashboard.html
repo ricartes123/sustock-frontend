@@ -30,36 +30,24 @@
         class="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 -mx-6 px-6 sm:mx-0 sm:px-0 sm:grid sm:grid-cols-3 sm:overflow-visible sm:pb-0 hide-scrollbar">
 
         <a routerLink="/sales/new"
-            class="min-w-[280px] sm:min-w-0 snap-start flex-shrink-0 bg-gradient-to-r from-[#6c29e7] to-[#8d59ec] hover:from-[#5115c0] hover:to-[#7a3ee9] transition-all duration-300 rounded-2xl p-5 flex items-center justify-between text-white cursor-pointer shadow-lg shadow-primary-500/20 group relative overflow-hidden">
-            <!-- Decorative hexagon background -->
-            <div class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 opacity-20 pointer-events-none group-hover:scale-110 transition-transform duration-500">
-                <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M60 0L111.962 30V90L60 120L8.03848 90V30L60 0Z" stroke="white" stroke-width="2"/>
-                    <path d="M60 20L94.641 40V80L60 100L25.359 80V40L60 20Z" stroke="white" stroke-width="2"/>
-                </svg>
-            </div>
-
-            <div class="flex items-center gap-4 z-10">
+            class="min-w-[280px] sm:min-w-0 snap-start flex-shrink-0 bg-primary-600 hover:bg-primary-500 transition-all duration-300 rounded-2xl p-5 flex items-center justify-between text-white cursor-pointer shadow-lg shadow-primary-500/20 group relative overflow-hidden">
+            
+            <div class="flex items-center gap-4">
                 <div class="bg-white/20 w-12 h-12 rounded-xl flex items-center justify-center backdrop-blur-sm shadow-inner group-hover:bg-white/30 transition-colors border border-white/10">
                     <lucide-icon name="shopping-cart" [size]="24" strokeWidth="2.5" class="text-white"></lucide-icon>
                 </div>
                 <div class="flex flex-col text-left">
-                    <span class="font-bold text-[15px] leading-tight">{{ 'DASHBOARD.NEW_SALE_CTA' | translate }}</span>
+                    <span class="font-bold text-[15px] text-white leading-tight">{{ 'DASHBOARD.NEW_SALE_CTA' | translate }}</span>
                     <span class="text-xs text-white/80 font-medium mt-0.5">{{ 'DASHBOARD.NEW_SALE_DESC' | translate }}</span>
                 </div>
             </div>
-            <div class="hidden sm:flex items-center gap-1 z-10 bg-white/10 p-1 rounded-lg border border-white/10 group-hover:bg-white/20 transition-colors">
-                <div class="w-6 h-6 flex items-center justify-center rounded bg-white/10 text-[10px] font-bold">N</div>
-                <div class="w-6 h-6 flex items-center justify-center rounded bg-white text-primary-700 shadow-sm">
-                    <lucide-icon name="chevron-right" [size]="14" [strokeWidth]="3"></lucide-icon>
-                </div>
-            </div>
+            <lucide-icon name="chevron-right" [size]="20" [strokeWidth]="2.5" class="text-white/80 group-hover:text-white transition-colors hidden sm:block"></lucide-icon>
         </a>
 
         <a routerLink="/products" [queryParams]="{ action: 'quick-stock' }"
-            class="min-w-[280px] sm:min-w-0 snap-start flex-shrink-0 bg-card hover:bg-input border border-medium transition-colors duration-300 rounded-2xl p-5 flex items-center justify-between text-body cursor-pointer shadow-sm group">
+            class="min-w-[280px] sm:min-w-0 snap-start flex-shrink-0 bg-card hover:bg-emerald-50/30 dark:hover:bg-emerald-950/20 border border-medium hover:border-emerald-200 dark:hover:border-emerald-800/50 transition-all duration-300 rounded-2xl p-5 flex items-center justify-between text-body cursor-pointer shadow-sm group">
             <div class="flex items-center gap-4">
-                <div class="bg-emerald-500 w-12 h-12 rounded-xl flex items-center justify-center shadow-inner group-hover:scale-105 transition-transform">
+                <div class="bg-emerald-500 w-12 h-12 rounded-xl flex items-center justify-center shadow-inner group-hover:bg-emerald-600 transition-colors">
                     <lucide-icon name="zap" [size]="24" strokeWidth="2.5" class="text-white"></lucide-icon>
                 </div>
                 <div class="flex flex-col text-left">
@@ -67,13 +55,13 @@
                     <span class="text-xs text-faint font-medium mt-0.5">{{ 'DASHBOARD.QUICK_STOCK_DESC' | translate }}</span>
                 </div>
             </div>
-            <lucide-icon name="chevron-right" [size]="20" [strokeWidth]="2" class="text-soft group-hover:text-faint transition-colors hidden sm:block"></lucide-icon>
+            <lucide-icon name="chevron-right" [size]="20" [strokeWidth]="2.5" class="text-faint group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors hidden sm:block"></lucide-icon>
         </a>
 
         <a routerLink="/products" [queryParams]="{ action: 'new' }"
-            class="min-w-[280px] sm:min-w-0 snap-start flex-shrink-0 bg-card hover:bg-input border border-medium transition-colors duration-300 rounded-2xl p-5 flex items-center justify-between text-body cursor-pointer shadow-sm group">
+            class="min-w-[280px] sm:min-w-0 snap-start flex-shrink-0 bg-card hover:bg-blue-50/30 dark:hover:bg-blue-950/20 border border-medium hover:border-blue-200 dark:hover:border-blue-800/50 transition-all duration-300 rounded-2xl p-5 flex items-center justify-between text-body cursor-pointer shadow-sm group">
             <div class="flex items-center gap-4">
-                <div class="bg-blue-600 w-12 h-12 rounded-xl flex items-center justify-center shadow-inner group-hover:scale-105 transition-transform">
+                <div class="bg-blue-600 w-12 h-12 rounded-xl flex items-center justify-center shadow-inner group-hover:bg-blue-700 transition-colors">
                     <lucide-icon name="plus" [size]="24" strokeWidth="3" class="text-white"></lucide-icon>
                 </div>
                 <div class="flex flex-col text-left">
@@ -81,7 +69,7 @@
                     <span class="text-xs text-faint font-medium mt-0.5">{{ 'DASHBOARD.NEW_PRODUCT_DESC' | translate }}</span>
                 </div>
             </div>
-            <lucide-icon name="chevron-right" [size]="20" [strokeWidth]="2" class="text-soft group-hover:text-faint transition-colors hidden sm:block"></lucide-icon>
+            <lucide-icon name="chevron-right" [size]="20" [strokeWidth]="2.5" class="text-faint group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors hidden sm:block"></lucide-icon>
         </a>
     </div>
 </div>
