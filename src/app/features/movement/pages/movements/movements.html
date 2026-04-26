@@ -1,11 +1,11 @@
 <div class="flex items-center justify-between mb-6">
     <div class="flex items-center gap-3">
-        <h2 class="text-2xl font-bold text-slate-800">{{ 'MOVEMENTS.TITLE' | translate }}</h2>
+        <h2 class="text-2xl font-bold text-main">{{ 'MOVEMENTS.TITLE' | translate }}</h2>
     </div>
 </div>
 
 <!-- Filters Bar -->
-<div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 flex flex-col sm:flex-row gap-4 mb-6">
+<div class="bg-card p-4 rounded-xl shadow-sm border border-soft flex flex-col sm:flex-row gap-4 mb-6">
     <app-search-input
         [(ngModel)]="searchQuery"
         (search)="applyFilters()"
@@ -15,7 +15,7 @@
     <select
         [(ngModel)]="selectedType"
         (change)="applyFilters()"
-        class="border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-700 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-300">
+        class="border border-strong rounded-lg px-3 py-2 text-sm text-body bg-input focus:outline-none focus:ring-2 focus:ring-indigo-300">
         <option value="">{{ 'MOVEMENT_TYPE.ALL' | translate }}</option>
         <option value="IN">{{ 'MOVEMENT_TYPE.IN' | translate }}</option>
         <option value="OUT">{{ 'MOVEMENT_TYPE.OUT' | translate }}</option>
@@ -28,7 +28,7 @@
     </div>
 </div>
 
-<app-table 
+<app-table
     [isLoading]="loading()"
     loadingText="Cargando movimientos..."
     [isEmpty]="!loading() && movements().length === 0"
@@ -36,22 +36,22 @@
     emptyTitle="Sin movimientos"
     emptyDescription="No hay movimientos registrados por el momento.">
 
-    <thead table-header class="bg-gray-50 border-b">
+    <thead table-header class="bg-card-hover border-b border-soft">
         <tr>
-            <th class="p-4 text-sm font-semibold text-slate-600">Fecha</th>
-            <th class="p-4 text-sm font-semibold text-slate-600">Tipo</th>
-            <th class="p-4 text-sm font-semibold text-slate-600">Producto</th>
-            <th class="p-4 text-sm font-semibold text-slate-600">Cantidad</th>
-            <th class="p-4 text-sm font-semibold text-slate-600">Usuario</th>
+            <th class="p-4 text-sm font-semibold text-muted">Fecha</th>
+            <th class="p-4 text-sm font-semibold text-muted">Tipo</th>
+            <th class="p-4 text-sm font-semibold text-muted">Producto</th>
+            <th class="p-4 text-sm font-semibold text-muted">Cantidad</th>
+            <th class="p-4 text-sm font-semibold text-muted">Usuario</th>
         </tr>
     </thead>
 
     <tbody table-body>
         @for (mov of movements(); track mov.id) {
-            <tr class="border-b hover:bg-slate-50 transition">
-                <td class="p-4 text-slate-700">
+            <tr class="border-b border-soft hover:bg-card-hover transition">
+                <td class="p-4 text-body">
                     <div class="font-medium">{{ mov.createdAt | date:'shortDate' }}</div>
-                    <div class="text-xs text-slate-400 mt-0.5">{{ mov.createdAt | date:'shortTime' }}</div>
+                    <div class="text-xs text-faint mt-0.5">{{ mov.createdAt | date:'shortTime' }}</div>
                 </td>
                 <td class="p-4">
                     @if (mov.type === 'IN') {
@@ -65,13 +65,13 @@
                     }
                 </td>
                 <td class="p-4">
-                    <div class="font-medium text-slate-800">{{ mov.product.name }}</div>
+                    <div class="font-medium text-main">{{ mov.product.name }}</div>
                 </td>
                 <td class="p-4 font-bold text-red-600">
                     {{ mov.quantity > 0 ? '-' : '+' }}{{ mov.quantity }}
                 </td>
                 <td class="p-4">
-                    <div class="text-sm font-medium text-slate-700">{{ mov.user.firstName + ' ' + mov.user.lastName }}</div>
+                    <div class="text-sm font-medium text-body">{{ mov.user.firstName + ' ' + mov.user.lastName }}</div>
                 </td>
             </tr>
         }
@@ -88,7 +88,7 @@
         {{ 'COMMON.PREVIOUS' | translate }}
     </app-button>
 
-    <span class="text-sm text-gray-600">
+    <span class="text-sm text-muted">
         Página {{ meta()?.page }} de {{ meta()?.totalPages }}
     </span>
 

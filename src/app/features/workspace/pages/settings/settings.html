@@ -1,14 +1,14 @@
 <div class="p-6 md:p-8 max-w-4xl mx-auto">
     <div class="flex items-center justify-between mb-8">
         <div>
-            <h1 class="text-2xl font-bold text-slate-800 tracking-tight">{{ 'SETTINGS.PAGE_TITLE' | translate }}</h1>
-            <p class="text-slate-500 text-sm mt-1">{{ 'SETTINGS.PAGE_SUBTITLE' | translate }}</p>
+            <h1 class="text-2xl font-bold text-main tracking-tight">{{ 'SETTINGS.PAGE_TITLE' | translate }}</h1>
+            <p class="text-faint text-sm mt-1">{{ 'SETTINGS.PAGE_SUBTITLE' | translate }}</p>
         </div>
     </div>
 
-    <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
-        <div class="p-6 border-b border-slate-100 flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-primary-50 flex items-center justify-center text-primary-600">
+    <div class="bg-card rounded-2xl shadow-sm border border-soft overflow-hidden">
+        <div class="p-6 border-b border-soft flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-primary-50 dark:bg-primary-900/30 flex items-center justify-center text-primary-600 dark:text-primary-400">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="12" cy="12" r="3"></circle>
@@ -18,20 +18,20 @@
                 </svg>
             </div>
             <div>
-                <h2 class="text-base font-bold text-slate-800">{{ 'SETTINGS.WORKSPACE_CONFIG_TITLE' | translate }}</h2>
-                <p class="text-sm text-slate-500">{{ 'SETTINGS.WORKSPACE_CONFIG_DESC' | translate }}</p>
+                <h2 class="text-base font-bold text-main">{{ 'SETTINGS.WORKSPACE_CONFIG_TITLE' | translate }}</h2>
+                <p class="text-sm text-faint">{{ 'SETTINGS.WORKSPACE_CONFIG_DESC' | translate }}</p>
             </div>
         </div>
 
         <div class="p-6">
             <div class="max-w-md">
-                <label class="block text-sm font-medium text-slate-700 mb-2">{{ 'SETTINGS.BASE_CURRENCY' | translate
+                <label class="block text-sm font-medium text-body mb-2">{{ 'SETTINGS.BASE_CURRENCY' | translate
                     }}</label>
-                <p class="text-xs text-slate-500 mb-4 leading-relaxed">{{ 'SETTINGS.BASE_CURRENCY_DESC' | translate }}
+                <p class="text-xs text-faint mb-4 leading-relaxed">{{ 'SETTINGS.BASE_CURRENCY_DESC' | translate }}
                 </p>
 
                 <select [(ngModel)]="selectedCurrency"
-                    class="w-full border border-slate-200 px-4 py-3 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all cursor-pointer bg-slate-50 hover:bg-white">
+                    class="w-full border border-strong px-4 py-3 rounded-xl text-sm text-main focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all cursor-pointer bg-input hover:bg-surface">
                     <option value="ARS">ARS ($)</option>
                     <option value="USD">USD ($)</option>
                     <option value="EUR">EUR (€)</option>
@@ -55,20 +55,20 @@
 @if (showConversionModal()) {
 <div class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
     <div
-        class="bg-white rounded-2xl shadow-xl w-full max-w-xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+        class="bg-card rounded-2xl shadow-xl w-full max-w-xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
 
-        <div class="p-6 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
+        <div class="p-6 border-b border-soft flex items-center justify-between bg-slate-50/50 dark:bg-slate-800/50">
             <div>
-                <h3 class="text-lg font-bold text-slate-800">{{ 'SETTINGS.MODAL.TITLE' | translate }}</h3>
-                <p class="text-sm text-slate-500 mt-1">
+                <h3 class="text-lg font-bold text-main">{{ 'SETTINGS.MODAL.TITLE' | translate }}</h3>
+                <p class="text-sm text-faint mt-1">
                     {{ 'SETTINGS.MODAL.DESC_PREFIX' | translate }}
-                    <span class="font-bold text-slate-700">{{ workspaceContext.activeWorkspace()?.currency }}</span> {{
+                    <span class="font-bold text-body">{{ workspaceContext.activeWorkspace()?.currency }}</span> {{
                     'SETTINGS.MODAL.DESC_TO' | translate }}
-                    <span class="font-bold text-primary-700">{{ selectedCurrency }}</span>.
+                    <span class="font-bold text-primary-700 dark:text-primary-400">{{ selectedCurrency }}</span>.
                 </p>
             </div>
             <button (click)="showConversionModal.set(false)"
-                class="p-2 text-slate-400 hover:text-slate-600 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer">
+                class="p-2 text-faint hover:text-body rounded-lg hover:bg-soft transition-colors cursor-pointer">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -78,39 +78,39 @@
         </div>
 
         <div class="p-6">
-            <p class="text-slate-700 text-sm mb-4 font-medium">{{ 'SETTINGS.MODAL.QUESTION' | translate }}</p>
+            <p class="text-body text-sm mb-4 font-medium">{{ 'SETTINGS.MODAL.QUESTION' | translate }}</p>
 
             <div class="space-y-3">
                 <!-- Option 1: None -->
                 <label
-                    class="flex items-start gap-4 p-4 border rounded-xl cursor-pointer transition-all border-slate-200 hover:border-primary-300"
-                    [ngClass]="{'border-primary-500 bg-primary-50 ring-1 ring-primary-500': conversionMode() === 'NONE'}"
+                    class="flex items-start gap-4 p-4 border rounded-xl cursor-pointer transition-all border-strong hover:border-primary-300"
+                    [ngClass]="{'border-primary-500 bg-primary-50 dark:bg-primary-950/30 ring-1 ring-primary-500': conversionMode() === 'NONE'}"
                     (click)="setMode('NONE')">
                     <input type="radio" name="conversion" [checked]="conversionMode() === 'NONE'"
                         class="mt-1 text-primary-600 focus:ring-primary-500 cursor-pointer">
                     <div>
-                        <span class="block font-semibold text-slate-800 text-sm">{{ 'SETTINGS.MODAL.OPT_NONE_TITLE' |
+                        <span class="block font-semibold text-main text-sm">{{ 'SETTINGS.MODAL.OPT_NONE_TITLE' |
                             translate }}</span>
-                        <span class="block text-xs text-slate-500 mt-0.5">{{ 'SETTINGS.MODAL.OPT_NONE_DESC' | translate
+                        <span class="block text-xs text-faint mt-0.5">{{ 'SETTINGS.MODAL.OPT_NONE_DESC' | translate
                             }}</span>
                     </div>
                 </label>
 
                 <!-- Option 2: Auto / API -->
                 <label
-                    class="flex items-start gap-4 p-4 border rounded-xl cursor-pointer transition-all border-slate-200 hover:border-primary-300"
-                    [ngClass]="{'border-primary-500 bg-primary-50 ring-1 ring-primary-500': conversionMode() === 'AUTO'}"
+                    class="flex items-start gap-4 p-4 border rounded-xl cursor-pointer transition-all border-strong hover:border-primary-300"
+                    [ngClass]="{'border-primary-500 bg-primary-50 dark:bg-primary-950/30 ring-1 ring-primary-500': conversionMode() === 'AUTO'}"
                     (click)="setMode('AUTO')">
                     <input type="radio" name="conversion" [checked]="conversionMode() === 'AUTO'"
                         class="mt-1 text-primary-600 focus:ring-primary-500 cursor-pointer">
                     <div class="w-full">
-                        <span class="block font-semibold text-slate-800 text-sm">{{ 'SETTINGS.MODAL.OPT_AUTO_TITLE' |
+                        <span class="block font-semibold text-main text-sm">{{ 'SETTINGS.MODAL.OPT_AUTO_TITLE' |
                             translate }}</span>
-                        <span class="block text-xs text-slate-500 mt-0.5 mb-2">{{ 'SETTINGS.MODAL.OPT_AUTO_DESC' |
+                        <span class="block text-xs text-faint mt-0.5 mb-2">{{ 'SETTINGS.MODAL.OPT_AUTO_DESC' |
                             translate }}</span>
 
                         @if (conversionMode() === 'AUTO') {
-                        <div class="bg-white rounded-lg p-3 border border-primary-100 mt-2">
+                        <div class="bg-input rounded-lg p-3 border border-primary-100 dark:border-slate-600 mt-2">
                             @if (loading() && !apiRate()) {
                             <span class="text-xs text-primary-600 flex items-center gap-2">
                                 <svg class="animate-spin h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -128,7 +128,7 @@
                             <span class="text-xs text-red-600 font-medium">{{ apiError() }}</span>
                             } @else if (apiRate()) {
                             <div class="flex items-center justify-between">
-                                <span class="text-xs text-slate-500">{{ 'SETTINGS.MODAL.LIVE_RATE' | translate }}</span>
+                                <span class="text-xs text-faint">{{ 'SETTINGS.MODAL.LIVE_RATE' | translate }}</span>
                                 <span class="text-sm font-bold text-emerald-600">1 {{
                                     workspaceContext.activeWorkspace()?.currency }} = {{ apiRate() }} {{
                                     selectedCurrency
@@ -142,20 +142,20 @@
 
                 <!-- Option 3: Manual -->
                 <label
-                    class="flex items-start gap-4 p-4 border rounded-xl cursor-pointer transition-all border-slate-200 hover:border-primary-300"
-                    [ngClass]="{'border-primary-500 bg-primary-50 ring-1 ring-primary-500': conversionMode() === 'MANUAL'}"
+                    class="flex items-start gap-4 p-4 border rounded-xl cursor-pointer transition-all border-strong hover:border-primary-300"
+                    [ngClass]="{'border-primary-500 bg-primary-50 dark:bg-primary-950/30 ring-1 ring-primary-500': conversionMode() === 'MANUAL'}"
                     (click)="setMode('MANUAL')">
                     <input type="radio" name="conversion" [checked]="conversionMode() === 'MANUAL'"
                         class="mt-1 text-primary-600 focus:ring-primary-500 cursor-pointer">
                     <div class="w-full">
-                        <span class="block font-semibold text-slate-800 text-sm">{{ 'SETTINGS.MODAL.OPT_MANUAL_TITLE' |
+                        <span class="block font-semibold text-main text-sm">{{ 'SETTINGS.MODAL.OPT_MANUAL_TITLE' |
                             translate }}</span>
-                        <span class="block text-xs text-slate-500 mt-0.5 mb-2">{{ 'SETTINGS.MODAL.OPT_MANUAL_DESC' |
+                        <span class="block text-xs text-faint mt-0.5 mb-2">{{ 'SETTINGS.MODAL.OPT_MANUAL_DESC' |
                             translate }}</span>
 
                         @if (conversionMode() === 'MANUAL') {
                         <input type="number" [(ngModel)]="manualRate" placeholder="{{ 'SETTINGS.MODAL.MANUAL_RATE_PLACEHOLDER' | translate }}"
-                            class="w-full border border-slate-200 px-3 py-2 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all mt-1 bg-white" />
+                            class="w-full border border-strong px-3 py-2 rounded-lg text-sm text-main focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all mt-1 bg-input" />
                         }
                     </div>
                 </label>
@@ -163,9 +163,9 @@
 
         </div>
 
-        <div class="p-4 border-t border-slate-100 flex justify-end gap-3 bg-slate-50">
+        <div class="p-4 border-t border-soft flex justify-end gap-3 bg-slate-50 dark:bg-slate-800/50">
             <button (click)="showConversionModal.set(false)"
-                class="px-4 py-2 text-sm font-medium text-slate-600 hover:bg-slate-200 rounded-lg transition-colors cursor-pointer">
+                class="px-4 py-2 text-sm font-medium text-muted hover:bg-slate-200 dark:hover:bg-slate-700 rounded-lg transition-colors cursor-pointer">
                 {{ 'COMMON.CANCEL' | translate }}
             </button>
             <button (click)="confirmUpdate()"

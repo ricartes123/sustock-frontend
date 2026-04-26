@@ -1,6 +1,6 @@
 <div class="flex items-center justify-between mb-6">
     <div class="flex items-center gap-3">
-        <h2 class="text-2xl font-bold text-slate-800">Clientes</h2>
+        <h2 class="text-2xl font-bold text-main">Clientes</h2>
     </div>
 
     <div class="flex items-center gap-3">
@@ -22,7 +22,7 @@
 </div>
 
 <!-- Filters Bar -->
-<div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 flex flex-col sm:flex-row gap-4 mb-6">
+<div class="bg-card p-4 rounded-xl shadow-sm border border-soft flex flex-col sm:flex-row gap-4 mb-6">
     <app-search-input
         [(ngModel)]="searchQuery"
         (search)="applyFilters()"
@@ -31,7 +31,7 @@
     </app-search-input>
     <div class="flex flex-wrap sm:flex-nowrap items-center gap-2">
         <select [(ngModel)]="statusFilter" (change)="applyFilters()"
-            class="bg-slate-50 border border-slate-200 text-slate-700 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block p-2 outline-none cursor-pointer">
+            class="bg-input border border-strong text-body text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block p-2 outline-none cursor-pointer">
             <option value="ACTIVE">Activos</option>
             <option value="INACTIVE">Archivados</option>
             <option value="ALL">Todos</option>
@@ -50,22 +50,22 @@
         </app-button>
     </ng-container>
 
-    <thead table-header class="bg-gray-50 border-b">
+    <thead table-header class="bg-card-hover border-b border-soft">
         <tr>
-            <th class="p-4 text-sm font-semibold text-slate-600">Cliente</th>
-            <th class="p-4 text-sm font-semibold text-slate-600">Mail</th>
-            <th class="p-4 text-sm font-semibold text-slate-600">Teléfono</th>
-            <th class="p-4 text-sm font-semibold text-slate-600">Fecha Registro</th>
-            <th class="p-4 text-sm font-semibold text-slate-600 text-right">Acciones</th>
+            <th class="p-4 text-sm font-semibold text-muted">Cliente</th>
+            <th class="p-4 text-sm font-semibold text-muted">Mail</th>
+            <th class="p-4 text-sm font-semibold text-muted">Teléfono</th>
+            <th class="p-4 text-sm font-semibold text-muted">Fecha Registro</th>
+            <th class="p-4 text-sm font-semibold text-muted text-right">Acciones</th>
         </tr>
     </thead>
 
     <tbody table-body>
         @for (client of clients(); track client.id) {
-        <tr class="border-b hover:bg-slate-50 transition" [class.opacity-50]="client.isActive === false"
+        <tr class="border-b border-soft hover:bg-card-hover transition" [class.opacity-50]="client.isActive === false"
             [class.bg-slate-50]="client.isActive === false">
             <td class="p-4">
-                <div class="font-medium text-slate-800">{{ client.name }}</div>
+                <div class="font-medium text-main">{{ client.name }}</div>
                 @if (client.isActive === false) {
                 <app-badge variant="neutral" class="mt-1">
                     Archivado
@@ -73,41 +73,41 @@
                 }
             </td>
 
-            <td class="p-4 text-slate-700">
+            <td class="p-4 text-body">
                 <div class="flex flex-col gap-1 text-sm">
                     @if (client.email) {
-                        <div class="flex items-center gap-1.5 text-slate-600">
+                        <div class="flex items-center gap-1.5 text-muted">
                             <lucide-icon name="mail" [size]="14"></lucide-icon>
                             {{ client.email }}
                         </div>
                     }
                     @if (!client.email) {
-                        <span class="text-slate-400 text-xs italic">Sin contacto</span>
+                        <span class="text-faint text-xs italic">Sin contacto</span>
                     }
                 </div>
-            </td>  
+            </td>
 
-            <td class="p-4 text-slate-700">
+            <td class="p-4 text-body">
                 <div class="flex flex-col gap-1 text-sm">
                     @if (client.phone) {
-                        <div class="flex items-center gap-1.5 text-slate-600">
+                        <div class="flex items-center gap-1.5 text-muted">
                             <lucide-icon name="phone" [size]="14"></lucide-icon>
                             {{ client.phone }}
                         </div>
                     }
                     @if (!client.phone) {
-                        <span class="text-slate-400 text-xs italic">Sin contacto</span>
+                        <span class="text-faint text-xs italic">Sin contacto</span>
                     }
                 </div>
             </td>
 
-            <td class="p-4 text-sm text-slate-500 whitespace-nowrap">
+            <td class="p-4 text-sm text-faint whitespace-nowrap">
                 {{ client.createdAt | date:'shortDate' }}
             </td>
 
             <td class="p-4 text-right">
                 <div class="flex items-center justify-end gap-2">
-                    
+
                     @if (client.phone) {
                     <app-button variant="icon" (click)="openWhatsApp(client)" title="Contactar por WhatsApp"
                         class="text-green-600 hover:text-green-700 hover:bg-green-50">
@@ -150,7 +150,7 @@
         Anterior
     </app-button>
 
-    <span class="text-sm text-gray-600">
+    <span class="text-sm text-muted">
         Página {{ meta()?.page }} de {{ meta()?.totalPages }}
     </span>
 

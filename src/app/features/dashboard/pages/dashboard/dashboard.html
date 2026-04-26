@@ -9,16 +9,16 @@
 <!-- Header -->
 <div class="mb-6 flex justify-between items-center sm:block">
     <div>
-        <h1 class="text-2xl sm:text-[28px] font-bold text-slate-800 tracking-tight leading-none mb-1">{{
+        <h1 class="text-2xl sm:text-[28px] font-bold text-main tracking-tight leading-none mb-1">{{
             'DASHBOARD.OVERVIEW_TITLE' | translate }}</h1>
-        <p class="text-sm text-slate-400 capitalize">{{ today | date:'fullDate':undefined:locale }}</p>
+        <p class="text-sm text-faint capitalize">{{ today | date:'fullDate':undefined:locale }}</p>
     </div>
 </div>
 
 <!-- Top CTAs / Quick Actions -->
 <div class="mb-8">
     <div class="flex items-center justify-between mb-3 sm:hidden">
-        <h2 class="font-bold text-slate-800 text-base">Acciones rápidas</h2>
+        <h2 class="font-bold text-main text-base">Acciones rápidas</h2>
     </div>
     <div
         class="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 -mx-6 px-6 sm:mx-0 sm:px-0 sm:grid sm:grid-cols-3 sm:overflow-visible sm:pb-0 hide-scrollbar">
@@ -38,32 +38,32 @@
         </a>
 
         <a routerLink="/products" [queryParams]="{ action: 'quick-stock' }"
-            class="min-w-[150px] sm:min-w-0 snap-start flex-shrink-0 bg-white hover:bg-slate-50 border border-slate-200 transition-colors rounded-[24px] p-5 flex flex-col sm:items-center sm:justify-center text-slate-700 cursor-pointer shadow-sm group min-h-[160px] sm:min-h-0 justify-between">
+            class="min-w-[150px] sm:min-w-0 snap-start flex-shrink-0 bg-card hover:bg-input border border-medium transition-colors rounded-[24px] p-5 flex flex-col sm:items-center sm:justify-center text-body cursor-pointer shadow-sm group min-h-[160px] sm:min-h-0 justify-between">
             <div
-                class="bg-slate-100 sm:bg-transparent w-10 h-10 sm:w-auto sm:h-auto rounded-full flex items-center justify-center sm:block mb-1">
+                class="bg-input sm:bg-transparent w-10 h-10 sm:w-auto sm:h-auto rounded-full flex items-center justify-center sm:block mb-1">
                 <lucide-icon name="package-plus" [size]="24" strokeWidth="2.5"
-                    class="text-slate-400 group-hover:text-slate-600 group-hover:scale-110 transition-transform"></lucide-icon>
+                    class="text-faint group-hover:text-body group-hover:scale-110 transition-transform"></lucide-icon>
             </div>
             <div class="sm:text-center mt-auto sm:mt-0">
-                <span class="font-bold text-sm text-slate-800 block leading-tight">{{ 'DASHBOARD.QUICK_STOCK_CTA' |
+                <span class="font-bold text-sm text-main block leading-tight">{{ 'DASHBOARD.QUICK_STOCK_CTA' |
                     translate }}</span>
-                <span class="text-[11px] text-slate-400 font-medium mt-0.5 hidden sm:block">{{
+                <span class="text-[11px] text-faint font-medium mt-0.5 hidden sm:block">{{
                     'DASHBOARD.QUICK_STOCK_DESC'
                     | translate }}</span>
             </div>
         </a>
 
         <a routerLink="/products" [queryParams]="{ action: 'new' }"
-            class="min-w-[150px] sm:min-w-0 snap-start flex-shrink-0 bg-white hover:bg-slate-50 border border-slate-200 transition-colors rounded-[24px] p-5 flex flex-col sm:items-center sm:justify-center text-slate-700 cursor-pointer shadow-sm group min-h-[160px] sm:min-h-0 justify-between">
+            class="min-w-[150px] sm:min-w-0 snap-start flex-shrink-0 bg-card hover:bg-input border border-medium transition-colors rounded-[24px] p-5 flex flex-col sm:items-center sm:justify-center text-body cursor-pointer shadow-sm group min-h-[160px] sm:min-h-0 justify-between">
             <div
-                class="bg-slate-100 sm:bg-transparent w-10 h-10 sm:w-auto sm:h-auto rounded-full flex items-center justify-center sm:block mb-1">
+                class="bg-input sm:bg-transparent w-10 h-10 sm:w-auto sm:h-auto rounded-full flex items-center justify-center sm:block mb-1">
                 <lucide-icon name="plus" [size]="24" strokeWidth="2.5"
-                    class="text-slate-400 group-hover:text-slate-600 group-hover:scale-110 transition-transform"></lucide-icon>
+                    class="text-faint group-hover:text-body group-hover:scale-110 transition-transform"></lucide-icon>
             </div>
             <div class="sm:text-center mt-auto sm:mt-0">
-                <span class="font-bold text-sm text-slate-800 block leading-tight">{{ 'DASHBOARD.NEW_PRODUCT_CTA' |
+                <span class="font-bold text-sm text-main block leading-tight">{{ 'DASHBOARD.NEW_PRODUCT_CTA' |
                     translate }}</span>
-                <span class="text-[11px] text-slate-400 font-medium mt-0.5 hidden sm:block">{{
+                <span class="text-[11px] text-faint font-medium mt-0.5 hidden sm:block">{{
                     'DASHBOARD.NEW_PRODUCT_DESC' | translate }}</span>
             </div>
         </a>
@@ -74,89 +74,89 @@
 <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-8">
 
     <div
-        class="bg-white p-4 sm:p-5 rounded-[20px] sm:rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-between hover:shadow-md transition-shadow relative overflow-hidden">
-        <div class="absolute -right-4 -top-4 w-24 h-24 bg-primary-50 rounded-full opacity-50 z-0 pointer-events-none">
+        class="bg-card p-4 sm:p-5 rounded-[20px] sm:rounded-2xl shadow-sm border border-soft flex flex-col justify-between hover:shadow-md transition-shadow relative overflow-hidden">
+        <div class="absolute -right-4 -top-4 w-24 h-24 bg-primary-50 dark:bg-primary-900/20 rounded-full opacity-50 z-0 pointer-events-none">
         </div>
         <div class="flex items-start justify-between mb-2 sm:mb-3 z-10 relative">
-            <p class="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider">{{
+            <p class="text-[10px] sm:text-xs font-bold text-faint uppercase tracking-wider">{{
                 'DASHBOARD.METRIC_SALES_TODAY' |
                 translate }}</p>
-            <div class="p-1.5 sm:p-2 bg-primary-100 rounded-lg text-primary-600">
+            <div class="p-1.5 sm:p-2 bg-primary-100 dark:bg-primary-500 rounded-lg text-primary-600 dark:text-white">
                 <lucide-icon name="shopping-cart" [size]="16" [strokeWidth]="2.5"
                     class="sm:w-[18px] sm:h-[18px]"></lucide-icon>
             </div>
         </div>
         <div class="z-10 relative">
-            <p class="text-lg sm:text-2xl font-black text-slate-800 tracking-tight leading-none mb-0.5 sm:mb-1">
+            <p class="text-lg sm:text-2xl font-black text-main tracking-tight leading-none mb-0.5 sm:mb-1">
                 {{ (data()!.salesToday ?? 0) | currency:currency():'symbol-narrow':'1.0-0':locale }}
             </p>
-            <p class="text-[10px] sm:text-[11px] text-slate-400 font-medium mt-1 leading-tight sm:leading-normal">
+            <p class="text-[10px] sm:text-[11px] text-faint font-medium mt-1 leading-tight sm:leading-normal">
                 {{ 'DASHBOARD.METRIC_SALES_COUNT' | translate:{ count: data()!.salesTodayCount ?? 0 } }}
             </p>
         </div>
     </div>
 
     <a routerLink="/products" [queryParams]="{ lowStock: 'true' }"
-        class="bg-white p-4 sm:p-5 rounded-[20px] sm:rounded-2xl shadow-sm border flex flex-col justify-between hover:shadow-md transition-all cursor-pointer group"
-        [ngClass]="data()!.lowStockCount > 0 ? 'border-red-100' : 'border-slate-100'">
+        class="bg-card p-4 sm:p-5 rounded-[20px] sm:rounded-2xl shadow-sm border flex flex-col justify-between hover:shadow-md transition-all cursor-pointer group"
+        [ngClass]="data()!.lowStockCount > 0 ? 'border-red-100 dark:border-red-900/50' : 'border-soft'">
         <div class="flex items-start justify-between mb-2 sm:mb-3">
             <p class="text-[10px] sm:text-xs font-bold uppercase tracking-wider transition-colors line-clamp-2"
-                [ngClass]="data()!.lowStockCount > 0 ? 'text-red-500 group-hover:text-red-600' : 'text-slate-400'">{{
+                [ngClass]="data()!.lowStockCount > 0 ? 'text-red-500 group-hover:text-red-600' : 'text-faint'">{{
                 'DASHBOARD.METRIC_LOW_STOCK' | translate }}</p>
             <div class="p-1.5 sm:p-2 rounded-lg transition-colors shrink-0"
-                [ngClass]="data()!.lowStockCount > 0 ? 'bg-red-50 text-red-500 group-hover:bg-red-100' : 'bg-slate-50 text-slate-400'">
+                [ngClass]="data()!.lowStockCount > 0 ? 'bg-red-50 text-red-500 group-hover:bg-red-100 dark:bg-red-500 dark:text-white dark:group-hover:bg-red-600' : 'bg-input text-faint'">
                 <lucide-icon name="package-open" [size]="16" [strokeWidth]="2.5"
                     class="sm:w-[18px] sm:h-[18px]"></lucide-icon>
             </div>
         </div>
         <div>
             <p class="text-lg sm:text-2xl font-black leading-none mb-0.5 sm:mb-1 transition-colors"
-                [ngClass]="data()!.lowStockCount > 0 ? 'text-red-600 group-hover:text-red-700' : 'text-slate-800'">
+                [ngClass]="data()!.lowStockCount > 0 ? 'text-red-600 group-hover:text-red-700' : 'text-main'">
                 {{ data()!.lowStockCount }}
             </p>
             <p class="text-[10px] sm:text-[11px] font-medium mt-1 transition-colors leading-tight sm:leading-normal"
-                [ngClass]="data()!.lowStockCount > 0 ? 'text-red-500 opacity-80' : 'text-slate-400'">
+                [ngClass]="data()!.lowStockCount > 0 ? 'text-red-500 opacity-80' : 'text-faint'">
                 {{ 'DASHBOARD.METRIC_LOW_STOCK_DESC' | translate:{ count: data()!.lowStockCount } }}
             </p>
         </div>
     </a>
 
     <div
-        class="bg-white p-4 sm:p-5 rounded-[20px] sm:rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-between hover:shadow-md transition-shadow">
+        class="bg-card p-4 sm:p-5 rounded-[20px] sm:rounded-2xl shadow-sm border border-soft flex flex-col justify-between hover:shadow-md transition-shadow">
         <div class="flex items-start justify-between mb-2 sm:mb-3">
-            <p class="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider">{{
+            <p class="text-[10px] sm:text-xs font-bold text-faint uppercase tracking-wider">{{
                 'DASHBOARD.METRIC_STOCK_VALUE' |
                 translate }}</p>
-            <div class="p-1.5 sm:p-2 bg-emerald-50 rounded-lg text-emerald-600">
+            <div class="p-1.5 sm:p-2 bg-emerald-50 dark:bg-emerald-500 rounded-lg text-emerald-600 dark:text-white">
                 <lucide-icon name="wallet" [size]="16" [strokeWidth]="2.5"
                     class="sm:w-[18px] sm:h-[18px]"></lucide-icon>
             </div>
         </div>
         <div>
-            <p class="text-lg sm:text-2xl font-black text-slate-800 leading-none mb-0.5 sm:mb-1">
+            <p class="text-lg sm:text-2xl font-black text-main leading-none mb-0.5 sm:mb-1">
                 {{ data()!.totalStockValue | currency:currency():'symbol-narrow':'1.0-0':locale }}
             </p>
-            <p class="text-[10px] sm:text-[11px] text-slate-400 font-medium mt-1 leading-tight sm:leading-normal">
+            <p class="text-[10px] sm:text-[11px] text-faint font-medium mt-1 leading-tight sm:leading-normal">
                 {{ 'DASHBOARD.METRIC_STOCK_VALUE_DESC' | translate }}
             </p>
         </div>
     </div>
 
     <div
-        class="bg-white p-4 sm:p-5 rounded-[20px] sm:rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-between hover:shadow-md transition-shadow">
+        class="bg-card p-4 sm:p-5 rounded-[20px] sm:rounded-2xl shadow-sm border border-soft flex flex-col justify-between hover:shadow-md transition-shadow">
         <div class="flex items-start justify-between mb-2 sm:mb-3">
-            <p class="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider">{{
+            <p class="text-[10px] sm:text-xs font-bold text-faint uppercase tracking-wider">{{
                 'DASHBOARD.METRIC_TOTAL_PRODUCTS' |
                 translate }}</p>
-            <div class="p-1.5 sm:p-2 bg-blue-50 rounded-lg text-blue-600">
+            <div class="p-1.5 sm:p-2 bg-blue-50 dark:bg-blue-500 rounded-lg text-blue-600 dark:text-white">
                 <lucide-icon name="box" [size]="16" [strokeWidth]="2.5" class="sm:w-[18px] sm:h-[18px]"></lucide-icon>
             </div>
         </div>
         <div>
-            <p class="text-lg sm:text-2xl font-black text-slate-800 leading-none mb-0.5 sm:mb-1">
+            <p class="text-lg sm:text-2xl font-black text-main leading-none mb-0.5 sm:mb-1">
                 {{ data()!.totalProducts }}
             </p>
-            <p class="text-[10px] sm:text-[11px] text-slate-400 font-medium mt-1 leading-tight sm:leading-normal">
+            <p class="text-[10px] sm:text-[11px] text-faint font-medium mt-1 leading-tight sm:leading-normal">
                 {{ 'DASHBOARD.METRIC_TOTAL_PRODUCTS_DESC' | translate }}
             </p>
         </div>
@@ -164,34 +164,34 @@
 </div>
 
 <!-- Chart Placeholder -->
-<div class="bg-white border border-slate-200 rounded-2xl p-6 mb-8 shadow-sm">
+<div class="bg-card border border-medium rounded-2xl p-6 mb-8 shadow-sm">
     <div class="mb-4">
-        <h3 class="font-bold text-slate-800 text-base mb-1">{{ 'DASHBOARD.CHART_TITLE' | translate }}</h3>
-        <p class="text-sm font-medium text-slate-500">{{ 'DASHBOARD.CHART_TOTAL' | translate }} <span
-                class="font-bold text-slate-800">{{ (data()!.salesToday ?? 0) |
+        <h3 class="font-bold text-main text-base mb-1">{{ 'DASHBOARD.CHART_TITLE' | translate }}</h3>
+        <p class="text-sm font-medium text-faint">{{ 'DASHBOARD.CHART_TOTAL' | translate }} <span
+                class="font-bold text-main">{{ (data()!.salesToday ?? 0) |
                 currency:currency():'symbol-narrow':'1.0-0':locale }}</span></p>
     </div>
 
     <div class="relative h-[200px] w-full flex flex-col justify-between pt-2">
-        <div class="border-b border-slate-100 border-dashed w-full h-0 flex items-center"><span
-                class="absolute -left-0 text-[11px] text-slate-400 bg-white pr-3 font-medium">$4</span></div>
-        <div class="border-b border-slate-100 border-dashed w-full h-0 flex items-center"><span
-                class="absolute -left-0 text-[11px] text-slate-400 bg-white pr-3 font-medium">$3</span></div>
-        <div class="border-b border-slate-100 border-dashed w-full h-0 flex items-center"><span
-                class="absolute -left-0 text-[11px] text-slate-400 bg-white pr-3 font-medium">$2</span></div>
-        <div class="border-b border-slate-100 border-dashed w-full h-0 flex items-center"><span
-                class="absolute -left-0 text-[11px] text-slate-400 bg-white pr-3 font-medium">$1</span></div>
-        <div class="border-b border-slate-200 w-full h-0 flex items-center"><span
-                class="absolute -left-0 text-[11px] text-slate-400 bg-white pr-3 font-medium">$0</span></div>
+        <div class="border-b border-soft border-dashed w-full h-0 flex items-center"><span
+                class="absolute -left-0 text-[11px] text-faint bg-card pr-3 font-medium">$4</span></div>
+        <div class="border-b border-soft border-dashed w-full h-0 flex items-center"><span
+                class="absolute -left-0 text-[11px] text-faint bg-card pr-3 font-medium">$3</span></div>
+        <div class="border-b border-soft border-dashed w-full h-0 flex items-center"><span
+                class="absolute -left-0 text-[11px] text-faint bg-card pr-3 font-medium">$2</span></div>
+        <div class="border-b border-soft border-dashed w-full h-0 flex items-center"><span
+                class="absolute -left-0 text-[11px] text-faint bg-card pr-3 font-medium">$1</span></div>
+        <div class="border-b border-strong w-full h-0 flex items-center"><span
+                class="absolute -left-0 text-[11px] text-faint bg-card pr-3 font-medium">$0</span></div>
 
         <div class="absolute bottom-0 w-full flex justify-between px-10 translate-y-7">
-            <span class="text-[11px] text-slate-400 font-medium">Lun</span>
-            <span class="text-[11px] text-slate-400 font-medium">Mar</span>
-            <span class="text-[11px] text-slate-400 font-medium">Mié</span>
-            <span class="text-[11px] text-slate-400 font-medium">Jue</span>
-            <span class="text-[11px] text-slate-400 font-medium">Vie</span>
-            <span class="text-[11px] text-slate-400 font-medium">Sáb</span>
-            <span class="text-[11px] text-slate-400 font-medium">Dom</span>
+            <span class="text-[11px] text-faint font-medium">Lun</span>
+            <span class="text-[11px] text-faint font-medium">Mar</span>
+            <span class="text-[11px] text-faint font-medium">Mié</span>
+            <span class="text-[11px] text-faint font-medium">Jue</span>
+            <span class="text-[11px] text-faint font-medium">Vie</span>
+            <span class="text-[11px] text-faint font-medium">Sáb</span>
+            <span class="text-[11px] text-faint font-medium">Dom</span>
         </div>
     </div>
     <div class="h-8"></div>
@@ -201,27 +201,27 @@
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
     <!-- Productos más vendidos -->
-    <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm flex flex-col">
-        <h3 class="font-bold text-slate-800 text-sm mb-6">{{ 'DASHBOARD.TOP_PRODUCTS_TITLE' | translate }}</h3>
+    <div class="bg-card border border-medium rounded-2xl p-6 shadow-sm flex flex-col">
+        <h3 class="font-bold text-main text-sm mb-6">{{ 'DASHBOARD.TOP_PRODUCTS_TITLE' | translate }}</h3>
 
         @if((data()!.topProducts?.length ?? 0) === 0) {
         <div class="flex-1 flex items-center justify-center min-h-[120px]">
-            <p class="text-sm text-slate-400 font-medium">{{ 'DASHBOARD.NO_DATA_SALES_YET' | translate }}</p>
+            <p class="text-sm text-faint font-medium">{{ 'DASHBOARD.NO_DATA_SALES_YET' | translate }}</p>
         </div>
         } @else {
         <div class="flex flex-col gap-3">
             @for(product of data()!.topProducts || []; track product.id) {
             <div
-                class="flex items-center justify-between border border-slate-100 hover:border-slate-200 transition-colors p-3 rounded-[20px]">
+                class="flex items-center justify-between border border-soft hover:border-medium transition-colors p-3 rounded-[20px]">
                 <div class="flex items-center gap-3 overflow-hidden">
                     <div
-                        class="w-10 h-10 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+                        class="w-10 h-10 rounded-full bg-blue-50 dark:bg-blue-500 text-blue-600 dark:text-white flex items-center justify-center shrink-0">
                         <lucide-icon name="trending-up" [size]="18"></lucide-icon>
                     </div>
-                    <span class="text-sm font-bold text-slate-800 truncate">{{ product.name }}</span>
+                    <span class="text-sm font-bold text-main truncate">{{ product.name }}</span>
                 </div>
                 <span
-                    class="text-[11px] font-semibold text-slate-500 bg-slate-50 border border-slate-100 px-2.5 py-1 rounded-full shrink-0 ml-3">{{
+                    class="text-[11px] font-semibold text-faint bg-input border border-soft px-2.5 py-1 rounded-full shrink-0 ml-3">{{
                     product.totalSold }} unid.</span>
             </div>
             }
@@ -230,35 +230,35 @@
     </div>
 
     <!-- Últimas ventas -->
-    <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm flex flex-col">
+    <div class="bg-card border border-medium rounded-2xl p-6 shadow-sm flex flex-col">
         <div class="flex items-center justify-between mb-6">
-            <h3 class="font-bold text-slate-800 text-sm">{{ 'DASHBOARD.LATEST_SALES_TITLE' | translate }}</h3>
+            <h3 class="font-bold text-main text-sm">{{ 'DASHBOARD.LATEST_SALES_TITLE' | translate }}</h3>
             <a routerLink="/sales" class="text-xs font-semibold text-[#6f56e5] hover:underline">{{ 'DASHBOARD.SEE_ALL' |
                 translate }}</a>
         </div>
 
         @if((data()!.recentSales?.length ?? 0) === 0) {
         <div class="flex-1 flex items-center justify-center min-h-[120px]">
-            <p class="text-sm text-slate-400 font-medium">{{ 'DASHBOARD.NO_SALES_REGISTERED' | translate }}</p>
+            <p class="text-sm text-faint font-medium">{{ 'DASHBOARD.NO_SALES_REGISTERED' | translate }}</p>
         </div>
         } @else {
         <div class="flex flex-col gap-3">
             @for(sale of data()!.recentSales || []; track sale.id) {
             <div
-                class="flex items-center justify-between border border-slate-100 hover:border-slate-200 transition-colors p-3 rounded-[20px]">
+                class="flex items-center justify-between border border-soft hover:border-medium transition-colors p-3 rounded-[20px]">
                 <div class="flex items-center gap-3 overflow-hidden">
                     <div
-                        class="w-10 h-10 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+                        class="w-10 h-10 rounded-full bg-emerald-50 dark:bg-emerald-500 text-emerald-600 dark:text-white flex items-center justify-center shrink-0">
                         <lucide-icon name="dollar-sign" [size]="18"></lucide-icon>
                     </div>
                     <div class="flex flex-col overflow-hidden">
-                        <span class="text-sm font-bold text-slate-800 truncate">{{ sale.client?.name || 'Consumidor
+                        <span class="text-sm font-bold text-main truncate">{{ sale.client?.name || 'Consumidor
                             Final' }}</span>
-                        <span class="text-[11px] font-medium text-slate-400 mt-0.5">{{ sale.createdAt | date:'shortTime'
+                        <span class="text-[11px] font-medium text-faint mt-0.5">{{ sale.createdAt | date:'shortTime'
                             }}</span>
                     </div>
                 </div>
-                <span class="text-sm font-bold text-slate-800 shrink-0">{{ sale.totalAmount |
+                <span class="text-sm font-bold text-main shrink-0">{{ sale.totalAmount |
                     currency:currency():'symbol-narrow':'1.0-0':locale }}</span>
             </div>
             }
@@ -267,34 +267,34 @@
     </div>
 
     <!-- Stock bajo -->
-    <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm flex flex-col">
+    <div class="bg-card border border-medium rounded-2xl p-6 shadow-sm flex flex-col">
         <div class="flex items-center justify-between mb-6">
-            <h3 class="font-bold text-slate-800 text-sm">{{ 'DASHBOARD.LOW_STOCK_LIST_TITLE' | translate }}</h3>
+            <h3 class="font-bold text-main text-sm">{{ 'DASHBOARD.LOW_STOCK_LIST_TITLE' | translate }}</h3>
             <a routerLink="/products" [queryParams]="{ lowStock: 'true' }"
                 class="text-xs font-semibold text-[#6f56e5] hover:underline">{{ 'DASHBOARD.MANAGE' | translate }}</a>
         </div>
 
         @if((data()!.lowStockProducts?.length ?? 0) === 0) {
         <div class="flex-1 flex items-center justify-center min-h-[120px]">
-            <p class="text-sm text-slate-400 font-medium">No hay productos con stock bajo 🎉</p>
+            <p class="text-sm text-faint font-medium">No hay productos con stock bajo 🎉</p>
         </div>
         } @else {
         <div class="flex flex-col gap-3">
             @for(product of data()!.lowStockProducts || []; track product.id) {
             <div
-                class="flex items-center justify-between border border-slate-100 hover:border-slate-200 transition-colors p-3 rounded-[20px]">
+                class="flex items-center justify-between border border-soft hover:border-medium transition-colors p-3 rounded-[20px]">
                 <div class="flex items-center gap-3 overflow-hidden">
                     <div
-                        class="w-10 h-10 rounded-full bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
+                        class="w-10 h-10 rounded-full bg-amber-50 dark:bg-amber-500 text-amber-600 dark:text-white flex items-center justify-center shrink-0">
                         <lucide-icon name="alert-triangle" [size]="18"></lucide-icon>
                     </div>
                     <div class="flex flex-col overflow-hidden">
-                        <span class="text-sm font-bold text-slate-800 truncate">{{ product.name }}</span>
-                        <span class="text-[11px] font-medium text-slate-400 mt-0.5">Mín: {{ product.stockMin }}</span>
+                        <span class="text-sm font-bold text-main truncate">{{ product.name }}</span>
+                        <span class="text-[11px] font-medium text-faint mt-0.5">Mín: {{ product.stockMin }}</span>
                     </div>
                 </div>
                 <span
-                    class="text-[11px] font-bold text-amber-600 bg-amber-50 border border-amber-100 px-2.5 py-1 rounded-full shrink-0 ml-3">
+                    class="text-[11px] font-bold text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/30 border border-amber-100 dark:border-amber-800/50 px-2.5 py-1 rounded-full shrink-0 ml-3">
                     {{ product.stock }} unid.
                 </span>
             </div>

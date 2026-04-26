@@ -1,6 +1,6 @@
 <div class="flex items-center justify-between mb-6">
     <div class="flex items-center gap-3">
-        <h2 class="text-2xl font-bold text-slate-800">Ventas</h2>
+        <h2 class="text-2xl font-bold text-main">Ventas</h2>
     </div>
 
     <div class="flex items-center gap-3">
@@ -28,7 +28,7 @@
 </div>
 
 <!-- Filters Bar -->
-<div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100 flex flex-col sm:flex-row gap-4 mb-6">
+<div class="bg-card p-4 rounded-xl shadow-sm border border-soft flex flex-col sm:flex-row gap-4 mb-6">
     <app-search-input
         [(ngModel)]="searchQuery"
         (search)="applyFilters()"
@@ -59,41 +59,41 @@
         </a>
     </ng-container>
 
-    <thead table-header class="bg-slate-50 border-b border-slate-200">
+    <thead table-header class="bg-card-hover border-b border-medium">
         <tr>
-            <th class="p-4 text-sm font-semibold text-slate-600">Fecha</th>
-            <th class="p-4 text-sm font-semibold text-slate-600">Cliente</th>
-            <th class="p-4 text-sm font-semibold text-slate-600">Total</th>
-            <th class="p-4 text-sm font-semibold text-slate-600">Usuario</th>
-            <th class="p-4 text-sm font-semibold text-slate-600 text-right">Acciones</th>
+            <th class="p-4 text-sm font-semibold text-muted">Fecha</th>
+            <th class="p-4 text-sm font-semibold text-muted">Cliente</th>
+            <th class="p-4 text-sm font-semibold text-muted">Total</th>
+            <th class="p-4 text-sm font-semibold text-muted">Usuario</th>
+            <th class="p-4 text-sm font-semibold text-muted text-right">Acciones</th>
         </tr>
     </thead>
     <tbody table-body>
         @for (sale of sales(); track sale.id) {
-            <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors"
+            <tr class="border-b border-soft hover:bg-card-hover transition-colors"
                 [class.opacity-60]="sale.status === 'CANCELLED'">
-                <td class="p-4 text-slate-700">
+                <td class="p-4 text-body">
                     <div class="font-medium">{{ sale.createdAt | date:'shortDate' }}</div>
-                    <div class="text-xs text-slate-400 mt-0.5">{{ sale.createdAt | date:'shortTime' }}</div>
+                    <div class="text-xs text-faint mt-0.5">{{ sale.createdAt | date:'shortTime' }}</div>
                 </td>
                 <td class="p-4">
-                    <div class="font-medium text-slate-800">{{ sale.client?.name || 'Consumidor Final' }}</div>
+                    <div class="font-medium text-main">{{ sale.client?.name || 'Consumidor Final' }}</div>
                 </td>
                 <td class="p-4">
                     @if (sale.status === 'CANCELLED') {
-                        <span class="font-semibold text-slate-400 line-through">{{ sale.totalAmount | currency:currency():'symbol-narrow':'1.0-0':locale() }}</span>
+                        <span class="font-semibold text-faint line-through">{{ sale.totalAmount | currency:currency():'symbol-narrow':'1.0-0':locale() }}</span>
                         <app-badge variant="error" class="ml-2">Anulada</app-badge>
                     } @else {
-                        <span class="font-semibold text-green-600">{{ sale.totalAmount | currency:currency():'symbol-narrow':'1.0-0':locale() }}</span>
+                        <span class="font-semibold text-green-600 dark:text-green-400">{{ sale.totalAmount | currency:currency():'symbol-narrow':'1.0-0':locale() }}</span>
                     }
                 </td>
                 <td class="p-4">
                     <div class="flex items-center gap-2">
                         <div
-                            class="w-7 h-7 rounded-full bg-primary-100 text-primary-700 flex items-center justify-center text-xs font-bold uppercase">
+                            class="w-7 h-7 rounded-full bg-primary-100 dark:bg-primary-900/50 text-primary-700 dark:text-primary-300 flex items-center justify-center text-xs font-bold uppercase">
                             {{ (sale.user?.firstName?.[0] || 'U') + (sale.user?.lastName?.[0] || '') }}
                         </div>
-                        <span class="text-sm font-medium text-slate-700">{{ sale.user?.firstName }} {{
+                        <span class="text-sm font-medium text-body">{{ sale.user?.firstName }} {{
                             sale.user?.lastName }}</span>
                     </div>
                 </td>
@@ -123,7 +123,7 @@
         Anterior
     </app-button>
 
-    <span class="text-sm text-gray-600">
+    <span class="text-sm text-muted">
         Página {{ meta()?.page }} de {{ meta()?.totalPages }}
     </span>
 
@@ -149,44 +149,44 @@
     @if (selectedSaleDetail(); as detail) {
     <div class="px-6 py-2 space-y-4 max-h-[70vh] overflow-y-auto">
         <div class="flex-1">
-            <p class="text-xs text-slate-500">ID Venta</p>
-            <p class="text-[11px] font-mono text-slate-500 truncate" [title]="detail.id">{{ detail.id }}</p>
+            <p class="text-xs text-faint">ID Venta</p>
+            <p class="text-[11px] font-mono text-faint truncate" [title]="detail.id">{{ detail.id }}</p>
         </div>
         <!-- Resumen -->
         @if (detail.status === 'CANCELLED') {
-        <div class="flex items-center gap-2 bg-red-50 border border-red-200 rounded-xl px-4 py-3">
+        <div class="flex items-center gap-2 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800/50 rounded-xl px-4 py-3">
             <lucide-icon name="ban" [size]="16" class="text-red-500 shrink-0" [strokeWidth]="2"></lucide-icon>
             <div>
-                <p class="text-sm font-semibold text-red-700">Venta anulada</p>
+                <p class="text-sm font-semibold text-red-700 dark:text-red-400">Venta anulada</p>
                 @if (detail.cancelledAt) {
                 <p class="text-xs text-red-500 mt-0.5">{{ detail.cancelledAt | date:'short' }}</p>
                 }
             </div>
         </div>
         }
-        <div class="bg-slate-50 rounded-xl p-5 border border-slate-100 flex gap-4">
+        <div class="bg-card-hover rounded-xl p-5 border border-soft flex gap-4">
             <div class="flex-1">
-                <p class="text-xs text-slate-500 mb-0.5">Fecha</p>
-                <p class="text-sm font-medium text-slate-800">{{ detail.createdAt | date:'short' }}</p>
+                <p class="text-xs text-faint mb-0.5">Fecha</p>
+                <p class="text-sm font-medium text-main">{{ detail.createdAt | date:'short' }}</p>
             </div>
             <div class="flex-1">
-                <p class="text-xs text-slate-500 mb-0.5">Vendedor</p>
-                <p class="text-sm font-medium text-slate-800">{{ detail.user?.firstName }} {{ detail.user?.lastName }}
+                <p class="text-xs text-faint mb-0.5">Vendedor</p>
+                <p class="text-sm font-medium text-main">{{ detail.user?.firstName }} {{ detail.user?.lastName }}
                 </p>
             </div>
         </div>
 
-        <!-- Info Cliente -->
-        <div class="bg-blue-50/50 p-4 rounded-xl border border-blue-100">
+        <!-- Info Cliente — se mantiene la sección azul de marca -->
+        <div class="bg-blue-50/50 dark:bg-blue-950/20 p-4 rounded-xl border border-blue-100 dark:border-blue-900/50">
             <h4 class="text-xs font-bold text-blue-400 uppercase tracking-wider mb-3">Datos del Cliente</h4>
             @if (detail.client) {
             <div class="space-y-3">
                 <div>
                     <p class="text-xs text-blue-500/70 mb-0.5">Nombre</p>
-                    <p class="text-sm font-medium text-slate-800">{{ detail.client.name }}</p>
+                    <p class="text-sm font-medium text-main">{{ detail.client.name }}</p>
                 </div>
                 @if (detail.client.email || detail.client.phone) {
-                <div class="flex gap-4 text-sm text-slate-600">
+                <div class="flex gap-4 text-sm text-muted">
                     @if (detail.client.phone) {
                     <div class="flex items-center gap-1">{{ detail.client.phone }}</div>
                     }
@@ -197,44 +197,44 @@
                 }
             </div>
             } @else {
-            <div class="text-center text-slate-500 py-2">
+            <div class="text-center text-faint py-2">
                 <p class="text-sm font-medium">Consumidor Final</p>
             </div>
             }
         </div>
 
         <!-- Productos Vendidos -->
-        <h4 class="text-sm font-bold text-slate-800 !mb-3">Productos Vendidos</h4>
-        <div class="border border-slate-200 rounded-xl overflow-hidden">
+        <h4 class="text-sm font-bold text-main !mb-3">Productos Vendidos</h4>
+        <div class="border border-medium rounded-xl overflow-hidden">
             <table class="w-full text-left text-sm">
-                <thead class="bg-slate-50 border-b border-slate-200">
+                <thead class="bg-card-hover border-b border-medium">
                     <tr>
-                        <th class="py-3 px-4 font-semibold text-slate-600">Producto</th>
-                        <th class="py-3 px-4 font-semibold text-slate-600 text-center">Cant.</th>
-                        <th class="py-3 px-4 font-semibold text-slate-600 text-right">Precio</th>
-                        <th class="py-3 px-4 font-semibold text-slate-600 text-right">Subtotal</th>
+                        <th class="py-3 px-4 font-semibold text-muted">Producto</th>
+                        <th class="py-3 px-4 font-semibold text-muted text-center">Cant.</th>
+                        <th class="py-3 px-4 font-semibold text-muted text-right">Precio</th>
+                        <th class="py-3 px-4 font-semibold text-muted text-right">Subtotal</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-slate-100">
+                <tbody class="divide-y divide-soft">
                     @for (item of detail.items; track item.id) {
                     <tr>
                         <td class="py-3 px-4">
-                            <span class="font-medium text-slate-800">{{ item.product.name || 'Eliminado' }}</span>
-                            @if(item.product.sku) { <span class="block text-xs text-slate-400 mt-0.5">SKU:
+                            <span class="font-medium text-main">{{ item.product.name || 'Eliminado' }}</span>
+                            @if(item.product.sku) { <span class="block text-xs text-faint mt-0.5">SKU:
                                 {{item.product.sku}}</span> }
-                            @if(item.product.barcode) { <span class="block text-xs text-slate-400 mt-0.5">Barcode:
+                            @if(item.product.barcode) { <span class="block text-xs text-faint mt-0.5">Barcode:
                                 {{item.product.barcode}}</span> }
                         </td>
-                        <td class="py-3 px-4 text-center text-slate-600 font-medium">{{ item.quantity }}</td>
-                        <td class="py-3 px-4 text-right text-slate-600">{{ item.price | currency:currency():'symbol-narrow':'1.0-2':locale() }}</td>
-                        <td class="py-3 px-4 text-right font-medium text-slate-800">{{ (item.price * item.quantity) | currency:currency():'symbol-narrow':'1.0-2':locale() }}</td>
+                        <td class="py-3 px-4 text-center text-muted font-medium">{{ item.quantity }}</td>
+                        <td class="py-3 px-4 text-right text-muted">{{ item.price | currency:currency():'symbol-narrow':'1.0-2':locale() }}</td>
+                        <td class="py-3 px-4 text-right font-medium text-main">{{ (item.price * item.quantity) | currency:currency():'symbol-narrow':'1.0-2':locale() }}</td>
                     </tr>
                     }
                 </tbody>
-                <tfoot class="bg-slate-50 border-t border-slate-200">
+                <tfoot class="bg-card-hover border-t border-medium">
                     <tr>
-                        <td colspan="3" class="py-4 px-4 text-right font-semibold text-slate-600">Total Venta</td>
-                        <td class="py-4 px-4 text-right font-bold text-lg text-primary-700">{{ detail.totalAmount | currency:currency():'symbol-narrow':'1.0-2':locale() }}</td>
+                        <td colspan="3" class="py-4 px-4 text-right font-semibold text-muted">Total Venta</td>
+                        <td class="py-4 px-4 text-right font-bold text-lg text-primary-700 dark:text-primary-400">{{ detail.totalAmount | currency:currency():'symbol-narrow':'1.0-2':locale() }}</td>
                     </tr>
                 </tfoot>
             </table>
