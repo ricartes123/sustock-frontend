@@ -40,6 +40,7 @@ import {
     Languages,
     Download,
     Bell,
+    Zap,
 } from 'lucide-angular';
 
 export function provideLucideIcons(): EnvironmentProviders {
@@ -84,6 +85,7 @@ export function provideLucideIcons(): EnvironmentProviders {
             Languages,
             Download,
             Bell,
+            Zap,
         })
     );
 }
