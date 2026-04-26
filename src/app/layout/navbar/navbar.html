@@ -1,10 +1,28 @@
 <header class="h-20 bg-surface border-b border-soft flex items-center justify-between px-8">
 
-    <div class="flex items-center gap-2 text-main font-bold text-xl">
+    <!-- Left section: Greeting -->
+    <div class="flex items-center gap-2 text-main font-bold text-xl min-w-max">
         {{ greeting() }}
     </div>
 
-    <div class="flex items-center gap-2 sm:gap-4">
+    <!-- Middle section: Search bar (visual only) -->
+    <div class="hidden md:flex flex-1 max-w-xl mx-8 relative">
+        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <lucide-icon name="search" [size]="18" [strokeWidth]="2" class="text-faint"></lucide-icon>
+        </div>
+        <input type="text"
+            [placeholder]="'NAVBAR.SEARCH_PLACEHOLDER' | translate"
+            class="block w-full pl-10 pr-12 py-2.5 bg-input border border-soft rounded-full text-sm placeholder-faint text-body focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500/50 transition-all cursor-not-allowed opacity-80"
+            disabled>
+        <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+            <kbd class="hidden sm:inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-medium bg-surface border border-medium text-faint shadow-sm">
+                <span class="text-xs">⌘</span>K
+            </kbd>
+        </div>
+    </div>
+
+    <!-- Right section: Actions & User -->
+    <div class="flex items-center gap-2 sm:gap-4 shrink-0">
 
         <button (click)="toggleLanguage()"
             class="p-2 rounded-full transition-colors cursor-pointer text-slate-400 hover:text-primary-600 hover:bg-primary-50 dark:hover:text-primary-400 dark:hover:bg-slate-800 flex items-center gap-1.5"
@@ -26,7 +44,15 @@
             }
         </button>
 
-        <div class="relative flex items-center gap-3">
+        <!-- Notification Bell (Visual only) -->
+        <button class="relative p-2 rounded-full transition-colors cursor-pointer text-slate-400 hover:text-primary-600 hover:bg-primary-50 dark:hover:text-primary-400 dark:hover:bg-slate-800"
+            title="Notificaciones">
+            <lucide-icon name="bell" [size]="20" [strokeWidth]="2"></lucide-icon>
+            <!-- Badge dot -->
+            <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full border-2 border-surface"></span>
+        </button>
+
+        <div class="relative flex items-center gap-3 ml-2">
 
             <!-- Trigger -->
             <button (click)="toggleDropdown()"
@@ -39,7 +65,7 @@
 
                 <div class="flex flex-col text-left hidden sm:flex pr-2">
                     <span class="text-sm font-bold text-main">{{ user()?.firstName || 'User' }} {{ user()?.lastName || '' }}</span>
-                    <span class="text-xs text-faint font-medium">{{ user()?.email || 'admin@sustock.com' }}</span>
+                    <span class="text-xs text-faint font-medium">{{ 'NAVBAR.ROLE_ADMIN' | translate }}</span>
                 </div>
 
                 <lucide-icon name="chevron-down" [size]="25" [strokeWidth]="2.5"

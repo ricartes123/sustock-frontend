@@ -55,6 +55,10 @@
         "MANAGE": "Manage",
         "UNITS": "{{count}} units"
     },
+    "NAVBAR": {
+        "SEARCH_PLACEHOLDER": "Search products, sales, clients...",
+        "ROLE_ADMIN": "Administrator"
+    },
     "PRODUCTS": {
         "TITLE": "Products",
         "NEW_PRODUCT": "New Product",

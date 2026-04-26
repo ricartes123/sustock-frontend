@@ -56,6 +56,10 @@
         "UNITS": "{{count}} unid.",
         "ALL_GOOD": "¡Todo está bajo control!"
     },
+    "NAVBAR": {
+        "SEARCH_PLACEHOLDER": "Buscar productos, ventas, clientes...",
+        "ROLE_ADMIN": "Administrador"
+    },
     "PRODUCTS": {
         "TITLE": "Productos",
         "NEW_PRODUCT": "Nuevo producto",

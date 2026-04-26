@@ -39,6 +39,7 @@ import {
     Phone,
     Languages,
     Download,
+    Bell,
 } from 'lucide-angular';
 
 export function provideLucideIcons(): EnvironmentProviders {
@@ -82,6 +83,7 @@ export function provideLucideIcons(): EnvironmentProviders {
             Phone,
             Languages,
             Download,
+            Bell,
         })
     );
 }
