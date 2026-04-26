@@ -34,9 +34,14 @@
             }
 
             @for (item of menuItems; track item.route) {
-            <a [routerLink]="item.route" [routerLinkActive]="activeNavClass"
+            <a [routerLink]="item.route" 
+                routerLinkActive
+                #rla="routerLinkActive"
                 [routerLinkActiveOptions]="{ exact: item.exact || false }"
-                class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-nav hover:bg-primary-50 hover:text-primary-600 dark:hover:bg-primary-500/30 dark:hover:text-primary-100 transition-colors duration-200"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors duration-200"
+                [ngClass]="rla.isActive ? 
+                    'bg-primary-600 text-white font-medium hover:bg-primary-500' : 
+                    'text-nav hover:bg-primary-50 hover:text-primary-600 dark:hover:bg-primary-500/30 dark:hover:text-primary-100'"
                 [title]="isCollapsed ? (item.label | translate) : ''">
                 <lucide-icon [name]="item.icon" class="flex-shrink-0" [size]="20" [strokeWidth]="2"></lucide-icon>
                 @if (!isCollapsed) {
@@ -48,9 +53,14 @@
 
         <nav class="flex flex-col gap-1 mt-auto border-t border-medium pt-4">
             @for (item of settingsItems; track item.route) {
-            <a [routerLink]="item.route" [routerLinkActive]="activeNavClass"
+            <a [routerLink]="item.route" 
+                routerLinkActive
+                #rla="routerLinkActive"
                 [routerLinkActiveOptions]="{ exact: item.exact || false }"
-                class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-nav hover:bg-primary-50 hover:text-primary-600 dark:hover:bg-primary-500/30 dark:hover:text-primary-100 transition-colors duration-200"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-colors duration-200"
+                [ngClass]="rla.isActive ? 
+                    'bg-primary-600 text-white font-medium hover:bg-primary-500' : 
+                    'text-nav hover:bg-primary-50 hover:text-primary-600 dark:hover:bg-primary-500/30 dark:hover:text-primary-100'"
                 [title]="isCollapsed ? (item.label | translate) : ''">
                 <lucide-icon [name]="item.icon" class="flex-shrink-0" [size]="20" [strokeWidth]="2"></lucide-icon>
                 @if (!isCollapsed) {

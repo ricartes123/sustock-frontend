@@ -27,9 +27,7 @@
         "LOGOUT": "Logout"
     },
     "DASHBOARD": {
-        "PANEL_BADGE": "Main panel",
         "OVERVIEW_TITLE": "Today's Overview",
-        "OVERVIEW_SUBTITLE": "Review your sales, stock, and daily movements. Everything important, in one place.",
         "EXPORT_REPORT": "Export report",
         "NEW_SALE_CTA": "New Sale",
         "NEW_SALE_DESC": "Register a sale",
