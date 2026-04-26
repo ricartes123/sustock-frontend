@@ -5,13 +5,7 @@
     <div class="px-6 py-6 flex items-center justify-between"
         [ngClass]="isCollapsed ? 'justify-center flex-col gap-4' : ''">
         <div class="flex items-center gap-2 overflow-hidden whitespace-nowrap">
-            <lucide-icon name="package-2" class="text-primary-600 flex-shrink-0" [size]="28"
-                [strokeWidth]="2"></lucide-icon>
-            @if (!isCollapsed) {
-            <h1 class="text-2xl font-bold text-main">
-                <span class="text-primary-600">Su</span><span class="text-secondary-600">Stock</span>
-            </h1>
-            }
+            <img src="assets/images/logos/logo.png" alt="SuStock" [class]="isCollapsed ? 'h-8' : 'h-10'" class="object-contain transition-all duration-300">
         </div>
 
         <button (click)="toggleSidebar()"
