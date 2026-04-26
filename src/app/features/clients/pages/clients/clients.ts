@@ -19,8 +19,8 @@ import { ClientsService } from '../../services/clients.service';
 import { HotToastService } from '@ngxpert/hot-toast';
 import { TranslateService } from '@ngx-translate/core';
 
-import { ClientFormModal } from '../client-form-modal/client-form-modal';
-import { ClientDetailsModal } from '../client-details-modal/client-details-modal';
+import { ClientFormModal } from '../../components/client-form-modal/client-form-modal';
+import { ClientDetailsModal } from '../../components/client-details-modal/client-details-modal';
 
 @Component({
   selector: 'app-clients',
