@@ -201,38 +201,35 @@
 
 </div>
 
-<!-- Chart Placeholder -->
-<div class="bg-card border border-medium rounded-2xl p-6 mb-8 shadow-sm">
-    <div class="mb-4">
-        <h3 class="font-bold text-main text-base mb-1">{{ 'DASHBOARD.CHART_TITLE' | translate }}</h3>
-        <p class="text-sm font-medium text-faint">{{ 'DASHBOARD.CHART_TOTAL' | translate }} <span
-                class="font-bold text-main">{{ (data()!.salesToday ?? 0) |
-                currency:currency():'symbol-narrow':'1.0-0':locale }}</span></p>
-    </div>
+<!-- Chart -->
+<div class="bg-white border border-soft rounded-3xl p-6 sm:p-8 mb-8 shadow-sm relative overflow-hidden">
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+        <div>
+            <h3 class="font-bold text-main/60 text-[11px] uppercase tracking-wider mb-2">{{ 'DASHBOARD.CHART_TITLE' | translate }}</h3>
+            <div class="flex items-center gap-3">
+                <span class="text-3xl font-black text-main leading-none">{{ 54000 | currency:currency():'symbol-narrow':'1.0-0':locale }}</span>
+                <span class="flex items-center gap-0.5 text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-1 rounded-[8px]">
+                    <lucide-icon name="arrow-up" [size]="12" [strokeWidth]="3"></lucide-icon>
+                    12%
+                </span>
+            </div>
+            <p class="text-xs font-medium text-faint mt-2">{{ 'DASHBOARD.CHART_VS_LAST_WEEK' | translate }}</p>
+        </div>
 
-    <div class="relative h-[200px] w-full flex flex-col justify-between pt-2">
-        <div class="border-b border-soft border-dashed w-full h-0 flex items-center"><span
-                class="absolute -left-0 text-[11px] text-faint bg-card pr-3 font-medium">$4</span></div>
-        <div class="border-b border-soft border-dashed w-full h-0 flex items-center"><span
-                class="absolute -left-0 text-[11px] text-faint bg-card pr-3 font-medium">$3</span></div>
-        <div class="border-b border-soft border-dashed w-full h-0 flex items-center"><span
-                class="absolute -left-0 text-[11px] text-faint bg-card pr-3 font-medium">$2</span></div>
-        <div class="border-b border-soft border-dashed w-full h-0 flex items-center"><span
-                class="absolute -left-0 text-[11px] text-faint bg-card pr-3 font-medium">$1</span></div>
-        <div class="border-b border-strong w-full h-0 flex items-center"><span
-                class="absolute -left-0 text-[11px] text-faint bg-card pr-3 font-medium">$0</span></div>
-
-        <div class="absolute bottom-0 w-full flex justify-between px-10 translate-y-7">
-            <span class="text-[11px] text-faint font-medium">Lun</span>
-            <span class="text-[11px] text-faint font-medium">Mar</span>
-            <span class="text-[11px] text-faint font-medium">Mié</span>
-            <span class="text-[11px] text-faint font-medium">Jue</span>
-            <span class="text-[11px] text-faint font-medium">Vie</span>
-            <span class="text-[11px] text-faint font-medium">Sáb</span>
-            <span class="text-[11px] text-faint font-medium">Dom</span>
+        <div class="flex items-center bg-input p-1 rounded-xl">
+            <button class="px-3 py-1.5 text-xs font-bold rounded-lg transition-colors bg-white text-main shadow-sm">{{ 'DASHBOARD.PERIOD_7D' | translate }}</button>
+            <button class="px-3 py-1.5 text-xs font-bold rounded-lg transition-colors text-faint hover:text-body">{{ 'DASHBOARD.PERIOD_30D' | translate }}</button>
+            <button class="px-3 py-1.5 text-xs font-bold rounded-lg transition-colors text-faint hover:text-body">{{ 'DASHBOARD.PERIOD_90D' | translate }}</button>
         </div>
     </div>
-    <div class="h-8"></div>
+    
+    <div class="w-full h-[300px] sm:h-[350px]">
+        <canvas baseChart
+            [data]="lineChartData"
+            [options]="lineChartOptions"
+            [type]="'line'">
+        </canvas>
+    </div>
 </div>
 
 <!-- Bottom Grids -->
@@ -314,7 +311,7 @@
 
         @if((data()!.lowStockProducts?.length ?? 0) === 0) {
         <div class="flex-1 flex items-center justify-center min-h-[120px]">
-            <p class="text-sm text-faint font-medium">No hay productos con stock bajo 🎉</p>
+            <p class="text-sm text-faint font-medium">{{ 'DASHBOARD.ALL_GOOD' | translate }}</p>
         </div>
         } @else {
         <div class="flex flex-col gap-3">

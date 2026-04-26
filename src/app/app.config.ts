@@ -18,6 +18,7 @@ import { provideTranslateService, TranslateLoader } from '@ngx-translate/core';
 import { provideTranslateHttpLoader, TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { provideLucideIcons } from './core/providers/lucide-icons.provider';
 import { provideHotToastConfig } from '@ngxpert/hot-toast';
+import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 
 import { routes } from './app.routes';
 
@@ -46,5 +47,7 @@ export const appConfig: ApplicationConfig = {
         color: '#fff',
         boxShadow: '0 10px 25px rgba(0,0,0,0.3)'
       }
-    })]
+    }),
+    provideCharts(withDefaultRegisterables())
+  ]
 };
