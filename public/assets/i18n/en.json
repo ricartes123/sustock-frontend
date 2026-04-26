@@ -44,7 +44,15 @@
         "METRIC_STOCK_VALUE": "INVESTED MONEY",
         "METRIC_STOCK_VALUE_DESC": "Estimated value",
         "METRIC_LOW_STOCK": "LOW STOCK",
-        "METRIC_LOW_STOCK_DESC": "{{count}} products",
+        "METRIC_LOW_STOCK_DESC": "{{count}} products to restock",
+        "VS_YESTERDAY": "vs yesterday",
+        "VS_LAST_MONTH": "vs last month",
+        "THIS_WEEK": "this week",
+        "SINCE_YESTERDAY": "since yesterday",
+        "CHART_VS_LAST_WEEK": "vs last week",
+        "PERIOD_7D": "7D",
+        "PERIOD_30D": "30D",
+        "PERIOD_90D": "90D",
         "CHART_TITLE": "Revenue last 7 days",
         "CHART_TOTAL": "Total:",
         "TOP_PRODUCTS_TITLE": "Top Selling Products",
@@ -54,7 +62,8 @@
         "NO_SALES_REGISTERED": "No registered sales yet.",
         "LOW_STOCK_LIST_TITLE": "Low Stock",
         "MANAGE": "Manage",
-        "UNITS": "{{count}} units"
+        "UNITS": "{{count}} units",
+        "ALL_GOOD": "Everything looks good!"
     },
     "NAVBAR": {
         "SEARCH_PLACEHOLDER": "Search products, sales, clients...",
