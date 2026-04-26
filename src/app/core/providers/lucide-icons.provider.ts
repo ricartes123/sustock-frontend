@@ -37,6 +37,8 @@ import {
     Users,
     Mail,
     Phone,
+    Languages,
+    Download,
 } from 'lucide-angular';
 
 export function provideLucideIcons(): EnvironmentProviders {
@@ -78,6 +80,8 @@ export function provideLucideIcons(): EnvironmentProviders {
             Users,
             Mail,
             Phone,
+            Languages,
+            Download,
         })
     );
 }

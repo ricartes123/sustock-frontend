@@ -26,7 +26,10 @@
         "LOGOUT": "Cerrar sesión"
     },
     "DASHBOARD": {
-        "OVERVIEW_TITLE": "Panel principal",
+        "PANEL_BADGE": "Panel principal",
+        "OVERVIEW_TITLE": "Resumen de hoy",
+        "OVERVIEW_SUBTITLE": "Mirá tus ventas, stock y movimientos del día. Todo lo importante, en un solo lugar.",
+        "EXPORT_REPORT": "Exportar reporte",
         "NEW_SALE_CTA": "Nueva venta",
         "NEW_SALE_DESC": "Registrar una venta",
         "NEW_PRODUCT_CTA": "Nuevo producto",
