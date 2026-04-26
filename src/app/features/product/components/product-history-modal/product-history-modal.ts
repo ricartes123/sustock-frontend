@@ -9,11 +9,12 @@ import { finalize } from 'rxjs';
 import { Movement } from '../../../../core/models/movement.model';
 import { MovementService } from '../../../movement/services/movement.service';
 import { PaginationMeta } from '../../../../core/models/pagination-meta.model';
+import { Modal } from '../../../../shared/components/modal/modal';
 
 @Component({
     selector: 'app-product-history-modal',
     standalone: true,
-    imports: [CommonModule, TranslateModule, DatePipe, Button, Badge],
+    imports: [CommonModule, TranslateModule, DatePipe, Button, Badge, Modal],
     templateUrl: './product-history-modal.html'
 })
 export class ProductHistoryModal implements OnChanges {

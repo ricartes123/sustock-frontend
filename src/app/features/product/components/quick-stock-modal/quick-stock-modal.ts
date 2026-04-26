@@ -9,11 +9,12 @@ import { Button } from '../../../../shared/components/button/button';
 import { HotToastService } from '@ngxpert/hot-toast';
 import { Subject, debounceTime, distinctUntilChanged, switchMap, finalize } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Modal } from '../../../../shared/components/modal/modal';
 
 @Component({
     selector: 'app-quick-stock-modal',
     standalone: true,
-    imports: [CommonModule, FormsModule, TranslateModule, Button],
+    imports: [CommonModule, FormsModule, TranslateModule, Button, Modal],
     templateUrl: './quick-stock-modal.html'
 })
 export class QuickStockModal {

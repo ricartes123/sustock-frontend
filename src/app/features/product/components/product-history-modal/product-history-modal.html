@@ -1,117 +1,92 @@
-@if (visible) {
-<div class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-0">
-    <!-- Backdrop -->
-    <div class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm transition-opacity" (click)="onClose()"></div>
+<app-modal [isOpen]="visible" [title]="'PRODUCTS.PRODUCT_HISTORY_TITLE' | translate" (close)="onClose()">
+    <div>
+        <p class="text-sm text-faint mb-4">
+            {{ 'PRODUCTS.PRODUCT_HISTORY_SUBTITLE' | translate:{ product: product?.name } }}
+        </p>
 
-    <!-- Modal -->
-    <div
-        class="relative bg-card rounded-2xl shadow-xl w-full max-w-3xl transform transition-all flex flex-col max-h-[90vh]">
-
-        <!-- Header -->
-        <div class="flex items-center justify-between px-6 py-4 border-b border-soft">
-            <div>
-                <h3 class="text-lg font-bold text-main">{{ 'PRODUCTS.PRODUCT_HISTORY_TITLE' | translate }}</h3>
-                <p class="text-sm text-faint">
-                    {{ 'PRODUCTS.PRODUCT_HISTORY_SUBTITLE' | translate:{ product: product?.name } }}
-                </p>
-            </div>
-            <button (click)="onClose()"
-                class="text-faint hover:text-red-500 transition-colors p-2 rounded-lg cursor-pointer hover:bg-red-50 dark:hover:bg-red-950/20 flex-shrink-0">
-                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-            </button>
+        @if (isLoading()) {
+        <div class="flex justify-center items-center py-12">
+            <svg class="animate-spin h-8 w-8 text-primary-600" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                </path>
+            </svg>
         </div>
-
-        <!-- Body -->
-        <div class="p-6 overflow-y-auto flex-1">
-
-            @if (isLoading()) {
-            <div class="flex justify-center items-center py-12">
-                <svg class="animate-spin h-8 w-8 text-primary-600" xmlns="http://www.w3.org/2000/svg" fill="none"
-                    viewBox="0 0 24 24">
-                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                    <path class="opacity-75" fill="currentColor"
-                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
-                    </path>
+        } @else if (movements().length === 0) {
+        <div class="text-center py-12">
+            <div
+                class="w-16 h-16 bg-input rounded-full flex items-center justify-center mx-auto mb-4 border border-soft">
+                <svg class="w-8 h-8 text-faint" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
             </div>
-            } @else if (movements().length === 0) {
-            <div class="text-center py-12">
-                <div
-                    class="w-16 h-16 bg-input rounded-full flex items-center justify-center mx-auto mb-4 border border-soft">
-                    <svg class="w-8 h-8 text-faint" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                </div>
-                <h4 class="text-sm font-semibold text-main mb-1">Sin movimientos</h4>
-                <p class="text-xs text-faint">Este producto aún no registra salidas ni ingresos.</p>
-            </div>
-            } @else {
-            <div class="overflow-hidden border border-soft rounded-xl">
-                <table class="w-full text-left text-sm">
-                    <thead class="bg-card-hover border-b border-soft text-faint font-medium">
-                        <tr>
-                            <th class="px-4 py-3">Fecha</th>
-                            <th class="px-4 py-3">Tipo</th>
-                            <th class="px-4 py-3 text-right">Cantidad</th>
-                            <th class="px-4 py-3">Cliente</th>
-                            <th class="px-4 py-3">Usuario</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-soft">
-                        @for (mov of movements(); track mov.id) {
-                        <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-700/30 transition-colors">
-                            <td class="px-4 py-3 whitespace-nowrap text-muted">
-                                {{ mov.createdAt | date:'shortTime' }}<br>
-                                <span class="text-xs text-faint">{{ mov.createdAt | date:'shortDate' }}</span>
-                            </td>
-                            <td class="px-4 py-3">
-                                @if(mov.type === 'IN') {
-                                <app-badge variant="success">Ingreso</app-badge>
-                                } @else if(mov.type === 'OUT') {
-                                <app-badge variant="error">Venta</app-badge>
-                                } @else {
-                                <app-badge variant="warning">Ajuste</app-badge>
-                                }
-                            </td>
-                            <td class="px-4 py-3 text-right font-semibold"
-                                [ngClass]="{'text-green-600': mov.type === 'IN', 'text-red-600': mov.type === 'OUT', 'text-amber-600': mov.type === 'ADJUSTMENT'}">
-                                {{ mov.type === 'OUT' ? '-' : '+' }}{{ mov.quantity }}
-                            </td>
-                            <td class="px-4 py-3 text-muted max-w-[200px] truncate"
-                                [title]="mov.reason || (mov.sale?.id ? 'Venta #' + mov.sale?.id : '')">
-                                @if(mov.reason) {
-                                {{ mov.reason }}
-                                } @else if(mov.sale) {
-                                Venta #{{ mov.sale.id.substring(0,8) }}...
-                                } @else {
-                                <span class="text-faint italic">Sin detalle</span>
-                                }
-                            </td>
-                            <td class="px-4 py-3 text-muted">
-                                @if(mov.user) {
-                                {{ mov.user.firstName }} {{ mov.user.lastName }}
-                                } @else {
-                                -
-                                }
-                            </td>
-                        </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
-            }
-
+            <h4 class="text-sm font-semibold text-main mb-1">Sin movimientos</h4>
+            <p class="text-xs text-faint">Este producto aún no registra salidas ni ingresos.</p>
         </div>
-
-        <!-- Footer -->
-        <div class="px-6 py-4 border-t border-soft bg-slate-50 dark:bg-slate-800/50 rounded-b-2xl flex justify-end gap-3">
-            <app-button variant="secondary" (click)="onClose()">
-                {{ 'COMMON.CANCEL' | translate }}
-            </app-button>
+        } @else {
+        <div class="overflow-hidden border border-soft rounded-xl">
+            <table class="w-full text-left text-sm">
+                <thead class="bg-card-hover border-b border-soft text-faint font-medium">
+                    <tr>
+                        <th class="px-4 py-3">Fecha</th>
+                        <th class="px-4 py-3">Tipo</th>
+                        <th class="px-4 py-3 text-right">Cantidad</th>
+                        <th class="px-4 py-3">Cliente</th>
+                        <th class="px-4 py-3">Usuario</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-soft">
+                    @for (mov of movements(); track mov.id) {
+                    <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-700/30 transition-colors">
+                        <td class="px-4 py-3 whitespace-nowrap text-muted">
+                            {{ mov.createdAt | date:'shortTime' }}<br>
+                            <span class="text-xs text-faint">{{ mov.createdAt | date:'shortDate' }}</span>
+                        </td>
+                        <td class="px-4 py-3">
+                            @if(mov.type === 'IN') {
+                            <app-badge variant="success">Ingreso</app-badge>
+                            } @else if(mov.type === 'OUT') {
+                            <app-badge variant="error">Venta</app-badge>
+                            } @else {
+                            <app-badge variant="warning">Ajuste</app-badge>
+                            }
+                        </td>
+                        <td class="px-4 py-3 text-right font-semibold"
+                            [ngClass]="{'text-green-600': mov.type === 'IN', 'text-red-600': mov.type === 'OUT', 'text-amber-600': mov.type === 'ADJUSTMENT'}">
+                            {{ mov.type === 'OUT' ? '-' : '+' }}{{ mov.quantity }}
+                        </td>
+                        <td class="px-4 py-3 text-muted max-w-[200px] truncate"
+                            [title]="mov.reason || (mov.sale?.id ? 'Venta #' + mov.sale?.id : '')">
+                            @if(mov.reason) {
+                            {{ mov.reason }}
+                            } @else if(mov.sale) {
+                            Venta #{{ mov.sale.id.substring(0,8) }}...
+                            } @else {
+                            <span class="text-faint italic">Sin detalle</span>
+                            }
+                        </td>
+                        <td class="px-4 py-3 text-muted">
+                            @if(mov.user) {
+                            {{ mov.user.firstName }} {{ mov.user.lastName }}
+                            } @else {
+                            -
+                            }
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
         </div>
+        }
     </div>
-</div>
-}
+
+    <!-- Footer -->
+    <ng-container modal-footer>
+        <app-button variant="secondary" (click)="onClose()">
+            {{ 'COMMON.CANCEL' | translate }}
+        </app-button>
+    </ng-container>
+</app-modal>
