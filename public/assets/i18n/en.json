@@ -15,6 +15,7 @@
         "NEXT": "Next"
     },
     "SIDEBAR": {
+        "MENU_LABEL": "MENU",
         "DASHBOARD": "Dashboard",
         "PRODUCTS": "Products",
         "SALES": "Sales",

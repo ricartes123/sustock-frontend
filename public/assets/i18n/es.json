@@ -15,6 +15,7 @@
         "NEXT": "Siguiente"
     },
     "SIDEBAR": {
+        "MENU_LABEL": "MENÚ",
         "DASHBOARD": "Panel",
         "PRODUCTS": "Productos",
         "SALES": "Ventas",
