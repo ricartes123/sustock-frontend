@@ -1,6 +1,8 @@
 import { Component, inject, computed, signal, HostListener, ElementRef } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
+import { ThemeService } from '../../core/services/theme.service';
+import { LanguageService } from '../../core/services/language.service';
 import { CommonModule } from '@angular/common';
 import { Modal } from '../../shared/components/modal/modal';
 import { Button } from '../../shared/components/button/button';
@@ -14,6 +16,8 @@ import { LucideAngularModule } from 'lucide-angular';
 })
 export class Navbar {
   private auth = inject(AuthService);
+  themeService = inject(ThemeService);
+  languageService = inject(LanguageService);
   user = this.auth.user;
   private eRef = inject(ElementRef);
 
@@ -44,6 +48,11 @@ export class Navbar {
 
   toggleDropdown() {
     this.showDropdown.update(v => !v);
+  }
+
+  toggleLanguage() {
+    const newLang = this.languageService.currentLanguage === 'es' ? 'en' : 'es';
+    this.languageService.setLanguage(newLang);
   }
 
   triggerLogout() {

@@ -1,5 +1,5 @@
 <aside [ngClass]="isCollapsed ? 'w-20' : 'w-64'"
-    class="bg-white border-r border-slate-100 flex flex-col h-full transition-all duration-300">
+    class="bg-surface border-r border-soft flex flex-col h-full transition-all duration-300">
 
     <!-- Header / Logo Area -->
     <div class="px-6 py-6 flex items-center justify-between"
@@ -8,15 +8,14 @@
             <lucide-icon name="package-2" class="text-primary-600 flex-shrink-0" [size]="28"
                 [strokeWidth]="2"></lucide-icon>
             @if (!isCollapsed) {
-            <h1 class="text-2xl font-bold text-slate-800">
+            <h1 class="text-2xl font-bold text-main">
                 <span class="text-primary-600">Su</span><span class="text-secondary-600">Stock</span>
             </h1>
             }
         </div>
 
         <button (click)="toggleSidebar()"
-            class="text-slate-400 hover:text-slate-600 transition-colors p-1 rounded-md hover:bg-slate-50 flex-shrink-0 cursor-pointer">
-            <!-- Arrow toggle -->
+            class="text-faint hover:text-body transition-colors p-1 rounded-md hover:bg-card-hover flex-shrink-0 cursor-pointer">
             @if (!isCollapsed) {
             <lucide-icon name="chevron-left" [size]="18" [strokeWidth]="2.5"></lucide-icon>
             }
@@ -32,9 +31,9 @@
         <nav class="flex flex-col gap-1">
 
             <!-- Dashboard -->
-            <a routerLink="/" routerLinkActive="bg-primary-50 text-primary-700 font-medium"
+            <a routerLink="/" [routerLinkActive]="activeNavClass"
                 [routerLinkActiveOptions]="{ exact: true }"
-                class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-500 hover:bg-slate-50 hover:text-slate-900 transition-colors duration-200"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-nav hover:bg-card-hover hover:text-main transition-colors duration-200"
                 [title]="isCollapsed ? 'Dashboard' : ''">
                 <lucide-icon name="layout-dashboard" class="flex-shrink-0" [size]="20" [strokeWidth]="2"></lucide-icon>
                 @if (!isCollapsed) {
@@ -43,9 +42,9 @@
             </a>
 
             <!-- Products -->
-            <a routerLink="/products" routerLinkActive="bg-primary-50 text-primary-700 font-medium"
-                class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-500 hover:bg-slate-50 hover:text-slate-900 transition-colors duration-200"
-                [title]="isCollapsed ? 'Orders' : ''">
+            <a routerLink="/products" [routerLinkActive]="activeNavClass"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-nav hover:bg-card-hover hover:text-main transition-colors duration-200"
+                [title]="isCollapsed ? 'Products' : ''">
                 <lucide-icon name="box" class="w-5 h-5 flex-shrink-0"></lucide-icon>
                 @if (!isCollapsed) {
                 <span class="whitespace-nowrap">{{ 'SIDEBAR.PRODUCTS' | translate }}</span>
@@ -53,8 +52,8 @@
             </a>
 
             <!-- Sales -->
-            <a routerLink="/sales" routerLinkActive="bg-primary-50 text-primary-700 font-medium"
-                class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-500 hover:bg-slate-50 hover:text-slate-900 transition-colors duration-200"
+            <a routerLink="/sales" [routerLinkActive]="activeNavClass"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-nav hover:bg-card-hover hover:text-main transition-colors duration-200"
                 [title]="isCollapsed ? 'Sales' : ''">
                 <lucide-icon name="shopping-cart" class="flex-shrink-0" [size]="20" [strokeWidth]="2"></lucide-icon>
                 @if (!isCollapsed) {
@@ -63,8 +62,8 @@
             </a>
 
             <!-- Movements -->
-            <a routerLink="/movements" routerLinkActive="bg-primary-50 text-primary-700 font-medium"
-                class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-500 hover:bg-slate-50 hover:text-slate-900 transition-colors duration-200"
+            <a routerLink="/movements" [routerLinkActive]="activeNavClass"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-nav hover:bg-card-hover hover:text-main transition-colors duration-200"
                 [title]="isCollapsed ? 'Movements' : ''">
                 <lucide-icon name="arrow-right-left" class="flex-shrink-0" [size]="20" [strokeWidth]="2"></lucide-icon>
                 @if (!isCollapsed) {
@@ -73,8 +72,8 @@
             </a>
 
             <!-- Clients -->
-            <a routerLink="/clients" routerLinkActive="bg-primary-50 text-primary-700 font-medium"
-                class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-500 hover:bg-slate-50 hover:text-slate-900 transition-colors duration-200"
+            <a routerLink="/clients" [routerLinkActive]="activeNavClass"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-nav hover:bg-card-hover hover:text-main transition-colors duration-200"
                 [title]="isCollapsed ? 'Clients' : ''">
                 <lucide-icon name="users" class="flex-shrink-0" [size]="20" [strokeWidth]="2"></lucide-icon>
                 @if (!isCollapsed) {
@@ -83,11 +82,11 @@
             </a>
         </nav>
 
-        <nav class="flex flex-col gap-1 mt-auto border-t border-slate-200 pt-4">
+        <nav class="flex flex-col gap-1 mt-auto border-t border-medium pt-4">
 
             <!-- Settings -->
-            <a routerLink="/settings" routerLinkActive="bg-primary-50 text-primary-700 font-medium"
-                class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-500 hover:bg-slate-50 hover:text-slate-900 transition-colors duration-200"
+            <a routerLink="/settings" [routerLinkActive]="activeNavClass"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-nav hover:bg-card-hover hover:text-main transition-colors duration-200"
                 [title]="isCollapsed ? 'Settings' : ''">
                 <lucide-icon name="settings" class="flex-shrink-0" [size]="20" [strokeWidth]="2"></lucide-icon>
                 @if (!isCollapsed) {
