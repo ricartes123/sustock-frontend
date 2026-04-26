@@ -41,6 +41,8 @@ import {
     Download,
     Bell,
     Zap,
+    ArrowUp,
+    AlertOctagon,
 } from 'lucide-angular';
 
 export function provideLucideIcons(): EnvironmentProviders {
@@ -86,6 +88,8 @@ export function provideLucideIcons(): EnvironmentProviders {
             Download,
             Bell,
             Zap,
+            ArrowUp,
+            AlertOctagon,
         })
     );
 }
