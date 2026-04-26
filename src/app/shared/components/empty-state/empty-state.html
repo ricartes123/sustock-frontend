@@ -1,11 +1,11 @@
 <div
-    class="bg-white p-12 rounded-2xl shadow-sm border border-slate-100 text-center flex flex-col items-center justify-center min-h-[300px]">
+    class="bg-surface p-12 rounded-2xl shadow-sm border border-soft text-center flex flex-col items-center justify-center min-h-[300px]">
     <div
-        class="w-16 h-16 bg-slate-50 rounded-full flex items-center justify-center mb-4 border border-slate-100 shadow-sm">
-        <lucide-icon [name]="icon" [size]="28" class="text-slate-400" [strokeWidth]="1.5"></lucide-icon>
+        class="w-16 h-16 bg-card-hover rounded-full flex items-center justify-center mb-4 border border-soft shadow-sm">
+        <lucide-icon [name]="icon" [size]="28" class="text-faint" [strokeWidth]="1.5"></lucide-icon>
     </div>
-    <h3 class="text-lg font-bold text-slate-800 mb-1">{{ title }}</h3>
-    <p class="text-slate-500 text-sm max-w-sm mx-auto">
+    <h3 class="text-lg font-bold text-main mb-1">{{ title }}</h3>
+    <p class="text-faint text-sm max-w-sm mx-auto">
         {{ description }}
     </p>
     @if (showAction) {
