@@ -78,6 +78,12 @@ export class Products implements OnInit {
 
   // Quick Stock State
   isQuickStockModalOpen = signal(false);
+  productForQuickStock = signal<Product | null>(null);
+
+  openQuickStockForProduct(product: Product) {
+    this.productForQuickStock.set(product);
+    this.isQuickStockModalOpen.set(true);
+  }
 
   // History State
   isHistoryModalOpen = signal(false);
@@ -232,6 +238,7 @@ export class Products implements OnInit {
 
   closeQuickStockModal(success: boolean) {
     this.isQuickStockModalOpen.set(false);
+    this.productForQuickStock.set(null);
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: { action: null },

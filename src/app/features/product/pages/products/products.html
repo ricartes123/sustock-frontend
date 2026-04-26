@@ -20,6 +20,10 @@
         </app-button>
         }
 
+        <app-button variant="success" (click)="isQuickStockModalOpen.set(true)" icon="plus">
+            {{ 'DASHBOARD.QUICK_STOCK_CTA' | translate }}
+        </app-button>
+
         @if (isAdmin()) {
         <app-button variant="primary" (click)="openCreateModal()" icon="plus">
             {{ 'PRODUCTS.NEW_PRODUCT' | translate }}
@@ -124,6 +128,11 @@
             <td class="p-4 text-right">
                 <div class="flex items-center justify-end gap-2">
 
+                    <app-button variant="icon-success" (click)="openQuickStockForProduct(product)"
+                        [title]="'DASHBOARD.QUICK_STOCK_CTA' | translate">
+                        <lucide-icon name="plus" [size]="16" [strokeWidth]="2"></lucide-icon>
+                    </app-button>
+
                     <app-button variant="icon" (click)="openHistoryModal(product)"
                         [title]="'PRODUCTS.HISTORY' | translate">
                         <lucide-icon name="clock" [size]="16" [strokeWidth]="2"></lucide-icon>
@@ -183,7 +192,7 @@
     (confirm)="confirmArchive()" (cancel)="closeArchiveWarning()">
 </app-data-warning>
 
-<app-quick-stock-modal [visible]="isQuickStockModalOpen()" (close)="closeQuickStockModal($event)">
+<app-quick-stock-modal [visible]="isQuickStockModalOpen()" [preselectedProduct]="productForQuickStock()" (close)="closeQuickStockModal($event)">
 </app-quick-stock-modal>
 
 <app-product-history-modal [visible]="isHistoryModalOpen()" [product]="productForHistory()"
