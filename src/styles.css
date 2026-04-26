@@ -105,14 +105,15 @@ body {
 }
 
 .dark {
-    --ss-app:           #020617;   /* slate-950 */
-    --ss-surface:       #0f172a;   /* slate-900 */
+    --ss-app:           #050329;   /* slate-950 */
+    --ss-surface:       #060344;   /* slate-900 */
     --ss-card:          #1e293b;   /* slate-800 */
     --ss-input:         #334155;   /* slate-700 */
     --ss-card-hover:    #1e293b;   /* slate-800 */
 
     --ss-text-main:     #f1f5f9;   /* slate-100 */
     --ss-text-body:     #cbd5e1;   /* slate-300 */
+    --ss-text-body2:    #050329;   /* slate-300 */
     --ss-text-muted:    #cbd5e1;   /* slate-300 */
     --ss-text-nav:      #94a3b8;   /* slate-400 */
     --ss-text-faint:    #64748b;   /* slate-500 */
