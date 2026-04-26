@@ -6,16 +6,31 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @font-face {
-    font-family: 'CalSans';
-    src: url('/fonts/CalSans-Regular.woff2') format('woff2'),
-        url('/fonts/CalSans-Regular.woff') format('woff');
-    font-weight: normal;
+    font-family: 'Poppins';
+    src: url('/fonts/Poppins-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('/fonts/Poppins-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('/fonts/Inter-VariableFont_opsz,wght.woff2') format('woff2');
+    font-weight: 100 900;
     font-style: normal;
     font-display: swap;
 }
 
 body {
-    font-family: 'CalSans', sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 
 /* Transición global sincronizada para el modo oscuro */
@@ -39,6 +54,9 @@ body {
 }
 
 @theme {
+    --font-sans: 'Poppins', sans-serif;
+    --font-secondary: 'Inter', sans-serif;
+
     --color-primary-50: #f2ecfc;
     --color-primary-100: #e5dafa;
     --color-primary-200: #ccb5f6;
