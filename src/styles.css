@@ -3,6 +3,8 @@
 @import "tailwindcss";
 @import '@ngxpert/hot-toast/styles.css';
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @font-face {
     font-family: 'CalSans';
     src: url('/fonts/CalSans-Regular.woff2') format('woff2'),
@@ -14,6 +16,13 @@
 
 body {
     font-family: 'CalSans', sans-serif;
+}
+
+/* Transición global sincronizada para el modo oscuro */
+*, *::before, *::after {
+    transition-property: background-color, border-color, color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
@@ -53,4 +62,69 @@ body {
     --color-secondary-800: #24244a;
     --color-secondary-900: #1a1a36;
     --color-secondary-950: #0f0f1f;
+}
+
+/* ─── Tokens semánticos ──────────────────────────────────────────────
+   Usar en el HTML sin clases dark:.
+   El navegador aplica automáticamente el valor correcto según el modo.
+─────────────────────────────────────────────────────────────────── */
+:root {
+    --ss-app:           #f1f5f9;   /* slate-100 */
+    --ss-surface:       #ffffff;
+    --ss-card:          #ffffff;
+    --ss-input:         #f8fafc;   /* slate-50  */
+    --ss-card-hover:    #f8fafc;   /* slate-50  */
+
+    --ss-text-main:     #1e293b;   /* slate-800 */
+    --ss-text-body:     #334155;   /* slate-700 */
+    --ss-text-muted:    #475569;   /* slate-600 */
+    --ss-text-nav:      #64748b;   /* slate-500 */
+    --ss-text-faint:    #94a3b8;   /* slate-400 */
+
+    --ss-border-soft:   #f1f5f9;   /* slate-100 */
+    --ss-border-medium: #e2e8f0;   /* slate-200 */
+    --ss-border-strong: #e2e8f0;   /* slate-200 */
+}
+
+.dark {
+    --ss-app:           #020617;   /* slate-950 */
+    --ss-surface:       #0f172a;   /* slate-900 */
+    --ss-card:          #1e293b;   /* slate-800 */
+    --ss-input:         #334155;   /* slate-700 */
+    --ss-card-hover:    #1e293b;   /* slate-800 */
+
+    --ss-text-main:     #f1f5f9;   /* slate-100 */
+    --ss-text-body:     #cbd5e1;   /* slate-300 */
+    --ss-text-muted:    #cbd5e1;   /* slate-300 */
+    --ss-text-nav:      #94a3b8;   /* slate-400 */
+    --ss-text-faint:    #64748b;   /* slate-500 */
+
+    --ss-border-soft:   #334155;   /* slate-700 */
+    --ss-border-medium: #334155;   /* slate-700 */
+    --ss-border-strong: #475569;   /* slate-600 */
+}
+
+@layer utilities {
+    /* Fondos */
+    .bg-app        { background-color: var(--ss-app); }
+    .bg-surface    { background-color: var(--ss-surface); }
+    .bg-card       { background-color: var(--ss-card); }
+    .bg-input      { background-color: var(--ss-input); }
+    .bg-card-hover { background-color: var(--ss-card-hover); }
+    .bg-soft       { background-color: var(--ss-border-soft); }
+
+    /* Texto */
+    .text-main     { color: var(--ss-text-main); }
+    .text-body     { color: var(--ss-text-body); }
+    .text-muted    { color: var(--ss-text-muted); }
+    .text-nav      { color: var(--ss-text-nav); }
+    .text-faint    { color: var(--ss-text-faint); }
+
+    /* Bordes */
+    .border-soft   { border-color: var(--ss-border-soft); }
+    .border-medium { border-color: var(--ss-border-medium); }
+    .border-strong { border-color: var(--ss-border-strong); }
+
+    /* Divisores (divide-y divide-soft) */
+    .divide-soft > :not(:last-child) { border-color: var(--ss-border-soft); }
 }
