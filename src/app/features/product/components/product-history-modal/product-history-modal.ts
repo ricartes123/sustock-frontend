@@ -14,7 +14,14 @@ import { Modal } from '../../../../shared/components/modal/modal';
 @Component({
     selector: 'app-product-history-modal',
     standalone: true,
-    imports: [CommonModule, TranslateModule, DatePipe, Button, Badge, Modal],
+    imports: [
+        CommonModule, 
+        TranslateModule, 
+        DatePipe, 
+        Button, 
+        Badge, 
+        Modal
+    ],
     templateUrl: './product-history-modal.html'
 })
 export class ProductHistoryModal implements OnChanges {
