@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule } from 'lucide-angular';
 
-export type ButtonVariant = 'primary' | 'secondary' | 'danger' | 'ghost' | 'icon' | 'icon-primary' | 'icon-danger';
+export type ButtonVariant = 'primary' | 'secondary' | 'danger' | 'success' | 'ghost' | 'icon' | 'icon-primary' | 'icon-success' | 'icon-danger';
 export type ButtonSize = 'sm' | 'md' | 'lg';
 
 @Component({
@@ -34,9 +34,11 @@ export class Button {
             'primary': 'cursor-pointer bg-primary-600 text-white hover:bg-primary-700 focus:ring-primary-500 shadow-sm',
             'secondary': 'cursor-pointer bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 focus:ring-slate-500 shadow-sm border border-slate-300 dark:border-slate-600',
             'danger': 'cursor-pointer bg-red-600 text-white hover:bg-red-700 focus:ring-red-500 shadow-sm border border-transparent',
+            'success': 'cursor-pointer bg-emerald-600 text-white hover:bg-emerald-700 focus:ring-emerald-500 shadow-sm border border-transparent',
             'ghost': 'cursor-pointer bg-transparent text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 focus:ring-slate-500 border border-transparent',
             'icon': 'cursor-pointer bg-transparent text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 focus:ring-slate-500 border border-transparent',
             'icon-primary': 'cursor-pointer bg-transparent text-blue-500 hover:text-blue-700 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 focus:ring-blue-500 border border-transparent',
+            'icon-success': 'cursor-pointer bg-transparent text-emerald-500 hover:text-emerald-700 dark:hover:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 focus:ring-emerald-500 border border-transparent',
             'icon-danger': 'cursor-pointer bg-transparent text-red-500 hover:text-red-700 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 focus:ring-red-500 border border-transparent'
         }[this.variant];
 

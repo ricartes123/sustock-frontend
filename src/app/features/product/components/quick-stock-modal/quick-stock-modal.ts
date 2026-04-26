@@ -20,6 +20,12 @@ export class QuickStockModal {
     @Input() visible = false;
     @Output() close = new EventEmitter<boolean>();
 
+    @Input() set preselectedProduct(product: Product | null) {
+        if (product) {
+            this.selectedProduct.set(product);
+        }
+    }
+
     private productService = inject(ProductService);
     private movementService = inject(MovementService);
     private toast = inject(HotToastService);
