@@ -29,75 +29,35 @@
     <div class="flex-1 overflow-x-hidden overflow-y-auto px-4 pb-4 styled-scrollbar flex flex-col gap-6 mt-2">
 
         <nav class="flex flex-col gap-1">
-            
             @if (!isCollapsed) {
             <span class="text-[10px] font-bold text-faint tracking-wider mb-2 px-3 mt-2">{{ 'SIDEBAR.MENU_LABEL' | translate }}</span>
             }
 
-            <!-- Dashboard -->
-            <a routerLink="/" [routerLinkActive]="activeNavClass"
-                [routerLinkActiveOptions]="{ exact: true }"
-                class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-nav hover:bg-card-hover hover:text-main transition-colors duration-200"
-                [title]="isCollapsed ? 'Dashboard' : ''">
-                <lucide-icon name="layout-dashboard" class="flex-shrink-0" [size]="20" [strokeWidth]="2"></lucide-icon>
+            @for (item of menuItems; track item.route) {
+            <a [routerLink]="item.route" [routerLinkActive]="activeNavClass"
+                [routerLinkActiveOptions]="{ exact: item.exact || false }"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-nav hover:bg-primary-50 hover:text-primary-600 dark:hover:bg-primary-500/30 dark:hover:text-primary-100 transition-colors duration-200"
+                [title]="isCollapsed ? (item.label | translate) : ''">
+                <lucide-icon [name]="item.icon" class="flex-shrink-0" [size]="20" [strokeWidth]="2"></lucide-icon>
                 @if (!isCollapsed) {
-                <span class="whitespace-nowrap">{{ 'SIDEBAR.DASHBOARD' | translate }}</span>
+                <span class="whitespace-nowrap">{{ item.label | translate }}</span>
                 }
             </a>
-
-            <!-- Products -->
-            <a routerLink="/products" [routerLinkActive]="activeNavClass"
-                class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-nav hover:bg-card-hover hover:text-main transition-colors duration-200"
-                [title]="isCollapsed ? 'Products' : ''">
-                <lucide-icon name="box" class="w-5 h-5 flex-shrink-0"></lucide-icon>
-                @if (!isCollapsed) {
-                <span class="whitespace-nowrap">{{ 'SIDEBAR.PRODUCTS' | translate }}</span>
-                }
-            </a>
-
-            <!-- Sales -->
-            <a routerLink="/sales" [routerLinkActive]="activeNavClass"
-                class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-nav hover:bg-card-hover hover:text-main transition-colors duration-200"
-                [title]="isCollapsed ? 'Sales' : ''">
-                <lucide-icon name="shopping-cart" class="flex-shrink-0" [size]="20" [strokeWidth]="2"></lucide-icon>
-                @if (!isCollapsed) {
-                <span class="whitespace-nowrap">{{ 'SIDEBAR.SALES' | translate }}</span>
-                }
-            </a>
-
-            <!-- Movements -->
-            <a routerLink="/movements" [routerLinkActive]="activeNavClass"
-                class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-nav hover:bg-card-hover hover:text-main transition-colors duration-200"
-                [title]="isCollapsed ? 'Movements' : ''">
-                <lucide-icon name="arrow-right-left" class="flex-shrink-0" [size]="20" [strokeWidth]="2"></lucide-icon>
-                @if (!isCollapsed) {
-                <span class="whitespace-nowrap">{{ 'SIDEBAR.MOVEMENTS' | translate }}</span>
-                }
-            </a>
-
-            <!-- Clients -->
-            <a routerLink="/clients" [routerLinkActive]="activeNavClass"
-                class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-nav hover:bg-card-hover hover:text-main transition-colors duration-200"
-                [title]="isCollapsed ? 'Clients' : ''">
-                <lucide-icon name="users" class="flex-shrink-0" [size]="20" [strokeWidth]="2"></lucide-icon>
-                @if (!isCollapsed) {
-                <span class="whitespace-nowrap">{{ 'SIDEBAR.CLIENTS' | translate }}</span>
-                }
-            </a>
+            }
         </nav>
 
         <nav class="flex flex-col gap-1 mt-auto border-t border-medium pt-4">
-
-            <!-- Settings -->
-            <a routerLink="/settings" [routerLinkActive]="activeNavClass"
-                class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-nav hover:bg-card-hover hover:text-main transition-colors duration-200"
-                [title]="isCollapsed ? 'Settings' : ''">
-                <lucide-icon name="settings" class="flex-shrink-0" [size]="20" [strokeWidth]="2"></lucide-icon>
+            @for (item of settingsItems; track item.route) {
+            <a [routerLink]="item.route" [routerLinkActive]="activeNavClass"
+                [routerLinkActiveOptions]="{ exact: item.exact || false }"
+                class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-nav hover:bg-primary-50 hover:text-primary-600 dark:hover:bg-primary-500/30 dark:hover:text-primary-100 transition-colors duration-200"
+                [title]="isCollapsed ? (item.label | translate) : ''">
+                <lucide-icon [name]="item.icon" class="flex-shrink-0" [size]="20" [strokeWidth]="2"></lucide-icon>
                 @if (!isCollapsed) {
-                <span class="whitespace-nowrap">{{ 'SIDEBAR.SETTINGS' | translate }}</span>
+                <span class="whitespace-nowrap">{{ item.label | translate }}</span>
                 }
             </a>
-
+            }
         </nav>
     </div>
 </aside>
