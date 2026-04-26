@@ -26,13 +26,9 @@
     </div>
 
     <!-- Scrollable Nav -->
-    <div class="flex-1 overflow-x-hidden overflow-y-auto px-4 pb-4 styled-scrollbar flex flex-col gap-6 mt-2">
+    <div class="flex-1 overflow-x-hidden overflow-y-auto px-4 pb-4 styled-scrollbar flex flex-col gap-6 mt-5">
 
         <nav class="flex flex-col gap-1">
-            @if (!isCollapsed) {
-            <span class="text-[10px] font-bold text-faint tracking-wider mb-2 px-3 mt-2">{{ 'SIDEBAR.MENU_LABEL' | translate }}</span>
-            }
-
             @for (item of menuItems; track item.route) {
             <a [routerLink]="item.route" 
                 routerLinkActive
