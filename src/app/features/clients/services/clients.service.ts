@@ -49,6 +49,7 @@ export class ClientsService {
         const params = new HttpParams()
             .set('page', page.toString())
             .set('limit', limit.toString());
+
         return this.http.get<{ data: Sale[], meta: any }>(`${environment.apiUrl}/sales/${clientId}/sales`, { params });
     }
 }
