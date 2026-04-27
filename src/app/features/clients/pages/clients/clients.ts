@@ -52,6 +52,7 @@ export class ClientsComponent implements OnInit {
   clients = signal<Client[]>([]);
   meta = signal<PaginationMeta<Client>['meta'] | null>(null);
   page = signal<number>(1);
+  limit = signal<number>(10);
   loading = signal<boolean>(true);
 
   searchQuery: string = '';
@@ -72,7 +73,7 @@ export class ClientsComponent implements OnInit {
     
     this.clientsService.findAll(
       this.page(),
-      10,
+      this.limit(),
       this.searchQuery,
       backendStatus
     ).subscribe({

@@ -31,6 +31,7 @@ export class Movements {
   movements = signal<Movement[]>([]);
   meta = signal<PaginationMeta<Movement>['meta'] | null>(null);
   page = signal(1);
+  limit = signal(10);
 
   loading = signal(false);
 
@@ -60,7 +61,7 @@ export class Movements {
     this.movementService.getAll(
       this.workspaceContext.activeWorkspace()!.id,
       this.page(),
-      10,
+      this.limit(),
       this.selectedType || undefined,
     ).subscribe({
       next: (res) => {

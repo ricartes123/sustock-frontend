@@ -51,6 +51,7 @@ export class Sales implements OnInit {
   sales = signal<Sale[]>([]);
   meta = signal<PaginationMeta<Sale>['meta'] | null>(null);
   page = signal(1);
+  limit = signal(10);
   loading = signal(true);
   
   searchQuery = '';
@@ -66,7 +67,7 @@ export class Sales implements OnInit {
   loadSales() {
     this.loading.set(true);
 
-    this.salesService.findAll(this.page(), 10, this.searchQuery, 'ACTIVE')
+    this.salesService.findAll(this.page(), this.limit(), this.searchQuery, 'ACTIVE')
       .pipe(finalize(() => this.loading.set(false)))
       .subscribe({
         next: (res) => {

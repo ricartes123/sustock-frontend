@@ -126,6 +126,7 @@
     [currentPage]="page()" 
     [totalPages]="meta()!.totalPages" 
     [totalItems]="meta()!.total"
+    [limit]="limit()"
     (pageChange)="onPageChange($event)">
   </app-pagination>
 }

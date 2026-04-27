@@ -60,6 +60,7 @@ export class Products implements OnInit {
   products = signal<Product[]>([]);
   meta = signal<PaginationMeta<Product>['meta'] | null>(null);
   page = signal(1);
+  limit = signal(10);
   loading = signal(true);
   isLowStockFilter = signal<boolean>(false);
   currentStatusFilter = signal<'ALL' | 'ACTIVE' | 'INACTIVE'>('ACTIVE');
@@ -96,7 +97,7 @@ export class Products implements OnInit {
 
     this.productService.getAll(
       this.page(),
-      10,
+      this.limit(),
       this.searchQuery,
       this.isLowStockFilter(),
       this.currentStatusFilter()
