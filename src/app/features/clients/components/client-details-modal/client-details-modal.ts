@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, inject, OnChanges } from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject, OnChanges, ChangeDetectorRef } from '@angular/core';
 import { CommonModule, CurrencyPipe, DatePipe } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { Button } from '../../../../shared/components/button/button';
@@ -21,6 +21,7 @@ export class ClientDetailsModal implements OnChanges {
 
   private clientsService = inject(ClientsService);
   private workspaceContext = inject(WorkspaceContextService);
+  private cdr = inject(ChangeDetectorRef);
 
   sales: Sale[] = [];
   loadingSales = false;
@@ -64,9 +65,11 @@ export class ClientDetailsModal implements OnChanges {
         this.averageTicket = response.meta.averageTicket;
         this.totalPages = response.meta.totalPages;
         this.loadingSales = false;
+        this.cdr.detectChanges();
       },
       error: () => {
         this.loadingSales = false;
+        this.cdr.detectChanges();
       }
     });
   }
