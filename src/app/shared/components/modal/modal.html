@@ -4,9 +4,8 @@
     <!-- Backdrop click catcher -->
     <div class="fixed inset-0" (click)="onClose()"></div>
 
-    <!-- Modal Panel -->
     <div
-        class="relative bg-surface rounded-2xl shadow-xl w-full max-w-2xl overflow-hidden flex flex-col max-h-[90vh] z-10 transform transition-all">
+        class="relative bg-surface rounded-2xl shadow-xl w-full overflow-hidden flex flex-col max-h-[90vh] z-10 transform transition-all {{maxWidth}} {{minHeight}}">
 
         <!-- Header -->
         <div class="flex items-center justify-between px-6 py-4 border-b border-soft bg-surface">

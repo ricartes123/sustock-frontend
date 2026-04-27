@@ -1,4 +1,4 @@
-<app-modal [isOpen]="visible" [title]="'PRODUCTS.QUICK_STOCK_TITLE' | translate" (close)="onClose()">
+<app-modal [isOpen]="visible" [title]="'PRODUCTS.QUICK_STOCK_TITLE' | translate" (close)="onClose()" maxWidth="max-w-md">
     <div class="overflow-visible">
         <p class="text-sm text-faint mb-4">{{ 'PRODUCTS.QUICK_STOCK_SUBTITLE' | translate }}</p>
 
@@ -23,7 +23,7 @@
             <!-- Dropdown -->
             @if (showDropdown()) {
             <div
-                class="absolute z-20 mt-2 w-full bg-card shadow-xl rounded-xl border border-soft max-h-60 overflow-y-auto ring-1 ring-black ring-opacity-5 dark:ring-slate-700">
+                class="relative z-20 mt-2 w-full bg-card shadow-xl rounded-xl border border-soft max-h-60 overflow-y-auto ring-1 ring-black ring-opacity-5 dark:ring-slate-700">
 
                 @if (isSearching()) {
                 <div class="p-4 flex justify-center text-sm text-faint">

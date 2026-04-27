@@ -10,6 +10,8 @@ import { LucideAngularModule } from 'lucide-angular';
 export class Modal {
   @Input() title: string = '';
   @Input() isOpen: boolean = false;
+  @Input() maxWidth: string = 'max-w-2xl';
+  @Input() minHeight: string = '';
   @Output() close = new EventEmitter<void>();
 
   onClose() {
