@@ -1,4 +1,4 @@
-<app-modal [isOpen]="visible" [title]="'PRODUCTS.PRODUCT_HISTORY_TITLE' | translate" (close)="onClose()">
+<app-modal [isOpen]="visible" [title]="'PRODUCTS.PRODUCT_HISTORY_TITLE' | translate" (close)="onClose()" maxWidth="max-w-4xl">
     <div>
         <p class="text-sm text-faint mb-4">
             {{ 'PRODUCTS.PRODUCT_HISTORY_SUBTITLE' | translate:{ product: product?.name } }}
@@ -33,8 +33,9 @@
                     <tr>
                         <th class="px-4 py-3">Fecha</th>
                         <th class="px-4 py-3">Tipo</th>
-                        <th class="px-4 py-3 text-right">Cantidad</th>
+                        <th class="px-4 py-3">Cant.</th>
                         <th class="px-4 py-3">Cliente</th>
+                        <th class="px-4 py-3">Detalle</th>
                         <th class="px-4 py-3">Usuario</th>
                     </tr>
                 </thead>
@@ -54,7 +55,7 @@
                             <app-badge variant="warning">Ajuste</app-badge>
                             }
                         </td>
-                        <td class="px-4 py-3 text-right font-semibold"
+                        <td class="px-4 py-3 font-semibold"
                             [ngClass]="{
                                 'text-green-600 dark:text-green-400': mov.type === 'IN',
                                 'text-red-600 dark:text-red-400': mov.type === 'OUT',
@@ -68,14 +69,22 @@
                                 {{ mov.quantity }}
                             }
                         </td>
-                        <td class="px-4 py-3 text-muted max-w-[200px] truncate"
-                            [title]="mov.reason || (mov.sale?.id ? 'Venta #' + mov.sale?.id : '')">
-                            @if(mov.reason) {
-                            {{ mov.reason }}
-                            } @else if(mov.sale) {
-                            Venta #{{ mov.sale.id.substring(0,8) }}...
+                        <td class="px-4 py-3 text-muted">
+                            @if (mov.sale) {
+                                {{ mov.sale.client?.name || 'Consumidor Final' }}
                             } @else {
-                            <span class="text-faint italic">Sin detalle</span>
+                                -
+                            }
+                        </td>
+                        <td class="px-4 py-3 text-muted max-w-[200px] truncate" [title]="mov.reason || (mov.sale?.id ? 'Venta #' + mov.sale?.id : '')">
+                            @if (mov.type === 'IN' && mov.sale) {
+                                Stock repuesto (Venta anulada)
+                            } @else if (mov.reason) {
+                                {{ mov.reason }}
+                            } @else if (mov.sale) {
+                                Venta #{{ mov.sale.id.substring(0,8) }}
+                            } @else {
+                                <span class="text-faint italic">Sin detalle</span>
                             }
                         </td>
                         <td class="px-4 py-3 text-muted">
