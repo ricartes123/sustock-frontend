@@ -122,7 +122,8 @@
         "ALL": "Todos los tipos",
         "IN": "Entrada",
         "OUT": "Venta",
-        "ADJUSTMENT": "Ajuste"
+        "ADJUSTMENT": "Ajuste",
+        "REPLACEMENT": "Reposición"
     },
     "AUTH": {
         "HERO_TITLE": "Innovadora <br><span class=\"text-transparent bg-clip-text bg-gradient-to-r from-purple-200 to-indigo-200\">gestión de inventarios.</span>",

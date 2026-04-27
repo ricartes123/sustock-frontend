@@ -39,7 +39,6 @@ export class QuickStockModal {
 
     selectedProduct = signal<Product | null>(null);
     quantity = signal<number | null>(null);
-    notes = signal<string>('');
 
     isSubmitting = signal(false);
 
@@ -99,7 +98,6 @@ export class QuickStockModal {
     clearSelectedProduct() {
         this.selectedProduct.set(null);
         this.quantity.set(null);
-        this.notes.set('');
     }
 
     onClose() {
@@ -118,7 +116,7 @@ export class QuickStockModal {
         this.movementService.create({
             type: 'IN',
             quantity: qty,
-            reason: this.notes() || undefined,
+            reason: 'Ingreso de stock',
             productId: product.id
         }).pipe(
             this.toast.observe({

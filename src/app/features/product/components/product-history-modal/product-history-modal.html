@@ -47,12 +47,14 @@
                             <span class="text-xs text-faint">{{ mov.createdAt | date:'shortDate' }}</span>
                         </td>
                         <td class="px-4 py-3">
-                            @if(mov.type === 'IN') {
-                            <app-badge variant="success">Ingreso</app-badge>
-                            } @else if(mov.type === 'OUT') {
-                            <app-badge variant="error">Venta</app-badge>
+                            @if (mov.type === 'IN' && mov.sale) {
+                                <app-badge variant="info">Reposición</app-badge>
+                            } @else if (mov.type === 'IN') {
+                                <app-badge variant="success">Ingreso</app-badge>
+                            } @else if (mov.type === 'OUT') {
+                                <app-badge variant="error">Venta</app-badge>
                             } @else {
-                            <app-badge variant="warning">Ajuste</app-badge>
+                                <app-badge variant="warning">Ajuste</app-badge>
                             }
                         </td>
                         <td class="px-4 py-3 font-semibold"

@@ -55,13 +55,13 @@
                     <div class="text-xs text-faint mt-0.5">{{ mov.createdAt | date:'shortTime' }}</div>
                 </td>
                 <td class="p-4">
-                    @if (mov.type === 'IN') {
+                    @if (mov.type === 'IN' && mov.sale) {
+                        <app-badge variant="info" size="md">{{ 'MOVEMENT_TYPE.REPLACEMENT' | translate }}</app-badge>
+                    } @else if (mov.type === 'IN') {
                         <app-badge variant="success" size="md">{{ 'MOVEMENT_TYPE.IN' | translate }}</app-badge>
-                    }
-                    @if (mov.type === 'OUT') {
+                    } @else if (mov.type === 'OUT') {
                         <app-badge variant="error" size="md">{{ 'MOVEMENT_TYPE.OUT' | translate }}</app-badge>
-                    }
-                    @if (mov.type === 'ADJUSTMENT') {
+                    } @else if (mov.type === 'ADJUSTMENT') {
                         <app-badge variant="neutral" size="md">{{ 'MOVEMENT_TYPE.ADJUSTMENT' | translate }}</app-badge>
                     }
                 </td>
@@ -136,13 +136,13 @@
             <div>
                 <p class="text-xs text-faint mb-0.5">Tipo</p>
                 <div>
-                    @if (mov.type === 'IN') {
+                    @if (mov.type === 'IN' && mov.sale) {
+                        <app-badge variant="info" size="md">{{ 'MOVEMENT_TYPE.REPLACEMENT' | translate }}</app-badge>
+                    } @else if (mov.type === 'IN') {
                         <app-badge variant="success" size="md">{{ 'MOVEMENT_TYPE.IN' | translate }}</app-badge>
-                    }
-                    @if (mov.type === 'OUT') {
+                    } @else if (mov.type === 'OUT') {
                         <app-badge variant="error" size="md">{{ 'MOVEMENT_TYPE.OUT' | translate }}</app-badge>
-                    }
-                    @if (mov.type === 'ADJUSTMENT') {
+                    } @else if (mov.type === 'ADJUSTMENT') {
                         <app-badge variant="neutral" size="md">{{ 'MOVEMENT_TYPE.ADJUSTMENT' | translate }}</app-badge>
                     }
                 </div>
