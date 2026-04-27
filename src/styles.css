@@ -43,6 +43,15 @@ body {
     transition-duration: 300ms !important;
 }
 
+/* Desactivar transiciones durante la navegación entre vistas */
+.route-transitioning,
+.route-transitioning *,
+.route-transitioning *::before,
+.route-transitioning *::after {
+    transition: none !important;
+    animation: none !important;
+}
+
 /* Hide scrollbar for Chrome, Safari and Opera */
 .hide-scrollbar::-webkit-scrollbar {
     display: none;

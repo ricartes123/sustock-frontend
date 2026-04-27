@@ -1,5 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterOutlet, Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router';
+import { DOCUMENT } from '@angular/common';
+import { filter } from 'rxjs';
 import { AuthService } from './core/services/auth.service';
 import { WorkspaceService } from './features/workspace/services/workspace.service';
 import { WorkspaceContextService } from './core/services/workspace-context.service';
@@ -16,8 +18,28 @@ export class App implements OnInit {
   private workspaceService = inject(WorkspaceService);
   private workspaceContext = inject(WorkspaceContextService);
   private languageService = inject(LanguageService);
+  private router = inject(Router);
+  private document = inject(DOCUMENT);
 
   ngOnInit() {
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationStart)
+    ).subscribe(() => {
+      this.document.documentElement.classList.add('route-transitioning');
+    });
+
+    this.router.events.pipe(
+      filter(event => 
+        event instanceof NavigationEnd || 
+        event instanceof NavigationCancel || 
+        event instanceof NavigationError
+      )
+    ).subscribe(() => {
+      setTimeout(() => {
+        this.document.documentElement.classList.remove('route-transitioning');
+      }, 100);
+    });
+
     if (this.auth.isAuthenticated()) {
       // Fetch User Profile
       this.auth.fetchProfile().subscribe({
