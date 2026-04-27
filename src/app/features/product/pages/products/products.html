@@ -78,6 +78,8 @@
     <thead table-header class="bg-card-hover border-b border-soft">
         <tr>
             <th class="p-4 text-sm font-semibold text-muted">{{ 'PRODUCTS.TABLE.PRODUCT' | translate }}</th>
+            <th class="p-4 text-sm font-semibold text-muted">{{ 'PRODUCT_FORM.SKU' | translate }}</th>
+            <th class="p-4 text-sm font-semibold text-muted">{{ 'PRODUCT_FORM.BARCODE' | translate }}</th>
             <th class="p-4 text-sm font-semibold text-muted">{{ 'PRODUCTS.TABLE.COST_PRICE' | translate }}</th>
             <th class="p-4 text-sm font-semibold text-muted">{{ 'PRODUCTS.TABLE.SELLING_PRICE' | translate }}
             </th>
@@ -95,14 +97,19 @@
             [class.bg-slate-50]="!product.isActive">
             <td class="p-4">
                 <div class="font-medium text-main">{{ product.name }}</div>
-                @if (product.barcode) {
-                <div class="text-xs text-faint mt-0.5 font-mono">{{ product.barcode }}</div>
-                }
                 @if (!product.isActive) {
                 <app-badge variant="neutral" class="mt-1">
                     {{ 'PRODUCTS.ARCHIVED' | translate }}
                 </app-badge>
                 }
+            </td>
+
+            <td class="p-4 text-sm text-faint font-mono">
+                {{ product.sku || '-' }}
+            </td>
+
+            <td class="p-4 text-sm text-faint font-mono">
+                {{ product.barcode || '-' }}
             </td>
 
             <td class="p-4 text-body">
@@ -115,7 +122,7 @@
 
             <td class="p-4">
                 <app-badge [variant]="product.stock > product.stockMin ? 'success' : 'error'"
-                    [title]="'Alert threshold: ' + product.stockMin">
+                    [title]="'Alert threshold: ' + product.stockMin" size="lg">
                     {{ product.stock }}
                 </app-badge>
             </td>
