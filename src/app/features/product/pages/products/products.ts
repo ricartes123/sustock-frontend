@@ -60,7 +60,7 @@ export class Products implements OnInit {
   products = signal<Product[]>([]);
   meta = signal<PaginationMeta<Product>['meta'] | null>(null);
   page = signal(1);
-  limit = signal(10);
+  limit = signal(7);
   loading = signal(true);
   isLowStockFilter = signal<boolean>(false);
   currentStatusFilter = signal<'ALL' | 'ACTIVE' | 'INACTIVE'>('ACTIVE');

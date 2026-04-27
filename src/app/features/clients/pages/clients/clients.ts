@@ -52,7 +52,7 @@ export class ClientsComponent implements OnInit {
   clients = signal<Client[]>([]);
   meta = signal<PaginationMeta<Client>['meta'] | null>(null);
   page = signal<number>(1);
-  limit = signal<number>(10);
+  limit = signal<number>(7);
   loading = signal<boolean>(true);
 
   searchQuery: string = '';

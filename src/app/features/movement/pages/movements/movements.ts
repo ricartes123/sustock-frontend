@@ -31,7 +31,7 @@ export class Movements {
   movements = signal<Movement[]>([]);
   meta = signal<PaginationMeta<Movement>['meta'] | null>(null);
   page = signal(1);
-  limit = signal(10);
+  limit = signal(7);
 
   loading = signal(false);
 

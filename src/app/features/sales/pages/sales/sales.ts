@@ -51,7 +51,7 @@ export class Sales implements OnInit {
   sales = signal<Sale[]>([]);
   meta = signal<PaginationMeta<Sale>['meta'] | null>(null);
   page = signal(1);
-  limit = signal(10);
+  limit = signal(7);
   loading = signal(true);
   
   searchQuery = '';
