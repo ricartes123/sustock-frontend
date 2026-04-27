@@ -85,6 +85,7 @@
             <th class="p-4 text-sm font-semibold text-muted">{{ 'PRODUCTS.TABLE.SELLING_PRICE' | translate }}
             </th>
             <th class="p-4 text-sm font-semibold text-muted">{{ 'PRODUCTS.TABLE.STOCK' | translate }}</th>
+            <th class="p-4 text-sm font-semibold text-muted">{{ 'PRODUCTS.TABLE.ALERT_STOCK' | translate }}</th>
             <th class="p-4 text-sm font-semibold text-muted">{{ 'PRODUCTS.TABLE.CREATED' | translate }}</th>
             @if (isAdmin()) {
             <th class="p-4 text-sm font-semibold text-muted text-right">{{ 'COMMON.ACTIONS' | translate }}</th>
@@ -126,6 +127,10 @@
                     [title]="'Alert threshold: ' + product.stockMin" size="lg">
                     {{ product.stock }}
                 </app-badge>
+            </td>
+
+            <td class="p-4 text-sm text-faint font-medium">
+                {{ product.stockMin }}
             </td>
 
             <td class="p-4 text-sm text-faint whitespace-nowrap">

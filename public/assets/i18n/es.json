@@ -91,7 +91,8 @@
             "PRODUCT": "Producto",
             "COST_PRICE": "Precio costo",
             "SELLING_PRICE": "Precio venta",
-            "STOCK": "Stock (Mín)",
+            "STOCK": "Stock",
+            "ALERT_STOCK": "Alerta Mín.",
             "CREATED": "Creado"
         },
         "HISTORY": "Historial",
