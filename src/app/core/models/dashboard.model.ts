@@ -20,6 +20,7 @@ export interface DashboardData {
   recentMovements?: Movement[];
   topProducts?: DashboardTopProduct[];
   lowStockProducts?: Product[];
+  salesForChart?: { createdAt: string; totalAmount: number }[];
   alerts?: {
     lowStock: number;
     noPrice: number;

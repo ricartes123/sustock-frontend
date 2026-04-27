@@ -25,6 +25,10 @@ export class Dashboard {
   data = signal<DashboardData | null>(null);
   loading = signal(true);
   today = new Date();
+  
+  currentPeriod = signal<'7D' | '30D' | '90D'>('7D');
+  chartTotal = 0;
+  chartPercentage = 0;
 
   public lineChartData: ChartConfiguration<'line'>['data'] = {
     labels: ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'],
@@ -81,10 +85,109 @@ export class Dashboard {
     noSales30Days: 0
   });
 
+  updateChartData() {
+    const period = this.currentPeriod();
+    const dashboardData = this.data();
+    const sales = dashboardData?.salesForChart || [];
+    
+    const now = new Date();
+    let days = 7;
+    if (period === '30D') days = 30;
+    if (period === '90D') days = 90;
+    
+    const labels: string[] = [];
+    const data: number[] = [];
+    const dailyTotals: { [key: string]: number } = {};
+    
+    for (let i = days - 1; i >= 0; i--) {
+      const d = new Date(now);
+      d.setDate(now.getDate() - i);
+      const dateString = d.toISOString().split('T')[0];
+      
+      let label = '';
+      if (days === 7) {
+        label = d.toLocaleDateString(this.locale || 'es-ES', { weekday: 'short' });
+        label = label.charAt(0).toUpperCase() + label.slice(1);
+      } else {
+        label = d.toLocaleDateString(this.locale || 'es-ES', { day: '2-digit', month: '2-digit' });
+      }
+      
+      labels.push(label);
+      dailyTotals[dateString] = 0;
+    }
+    
+    sales.forEach(sale => {
+      const saleDate = new Date(sale.createdAt).toISOString().split('T')[0];
+      if (dailyTotals[saleDate] !== undefined) {
+        dailyTotals[saleDate] += sale.totalAmount;
+      }
+    });
+    
+    for (let i = days - 1; i >= 0; i--) {
+      const d = new Date(now);
+      d.setDate(now.getDate() - i);
+      const dateString = d.toISOString().split('T')[0];
+      data.push(dailyTotals[dateString]);
+    }
+
+    this.chartTotal = data.reduce((sum, val) => sum + val, 0);
+
+    let currentTotal = 0;
+    let previousTotal = 0;
+    
+    const currentStart = new Date(now);
+    currentStart.setDate(now.getDate() - days);
+    
+    const previousStart = new Date(now);
+    previousStart.setDate(now.getDate() - (days * 2));
+    
+    sales.forEach(sale => {
+      const saleDate = new Date(sale.createdAt);
+      if (saleDate >= currentStart && saleDate <= now) {
+        currentTotal += sale.totalAmount;
+      } else if (saleDate >= previousStart && saleDate < currentStart) {
+        previousTotal += sale.totalAmount;
+      }
+    });
+    
+    if (previousTotal === 0) {
+      this.chartPercentage = 0;
+    } else {
+      this.chartPercentage = ((currentTotal - previousTotal) / previousTotal) * 100;
+    }
+
+    this.lineChartData = {
+      labels,
+      datasets: [
+        {
+          data,
+          label: 'Ingresos',
+          fill: true,
+          tension: 0.4,
+          borderColor: '#8b5cf6',
+          backgroundColor: 'rgba(139, 92, 246, 0.1)',
+          borderWidth: 3,
+          pointBackgroundColor: '#8b5cf6',
+          pointBorderColor: '#fff',
+          pointHoverBackgroundColor: '#fff',
+          pointHoverBorderColor: '#8b5cf6',
+          pointRadius: days <= 7 ? 4 : 2,
+          pointHoverRadius: days <= 7 ? 6 : 4,
+        }
+      ]
+    };
+  }
+
+  setPeriod(period: '7D' | '30D' | '90D') {
+    this.currentPeriod.set(period);
+    this.updateChartData();
+  }
+
   ngOnInit() {
     this.dashboardService.getDashboard().subscribe({
       next: (res) => {
         this.data.set(res);
+        this.updateChartData();
         this.loading.set(false);
       },
       error: () => {

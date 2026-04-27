@@ -191,21 +191,38 @@
 <div class="bg-white border border-soft rounded-3xl p-6 sm:p-8 mb-8 shadow-sm relative overflow-hidden">
     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
         <div>
-            <h3 class="font-bold text-main/60 text-[11px] uppercase tracking-wider mb-2">{{ 'DASHBOARD.CHART_TITLE' | translate }}</h3>
+            <h3 class="font-bold text-main/60 text-[11px] uppercase tracking-wider mb-2">
+                {{ (currentPeriod() === '7D' ? 'DASHBOARD.CHART_TITLE_7D' : (currentPeriod() === '30D' ? 'DASHBOARD.CHART_TITLE_30D' : 'DASHBOARD.CHART_TITLE_90D')) | translate }}
+            </h3>
             <div class="flex items-center gap-3">
-                <span class="text-3xl font-black text-main leading-none">{{ 54000 | currency:currency():'symbol-narrow':'1.0-0':locale }}</span>
-                <span class="flex items-center gap-0.5 text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-1 rounded-[8px]">
-                    <lucide-icon name="arrow-up" [size]="12" [strokeWidth]="3"></lucide-icon>
-                    12%
+                <span class="text-3xl font-black text-main leading-none">{{ chartTotal | currency:currency():'symbol-narrow':'1.0-0':locale }}</span>
+                <span class="flex items-center gap-0.5 text-[10px] font-bold px-2 py-1 rounded-[8px]"
+                      [ngClass]="chartPercentage >= 0 ? 'text-emerald-600 bg-emerald-50' : 'text-red-600 bg-red-50'">
+                    <lucide-icon [name]="chartPercentage >= 0 ? 'arrow-up' : 'arrow-down'" [size]="12" [strokeWidth]="3"></lucide-icon>
+                    {{ (chartPercentage >= 0 ? chartPercentage : -chartPercentage) | number:'1.0-1' }}%
                 </span>
             </div>
-            <p class="text-xs font-medium text-faint mt-2">{{ 'DASHBOARD.CHART_VS_LAST_WEEK' | translate }}</p>
+            <p class="text-xs font-medium text-faint mt-2">
+                {{ (currentPeriod() === '7D' ? 'DASHBOARD.CHART_VS_LAST_WEEK' : (currentPeriod() === '30D' ? 'DASHBOARD.CHART_VS_LAST_PERIOD_30D' : 'DASHBOARD.CHART_VS_LAST_PERIOD_90D')) | translate }}
+            </p>
         </div>
 
         <div class="flex items-center bg-input p-1 rounded-xl">
-            <button class="px-3 py-1.5 text-xs font-bold rounded-lg transition-colors bg-white text-main shadow-sm">{{ 'DASHBOARD.PERIOD_7D' | translate }}</button>
-            <button class="px-3 py-1.5 text-xs font-bold rounded-lg transition-colors text-faint hover:text-body">{{ 'DASHBOARD.PERIOD_30D' | translate }}</button>
-            <button class="px-3 py-1.5 text-xs font-bold rounded-lg transition-colors text-faint hover:text-body">{{ 'DASHBOARD.PERIOD_90D' | translate }}</button>
+            <button (click)="setPeriod('7D')"
+                    [ngClass]="currentPeriod() === '7D' ? 'bg-white text-main shadow-sm' : 'text-faint hover:text-body'"
+                    class="px-3 py-1.5 text-xs font-bold rounded-lg transition-colors cursor-pointer">
+                {{ 'DASHBOARD.PERIOD_7D' | translate }}
+            </button>
+            <button (click)="setPeriod('30D')"
+                    [ngClass]="currentPeriod() === '30D' ? 'bg-white text-main shadow-sm' : 'text-faint hover:text-body'"
+                    class="px-3 py-1.5 text-xs font-bold rounded-lg transition-colors cursor-pointer">
+                {{ 'DASHBOARD.PERIOD_30D' | translate }}
+            </button>
+            <button (click)="setPeriod('90D')"
+                    [ngClass]="currentPeriod() === '90D' ? 'bg-white text-main shadow-sm' : 'text-faint hover:text-body'"
+                    class="px-3 py-1.5 text-xs font-bold rounded-lg transition-colors cursor-pointer">
+                {{ 'DASHBOARD.PERIOD_90D' | translate }}
+            </button>
         </div>
     </div>
     
