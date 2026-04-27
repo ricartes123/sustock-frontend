@@ -43,6 +43,7 @@
             <th class="p-4 text-sm font-semibold text-muted">Producto</th>
             <th class="p-4 text-sm font-semibold text-muted">Cantidad</th>
             <th class="p-4 text-sm font-semibold text-muted">Usuario</th>
+            <th class="p-4 text-sm font-semibold text-muted text-right">Acciones</th>
         </tr>
     </thead>
 
@@ -83,6 +84,12 @@
                 <td class="p-4">
                     <div class="text-sm font-medium text-body">{{ mov.user.firstName + ' ' + mov.user.lastName }}</div>
                 </td>
+                <td class="p-4 text-right">
+                    <app-button variant="icon-primary" (click)="viewDetails(mov)" title="Ver detalles"
+                        class="inline-flex items-center justify-center translate-y-[2px]">
+                        <lucide-icon name="info" [size]="20" [strokeWidth]="1.5"></lucide-icon>
+                    </app-button>
+                </td>
             </tr>
         }
     </tbody>
@@ -108,4 +115,90 @@
 
 </div>
 }
+}
+
+<!-- Movement Details Modal -->
+@if (showDetailsModal()) {
+<app-modal [isOpen]="true" [title]="'Detalle de Movimiento'" (close)="closeDetailsModal()">
+    @if (selectedMovement(); as mov) {
+    <div class="px-6 py-2 space-y-4 max-h-[70vh] overflow-y-auto">
+
+
+        <div class="bg-card-hover rounded-xl p-5 border border-soft grid grid-cols-2 gap-4">
+            <div>
+                <p class="text-xs text-faint mb-0.5">Fecha</p>
+                <p class="text-sm font-medium text-main">{{ mov.createdAt | date:'short' }}</p>
+            </div>
+            <div>
+                <p class="text-xs text-faint mb-0.5">Usuario</p>
+                <p class="text-sm font-medium text-main">{{ mov.user.firstName }} {{ mov.user.lastName }}</p>
+            </div>
+            <div>
+                <p class="text-xs text-faint mb-0.5">Tipo</p>
+                <div>
+                    @if (mov.type === 'IN') {
+                        <app-badge variant="success">{{ 'MOVEMENT_TYPE.IN' | translate }}</app-badge>
+                    }
+                    @if (mov.type === 'OUT') {
+                        <app-badge variant="error">{{ 'MOVEMENT_TYPE.OUT' | translate }}</app-badge>
+                    }
+                    @if (mov.type === 'ADJUSTMENT') {
+                        <app-badge variant="neutral">{{ 'MOVEMENT_TYPE.ADJUSTMENT' | translate }}</app-badge>
+                    }
+                </div>
+            </div>
+            <div>
+                <p class="text-xs text-faint mb-0.5">Cantidad</p>
+                <p class="text-sm font-bold" [ngClass]="{
+                    'text-green-600 dark:text-green-400': mov.type === 'IN',
+                    'text-red-600 dark:text-red-400': mov.type === 'OUT',
+                    'text-muted': mov.type === 'ADJUSTMENT'
+                }">
+                    @if (mov.type === 'IN') { +{{ mov.quantity }} } 
+                    @else if (mov.type === 'OUT') { -{{ mov.quantity }} } 
+                    @else { {{ mov.quantity }} }
+                </p>
+            </div>
+        </div>
+
+        <div class="bg-card-hover rounded-xl p-5 border border-soft">
+            <p class="text-xs text-faint mb-1">Producto</p>
+            <p class="text-sm font-semibold text-main">{{ mov.product.name }}</p>
+        </div>
+
+        @if (mov.reason) {
+        <div class="bg-card-hover rounded-xl p-5 border border-soft">
+            <p class="text-xs text-faint mb-1">Motivo / Observación</p>
+            <p class="text-sm text-body italic">"{{ mov.reason }}"</p>
+        </div>
+        }
+
+        @if (mov.sale) {
+        <div class="bg-blue-50/50 dark:bg-blue-950/20 p-4 rounded-xl border border-blue-100 dark:border-blue-900/50">
+            <h4 class="text-xs font-bold text-blue-400 uppercase tracking-wider mb-3">Venta Relacionada</h4>
+            <div class="space-y-2 text-sm text-body">
+                <p><span class="text-faint text-xs block">ID Venta:</span> <span class="font-mono text-xs">{{ mov.sale.id }}</span></p>
+                <div class="grid grid-cols-2 gap-4 mt-2">
+                    <div>
+                        <p class="text-xs text-faint">Cliente</p>
+                        <p class="font-medium text-main">{{ mov.sale.client?.name || 'Consumidor Final' }}</p>
+                    </div>
+                    <div>
+                        <p class="text-xs text-faint">Total Venta</p>
+                        <p class="font-medium text-green-600 dark:text-green-400">{{ mov.sale.totalAmount | currency:currency():'symbol-narrow':'1.0-2':locale() }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+    }
+
+    <!-- Footer -->
+    <ng-container modal-footer>
+        <app-button variant="secondary" (click)="closeDetailsModal()">
+            Cerrar
+        </app-button>
+    </ng-container>
+</app-modal>
 }

@@ -1,5 +1,5 @@
-import { Component, inject, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, inject, signal, computed } from '@angular/core';
+import { CommonModule, CurrencyPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { Movement } from '../../../../core/models/movement.model';
@@ -12,10 +12,11 @@ import { Badge } from '../../../../shared/components/badge/badge';
 import { LucideAngularModule } from 'lucide-angular';
 import { SearchInput } from '../../../../shared/components/search-input/search-input';
 import { WorkspaceContextService } from '../../../../core/services/workspace-context.service';
+import { Modal } from '../../../../shared/components/modal/modal';
 
 @Component({
   selector: 'app-movements',
-  imports: [CommonModule, FormsModule, TranslateModule, TableComponent, Button, Badge, LucideAngularModule, SearchInput],
+  imports: [CommonModule, FormsModule, TranslateModule, TableComponent, Button, Badge, LucideAngularModule, SearchInput, Modal, CurrencyPipe],
   templateUrl: './movements.html',
   styleUrl: './movements.css',
 })
@@ -23,11 +24,27 @@ export class Movements {
   private movementService = inject(MovementService);
   private workspaceContext = inject(WorkspaceContextService);
 
+  currency = computed(() => this.workspaceContext.currency);
+  locale = computed(() => this.workspaceContext.locale);
+
   movements = signal<Movement[]>([]);
   meta = signal<PaginationMeta<Movement>['meta'] | null>(null);
   page = signal(1);
 
   loading = signal(false);
+
+  showDetailsModal = signal(false);
+  selectedMovement = signal<Movement | null>(null);
+
+  viewDetails(movement: Movement) {
+    this.selectedMovement.set(movement);
+    this.showDetailsModal.set(true);
+  }
+
+  closeDetailsModal() {
+    this.showDetailsModal.set(false);
+    setTimeout(() => this.selectedMovement.set(null), 300);
+  }
 
   searchQuery = '';
   selectedType = '';
