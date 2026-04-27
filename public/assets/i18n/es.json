@@ -77,6 +77,10 @@
         "LOW_STOCK": "Stock bajo",
         "NO_PRODUCTS": "Aún no hay productos.",
         "NO_PRODUCTS_DESC": "Comenzá creando tu primer producto para gestionar tu inventario.",
+        "NO_LOW_STOCK": "Sin productos con stock bajo",
+        "NO_LOW_STOCK_DESC": "¡Buen trabajo! Todos tus productos tienen stock suficiente.",
+        "NO_SEARCH_RESULTS": "No se encontraron productos",
+        "NO_SEARCH_RESULTS_DESC": "Probá cambiando los filtros o el término de búsqueda.",
         "ARCHIVE_WARNING_TITLE": "Archivar Producto",
         "ARCHIVE_WARNING_MESSAGE": "¿Estás seguro de que querés archivar este producto?",
         "TABLE": {

@@ -77,6 +77,10 @@
         "LOW_STOCK": "Low Stock",
         "NO_PRODUCTS": "No products yet.",
         "NO_PRODUCTS_DESC": "Start by creating your first product to manage your inventory.",
+        "NO_LOW_STOCK": "No low stock products",
+        "NO_LOW_STOCK_DESC": "Great job! All your products have sufficient stock.",
+        "NO_SEARCH_RESULTS": "No products found",
+        "NO_SEARCH_RESULTS_DESC": "Try changing the filters or search term.",
         "ARCHIVE_WARNING_TITLE": "Archive Product",
         "ARCHIVE_WARNING_MESSAGE": "Are you sure you want to archive this product?",
         "TABLE": {

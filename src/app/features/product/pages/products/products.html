@@ -64,8 +64,9 @@
 
 <app-table [isLoading]="loading()" [loadingText]="'COMMON.LOADING' | translate"
     [isEmpty]="!loading() && products().length === 0" emptyIcon="package-open"
-    [emptyTitle]="'PRODUCTS.NO_PRODUCTS' | translate" [emptyDescription]="'PRODUCTS.NO_PRODUCTS_DESC' | translate"
-    [showEmptyAction]="true">
+    [emptyTitle]="isLowStockFilter() ? ('PRODUCTS.NO_LOW_STOCK' | translate) : (searchQuery || currentStatusFilter() !== 'ACTIVE' ? ('PRODUCTS.NO_SEARCH_RESULTS' | translate) : ('PRODUCTS.NO_PRODUCTS' | translate))"
+    [emptyDescription]="isLowStockFilter() ? ('PRODUCTS.NO_LOW_STOCK_DESC' | translate) : (searchQuery || currentStatusFilter() !== 'ACTIVE' ? ('PRODUCTS.NO_SEARCH_RESULTS_DESC' | translate) : ('PRODUCTS.NO_PRODUCTS_DESC' | translate))"
+    [showEmptyAction]="!isLowStockFilter() && !searchQuery && currentStatusFilter() === 'ACTIVE'">
 
     <ng-container empty-actions>
         @if (isAdmin()) {
