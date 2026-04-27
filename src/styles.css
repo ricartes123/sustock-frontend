@@ -33,11 +33,14 @@ body {
     font-family: 'Poppins', sans-serif;
 }
 
-/* Transición global sincronizada para el modo oscuro */
-*, *::before, *::after {
-    transition-property: background-color, border-color, color, fill, stroke;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 300ms;
+/* Transición global sincronizada para el modo oscuro (solo durante el cambio) */
+.theme-transition,
+.theme-transition *,
+.theme-transition *::before,
+.theme-transition *::after {
+    transition-property: background-color, border-color, color, fill, stroke !important;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
+    transition-duration: 300ms !important;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */

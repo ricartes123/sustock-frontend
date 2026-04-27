@@ -23,7 +23,19 @@ export class ThemeService {
         });
     }
 
+    private transitionTimeout: any;
+
     toggle() {
+        if (this.transitionTimeout) {
+            clearTimeout(this.transitionTimeout);
+        }
+        
+        this.document.documentElement.classList.add('theme-transition');
         this.isDark.update(v => !v);
+        
+        this.transitionTimeout = setTimeout(() => {
+            this.document.documentElement.classList.remove('theme-transition');
+            this.transitionTimeout = undefined;
+        }, 300);
     }
 }
