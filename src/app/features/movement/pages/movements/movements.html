@@ -55,7 +55,7 @@
                     <div class="text-xs text-faint mt-0.5">{{ mov.createdAt | date:'shortTime' }}</div>
                 </td>
                 <td class="p-4">
-                    @if (mov.type === 'IN' && mov.sale) {
+                    @if (mov.type === 'IN' && (mov.sale || mov.reason?.toLowerCase()?.includes('anulación') || mov.reason?.toLowerCase()?.includes('cancelada') || mov.reason?.toLowerCase()?.includes('reposición'))) {
                         <app-badge variant="info" size="md">{{ 'MOVEMENT_TYPE.REPLACEMENT' | translate }}</app-badge>
                     } @else if (mov.type === 'IN') {
                         <app-badge variant="success" size="md">{{ 'MOVEMENT_TYPE.IN' | translate }}</app-badge>
@@ -125,7 +125,7 @@
             <div>
                 <p class="text-xs text-faint mb-0.5">Tipo</p>
                 <div>
-                    @if (mov.type === 'IN' && mov.sale) {
+                    @if (mov.type === 'IN' && (mov.sale || mov.reason?.toLowerCase()?.includes('anulación') || mov.reason?.toLowerCase()?.includes('cancelada') || mov.reason?.toLowerCase()?.includes('reposición'))) {
                         <app-badge variant="info" size="md">{{ 'MOVEMENT_TYPE.REPLACEMENT' | translate }}</app-badge>
                     } @else if (mov.type === 'IN') {
                         <app-badge variant="success" size="md">{{ 'MOVEMENT_TYPE.IN' | translate }}</app-badge>
