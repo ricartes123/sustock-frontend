@@ -15,10 +15,18 @@ export class PaginationComponent {
   @Input() totalPages: number = 1;
   @Input() totalItems?: number;
   @Input() limit: number = 10;
-  @Input() maxVisiblePages: number = 10;
-  @Input() pageRange: number = 5;
+  @Input() maxVisiblePages?: number;
+  @Input() pageRange?: number;
 
   @Output() pageChange = new EventEmitter<number>();
+
+  get computedMaxVisiblePages(): number {
+    return this.maxVisiblePages ?? Math.max(5, this.limit);
+  }
+
+  get computedPageRange(): number {
+    return this.pageRange ?? Math.max(2, Math.floor(this.computedMaxVisiblePages / 2));
+  }
 
   get from(): number {
     if (this.totalItems === 0) return 0;
@@ -35,7 +43,7 @@ export class PaginationComponent {
     const current = this.currentPage;
     const pages: (number | string)[] = [];
 
-    if (total <= this.maxVisiblePages) {
+    if (total <= this.computedMaxVisiblePages) {
       for (let i = 1; i <= total; i++) {
         pages.push(i);
       }
@@ -44,8 +52,8 @@ export class PaginationComponent {
 
     pages.push(1);
 
-    const start = Math.max(2, current - this.pageRange);
-    const end = Math.min(total - 1, current + this.pageRange);
+    const start = Math.max(2, current - this.computedPageRange);
+    const end = Math.min(total - 1, current + this.computedPageRange);
 
     if (start > 2) {
       pages.push('...');
