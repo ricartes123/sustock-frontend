@@ -64,6 +64,7 @@
             <th class="p-4 text-sm font-semibold text-muted">Fecha</th>
             <th class="p-4 text-sm font-semibold text-muted">Cliente</th>
             <th class="p-4 text-sm font-semibold text-muted">Total</th>
+            <th class="p-4 text-sm font-semibold text-muted">Estado</th>
             <th class="p-4 text-sm font-semibold text-muted">Usuario</th>
             <th class="p-4 text-sm font-semibold text-muted text-right">Acciones</th>
         </tr>
@@ -82,9 +83,15 @@
                 <td class="p-4">
                     @if (sale.status === 'CANCELLED') {
                         <span class="font-semibold text-faint line-through">{{ sale.totalAmount | currency:currency():'symbol-narrow':'1.0-0':locale() }}</span>
-                        <app-badge variant="error" class="ml-2">Anulada</app-badge>
                     } @else {
                         <span class="font-semibold text-green-600 dark:text-green-400">{{ sale.totalAmount | currency:currency():'symbol-narrow':'1.0-0':locale() }}</span>
+                    }
+                </td>
+                <td class="p-4">
+                    @if (sale.status === 'CANCELLED') {
+                        <app-badge variant="error">Anulada</app-badge>
+                    } @else {
+                        <app-badge variant="success">Activa</app-badge>
                     }
                 </td>
                 <td class="p-4">
