@@ -101,6 +101,16 @@
                 </tbody>
             </table>
         </div>
+
+        @if (movements().length > 0 && meta()) {
+          <app-pagination 
+            [currentPage]="page()" 
+            [totalPages]="meta()!.totalPages" 
+            [totalItems]="meta()!.total"
+            [limit]="limit()"
+            (pageChange)="page.set($event); loadHistory()">
+          </app-pagination>
+        }
         }
     </div>
 

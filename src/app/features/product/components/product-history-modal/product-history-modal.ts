@@ -10,6 +10,7 @@ import { Movement } from '../../../../core/models/movement.model';
 import { MovementService } from '../../../movement/services/movement.service';
 import { PaginationMeta } from '../../../../core/models/pagination-meta.model';
 import { Modal } from '../../../../shared/components/modal/modal';
+import { PaginationComponent } from '../../../../shared/components/pagination/pagination';
 
 @Component({
     selector: 'app-product-history-modal',
@@ -20,7 +21,8 @@ import { Modal } from '../../../../shared/components/modal/modal';
         DatePipe, 
         Button, 
         Badge, 
-        Modal
+        Modal,
+        PaginationComponent
     ],
     templateUrl: './product-history-modal.html'
 })
@@ -34,10 +36,13 @@ export class ProductHistoryModal implements OnChanges {
 
     meta = signal<PaginationMeta<Movement>['meta'] | null>(null);
     movements = signal<Movement[]>([]);
+    page = signal(1);
+    limit = signal(7);
     isLoading = signal(false);
 
     ngOnChanges(changes: SimpleChanges) {
         if (changes['visible'] && this.visible && this.product) {
+            this.page.set(1);
             this.loadHistory();
         } else if (!this.visible) {
             this.movements.set([]);
@@ -47,7 +52,7 @@ export class ProductHistoryModal implements OnChanges {
     loadHistory() {
         if (!this.product) return;
         this.isLoading.set(true);
-        this.movementsService.getProductMovements(this.product.id)
+        this.movementsService.getProductMovements(this.product.id, this.page(), this.limit())
             .pipe(finalize(() => this.isLoading.set(false)))
             .subscribe({
                 next: (res) => {

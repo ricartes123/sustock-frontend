@@ -1,39 +1,32 @@
 <div class="flex items-center justify-center gap-1 mt-6 text-sm">
   <!-- Botón Anterior -->
   @if (currentPage > 1) {
-    <button 
-      (click)="prevPage()" 
-      class="cursor-pointer flex items-center gap-1 px-3 py-2 text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-primary-200 rounded-lg font-medium transition-colors"
-    >
-      <lucide-icon name="chevron-left" [size]="16" [strokeWidth]="2"></lucide-icon>
-      {{ 'COMMON.PREVIOUS' | translate }}
-    </button>
+  <button (click)="prevPage()"
+    class="cursor-pointer flex items-center gap-1 px-3 py-2 text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-primary-200 rounded-lg font-medium transition-colors">
+    <lucide-icon name="chevron-left" [size]="16" [strokeWidth]="2"></lucide-icon>
+    {{ 'COMMON.PREVIOUS' | translate }}
+  </button>
   }
 
   <!-- Números de página -->
   @for (p of pages; track $index) {
-    @if (p === '...') {
-      <span class="px-2 py-2 text-slate-400 dark:text-slate-600">...</span>
-    } @else {
-      <button 
-        (click)="goToPage(p)" 
-        [class]="p === currentPage 
+  @if (p === '...') {
+  <span class="px-2 py-2 text-slate-400 dark:text-slate-600">...</span>
+  } @else {
+  <button (click)="goToPage(p)"
+    [class]="p === currentPage 
           ? 'cursor-pointer w-9 h-9 flex items-center justify-center text-sm font-bold text-primary-600 bg-white border-2 border-primary-600 rounded-lg shadow-sm dark:bg-slate-950 dark:text-primary-400 dark:border-primary-400' 
-          : 'cursor-pointer w-9 h-9 flex items-center justify-center text-sm font-medium text-slate-500 dark:text-slate-400 border border-transparent hover:border-primary-200 dark:hover:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800/50 hover:text-slate-700 dark:hover:text-slate-200 rounded-lg transition-all'"
-      >
-        {{ p }}
-      </button>
-    }
+          : 'cursor-pointer w-9 h-9 flex items-center justify-center text-sm font-medium text-slate-500 dark:text-slate-400 border border-transparent hover:border-primary-200 dark:hover:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800/50 hover:text-slate-700 dark:hover:text-slate-200 rounded-lg transition-all'">
+    {{ p }}
+  </button>
+  }
   }
 
   <!-- Botón Siguiente -->
-  @if (currentPage < totalPages) {
-    <button 
-      (click)="nextPage()" 
-      class="cursor-pointer flex items-center gap-1 px-3 py-2 text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-primary-200 rounded-lg font-medium transition-colors"
-    >
-      {{ 'COMMON.NEXT' | translate }}
-      <lucide-icon name="chevron-right" [size]="16" [strokeWidth]="2"></lucide-icon>
+  @if (currentPage < totalPages) { <button (click)="nextPage()"
+    class="cursor-pointer flex items-center gap-1 px-3 py-2 text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-primary-200 rounded-lg font-medium transition-colors">
+    {{ 'COMMON.NEXT' | translate }}
+    <lucide-icon name="chevron-right" [size]="16" [strokeWidth]="2"></lucide-icon>
     </button>
-  }
+    }
 </div>
