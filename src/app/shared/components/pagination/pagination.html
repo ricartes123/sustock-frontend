@@ -1,0 +1,45 @@
+<div class="flex flex-col sm:flex-row justify-between items-center gap-4 py-4 border-t border-soft mt-4">
+  <div class="text-sm text-faint">
+    @if (totalItems) {
+      {{ 'COMMON.SHOWING' | translate }} 
+      <span class="font-semibold text-main">{{ from }}</span> 
+      {{ 'COMMON.TO' | translate }} 
+      <span class="font-semibold text-main">{{ to }}</span> 
+      {{ 'COMMON.OF' | translate }} 
+      <span class="font-semibold text-main">{{ totalItems }}</span> 
+      {{ 'COMMON.RESULTS' | translate }}
+    @} @else {
+      Página <span class="font-semibold text-main">{{ currentPage }}</span> de <span class="font-semibold text-main">{{ totalPages }}</span>
+    }
+  </div>
+
+  <div class="flex items-center gap-2">
+    <app-button 
+      variant="secondary" 
+      size="sm" 
+      (click)="prevPage()" 
+      [disabled]="currentPage === 1"
+      class="flex items-center"
+    >
+      <lucide-icon name="chevron-left" [size]="16" class="mr-1"></lucide-icon>
+      {{ 'COMMON.PREVIOUS' | translate }}
+    </app-button>
+
+    <div class="flex items-center gap-1">
+      <span class="px-3 py-1.5 text-sm font-medium rounded-lg bg-card-hover text-main border border-soft">
+        {{ currentPage }}
+      </span>
+    </div>
+
+    <app-button 
+      variant="secondary" 
+      size="sm" 
+      (click)="nextPage()" 
+      [disabled]="currentPage === totalPages"
+      class="flex items-center"
+    >
+      {{ 'COMMON.NEXT' | translate }}
+      <lucide-icon name="chevron-right" [size]="16" class="ml-1"></lucide-icon>
+    </app-button>
+  </div>
+</div>

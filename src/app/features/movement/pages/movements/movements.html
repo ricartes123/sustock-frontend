@@ -96,25 +96,13 @@
 
 </app-table>
 
-@if (movements().length > 0) {
-<!-- Pagination -->
-@if (meta()) {
-<div class="flex justify-between items-center mt-6">
-
-    <app-button variant="secondary" size="sm" (click)="prevPage()" [disabled]="page() === 1">
-        {{ 'COMMON.PREVIOUS' | translate }}
-    </app-button>
-
-    <span class="text-sm text-muted">
-        Página {{ meta()?.page }} de {{ meta()?.totalPages }}
-    </span>
-
-    <app-button variant="secondary" size="sm" (click)="nextPage()" [disabled]="page() === meta()?.totalPages">
-        {{ 'COMMON.NEXT' | translate }}
-    </app-button>
-
-</div>
-}
+@if (movements().length > 0 && meta()) {
+    <app-pagination 
+        [currentPage]="page()" 
+        [totalPages]="meta()!.totalPages" 
+        [totalItems]="meta()!.total"
+        (pageChange)="page.set($event); loadMovements()">
+    </app-pagination>
 }
 
 <!-- Movement Details Modal -->

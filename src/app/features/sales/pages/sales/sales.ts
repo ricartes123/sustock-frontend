@@ -17,6 +17,7 @@ import { TableComponent } from '../../../../shared/components/table/table';
 import { SearchInput } from '../../../../shared/components/search-input/search-input';
 import { WorkspaceContextService } from '../../../../core/services/workspace-context.service';
 import { PaginationMeta } from '../../../../core/models/pagination-meta.model';
+import { PaginationComponent } from '../../../../shared/components/pagination/pagination';
 
 @Component({
   selector: 'app-sales',
@@ -24,7 +25,7 @@ import { PaginationMeta } from '../../../../core/models/pagination-meta.model';
   imports: [
     CommonModule, RouterLink, DatePipe, CurrencyPipe,
     FormsModule, DataWarning, Modal, Button, Badge, LucideAngularModule,
-    TableComponent, SearchInput
+    TableComponent, SearchInput, PaginationComponent
   ],
   templateUrl: './sales.html'
 })
@@ -32,10 +33,17 @@ export class Sales implements OnInit {
   private workspaceContext = inject(WorkspaceContextService);
   private salesService = inject(SalesService);
   private route = inject(ActivatedRoute);
-  private router = inject(Router);
+  public router = inject(Router); // Changed to public to use in template if needed, or we use a method
   private toast = inject(HotToastService);
   private translate = inject(TranslateService);
   private destroyRef = inject(DestroyRef);
+
+  onPageChange(newPage: number) {
+    this.router.navigate([], {
+      queryParams: { page: newPage },
+      queryParamsHandling: 'merge'
+    });
+  }
 
   currency = computed(() => this.workspaceContext.currency);
   locale = computed(() => this.workspaceContext.locale);

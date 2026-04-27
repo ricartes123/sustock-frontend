@@ -141,25 +141,13 @@
     </tbody>
 </app-table>
 
-@if (clients().length > 0) {
-<!-- Pagination -->
-@if (meta()) {
-<div class="flex justify-between items-center mt-6">
-
-    <app-button variant="secondary" size="sm" (click)="prevPage()" [disabled]="page() === 1">
-        Anterior
-    </app-button>
-
-    <span class="text-sm text-muted">
-        Página {{ meta()?.page }} de {{ meta()?.totalPages }}
-    </span>
-
-    <app-button variant="secondary" size="sm" (click)="nextPage()" [disabled]="page() === meta()?.totalPages">
-        Siguiente
-    </app-button>
-
-</div>
-}
+@if (clients().length > 0 && meta()) {
+  <app-pagination 
+    [currentPage]="page()" 
+    [totalPages]="meta()!.totalPages" 
+    [totalItems]="meta()!.total"
+    (pageChange)="page.set($event); loadClients()">
+  </app-pagination>
 }
 
 <app-data-warning [visible]="isArchiveWarningOpen()" [isLoading]="isArchiving()"

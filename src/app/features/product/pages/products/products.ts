@@ -21,6 +21,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { PaginationMeta } from '../../../../core/models/pagination-meta.model';
 import { TableComponent } from '../../../../shared/components/table/table';
 import { SearchInput } from '../../../../shared/components/search-input/search-input';
+import { PaginationComponent } from '../../../../shared/components/pagination/pagination';
 
 @Component({
   standalone: true,
@@ -40,6 +41,7 @@ import { SearchInput } from '../../../../shared/components/search-input/search-i
     ProductHistoryModal,
     TableComponent,
     SearchInput,
+    PaginationComponent,
   ],
   templateUrl: './products.html',
 })

@@ -21,6 +21,7 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { ClientFormModal } from '../../components/client-form-modal/client-form-modal';
 import { ClientDetailsModal } from '../../components/client-details-modal/client-details-modal';
+import { PaginationComponent } from '../../../../shared/components/pagination/pagination';
 
 @Component({
   selector: 'app-clients',
@@ -37,7 +38,8 @@ import { ClientDetailsModal } from '../../components/client-details-modal/client
     LucideAngularModule,
     DataWarning,
     ClientFormModal,
-    ClientDetailsModal
+    ClientDetailsModal,
+    PaginationComponent
   ],
   templateUrl: './clients.html'
 })

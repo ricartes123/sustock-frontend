@@ -12,7 +12,11 @@
         "ARCHIVE": "Archivar",
         "RESTORE": "Restaurar",
         "PREVIOUS": "Anterior",
-        "NEXT": "Siguiente"
+        "NEXT": "Siguiente",
+        "SHOWING": "Mostrando",
+        "TO": "al",
+        "OF": "de",
+        "RESULTS": "resultados"
     },
     "SIDEBAR": {
         "DASHBOARD": "Panel",

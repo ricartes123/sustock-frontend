@@ -13,10 +13,11 @@ import { LucideAngularModule } from 'lucide-angular';
 import { SearchInput } from '../../../../shared/components/search-input/search-input';
 import { WorkspaceContextService } from '../../../../core/services/workspace-context.service';
 import { Modal } from '../../../../shared/components/modal/modal';
+import { PaginationComponent } from '../../../../shared/components/pagination/pagination';
 
 @Component({
   selector: 'app-movements',
-  imports: [CommonModule, FormsModule, TranslateModule, TableComponent, Button, Badge, LucideAngularModule, SearchInput, Modal, CurrencyPipe],
+  imports: [CommonModule, FormsModule, TranslateModule, TableComponent, Button, Badge, LucideAngularModule, SearchInput, Modal, CurrencyPipe, PaginationComponent],
   templateUrl: './movements.html',
   styleUrl: './movements.css',
 })
