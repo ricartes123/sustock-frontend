@@ -5,7 +5,7 @@
 </div>
 
 <!-- Filters Bar -->
-<div class="bg-card p-4 rounded-xl shadow-sm border border-soft flex flex-col sm:flex-row gap-4 mb-6">
+<div class="bg-card p-4 rounded-xl shadow-sm border border-medium flex flex-col sm:flex-row gap-4 mb-6">
     <app-search-input
         [(ngModel)]="searchQuery"
         (search)="applyFilters()"
@@ -69,8 +69,8 @@
                     <div class="font-medium text-main">{{ mov.product.name }}</div>
                 </td>
                 <td class="p-4 font-bold" [ngClass]="{
-                    'text-green-600 dark:text-green-400': mov.type === 'IN',
-                    'text-red-600 dark:text-red-400': mov.type === 'OUT',
+                    'text-green-600': mov.type === 'IN',
+                    'text-red-600': mov.type === 'OUT',
                     'text-muted': mov.type === 'ADJUSTMENT'
                 }">
                     @if (mov.type === 'IN') {
@@ -139,8 +139,8 @@
             <div>
                 <p class="text-xs text-faint mb-0.5">Cantidad</p>
                 <p class="text-sm font-bold" [ngClass]="{
-                    'text-green-600 dark:text-green-400': mov.type === 'IN',
-                    'text-red-600 dark:text-red-400': mov.type === 'OUT',
+                    'text-green-600': mov.type === 'IN',
+                    'text-red-600': mov.type === 'OUT',
                     'text-muted': mov.type === 'ADJUSTMENT'
                 }">
                     @if (mov.type === 'IN') { +{{ mov.quantity }} } 
@@ -163,7 +163,7 @@
         }
 
         @if (mov.sale) {
-        <div class="bg-blue-50/50 dark:bg-blue-950/20 p-4 rounded-xl border border-blue-100 dark:border-blue-900/50">
+        <div class="bg-blue-500/5 p-4 rounded-xl border border-blue-500/15">
             <h4 class="text-xs font-bold text-blue-400 uppercase tracking-wider mb-3">Venta Relacionada</h4>
             <div class="space-y-2 text-sm text-body">
                 <p><span class="text-faint text-xs block">ID Venta:</span> <span class="font-mono text-xs">{{ mov.sale.id }}</span></p>
@@ -174,7 +174,7 @@
                     </div>
                     <div>
                         <p class="text-xs text-faint">Total Venta</p>
-                        <p class="font-medium text-green-600 dark:text-green-400">{{ mov.sale.totalAmount | currency:currency():'symbol-narrow':'1.0-2':locale() }}</p>
+                        <p class="font-medium text-green-600">{{ mov.sale.totalAmount | currency:currency():'symbol-narrow':'1.0-2':locale() }}</p>
                     </div>
                 </div>
             </div>

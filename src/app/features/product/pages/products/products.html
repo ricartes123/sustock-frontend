@@ -33,7 +33,7 @@
 </div>
 
 <!-- Filters Bar -->
-<div class="bg-card p-4 rounded-xl shadow-sm border border-soft flex flex-col sm:flex-row gap-4 mb-6">
+<div class="bg-card p-4 rounded-xl shadow-sm border border-medium flex flex-col sm:flex-row gap-4 mb-6">
     <app-search-input
         [(ngModel)]="searchQuery"
         (search)="applyFilters()"
@@ -95,8 +95,7 @@
 
     <tbody table-body>
         @for (product of products(); track product.id) {
-        <tr class="border-b border-soft hover:bg-card-hover transition" [class.opacity-50]="!product.isActive"
-            [class.bg-slate-50]="!product.isActive">
+        <tr class="border-b border-soft hover:bg-card-hover transition" [class.opacity-60]="!product.isActive">
             <td class="p-4">
                 <div class="font-medium text-main">{{ product.name }}</div>
                 @if (!product.isActive) {

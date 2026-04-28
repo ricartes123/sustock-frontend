@@ -8,7 +8,7 @@
             <label class="block text-sm font-medium text-body mb-1">{{ 'PRODUCT_FORM.NAME' | translate
                 }}</label>
             <input type="text" formControlName="name" [placeholder]="'PRODUCT_FORM.NAME_PLACEHOLDER' | translate"
-                class="w-full px-4 py-2 border border-strong rounded-lg text-sm text-main focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all bg-input focus:bg-white dark:focus:bg-slate-600"
+                class="w-full px-4 py-2 border border-strong rounded-lg text-sm text-main focus:outline-none focus:ring-2 focus:ring-primary-500/40 transition-all bg-input"
                 [class.border-red-300]="productForm.get('name')?.invalid && productForm.get('name')?.touched">
         </div>
 
@@ -18,7 +18,7 @@
                 <label class="block text-sm font-medium text-body mb-1">{{ 'PRODUCT_FORM.SKU' | translate
                     }}</label>
                 <input type="text" formControlName="sku" [placeholder]="'PRODUCT_FORM.SKU_PLACEHOLDER' | translate"
-                    class="w-full px-4 py-2 border border-strong rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all bg-input focus:bg-white dark:focus:bg-slate-600 font-mono uppercase text-muted">
+                    class="w-full px-4 py-2 border border-strong rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/40 transition-all bg-input font-mono uppercase text-muted">
             </div>
 
             <!-- Barcode -->
@@ -27,7 +27,7 @@
                     translate }}</label>
                 <input type="text" formControlName="barcode"
                     [placeholder]="'PRODUCT_FORM.BARCODE_PLACEHOLDER' | translate"
-                    class="w-full px-4 py-2 border border-strong rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all bg-input focus:bg-white dark:focus:bg-slate-600 font-mono text-muted">
+                    class="w-full px-4 py-2 border border-strong rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/40 transition-all bg-input font-mono text-muted">
             </div>
         </div>
 
@@ -38,7 +38,7 @@
                     translate }} ({{ currencySymbol }})
                     *</label>
                 <input type="number" formControlName="costPrice" min="0" step="0.01"
-                    class="w-full px-4 py-2 border border-strong rounded-lg text-sm text-main focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all bg-input focus:bg-white dark:focus:bg-slate-600"
+                    class="w-full px-4 py-2 border border-strong rounded-lg text-sm text-main focus:outline-none focus:ring-2 focus:ring-primary-500/40 transition-all bg-input"
                     [class.border-red-300]="productForm.get('costPrice')?.invalid && productForm.get('costPrice')?.touched">
             </div>
 
@@ -49,7 +49,7 @@
                     }})
                     *</label>
                 <input type="number" formControlName="price" min="0" step="0.01"
-                    class="w-full px-4 py-2 border border-strong rounded-lg text-sm text-main focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all bg-input focus:bg-white dark:focus:bg-slate-600"
+                    class="w-full px-4 py-2 border border-strong rounded-lg text-sm text-main focus:outline-none focus:ring-2 focus:ring-primary-500/40 transition-all bg-input"
                     [class.border-red-300]="productForm.get('price')?.invalid && productForm.get('price')?.touched">
             </div>
         </div>
@@ -60,7 +60,7 @@
                 <label class="block text-sm font-medium text-body mb-1">{{ 'PRODUCT_FORM.CURRENT_STOCK' |
                     translate }}</label>
                 <input type="number" formControlName="stock" min="0"
-                    class="w-full px-4 py-2 border border-strong rounded-lg text-sm text-main focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all bg-input focus:bg-white dark:focus:bg-slate-600"
+                    class="w-full px-4 py-2 border border-strong rounded-lg text-sm text-main focus:outline-none focus:ring-2 focus:ring-primary-500/40 transition-all bg-input"
                     [class.border-red-300]="productForm.get('stock')?.invalid && productForm.get('stock')?.touched">
             </div>
 
@@ -69,7 +69,7 @@
                 <label class="block text-sm font-medium text-body mb-1">{{ 'PRODUCT_FORM.LOW_STOCK_ALERT' |
                     translate }}</label>
                 <input type="number" formControlName="stockMin" min="0"
-                    class="w-full px-4 py-2 border border-strong rounded-lg text-sm text-main focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all bg-input focus:bg-white dark:focus:bg-slate-600">
+                    class="w-full px-4 py-2 border border-strong rounded-lg text-sm text-main focus:outline-none focus:ring-2 focus:ring-primary-500/40 transition-all bg-input">
             </div>
         </div>
     </form>

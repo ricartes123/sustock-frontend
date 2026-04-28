@@ -17,8 +17,8 @@
                 <div class="relative" #searchContainer>
                     <div class="relative">
                         <input type="text"
-                            class="form-input w-full pl-10 border-strong focus:ring-primary-500 rounded-lg"
-                            [ngClass]="selectedProduct ? 'bg-gray-100 dark:bg-gray-700 cursor-not-allowed opacity-50' : 'bg-input hover:bg-white dark:hover:bg-slate-600'"
+                            class="form-input w-full pl-10 border border-strong focus:ring-2 focus:ring-primary-500/40 rounded-lg"
+                            [ngClass]="selectedProduct ? 'bg-input opacity-50 cursor-not-allowed' : 'bg-input'"
                             placeholder="Escribí el nombre, SKU o código de barras..." [ngModel]="searchQuery"
                             (ngModelChange)="onSearchChange($event)"
                             (focus)="!selectedProduct && searchQuery.length >= 2 ? showDropdown = true : null"
@@ -58,7 +58,7 @@
                         <ul>
                             @for (p of searchResults; track p.id) {
                             <li (click)="selectProduct(p)"
-                                class="cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/50 p-3 border-b border-soft last:border-0">
+                                class="cursor-pointer hover:bg-card-hover p-3 border-b border-soft last:border-0">
                                 <div class="flex justify-between items-center">
                                     <div>
                                         <span class="block text-sm font-medium text-main">{{
@@ -68,7 +68,7 @@
                                     </div>
                                     <div class="text-right">
                                         <span class="block text-xs"
-                                            [ngClass]="p.stock > 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'">
+                                            [ngClass]="p.stock > 0 ? 'text-green-600' : 'text-red-600'">
                                             Stock Actual: {{ p.stock }}
                                         </span>
                                     </div>
@@ -85,17 +85,17 @@
             <!-- Selected Product Summary -->
             @if (selectedProduct) {
             <div
-                class="bg-secondary-50 dark:bg-secondary-900/20 shadow-sm rounded-xl border border-secondary-100 dark:border-secondary-800 p-5">
+                class="bg-card shadow-sm rounded-xl border border-medium p-5">
                 <div class="flex items-start justify-between">
                     <div>
-                        <h3 class="text-lg font-bold text-secondary-900 dark:text-secondary-100">{{ selectedProduct.name }}
+                        <h3 class="text-lg font-bold text-main">{{ selectedProduct.name }}
                         </h3>
-                        <p class="text-sm text-secondary-700 dark:text-secondary-300 mt-1">Stock original en sistema:
+                        <p class="text-sm text-body mt-1">Stock original en sistema:
                             <strong>{{ selectedProduct.stock }}</strong> unidades</p>
                     </div>
                     <div class="text-right">
                         <span
-                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-secondary-100 text-secondary-800 dark:bg-secondary-800 dark:text-secondary-100">
+                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-card-hover text-muted border border-medium">
                             Seleccionado
                         </span>
                     </div>

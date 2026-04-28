@@ -7,7 +7,7 @@
         <div class="relative" #searchContainer>
             <div class="relative">
                 <input type="text"
-                    class="form-input w-full pl-10 py-3 text-sm border border-strong focus:ring-primary-500 focus:border-primary-500 rounded-xl bg-input text-main focus:bg-white dark:focus:bg-slate-600 transition-colors shadow-sm"
+                    class="form-input w-full pl-10 py-3 text-sm border border-strong focus:ring-2 focus:ring-primary-500/40 focus:border-primary-500 rounded-xl bg-input text-main transition-colors shadow-sm"
                     [placeholder]="'PRODUCTS.SEARCH_PRODUCT_STOCK' | translate" [ngModel]="searchQuery()"
                     (ngModelChange)="onSearchChange($event)"
                     (focus)="searchQuery().length >= 1 ? showDropdown.set(true) : null" />
@@ -23,7 +23,7 @@
             <!-- Dropdown -->
             @if (showDropdown()) {
             <div
-                class="relative z-20 mt-2 w-full bg-card shadow-xl rounded-xl border border-soft max-h-60 overflow-y-auto ring-1 ring-black ring-opacity-5 dark:ring-slate-700">
+                class="relative z-20 mt-2 w-full bg-card shadow-xl rounded-xl border border-medium max-h-60 overflow-y-auto">
 
                 @if (isSearching()) {
                 <div class="p-4 flex justify-center text-sm text-faint">
@@ -53,13 +53,13 @@
                         <div class="flex justify-between items-center">
                             <div class="flex-1 min-w-0 pr-4">
                                 <h4
-                                    class="text-sm font-semibold text-main truncate group-hover:text-primary-700 dark:group-hover:text-primary-400 transition-colors">
+                                    class="text-sm font-semibold text-main truncate group-hover:text-primary-600 transition-colors">
                                     {{ p.name }}</h4>
                                 <span class="text-xs text-faint">SKU: {{ p.sku || '-' }}</span>
                             </div>
                             <div class="text-right whitespace-nowrap">
                                 <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium"
-                                    [ngClass]="p.stock > 0 ? 'bg-green-100 dark:bg-green-900/40 text-green-800 dark:text-green-400' : 'bg-red-100 dark:bg-red-900/40 text-red-800 dark:text-red-400'">
+                                    [ngClass]="p.stock > 0 ? 'bg-green-500/15 text-green-700' : 'bg-red-500/15 text-red-700'">
                                     Stock: {{ p.stock }}
                                 </span>
                             </div>
@@ -81,7 +81,7 @@
                         class="font-bold">{{ selectedProduct()!.stock }}</span></p>
             </div>
             <button (click)="clearSelectedProduct()"
-                class="text-xs font-semibold text-primary-600 hover:text-primary-700 bg-white border border-slate-200 rounded px-2 py-1 shadow-sm cursor-pointer">Cambiar</button>
+                class="text-xs font-semibold text-primary-600 hover:text-primary-700 bg-card border border-medium rounded px-2 py-1 shadow-sm cursor-pointer">Cambiar</button>
         </div>
 
         <div class="space-y-4">
@@ -89,7 +89,7 @@
                 <label class="block text-sm font-medium text-body mb-1">{{ 'PRODUCTS.ADD_QUANTITY' | translate
                     }}</label>
                 <input type="number" [(ngModel)]="quantity" placeholder="0" [min]="1"
-                    class="form-input w-full border border-strong rounded-lg focus:border-primary-500 focus:ring-primary-500 p-2 text-sm bg-input text-main">
+                    class="form-input w-full border border-strong rounded-lg focus:border-primary-500 focus:ring-2 focus:ring-primary-500/40 p-2 text-sm bg-input text-main">
             </div>
         </div>
         }
