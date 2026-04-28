@@ -92,6 +92,24 @@ body {
     --color-secondary-800: #24244a;
     --color-secondary-900: #1a1a36;
     --color-secondary-950: #0f0f1f;
+
+    /* Semantic tokens registered as Tailwind colors to support opacity modifiers (e.g., text-main/60, bg-card/50) */
+    --color-app: var(--ss-app);
+    --color-surface: var(--ss-surface);
+    --color-surface-hover: var(--ss-surface-hover);
+    --color-card: var(--ss-card);
+    --color-card-hover: var(--ss-card-hover);
+    --color-input: var(--ss-input);
+
+    --color-main: var(--ss-text-main);
+    --color-body: var(--ss-text-body);
+    --color-muted: var(--ss-text-muted);
+    --color-nav: var(--ss-text-nav);
+    --color-faint: var(--ss-text-faint);
+
+    --color-soft: var(--ss-border-soft);
+    --color-medium: var(--ss-border-medium);
+    --color-strong: var(--ss-border-strong);
 }
 
 /* ─── Tokens semánticos ──────────────────────────────────────────────
@@ -151,29 +169,7 @@ body {
 }
 
 @layer utilities {
-    /* Fondos */
-    .bg-app          { background-color: var(--ss-app); }
-    .bg-surface      { background-color: var(--ss-surface); }
-    .bg-surface-hover{ background-color: var(--ss-surface-hover); }
-    .bg-card         { background-color: var(--ss-card); }
-    .bg-input        { background-color: var(--ss-input); }
-    .bg-card-hover   { background-color: var(--ss-card-hover); }
-    .bg-soft         { background-color: var(--ss-border-soft); }
+    /* Manual high-contrast tokens */
     .bg-primary-soft { background-color: var(--ss-primary-soft); }
-
-    /* Texto */
-    .text-main         { color: var(--ss-text-main); }
-    .text-body         { color: var(--ss-text-body); }
-    .text-muted        { color: var(--ss-text-muted); }
-    .text-nav          { color: var(--ss-text-nav); }
-    .text-faint        { color: var(--ss-text-faint); }
     .text-primary-soft { color: var(--ss-primary-on-soft); }
-
-    /* Bordes */
-    .border-soft   { border-color: var(--ss-border-soft); }
-    .border-medium { border-color: var(--ss-border-medium); }
-    .border-strong { border-color: var(--ss-border-strong); }
-
-    /* Divisores (divide-y divide-soft) */
-    .divide-soft > :not(:last-child) { border-color: var(--ss-border-soft); }
 }
