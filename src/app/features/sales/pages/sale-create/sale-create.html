@@ -17,7 +17,7 @@
                 <div class="relative" #searchContainer>
                     <div class="relative">
                         <input type="text"
-                            class="form-input w-full pl-11 py-3 text-sm md:text-base border-strong focus:ring-primary-500 focus:border-primary-500 rounded-xl bg-input text-main focus:bg-white dark:focus:bg-slate-600 transition-colors shadow-sm"
+                            class="form-input w-full pl-11 py-3 text-sm md:text-base border border-strong focus:ring-2 focus:ring-primary-500/40 focus:border-primary-500 rounded-xl bg-input text-main transition-colors shadow-sm"
                             placeholder="Escribí el nombre, SKU o código de barras..." [ngModel]="searchQuery()"
                             (ngModelChange)="onSearchChange($event)"
                             (focus)="searchQuery().length >= 2 ? showDropdown.set(true) : null" />
@@ -43,7 +43,7 @@
                     <!-- Dropdown -->
                     @if (showDropdown()) {
                     <div
-                        class="absolute z-20 mt-2 w-full bg-card shadow-xl rounded-xl border border-soft max-h-80 overflow-y-auto ring-1 ring-black ring-opacity-5 dark:ring-slate-700">
+                        class="absolute z-20 mt-2 w-full bg-card shadow-xl rounded-xl border border-medium max-h-80 overflow-y-auto">
 
                         @if (isSearching()) {
                         <div class="p-6 flex flex-col items-center justify-center text-sm text-faint">
@@ -79,7 +79,7 @@
                                     <div class="flex-1 min-w-0 pr-4">
                                         <div class="flex justify-between items-baseline mb-1">
                                             <h4
-                                                class="text-sm font-semibold text-main truncate group-hover:text-primary-700 dark:group-hover:text-primary-400 transition-colors">
+                                                class="text-sm font-semibold text-main truncate group-hover:text-primary-600 transition-colors">
                                                 {{ p.name }}
                                             </h4>
                                             <span class="text-xs text-faint ml-2 whitespace-nowrap">SKU: {{ p.sku ||
@@ -92,7 +92,7 @@
                                         </div>
                                         <span
                                             class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium"
-                                            [ngClass]="p.stock > 0 ? 'bg-green-100 dark:bg-green-900/40 text-green-800 dark:text-green-400' : 'bg-red-100 dark:bg-red-900/40 text-red-800 dark:text-red-400'">
+                                            [ngClass]="p.stock > 0 ? 'bg-green-500/15 text-green-700' : 'bg-red-500/15 text-red-700'">
                                             Stock: {{ p.stock }}
                                         </span>
                                     </div>
@@ -111,7 +111,7 @@
             <div
                 class="bg-card shadow-sm rounded-xl border border-medium overflow-hidden flex flex-col h-full min-h-[400px]">
                 <div
-                    class="px-5 py-4 lg:px-6 lg:py-5 border-b border-medium bg-slate-50 dark:bg-slate-800/50 flex justify-between items-center">
+                    class="px-5 py-4 lg:px-6 lg:py-5 border-b border-medium bg-card-hover flex justify-between items-center">
                     <h2 class="font-semibold text-main flex items-center gap-2">
                         <svg class="w-5 h-5 text-faint" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -126,7 +126,7 @@
                 </div>
 
                 @if (items().length === 0) {
-                <div class="flex-1 flex flex-col items-center justify-center p-8 text-center bg-slate-50/50 dark:bg-slate-800/30">
+                <div class="flex-1 flex flex-col items-center justify-center p-8 text-center bg-app">
                     <div
                         class="w-20 h-20 bg-input border border-soft shadow-sm rounded-full flex items-center justify-center mb-4">
                         <svg class="h-10 w-10 text-faint" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -156,7 +156,7 @@
                         </thead>
                         <tbody class="divide-y divide-soft">
                             @for (item of items(); track item.product.id; let i = $index) {
-                            <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors group">
+                            <tr class="hover:bg-card-hover transition-colors group">
                                 <td class="px-5 py-4 text-center text-faint text-xs">{{ i + 1 }}</td>
                                 <td class="px-5 py-4">
                                     <div class="font-medium text-main mb-0.5">{{
@@ -166,7 +166,7 @@
                                 <td class="px-5 py-4">
                                     <div class="flex items-center justify-center">
                                         <input type="number"
-                                            class="form-input w-20 text-center text-sm border-strong rounded-lg focus:ring-primary-500 focus:border-primary-500 bg-input text-main font-medium"
+                                            class="form-input w-20 text-center text-sm border border-strong rounded-lg focus:ring-2 focus:ring-primary-500/40 focus:border-primary-500 bg-input text-main font-medium"
                                             [ngModel]="item.quantity" (ngModelChange)="updateQuantity(i, $event)"
                                             min="1" />
                                     </div>
@@ -179,7 +179,7 @@
                                 </td>
                                 <td class="px-5 py-4 text-center">
                                     <button
-                                        class="p-2 text-faint hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 opacity-0 group-hover:opacity-100"
+                                        class="p-2 text-faint hover:text-red-500 hover:bg-red-500/10 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-red-500/40 opacity-0 group-hover:opacity-100"
                                         (click)="removeItem(i)" title="Eliminar producto">
                                         <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
@@ -213,7 +213,7 @@
                     </label>
                     <div class="relative">
                         <select [ngModel]="selectedClientId()" (ngModelChange)="selectedClientId.set($event)"
-                            class="form-select w-full pl-10 py-2.5 border-strong rounded-lg focus:ring-primary-500 focus:border-primary-500 bg-input text-main focus:bg-white dark:focus:bg-slate-600 transition-colors text-sm cursor-pointer shadow-sm appearance-none">
+                            class="form-select w-full pl-10 py-2.5 border border-strong rounded-lg focus:ring-2 focus:ring-primary-500/40 focus:border-primary-500 bg-input text-main transition-colors text-sm cursor-pointer shadow-sm appearance-none">
                             <option value="">Consumidor Final</option>
                             @for (c of clients(); track c.id) {
                             <option [value]="c.id">{{ c.name }}</option>
@@ -228,9 +228,9 @@
                     </div>
                 </div>
 
-                <div class="bg-slate-50 dark:bg-slate-700/50 rounded-xl p-5 border border-strong mb-6 relative overflow-hidden">
+                <div class="bg-card-hover rounded-xl p-5 border border-strong mb-6 relative overflow-hidden">
                     <div
-                        class="absolute -right-6 -top-6 w-24 h-24 bg-primary-100 rounded-full opacity-50 blur-2xl pointer-events-none">
+                        class="absolute -right-6 -top-6 w-24 h-24 bg-primary-soft rounded-full opacity-50 blur-2xl pointer-events-none">
                     </div>
 
                     <div class="relative z-10">

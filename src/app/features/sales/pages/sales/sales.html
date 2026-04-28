@@ -28,7 +28,7 @@
 </div>
 
 <!-- Filters Bar -->
-<div class="bg-card p-4 rounded-xl shadow-sm border border-soft flex flex-col sm:flex-row gap-4 mb-6">
+<div class="bg-card p-4 rounded-xl shadow-sm border border-medium flex flex-col sm:flex-row gap-4 mb-6">
     <app-search-input
         [(ngModel)]="searchQuery"
         (search)="applyFilters()"
@@ -84,7 +84,7 @@
                     @if (sale.status === 'CANCELLED') {
                         <span class="font-semibold text-faint line-through">{{ sale.totalAmount | currency:currency():'symbol-narrow':'1.0-0':locale() }}</span>
                     } @else {
-                        <span class="font-semibold text-green-600 dark:text-green-400">{{ sale.totalAmount | currency:currency():'symbol-narrow':'1.0-0':locale() }}</span>
+                        <span class="font-semibold text-green-600">{{ sale.totalAmount | currency:currency():'symbol-narrow':'1.0-0':locale() }}</span>
                     }
                 </td>
                 <td class="p-4">
@@ -97,7 +97,7 @@
                 <td class="p-4">
                     <div class="flex items-center gap-2">
                         <div
-                            class="w-7 h-7 rounded-full bg-primary-100 dark:bg-primary-900/50 text-primary-700 dark:text-primary-300 flex items-center justify-center text-xs font-bold uppercase">
+                            class="w-7 h-7 rounded-full bg-primary-soft text-primary-soft flex items-center justify-center text-xs font-bold uppercase">
                             {{ (sale.user?.firstName?.[0] || 'U') + (sale.user?.lastName?.[0] || '') }}
                         </div>
                         <span class="text-sm font-medium text-body">{{ sale.user?.firstName }} {{
@@ -150,10 +150,10 @@
         </div>
         <!-- Resumen -->
         @if (detail.status === 'CANCELLED') {
-        <div class="flex items-center gap-2 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800/50 rounded-xl px-4 py-3">
+        <div class="flex items-center gap-2 bg-red-500/10 border border-red-500/20 rounded-xl px-4 py-3">
             <lucide-icon name="ban" [size]="16" class="text-red-500 shrink-0" [strokeWidth]="2"></lucide-icon>
             <div>
-                <p class="text-sm font-semibold text-red-700 dark:text-red-400">Venta anulada</p>
+                <p class="text-sm font-semibold text-red-700">Venta anulada</p>
                 @if (detail.cancelledAt) {
                 <p class="text-xs text-red-500 mt-0.5">{{ detail.cancelledAt | date:'short' }}</p>
                 }
@@ -173,7 +173,7 @@
         </div>
 
         <!-- Info Cliente — se mantiene la sección azul de marca -->
-        <div class="bg-blue-50/50 dark:bg-blue-950/20 p-4 rounded-xl border border-blue-100 dark:border-blue-900/50">
+        <div class="bg-blue-500/5 p-4 rounded-xl border border-blue-500/15">
             <h4 class="text-xs font-bold text-blue-400 uppercase tracking-wider mb-3">Datos del Cliente</h4>
             @if (detail.client) {
             <div class="space-y-3">
@@ -230,7 +230,7 @@
                 <tfoot class="bg-card-hover border-t border-medium">
                     <tr>
                         <td colspan="3" class="py-4 px-4 text-right font-semibold text-muted">Total Venta</td>
-                        <td class="py-4 px-4 text-right font-bold text-lg text-primary-700 dark:text-primary-400">{{ detail.totalAmount | currency:currency():'symbol-narrow':'1.0-2':locale() }}</td>
+                        <td class="py-4 px-4 text-right font-bold text-lg text-primary-600">{{ detail.totalAmount | currency:currency():'symbol-narrow':'1.0-2':locale() }}</td>
                     </tr>
                 </tfoot>
             </table>
