@@ -1,8 +1,9 @@
-import { Component, inject, signal, computed } from '@angular/core';
+import { Component, inject, signal, computed, effect } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { DashboardService } from '../../services/dashboard.service';
 import { DashboardData } from '../../../../core/models/dashboard.model';
 import { WorkspaceContextService } from '../../../../core/services/workspace-context.service';
+import { ThemeService } from '../../../../core/services/theme.service';
 
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -19,6 +20,17 @@ import { ChartConfiguration, ChartOptions } from 'chart.js';
 export class Dashboard {
   private dashboardService = inject(DashboardService);
   private workspaceContext = inject(WorkspaceContextService);
+  private themeService = inject(ThemeService);
+
+  constructor() {
+    effect(() => {
+      const isDark = this.themeService.isDark();
+      this.lineChartOptions = this.getChartOptions(isDark);
+      if (this.data()) {
+        this.updateChartData();
+      }
+    });
+  }
 
   currency = computed(() => this.workspaceContext.currency);
 
@@ -51,33 +63,39 @@ export class Dashboard {
     ]
   };
 
-  public lineChartOptions: ChartOptions<'line'> = {
-    responsive: true,
-    maintainAspectRatio: false,
-    scales: {
-      y: {
-        beginAtZero: true,
-        grid: { color: 'rgba(0, 0, 0, 0.05)' },
-        border: { display: false },
+  public lineChartOptions: ChartOptions<'line'> = {};
+
+  getChartOptions(isDark: boolean): ChartOptions<'line'> {
+    return {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        y: {
+          beginAtZero: true,
+          grid: { color: isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.05)' },
+          border: { display: false },
+          ticks: { color: isDark ? '#94a3b8' : '#64748b' }
+        },
+        x: {
+          grid: { display: false },
+          border: { display: false },
+          ticks: { color: isDark ? '#94a3b8' : '#64748b' }
+        }
       },
-      x: {
-        grid: { display: false },
-        border: { display: false }
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: isDark ? 'rgba(15, 23, 42, 0.95)' : 'rgba(255, 255, 255, 0.9)',
+          titleColor: isDark ? '#f1f5f9' : '#1e293b',
+          bodyColor: isDark ? '#cbd5e1' : '#475569',
+          borderColor: isDark ? '#334155' : '#e2e8f0',
+          borderWidth: 1,
+          padding: 12,
+          displayColors: false,
+        }
       }
-    },
-    plugins: {
-      legend: { display: false },
-      tooltip: {
-        backgroundColor: 'rgba(255, 255, 255, 0.9)',
-        titleColor: '#1e293b',
-        bodyColor: '#475569',
-        borderColor: '#e2e8f0',
-        borderWidth: 1,
-        padding: 12,
-        displayColors: false,
-      }
-    }
-  };
+    };
+  }
 
   readonly alerts = computed(() => this.data()?.alerts ?? {
     lowStock: 0,
