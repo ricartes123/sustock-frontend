@@ -31,10 +31,10 @@ export class Dashboard {
   chartPercentage = 0;
 
   public lineChartData: ChartConfiguration<'line'>['data'] = {
-    labels: ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'],
+    labels: [],
     datasets: [
       {
-        data: [15000, 22000, 18000, 31000, 25000, 42000, 54000],
+        data: [],
         label: 'Ingresos',
         fill: true,
         tension: 0.4,
