@@ -1,4 +1,4 @@
-<div class="min-h-screen flex flex-col md:flex-row bg-slate-50">
+<div class="min-h-screen flex flex-col md:flex-row bg-app">
 
   <!-- Left Side - Branding / Welcome (Hidden on small screens) -->
   <div
@@ -46,7 +46,7 @@
 
   <!-- Right Side - Form -->
   <div
-    class="w-full md:w-1/2 flex items-center justify-center p-8 sm:p-12 lg:p-24 bg-white shadow-[-10px_0_20px_-10px_rgba(0,0,0,0.05)] z-10">
+    class="w-full md:w-1/2 flex items-center justify-center p-8 sm:p-12 lg:p-24 bg-surface shadow-[-10px_0_20px_-10px_rgba(0,0,0,0.05)] z-10">
     <div class="w-full max-w-md">
 
       <!-- Mobile Logo (Visible only on small screens) -->
@@ -63,10 +63,10 @@
       </div>
 
       <div class="mb-10 text-center md:text-left">
-        <h2 class="text-3xl font-bold text-slate-800 mb-2">
+        <h2 class="text-3xl font-bold text-main mb-2">
           {{ isLoginMode ? ('AUTH.WELCOME_BACK' | translate) : ('AUTH.CREATE_ACCOUNT' | translate) }}
         </h2>
-        <p class="text-slate-500">
+        <p class="text-faint">
           {{ isLoginMode ? ('AUTH.LOGIN_SUBTITLE' | translate) : ('AUTH.REGISTER_SUBTITLE' | translate) }}
         </p>
       </div>
@@ -76,33 +76,33 @@
         @if (!isLoginMode) {
         <div class="grid grid-cols-2 gap-4">
           <div>
-            <label class="block text-sm font-medium text-slate-700 mb-1">{{ 'AUTH.FIRST_NAME' | translate }}</label>
+            <label class="block text-sm font-medium text-body mb-1">{{ 'AUTH.FIRST_NAME' | translate }}</label>
             <input type="text" [(ngModel)]="firstName" name="firstName"
               [placeholder]="'AUTH.FIRST_NAME_PLACEHOLDER' | translate"
-              class="w-full border border-slate-200 px-4 py-2.5 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+              class="w-full border border-medium px-4 py-2.5 rounded-lg text-sm text-main bg-input focus:outline-none focus:ring-2 focus:ring-primary-500/40 focus:border-primary-500 transition-all"
               required />
           </div>
           <div>
-            <label class="block text-sm font-medium text-slate-700 mb-1">{{ 'AUTH.LAST_NAME' | translate }}</label>
+            <label class="block text-sm font-medium text-body mb-1">{{ 'AUTH.LAST_NAME' | translate }}</label>
             <input type="text" [(ngModel)]="lastName" name="lastName"
               [placeholder]="'AUTH.LAST_NAME_PLACEHOLDER' | translate"
-              class="w-full border border-slate-200 px-4 py-2.5 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+              class="w-full border border-medium px-4 py-2.5 rounded-lg text-sm text-main bg-input focus:outline-none focus:ring-2 focus:ring-primary-500/40 focus:border-primary-500 transition-all"
               required />
           </div>
         </div>
 
         <div class="grid grid-cols-3 gap-4">
           <div class="col-span-2">
-            <label class="block text-sm font-medium text-slate-700 mb-1">{{ 'AUTH.WORKSPACE_NAME' | translate }}</label>
+            <label class="block text-sm font-medium text-body mb-1">{{ 'AUTH.WORKSPACE_NAME' | translate }}</label>
             <input type="text" [(ngModel)]="workspaceName" name="workspaceName"
               [placeholder]="'AUTH.WORKSPACE_NAME_PLACEHOLDER' | translate"
-              class="w-full border border-slate-200 px-4 py-2.5 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+              class="w-full border border-medium px-4 py-2.5 rounded-lg text-sm text-main bg-input focus:outline-none focus:ring-2 focus:ring-primary-500/40 focus:border-primary-500 transition-all"
               required />
           </div>
           <div>
-            <label class="block text-sm font-medium text-slate-700 mb-1">{{ 'AUTH.CURRENCY' | translate }}</label>
+            <label class="block text-sm font-medium text-body mb-1">{{ 'AUTH.CURRENCY' | translate }}</label>
             <select [(ngModel)]="currency" name="currency"
-              class="w-full border border-slate-200 px-4 py-2.5 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all cursor-pointer bg-white"
+              class="w-full border border-medium px-4 py-2.5 rounded-lg text-sm text-main bg-input focus:outline-none focus:ring-2 focus:ring-primary-500/40 focus:border-primary-500 transition-all cursor-pointer"
               required>
               <option value="ARS">ARS ($)</option>
               <option value="USD">USD ($)</option>
@@ -116,22 +116,22 @@
         }
 
         <div>
-          <label class="block text-sm font-medium text-slate-900 mb-1">{{ 'AUTH.EMAIL' | translate }}</label>
+          <label class="block text-sm font-medium text-main mb-1">{{ 'AUTH.EMAIL' | translate }}</label>
           <input type="email" [(ngModel)]="email" name="email" [placeholder]="'AUTH.EMAIL_PLACEHOLDER' | translate"
-            class="w-full border border-slate-200 px-4 py-2.5 text-slate-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+            class="w-full border border-medium px-4 py-2.5 text-main bg-input rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/40 focus:border-primary-500 transition-all"
             required />
         </div>
 
         <div>
-          <label class="block text-sm font-medium text-slate-900 mb-1">{{ 'AUTH.PASSWORD' | translate }}</label>
+          <label class="block text-sm font-medium text-main mb-1">{{ 'AUTH.PASSWORD' | translate }}</label>
           <div class="relative">
             <input [type]="showPassword() ? 'text' : 'password'" [(ngModel)]="password" name="password"
               placeholder="••••••••"
-              class="w-full border border-slate-200 px-4 py-2.5 text-slate-700 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all pr-12"
+              class="w-full border border-medium px-4 py-2.5 text-main bg-input rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/40 focus:border-primary-500 transition-all pr-12"
               required />
 
             <button type="button" (click)="togglePassword()"
-              class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 focus:outline-none cursor-pointer p-1">
+              class="absolute right-3 top-1/2 -translate-y-1/2 text-faint hover:text-muted focus:outline-none cursor-pointer p-1">
               @if (showPassword()) {
               <!-- Eye Off Icon -->
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
@@ -154,7 +154,7 @@
         </div>
 
         @if(error) {
-        <div class="bg-red-50 text-red-600 text-sm p-3 rounded-lg flex items-center gap-2 border border-red-100">
+        <div class="bg-red-500/10 text-red-600 text-sm p-3 rounded-lg flex items-center gap-2 border border-red-500/20">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="10"></circle>
@@ -186,7 +186,7 @@
       </form>
 
       <!-- Toggle State -->
-      <div class="mt-8 text-center text-sm text-slate-500">
+      <div class="mt-8 text-center text-sm text-faint">
         {{ isLoginMode ? ('AUTH.DONT_HAVE_ACCOUNT' | translate) : ('AUTH.ALREADY_HAVE_ACCOUNT' | translate) }}
         <button type="button" (click)="toggleMode()"
           class="text-primary-600 font-semibold hover:text-primary-800 transition-colors ml-1 focus:outline-none">

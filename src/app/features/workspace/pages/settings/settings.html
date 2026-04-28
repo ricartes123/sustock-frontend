@@ -6,9 +6,9 @@
         </div>
     </div>
 
-    <div class="bg-card rounded-2xl shadow-sm border border-soft overflow-hidden">
-        <div class="p-6 border-b border-soft flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-primary-50 dark:bg-primary-900/30 flex items-center justify-center text-primary-600 dark:text-primary-400">
+    <div class="bg-card rounded-2xl shadow-sm border border-medium overflow-hidden">
+        <div class="p-6 border-b border-medium flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-primary-soft flex items-center justify-center text-primary-soft">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="12" cy="12" r="3"></circle>
@@ -31,7 +31,7 @@
                 </p>
 
                 <select [(ngModel)]="selectedCurrency"
-                    class="w-full border border-strong px-4 py-3 rounded-xl text-sm text-main focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all cursor-pointer bg-input hover:bg-surface">
+                    class="w-full border border-strong px-4 py-3 rounded-xl text-sm text-main focus:outline-none focus:ring-2 focus:ring-primary-500/40 focus:border-primary-500 transition-all cursor-pointer bg-input hover:bg-surface">
                     <option value="ARS">ARS ($)</option>
                     <option value="USD">USD ($)</option>
                     <option value="EUR">EUR (€)</option>
@@ -53,18 +53,18 @@
 
 <!-- Currency Conversion Modal -->
 @if (showConversionModal()) {
-<div class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+<div class="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
     <div
         class="bg-card rounded-2xl shadow-xl w-full max-w-xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
 
-        <div class="p-6 border-b border-soft flex items-center justify-between bg-slate-50/50 dark:bg-slate-800/50">
+        <div class="p-6 border-b border-soft flex items-center justify-between bg-surface">
             <div>
                 <h3 class="text-lg font-bold text-main">{{ 'SETTINGS.MODAL.TITLE' | translate }}</h3>
                 <p class="text-sm text-faint mt-1">
                     {{ 'SETTINGS.MODAL.DESC_PREFIX' | translate }}
                     <span class="font-bold text-body">{{ workspaceContext.activeWorkspace()?.currency }}</span> {{
                     'SETTINGS.MODAL.DESC_TO' | translate }}
-                    <span class="font-bold text-primary-700 dark:text-primary-400">{{ selectedCurrency }}</span>.
+                    <span class="font-bold text-primary-600">{{ selectedCurrency }}</span>.
                 </p>
             </div>
             <button (click)="showConversionModal.set(false)"
@@ -84,7 +84,7 @@
                 <!-- Option 1: None -->
                 <label
                     class="flex items-start gap-4 p-4 border rounded-xl cursor-pointer transition-all border-strong hover:border-primary-300"
-                    [ngClass]="{'border-primary-500 bg-primary-50 dark:bg-primary-950/30 ring-1 ring-primary-500': conversionMode() === 'NONE'}"
+                    [ngClass]="{'border-primary-500 bg-primary-soft ring-1 ring-primary-500': conversionMode() === 'NONE'}"
                     (click)="setMode('NONE')">
                     <input type="radio" name="conversion" [checked]="conversionMode() === 'NONE'"
                         class="mt-1 text-primary-600 focus:ring-primary-500 cursor-pointer">
@@ -99,7 +99,7 @@
                 <!-- Option 2: Auto / API -->
                 <label
                     class="flex items-start gap-4 p-4 border rounded-xl cursor-pointer transition-all border-strong hover:border-primary-300"
-                    [ngClass]="{'border-primary-500 bg-primary-50 dark:bg-primary-950/30 ring-1 ring-primary-500': conversionMode() === 'AUTO'}"
+                    [ngClass]="{'border-primary-500 bg-primary-soft ring-1 ring-primary-500': conversionMode() === 'AUTO'}"
                     (click)="setMode('AUTO')">
                     <input type="radio" name="conversion" [checked]="conversionMode() === 'AUTO'"
                         class="mt-1 text-primary-600 focus:ring-primary-500 cursor-pointer">
@@ -110,7 +110,7 @@
                             translate }}</span>
 
                         @if (conversionMode() === 'AUTO') {
-                        <div class="bg-input rounded-lg p-3 border border-primary-100 dark:border-slate-600 mt-2">
+                        <div class="bg-input rounded-lg p-3 border border-medium mt-2">
                             @if (loading() && !apiRate()) {
                             <span class="text-xs text-primary-600 flex items-center gap-2">
                                 <svg class="animate-spin h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -143,7 +143,7 @@
                 <!-- Option 3: Manual -->
                 <label
                     class="flex items-start gap-4 p-4 border rounded-xl cursor-pointer transition-all border-strong hover:border-primary-300"
-                    [ngClass]="{'border-primary-500 bg-primary-50 dark:bg-primary-950/30 ring-1 ring-primary-500': conversionMode() === 'MANUAL'}"
+                    [ngClass]="{'border-primary-500 bg-primary-soft ring-1 ring-primary-500': conversionMode() === 'MANUAL'}"
                     (click)="setMode('MANUAL')">
                     <input type="radio" name="conversion" [checked]="conversionMode() === 'MANUAL'"
                         class="mt-1 text-primary-600 focus:ring-primary-500 cursor-pointer">
@@ -155,7 +155,7 @@
 
                         @if (conversionMode() === 'MANUAL') {
                         <input type="number" [(ngModel)]="manualRate" placeholder="{{ 'SETTINGS.MODAL.MANUAL_RATE_PLACEHOLDER' | translate }}"
-                            class="w-full border border-strong px-3 py-2 rounded-lg text-sm text-main focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all mt-1 bg-input" />
+                            class="w-full border border-strong px-3 py-2 rounded-lg text-sm text-main focus:outline-none focus:ring-2 focus:ring-primary-500/40 focus:border-primary-500 transition-all mt-1 bg-input" />
                         }
                     </div>
                 </label>
@@ -163,9 +163,9 @@
 
         </div>
 
-        <div class="p-4 border-t border-soft flex justify-end gap-3 bg-slate-50 dark:bg-slate-800/50">
+        <div class="p-4 border-t border-soft flex justify-end gap-3 bg-surface">
             <button (click)="showConversionModal.set(false)"
-                class="px-4 py-2 text-sm font-medium text-muted hover:bg-slate-200 dark:hover:bg-slate-700 rounded-lg transition-colors cursor-pointer">
+                class="px-4 py-2 text-sm font-medium text-muted hover:bg-card-hover rounded-lg transition-colors cursor-pointer">
                 {{ 'COMMON.CANCEL' | translate }}
             </button>
             <button (click)="confirmUpdate()"
