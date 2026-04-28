@@ -282,7 +282,7 @@
                 <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
                 <h3 class="font-bold text-main text-sm">{{ 'DASHBOARD.LATEST_SALES_TITLE' | translate }}</h3>
             </div>
-            <a routerLink="/sales" class="text-xs font-semibold text-primary-500 hover:underline">{{ 'DASHBOARD.SEE_ALL' | translate }}</a>
+            <a routerLink="/sales" class="text-xs font-semibold text-primary-500 dark:text-primary-300 hover:underline">{{ 'DASHBOARD.SEE_ALL' | translate }}</a>
         </div>
 
         @if((data()!.recentSales?.length ?? 0) === 0) {
@@ -322,7 +322,7 @@
                 <span class="w-2 h-2 rounded-full bg-red-500"></span>
                 <h3 class="font-bold text-main text-sm">{{ 'DASHBOARD.LOW_STOCK_LIST_TITLE' | translate }}</h3>
             </div>
-            <a routerLink="/products" [queryParams]="{ lowStock: 'true' }" class="text-xs font-semibold text-primary-500 hover:underline">{{ 'DASHBOARD.MANAGE' | translate }}</a>
+            <a routerLink="/products" [queryParams]="{ lowStock: 'true' }" class="text-xs font-semibold text-primary-500 dark:text-primary-300 hover:underline">{{ 'DASHBOARD.MANAGE' | translate }}</a>
         </div>
 
         @if((data()!.lowStockProducts?.length ?? 0) === 0) {
