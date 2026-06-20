@@ -121,8 +121,16 @@ export class Settings implements OnInit {
                                 this.loading.set(false);
                                 this.toast.success(this.translate.instant('TOAST.CONFIG_SAVED'));
                                 window.location.reload(); // Quick refresh to ensure UI takes the new symbols via CurrencyPipe everywhere
+                            },
+                            error: () => {
+                                this.loading.set(false);
+                                this.toast.error(this.translate.instant('TOAST.CURRENCY_UPDATE_ERROR'));
                             }
                         });
+                    },
+                    error: () => {
+                        this.loading.set(false);
+                        this.toast.error(this.translate.instant('TOAST.CURRENCY_UPDATE_ERROR'));
                     }
                 });
             },

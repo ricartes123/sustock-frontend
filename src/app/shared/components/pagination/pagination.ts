@@ -11,7 +11,19 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class PaginationComponent {
   @Input() currentPage: number = 1;
-  @Input() totalPages: number = 1;
+  private _totalPages: number = 1;
+
+  @Input()
+  get totalPages(): number {
+    if (this.totalItems !== undefined && this.limit) {
+      return Math.ceil(this.totalItems / this.limit) || 1;
+    }
+    return this._totalPages;
+  }
+
+  set totalPages(value: number) {
+    this._totalPages = value;
+  }
   @Input() totalItems?: number;
   @Input() limit: number = 10;
   @Input() maxVisiblePages?: number;

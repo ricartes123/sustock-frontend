@@ -58,7 +58,8 @@ export class ProductHistoryModal implements OnChanges {
                 next: (res) => {
                     this.movements.set(res.data || []);
                     this.meta.set(res.meta);
-                }
+                },
+                error: () => {}
             });
     }
 

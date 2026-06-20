@@ -45,14 +45,16 @@ export class App implements OnInit {
       this.auth.fetchProfile().subscribe({
         next: (user) => {
           this.auth.setUser(user);
-        }
+        },
+        error: () => {}
       });
 
       // Fetch Workspaces for Context
       this.workspaceService.getAll().subscribe({
         next: (workspaces) => {
           this.workspaceContext.initialize(workspaces);
-        }
+        },
+        error: () => {}
       });
     }
   }

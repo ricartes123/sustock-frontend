@@ -120,7 +120,8 @@ export class SaleCreate {
     this.clientsService.findAll(1, 1000, '', 'ACTIVE')
       .pipe(takeUntilDestroyed())
       .subscribe({
-        next: res => this.clients.set(res.data)
+        next: res => this.clients.set(res.data),
+        error: () => {}
       });
   }
 
