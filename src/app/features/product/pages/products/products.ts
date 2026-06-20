@@ -17,6 +17,7 @@ import { finalize } from 'rxjs';
 import { DataWarning } from '../../../../shared/components/data-warning/data-warning';
 import { QuickStockModal } from '../../components/quick-stock-modal/quick-stock-modal';
 import { ProductHistoryModal } from '../../components/product-history-modal/product-history-modal';
+import { ImportModal } from '../../components/import-modal/import-modal';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { PaginationMeta } from '../../../../core/models/pagination-meta.model';
 import { TableComponent } from '../../../../shared/components/table/table';
@@ -39,6 +40,7 @@ import { PaginationComponent } from '../../../../shared/components/pagination/pa
     DataWarning,
     QuickStockModal,
     ProductHistoryModal,
+    ImportModal,
     TableComponent,
     SearchInput,
     PaginationComponent,
@@ -91,6 +93,9 @@ export class Products implements OnInit {
   // History State
   isHistoryModalOpen = signal(false);
   productForHistory = signal<Product | null>(null);
+
+  // Import State
+  isImportModalOpen = signal(false);
 
   loadProducts() {
     this.loading.set(true);
@@ -261,6 +266,11 @@ export class Products implements OnInit {
   closeHistoryModal() {
     this.isHistoryModalOpen.set(false);
     this.productForHistory.set(null);
+  }
+
+  closeImportModal(imported: boolean) {
+    this.isImportModalOpen.set(false);
+    if (imported) this.loadProducts();
   }
 
   handleSaveProduct(payload: { id?: string; data: Partial<Product> }) {

@@ -171,11 +171,24 @@
                                             min="1" />
                                     </div>
                                 </td>
-                                <td class="px-5 py-4 text-right whitespace-nowrap text-muted">
-                                    ${{ item.product.price | number:'1.2-2' }}
+                                <td class="px-5 py-4 text-right whitespace-nowrap">
+                                    <div class="flex items-center justify-end gap-1">
+                                        <span class="text-muted text-sm">$</span>
+                                        <input type="number"
+                                            class="form-input w-24 text-right text-sm border border-strong rounded-lg focus:ring-2 focus:ring-primary-500/40 focus:border-primary-500 bg-input font-medium"
+                                            [ngClass]="item.unitPrice < item.product.price ? 'text-orange-500' : 'text-main'"
+                                            [ngModel]="item.unitPrice"
+                                            (ngModelChange)="updateUnitPrice(i, $event)"
+                                            min="0" step="0.01" />
+                                    </div>
+                                    @if (item.unitPrice < item.product.price) {
+                                    <div class="text-xs text-faint text-right mt-0.5 line-through">
+                                        ${{ item.product.price | number:'1.2-2' }}
+                                    </div>
+                                    }
                                 </td>
                                 <td class="px-5 py-4 text-right font-semibold whitespace-nowrap text-main">
-                                    ${{ (item.product.price * item.quantity) | number:'1.2-2' }}
+                                    ${{ (item.unitPrice * item.quantity) | number:'1.2-2' }}
                                 </td>
                                 <td class="px-5 py-4 text-center">
                                     <button
@@ -236,12 +249,13 @@
                     <div class="relative z-10">
                         <div class="flex justify-between items-center text-muted mb-3 text-sm">
                             <span>Subtotal</span>
-                            <span class="font-medium text-main">${{ totalAmount() |
-                                number:'1.2-2' }}</span>
+                            <span class="font-medium text-main">${{ (totalAmount() + totalDiscount()) | number:'1.2-2' }}</span>
                         </div>
                         <div class="flex justify-between items-center text-muted mb-5 text-sm">
                             <span>Descuento</span>
-                            <span class="font-medium text-main">$0.00</span>
+                            <span class="font-medium" [ngClass]="totalDiscount() > 0 ? 'text-orange-500' : 'text-main'">
+                                -${{ totalDiscount() | number:'1.2-2' }}
+                            </span>
                         </div>
 
                         <div class="border-t border-strong pt-4">

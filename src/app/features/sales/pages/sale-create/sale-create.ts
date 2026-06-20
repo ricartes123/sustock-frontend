@@ -25,6 +25,7 @@ import { Button } from '../../../../shared/components/button/button';
 interface SaleItem {
   product: Product;
   quantity: number;
+  unitPrice: number;
 }
 
 @Component({
@@ -66,9 +67,12 @@ export class SaleCreate {
   // ─────────────────────────────
 
   totalAmount = computed(() =>
+    this.items().reduce((sum, item) => sum + item.unitPrice * item.quantity, 0)
+  );
+
+  totalDiscount = computed(() =>
     this.items().reduce(
-      (sum, item) =>
-        sum + (Number(item.product.price) * item.quantity),
+      (sum, item) => sum + (Number(item.product.price) - item.unitPrice) * item.quantity,
       0
     )
   );
@@ -157,7 +161,7 @@ export class SaleCreate {
         );
       }
 
-      return [...current, { product, quantity: 1 }];
+      return [...current, { product, quantity: 1, unitPrice: Number(product.price) }];
     });
   }
 
@@ -170,9 +174,15 @@ export class SaleCreate {
   updateQuantity(index: number, qty: number) {
     this.items.update(current =>
       current.map((item, i) =>
-        i === index
-          ? { ...item, quantity: Math.max(1, qty) }
-          : item
+        i === index ? { ...item, quantity: Math.max(1, qty || 1) } : item
+      )
+    );
+  }
+
+  updateUnitPrice(index: number, price: number) {
+    this.items.update(current =>
+      current.map((item, i) =>
+        i === index ? { ...item, unitPrice: Math.max(0, price || 0) } : item
       )
     );
   }
@@ -190,7 +200,8 @@ export class SaleCreate {
       clientId: this.selectedClientId() || undefined,
       items: this.items().map(i => ({
         productId: i.product.id,
-        quantity: i.quantity
+        quantity: i.quantity,
+        ...(i.unitPrice !== Number(i.product.price) ? { unitPrice: i.unitPrice } : {})
       }))
     };
 
@@ -200,7 +211,7 @@ export class SaleCreate {
         success: this.translate.instant('TOAST.SALE_REGISTERED'),
         error: (e: unknown) => {
           const err = e as { error?: { message?: string } };
-          if (err.error?.message?.includes('credibilidad')) {
+          if (err.error?.message?.includes('Stock insuficiente')) {
             return this.translate.instant('TOAST.STOCK_WARNING');
           }
           return this.translate.instant('TOAST.ERROR_REGISTERING_SALE');
@@ -212,7 +223,7 @@ export class SaleCreate {
         this.router.navigate(['/sales']);
       },
       error: (err) => {
-        if (err.error?.message?.includes('credibilidad')) {
+        if (err.error?.message?.includes('Stock insuficiente')) {
           this.warningMessage.set(err.error.message);
           this.showWarning.set(true);
         }

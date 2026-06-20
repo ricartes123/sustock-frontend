@@ -25,6 +25,9 @@
         </app-button>
 
         @if (isAdmin()) {
+        <app-button variant="secondary" (click)="isImportModalOpen.set(true)" icon="upload">
+            Importar Excel
+        </app-button>
         <app-button variant="primary" (click)="openCreateModal()" icon="plus">
             {{ 'PRODUCTS.NEW_PRODUCT' | translate }}
         </app-button>
@@ -199,3 +202,7 @@
 <app-product-history-modal [visible]="isHistoryModalOpen()" [product]="productForHistory()"
     (close)="closeHistoryModal()">
 </app-product-history-modal>
+
+@if (isImportModalOpen()) {
+<app-import-modal (close)="closeImportModal($event)"></app-import-modal>
+}

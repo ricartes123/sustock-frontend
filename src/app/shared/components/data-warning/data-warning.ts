@@ -10,7 +10,7 @@ import { Button } from "../button/button";
 })
 export class DataWarning {
     @Input() visible = false;
-    @Input() message = 'La acción podría poner en peligro la credibilidad de los datos de su inventario. El stock del producto quedará en negativo.';
+    @Input() message = '';
     @Input() title = 'Advertencia de Inventario';
     @Input() isLoading = false;
 

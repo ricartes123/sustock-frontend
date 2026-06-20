@@ -25,19 +25,10 @@
             </p>
         </div>
 
-        <div class="mt-8 flex justify-end gap-3">
-            <app-button variant="secondary" (click)="onCancel()">
-                Cancelar
+        <div class="mt-8 flex justify-end">
+            <app-button variant="secondary" (click)="onConfirm()">
+                Entendido
             </app-button>
-            @if (!isLoading) {
-            <app-button variant="danger" (click)="onConfirm()">
-                Continuar de todos modos
-            </app-button>
-            } @else {
-            <app-button variant="danger" (click)="onConfirm()">
-                Cargando...
-            </app-button>
-            }
         </div>
     </div>
 </div>

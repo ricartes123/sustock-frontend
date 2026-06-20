@@ -1,0 +1,121 @@
+<app-modal [isOpen]="true" title="Importar productos desde Excel" (close)="onClose()">
+
+  @if (step() === 'upload') {
+  <div class="px-6 py-4 space-y-5">
+
+    <!-- Instrucciones -->
+    <div class="bg-blue-500/5 border border-blue-500/20 rounded-xl p-4 text-sm text-body space-y-2">
+      <p class="font-semibold text-main">¿Cómo funciona?</p>
+      <ol class="list-decimal list-inside space-y-1 text-faint">
+        <li>Descargá la plantilla y completala con tus productos.</li>
+        <li>Guardala como <strong class="text-body">.xlsx</strong> o <strong class="text-body">.csv</strong>.</li>
+        <li>Subila acá y confirmá la importación.</li>
+      </ol>
+    </div>
+
+    <!-- Columnas esperadas -->
+    <div>
+      <p class="text-xs font-semibold text-muted uppercase tracking-wide mb-2">Columnas reconocidas</p>
+      <div class="flex flex-wrap gap-2">
+        @for (col of ['Nombre *', 'SKU', 'Código de Barras', 'Precio de Venta', 'Precio de Costo', 'Stock', 'Stock Mínimo']; track col) {
+        <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-surface border border-medium text-body">
+          {{ col }}
+        </span>
+        }
+      </div>
+      <p class="text-xs text-faint mt-2">* El campo <strong>Nombre</strong> es el único obligatorio.</p>
+    </div>
+
+    <!-- Selector de archivo -->
+    <div>
+      <label class="block text-sm font-medium text-body mb-2">Archivo</label>
+      <label class="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-medium rounded-xl cursor-pointer hover:border-primary-500 hover:bg-primary-500/5 transition-colors"
+        [class.border-primary-500]="selectedFile()"
+        [class.bg-primary-500/5]="selectedFile()">
+        <div class="flex flex-col items-center justify-center text-center px-4">
+          @if (selectedFile()) {
+          <svg class="w-8 h-8 text-primary-500 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <p class="text-sm font-medium text-primary-600">{{ selectedFile()!.name }}</p>
+          <p class="text-xs text-faint mt-0.5">{{ (selectedFile()!.size / 1024).toFixed(1) }} KB · Click para cambiar</p>
+          } @else {
+          <svg class="w-8 h-8 text-faint mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+          </svg>
+          <p class="text-sm text-faint"><span class="font-medium text-body">Click para seleccionar</span> o arrastrá el archivo</p>
+          <p class="text-xs text-faint mt-0.5">.xlsx o .csv · Máximo 5 MB</p>
+          }
+        </div>
+        <input type="file" class="hidden" accept=".xlsx,.xls,.csv" (change)="onFileSelected($event)" />
+      </label>
+    </div>
+
+  </div>
+
+  <ng-container modal-footer>
+    <app-button variant="secondary" (click)="downloadTemplate()">
+      Descargar plantilla
+    </app-button>
+    <app-button variant="primary" [disabled]="!selectedFile() || isUploading()" (click)="upload()">
+      @if (isUploading()) {
+      Importando...
+      } @else {
+      Importar
+      }
+    </app-button>
+  </ng-container>
+  }
+
+  @if (step() === 'result') {
+  <div class="px-6 py-4 space-y-4">
+
+    <!-- Resumen -->
+    <div class="grid grid-cols-2 gap-4">
+      <div class="bg-green-500/5 border border-green-500/20 rounded-xl p-4 text-center">
+        <p class="text-3xl font-black text-green-600">{{ result()!.created }}</p>
+        <p class="text-sm text-faint mt-1">productos importados</p>
+      </div>
+      <div class="rounded-xl p-4 text-center border"
+        [ngClass]="result()!.errors.length > 0 ? 'bg-red-500/5 border-red-500/20' : 'bg-card border-medium'">
+        <p class="text-3xl font-black" [ngClass]="result()!.errors.length > 0 ? 'text-red-500' : 'text-muted'">
+          {{ result()!.errors.length }}
+        </p>
+        <p class="text-sm text-faint mt-1">con errores</p>
+      </div>
+    </div>
+
+    <!-- Lista de errores -->
+    @if (result()!.errors.length > 0) {
+    <div>
+      <p class="text-xs font-semibold text-muted uppercase tracking-wide mb-2">Filas con problemas</p>
+      <div class="max-h-48 overflow-y-auto space-y-1.5">
+        @for (err of result()!.errors; track err.row) {
+        <div class="flex items-start gap-2 text-sm bg-red-500/5 border border-red-500/15 rounded-lg px-3 py-2">
+          <span class="text-xs font-bold text-red-500 whitespace-nowrap mt-0.5">Fila {{ err.row }}</span>
+          <span class="text-faint">{{ err.message }}</span>
+        </div>
+        }
+      </div>
+    </div>
+    }
+
+    @if (result()!.created === 0 && result()!.errors.length === 0) {
+    <p class="text-sm text-faint text-center py-2">El archivo no tenía filas de datos.</p>
+    }
+
+  </div>
+
+  <ng-container modal-footer>
+    @if (result()!.errors.length > 0) {
+    <app-button variant="secondary" (click)="reset()">
+      Importar otro archivo
+    </app-button>
+    }
+    <app-button variant="primary" (click)="onClose()">
+      {{ result()!.created > 0 ? 'Ver productos' : 'Cerrar' }}
+    </app-button>
+  </ng-container>
+  }
+
+</app-modal>

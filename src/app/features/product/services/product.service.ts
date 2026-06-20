@@ -5,6 +5,12 @@ import { environment } from '../../../../environments/environment';
 import { Product } from '../../../core/models/product.model';
 import { PaginationMeta } from '../../../core/models/pagination-meta.model';
 
+export interface ImportResult {
+  created: number;
+  total: number;
+  errors: { row: number; message: string }[];
+}
+
 @Injectable({ providedIn: 'root' })
 export class ProductService {
     private http = inject(HttpClient);
@@ -29,5 +35,11 @@ export class ProductService {
 
     toggleStatus(id: string, active: boolean): Observable<Product> {
         return this.http.patch<Product>(`${this.apiUrl}/products/${id}`, { isActive: active });
+    }
+
+    importProducts(file: File): Observable<ImportResult> {
+        const formData = new FormData();
+        formData.append('file', file);
+        return this.http.post<ImportResult>(`${this.apiUrl}/products/import`, formData);
     }
 }

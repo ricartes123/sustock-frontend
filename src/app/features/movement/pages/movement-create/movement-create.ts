@@ -115,7 +115,7 @@ export class MovementCreate implements OnInit {
                 success: this.translate.instant('TOAST.MOVEMENT_REGISTERED'),
                 error: (e: unknown) => {
                     const err = e as { error?: { message?: string | string[] } };
-                    if (typeof err.error?.message === 'string' && err.error.message.includes('credibilidad')) {
+                    if (typeof err.error?.message === 'string' && err.error.message.includes('Stock insuficiente')) {
                         return this.translate.instant('TOAST.STOCK_WARNING_DETECTED');
                     }
                     if (err.error?.message) {
@@ -130,7 +130,7 @@ export class MovementCreate implements OnInit {
                 this.router.navigate(['/movements']);
             },
             error: (err) => {
-                if (err.error?.message && typeof err.error.message === 'string' && err.error.message.includes('credibilidad')) {
+                if (err.error?.message && typeof err.error.message === 'string' && err.error.message.includes('Stock insuficiente')) {
                     this.warningMessage = err.error.message;
                     this.showWarning = true;
                 }
