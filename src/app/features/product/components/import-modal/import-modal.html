@@ -1,7 +1,7 @@
 <app-modal [isOpen]="true" title="Importar productos desde Excel" (close)="onClose()">
 
   @if (step() === 'upload') {
-  <div class="px-6 py-4 space-y-5">
+  <div class="space-y-5">
 
     <!-- Instrucciones -->
     <div class="bg-blue-500/5 border border-blue-500/20 rounded-xl p-4 text-sm text-body space-y-2">
@@ -52,23 +52,10 @@
     </div>
 
   </div>
-
-  <ng-container modal-footer>
-    <app-button variant="secondary" (click)="downloadTemplate()">
-      Descargar plantilla
-    </app-button>
-    <app-button variant="primary" [disabled]="!selectedFile() || isUploading()" (click)="upload()">
-      @if (isUploading()) {
-      Importando...
-      } @else {
-      Importar
-      }
-    </app-button>
-  </ng-container>
   }
 
   @if (step() === 'result') {
-  <div class="px-6 py-4 space-y-4">
+  <div class="space-y-4">
 
     <!-- Resumen -->
     <div class="grid grid-cols-2 gap-4">
@@ -105,8 +92,22 @@
     }
 
   </div>
+  }
 
   <ng-container modal-footer>
+    @if (step() === 'upload') {
+    <app-button variant="secondary" (click)="downloadTemplate()">
+      Descargar plantilla
+    </app-button>
+    <app-button variant="primary" [disabled]="!selectedFile() || isUploading()" (click)="upload()">
+      @if (isUploading()) {
+      Importando...
+      } @else {
+      Importar
+      }
+    </app-button>
+    }
+    @if (step() === 'result') {
     @if (result()!.errors.length > 0) {
     <app-button variant="secondary" (click)="reset()">
       Importar otro archivo
@@ -115,7 +116,7 @@
     <app-button variant="primary" (click)="onClose()">
       {{ result()!.created > 0 ? 'Ver productos' : 'Cerrar' }}
     </app-button>
+    }
   </ng-container>
-  }
 
 </app-modal>
