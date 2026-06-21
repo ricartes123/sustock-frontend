@@ -173,3 +173,9 @@ body {
     .bg-primary-soft { background-color: var(--ss-primary-soft); }
     .text-primary-soft { color: var(--ss-primary-on-soft); }
 }
+
+/* Custom background for navigation and sidebar in dark mode to enhance brand contrast */
+.dark aside.bg-surface,
+.dark header.bg-surface {
+    background-color: #030216;
+}
