@@ -1,4 +1,4 @@
 export const environment = {
-    production: true,
-    apiUrl: 'https://api.sustock.com',
+  production: false,
+  apiUrl: '/api',
 };
