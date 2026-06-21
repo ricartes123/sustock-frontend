@@ -169,6 +169,8 @@
         "LANGUAGE": "Language",
         "ENGLISH": "English",
         "SPANISH": "Spanish",
+        "INTERFACE_TITLE": "Interface Preferences",
+        "INTERFACE_DESC": "Customize the interface language of your workspace.",
         "PAGE_TITLE": "Settings",
         "PAGE_SUBTITLE": "Manage your workspace preferences and configuration.",
         "WORKSPACE_CONFIG_TITLE": "Workspace Configuration",

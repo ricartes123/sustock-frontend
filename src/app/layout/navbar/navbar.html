@@ -24,13 +24,6 @@
     <!-- Right section: Actions & User -->
     <div class="flex items-center gap-2 sm:gap-4 shrink-0">
 
-        <button (click)="toggleLanguage()"
-            class="p-2 rounded-full transition-colors cursor-pointer text-faint hover:text-body hover:bg-surface-hover flex items-center gap-1.5"
-            title="Cambiar idioma">
-            <lucide-icon name="languages" [size]="20" [strokeWidth]="2"></lucide-icon>
-            <span class="text-xs font-bold uppercase">{{ languageService.currentLanguage }}</span>
-        </button>
-
         <button (click)="themeService.toggle()"
             class="p-2 rounded-full transition-colors cursor-pointer"
             [ngClass]="themeService.isDark()

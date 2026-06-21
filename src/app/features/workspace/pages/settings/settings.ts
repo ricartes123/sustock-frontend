@@ -7,6 +7,8 @@ import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../../../core/services/auth.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { HotToastService } from '@ngxpert/hot-toast';
+import { LanguageService } from '../../../../core/services/language.service';
+import { LucideAngularModule } from 'lucide-angular';
 
 interface ExchangeRateResponse {
     rates: Record<string, number>;
@@ -15,7 +17,7 @@ interface ExchangeRateResponse {
 @Component({
     standalone: true,
     selector: 'app-settings',
-    imports: [FormsModule, CommonModule, TranslateModule],
+    imports: [FormsModule, CommonModule, TranslateModule, LucideAngularModule],
     templateUrl: './settings.html'
 })
 export class Settings implements OnInit {
@@ -25,8 +27,10 @@ export class Settings implements OnInit {
     http = inject(HttpClient);
     toast = inject(HotToastService);
     translate = inject(TranslateService);
+    languageService = inject(LanguageService);
 
     selectedCurrency = 'ARS';
+    selectedLanguage = 'es';
     showConversionModal = signal(false);
 
     conversionMode = signal<'NONE' | 'MANUAL' | 'AUTO'>('NONE');
@@ -41,19 +45,37 @@ export class Settings implements OnInit {
         if (active) {
             this.selectedCurrency = active.currency;
         }
+        this.selectedLanguage = this.languageService.currentLanguage;
     }
 
     get hasCurrencyChanged() {
         return this.selectedCurrency !== this.workspaceContext.activeWorkspace()?.currency;
     }
 
-    onSaveInitiated() {
-        if (!this.hasCurrencyChanged) return;
-        this.showConversionModal.set(true);
+    get hasLanguageChanged() {
+        return this.selectedLanguage !== this.languageService.currentLanguage;
+    }
 
-        // Si cambian a auto, reseteamos el request
-        this.conversionMode.set('NONE');
-        this.apiRate.set(null);
+    get hasChanges() {
+        return this.hasCurrencyChanged || this.hasLanguageChanged;
+    }
+
+    onSaveInitiated() {
+        if (!this.hasChanges) return;
+
+        if (this.hasCurrencyChanged) {
+            this.showConversionModal.set(true);
+            // Si cambian a auto, reseteamos el request
+            this.conversionMode.set('NONE');
+            this.apiRate.set(null);
+        } else {
+            this.saveOnlyLanguage();
+        }
+    }
+
+    saveOnlyLanguage() {
+        this.languageService.setLanguage(this.selectedLanguage as 'es' | 'en');
+        this.toast.success(this.translate.instant('TOAST.CONFIG_SAVED'));
     }
 
     setMode(mode: 'NONE' | 'MANUAL' | 'AUTO') {
@@ -110,6 +132,9 @@ export class Settings implements OnInit {
 
         this.workspaceService.updateCurrency(bId, this.selectedCurrency, finalRate).subscribe({
             next: () => {
+                if (this.hasLanguageChanged) {
+                    this.languageService.setLanguage(this.selectedLanguage as 'es' | 'en');
+                }
                 // En vez de reload, actualizamos el perfil
                 this.authService.fetchProfile().subscribe({
                     next: (user) => {
