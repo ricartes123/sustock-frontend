@@ -132,10 +132,11 @@
     </a>
 
     <!-- Metric 3: Stock Value -->
-    <div class="bg-card p-5 rounded-3xl shadow-sm border border-medium flex flex-col justify-between hover:bg-card-hover hover:shadow-md transition-all relative overflow-hidden h-[140px]">
+    <a routerLink="/products"
+        class="bg-card p-5 rounded-3xl shadow-sm border border-medium flex flex-col justify-between hover:bg-card-hover hover:shadow-md transition-all cursor-pointer group relative overflow-hidden h-[140px]">
         <div class="flex items-start justify-between mb-2 z-10 relative">
             <p class="text-[11px] font-bold text-main/60 uppercase tracking-wider">{{ 'DASHBOARD.METRIC_STOCK_VALUE' | translate }}</p>
-            <div class="w-8 h-8 rounded-xl flex items-center justify-center bg-emerald-50 text-emerald-500 dark:bg-emerald-500/15 dark:text-emerald-400">
+            <div class="w-8 h-8 rounded-xl flex items-center justify-center bg-emerald-50 text-emerald-500 dark:bg-emerald-500/15 dark:text-emerald-400 transition-colors group-hover:bg-emerald-100 dark:group-hover:bg-emerald-500/25">
                 <lucide-icon name="wallet" [size]="16" [strokeWidth]="2.5"></lucide-icon>
             </div>
         </div>
@@ -166,13 +167,14 @@
                 </defs>
             </svg>
         </div>
-    </div>
+    </a>
 
     <!-- Metric 4: Total Products -->
-    <div class="bg-card p-5 rounded-3xl shadow-sm border border-medium flex flex-col justify-between hover:bg-card-hover hover:shadow-md transition-all relative overflow-hidden h-[140px]">
+    <a routerLink="/products"
+        class="bg-card p-5 rounded-3xl shadow-sm border border-medium flex flex-col justify-between hover:bg-card-hover hover:shadow-md transition-all cursor-pointer group relative overflow-hidden h-[140px]">
         <div class="flex items-start justify-between mb-2 z-10 relative">
             <p class="text-[11px] font-bold text-main/60 uppercase tracking-wider">{{ 'DASHBOARD.METRIC_TOTAL_PRODUCTS' | translate }}</p>
-            <div class="w-8 h-8 rounded-xl flex items-center justify-center bg-blue-50 text-blue-500 dark:bg-blue-500/15 dark:text-blue-400">
+            <div class="w-8 h-8 rounded-xl flex items-center justify-center bg-blue-50 text-blue-500 dark:bg-blue-500/15 dark:text-blue-400 transition-colors group-hover:bg-blue-100 dark:group-hover:bg-blue-500/25">
                 <lucide-icon name="box" [size]="16" [strokeWidth]="2.5"></lucide-icon>
             </div>
         </div>
@@ -184,7 +186,7 @@
                 {{ 'DASHBOARD.METRIC_TOTAL_PRODUCTS_DESC' | translate }}
             </p>
         </div>
-    </div>
+    </a>
 
 </div>
 
