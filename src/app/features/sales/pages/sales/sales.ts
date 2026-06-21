@@ -38,6 +38,11 @@ export class Sales implements OnInit {
   private translate = inject(TranslateService);
   private destroyRef = inject(DestroyRef);
 
+
+  hasActiveFilters(): boolean {
+    return !!this.startDate || !!this.endDate || this.minAmount !== null || this.maxAmount !== null || this.statusFilter !== 'ALL';
+  }
+
   onPageChange(newPage: number) {
     this.router.navigate([], {
       queryParams: { page: newPage },
@@ -55,10 +60,50 @@ export class Sales implements OnInit {
   loading = signal(true);
   
   searchQuery = '';
+  statusFilter = 'ALL';
+  startDate = '';
+  endDate = '';
+  minAmount: number | null = null;
+  maxAmount: number | null = null;
+  minAmountFormatted = '';
+  maxAmountFormatted = '';
+
+  openDatePicker(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input && typeof input.showPicker === 'function') {
+      try {
+        input.showPicker();
+      } catch (e) {
+        // Fallback silenciado
+      }
+    }
+  }
+
+  onAmountInput(field: 'min' | 'max', event: Event) {
+    const input = event.target as HTMLInputElement;
+    const cleanValue = input.value.replace(/\D/g, '');
+    const formatted = cleanValue ? Number(cleanValue).toLocaleString('es-AR') : '';
+    
+    if (field === 'min') {
+      this.minAmountFormatted = formatted;
+      this.minAmount = cleanValue ? Number(cleanValue) : null;
+    } else {
+      this.maxAmountFormatted = formatted;
+      this.maxAmount = cleanValue ? Number(cleanValue) : null;
+    }
+    input.value = formatted;
+  }
 
   ngOnInit() {
     this.route.queryParams.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((params: Params) => {
       this.searchQuery = params['search'] || '';
+      this.statusFilter = params['status'] || 'ALL';
+      this.startDate = params['startDate'] || '';
+      this.endDate = params['endDate'] || '';
+      this.minAmount = params['minAmount'] !== undefined && params['minAmount'] !== '' ? Number(params['minAmount']) : null;
+      this.maxAmount = params['maxAmount'] !== undefined && params['maxAmount'] !== '' ? Number(params['maxAmount']) : null;
+      this.minAmountFormatted = this.minAmount !== null ? this.minAmount.toLocaleString('es-AR') : '';
+      this.maxAmountFormatted = this.maxAmount !== null ? this.maxAmount.toLocaleString('es-AR') : '';
       this.page.set(Number(params['page']) || 1);
       this.loadSales();
     });
@@ -67,7 +112,16 @@ export class Sales implements OnInit {
   loadSales() {
     this.loading.set(true);
 
-    this.salesService.findAll(this.page(), this.limit(), this.searchQuery, 'ACTIVE')
+    this.salesService.findAll(
+      this.page(),
+      this.limit(),
+      this.searchQuery,
+      this.statusFilter,
+      this.startDate || undefined,
+      this.endDate || undefined,
+      this.minAmount !== null ? this.minAmount : undefined,
+      this.maxAmount !== null ? this.maxAmount : undefined
+    )
       .pipe(finalize(() => this.loading.set(false)))
       .subscribe({
         next: (res) => {
@@ -85,12 +139,25 @@ export class Sales implements OnInit {
     this.router.navigate(['/sales'], {
       queryParams: {
         search: this.searchQuery || null,
+        status: this.statusFilter !== 'ALL' ? this.statusFilter : null,
+        startDate: this.startDate || null,
+        endDate: this.endDate || null,
+        minAmount: this.minAmount !== null && this.minAmount !== undefined ? this.minAmount : null,
+        maxAmount: this.maxAmount !== null && this.maxAmount !== undefined ? this.maxAmount : null,
         page: 1
       }
     });
   }
 
   clearFilter() {
+    this.searchQuery = '';
+    this.statusFilter = 'ALL';
+    this.startDate = '';
+    this.endDate = '';
+    this.minAmount = null;
+    this.maxAmount = null;
+    this.minAmountFormatted = '';
+    this.maxAmountFormatted = '';
     this.router.navigate(['/sales']);
   }
 

@@ -78,10 +78,11 @@
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
 
     <!-- Metric 1: Sales Today -->
-    <div class="bg-card p-5 rounded-3xl shadow-sm border border-medium flex flex-col justify-between hover:bg-card-hover hover:shadow-md transition-all relative overflow-hidden h-[140px]">
+    <a routerLink="/sales" [queryParams]="{ startDate: todayDateString, endDate: todayDateString }"
+        class="bg-card p-5 rounded-3xl shadow-sm border border-medium flex flex-col justify-between hover:bg-card-hover hover:shadow-md transition-all cursor-pointer group relative overflow-hidden h-[140px]">
         <div class="flex items-start justify-between mb-2 z-10 relative">
             <p class="text-[11px] font-bold text-main/60 uppercase tracking-wider">{{ 'DASHBOARD.METRIC_SALES_TODAY' | translate }}</p>
-            <div class="w-8 h-8 rounded-xl flex items-center justify-center bg-primary-soft text-primary-soft">
+            <div class="w-8 h-8 rounded-xl flex items-center justify-center bg-primary-soft text-primary-soft transition-colors group-hover:bg-primary-500/10">
                 <lucide-icon name="shopping-cart" [size]="16" [strokeWidth]="2.5"></lucide-icon>
             </div>
         </div>
@@ -106,7 +107,7 @@
                 </defs>
             </svg>
         </div>
-    </div>
+    </a>
 
     <!-- Metric 2: Low Stock -->
     <a routerLink="/products" [queryParams]="{ lowStock: 'true' }"

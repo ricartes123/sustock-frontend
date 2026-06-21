@@ -15,14 +15,37 @@ export class SalesService {
         return this.http.post<Sale>(this.apiUrl, data);
     }
 
-    findAll(page: number = 1, limit: number = 10, search?: string, status: string = 'ACTIVE'): Observable<{ data: Sale[], meta: any }> {
+    findAll(
+        page: number = 1,
+        limit: number = 10,
+        search?: string,
+        status?: string,
+        startDate?: string,
+        endDate?: string,
+        minAmount?: number,
+        maxAmount?: number
+    ): Observable<{ data: Sale[], meta: any }> {
         let params = new HttpParams()
             .set('page', page.toString())
-            .set('limit', limit.toString())
-            .set('status', status);
+            .set('limit', limit.toString());
 
+        if (status) {
+            params = params.set('status', status);
+        }
         if (search) {
             params = params.set('search', search);
+        }
+        if (startDate) {
+            params = params.set('startDate', startDate);
+        }
+        if (endDate) {
+            params = params.set('endDate', endDate);
+        }
+        if (minAmount !== undefined && minAmount !== null) {
+            params = params.set('minAmount', minAmount.toString());
+        }
+        if (maxAmount !== undefined && maxAmount !== null) {
+            params = params.set('maxAmount', maxAmount.toString());
         }
 
         return this.http.get<{ data: Sale[], meta: any }>(this.apiUrl, { params });

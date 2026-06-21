@@ -37,6 +37,14 @@ export class Dashboard {
   data = signal<DashboardData | null>(null);
   loading = signal(true);
   today = new Date();
+
+  get todayDateString(): string {
+    const d = new Date();
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
   
   currentPeriod = signal<'7D' | '30D' | '90D'>('7D');
   chartTotal = 0;

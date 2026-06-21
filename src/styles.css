@@ -179,3 +179,8 @@ body {
 .dark header.bg-surface {
     background-color: #030216;
 }
+
+/* Invert date picker calendar icon in dark mode for high visibility */
+.dark input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+}
