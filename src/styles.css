@@ -136,7 +136,7 @@ body {
     --ss-text-body:       #334155;   /* slate-700 — texto primario */
     --ss-text-muted:      #64748b;   /* slate-500 — etiquetas, cabeceras */
     --ss-text-nav:        #64748b;   /* slate-500 — alias compat */
-    --ss-text-faint:      #94a3b8;   /* slate-400 — placeholder, deshabilitado */
+    --ss-text-faint:      #081a34;   /* slate-400 — placeholder, deshabilitado */
 
     --ss-border-soft:     #f1f5f9;   /* slate-100 — divisores entre filas */
     --ss-border-medium:   #e2e8f0;   /* slate-200 — bordes de tarjeta */
@@ -158,7 +158,7 @@ body {
     --ss-text-body:       #e2e8f0;   /* slate-200 — texto primario */
     --ss-text-muted:      #94a3b8;   /* slate-400 — etiquetas, cabeceras */
     --ss-text-nav:        #94a3b8;   /* slate-400 — alias compat */
-    --ss-text-faint:      #64748b;   /* slate-500 — placeholder, deshabilitado */
+    --ss-text-faint:      #8ea3ac;   /* slate-500 — placeholder, deshabilitado */
 
     --ss-border-soft:     #1e293b;   /* slate-800 — divisores entre filas */
     --ss-border-medium:   #334155;   /* slate-700 — bordes de tarjeta */

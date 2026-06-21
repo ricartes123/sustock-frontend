@@ -15,10 +15,6 @@
         <h1 class="text-2xl sm:text-[32px] font-bold text-main tracking-tight leading-none mb-2">{{ 'DASHBOARD.OVERVIEW_TITLE' | translate }}</h1>
     </div>
     
-    <button class="flex items-center gap-2 bg-card border border-medium text-main px-4 py-2 rounded-xl text-sm font-semibold hover:bg-input transition-colors shadow-sm whitespace-nowrap self-start sm:self-auto cursor-pointer">
-        <lucide-icon name="download" [size]="16" [strokeWidth]="2.5" class="text-faint"></lucide-icon>
-        {{ 'DASHBOARD.EXPORT_REPORT' | translate }}
-    </button>
 </div>
 
 <!-- Top CTAs / Quick Actions -->
@@ -90,22 +86,9 @@
             <p class="text-[28px] font-black text-main tracking-tight leading-none mb-3">
                 {{ (data()!.salesToday ?? 0) | currency:currency():'symbol-narrow':'1.0-0':locale }}
             </p>
-            <p class="text-xs text-faint font-medium max-w-[60%] leading-tight">
+            <p class="text-sm text-faint font-medium max-w-[60%] leading-tight">
                 {{ 'DASHBOARD.METRIC_SALES_COUNT' | translate:{ count: data()!.salesTodayCount ?? 0 } }}
             </p>
-        </div>
-        <!-- Sparkline -->
-        <div class="absolute bottom-4 right-4 w-24 h-10 opacity-90 pointer-events-none">
-            <svg width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 100 40">
-                <path d="M0,35 L20,25 L40,35 L60,15 L80,25 L100,5 L100,40 L0,40 Z" fill="url(#grad_sales)" />
-                <path d="M0,35 L20,25 L40,35 L60,15 L80,25 L100,5" fill="none" stroke="currentColor" stroke-width="2.5" class="text-primary-500" stroke-linejoin="round" />
-                <defs>
-                    <linearGradient id="grad_sales" x1="0%" y1="0%" x2="0%" y2="100%">
-                        <stop offset="0%" stop-color="currentColor" class="text-primary-500" stop-opacity="0.25" />
-                        <stop offset="100%" stop-color="currentColor" class="text-primary-500" stop-opacity="0" />
-                    </linearGradient>
-                </defs>
-            </svg>
         </div>
     </a>
 
@@ -125,7 +108,7 @@
             <p class="text-[28px] font-black text-red-500 tracking-tight leading-none mb-3">
                 {{ data()!.lowStockCount }}
             </p>
-            <p class="text-xs text-faint font-medium leading-tight">
+            <p class="text-sm text-faint font-medium leading-tight">
                 {{ 'DASHBOARD.METRIC_LOW_STOCK_DESC' | translate:{ count: data()!.lowStockCount } }}
             </p>
         </div>
@@ -141,31 +124,12 @@
             </div>
         </div>
         <div class="z-10 relative">
-            <div class="flex items-center gap-3 mb-3">
-                <p class="text-[28px] font-black text-main tracking-tight leading-none">
-                    {{ data()!.totalStockValue | currency:currency():'symbol-narrow':'1.0-0':locale }}
-                </p>
-                <span class="flex items-center gap-0.5 text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-1 rounded-[8px]">
-                    <lucide-icon name="arrow-up" [size]="12" [strokeWidth]="3"></lucide-icon>
-                    8,2%
-                </span>
-            </div>
-            <p class="text-xs text-faint font-medium max-w-[60%] leading-tight">
+            <p class="text-[28px] font-black text-main tracking-tight leading-none mb-3">
+                {{ data()!.totalStockValue | currency:currency():'symbol-narrow':'1.0-0':locale }}
+            </p>
+            <p class="text-sm text-faint font-medium max-w-[60%] leading-tight">
                 {{ 'DASHBOARD.METRIC_STOCK_VALUE_DESC' | translate }}
             </p>
-        </div>
-        <!-- Sparkline -->
-        <div class="absolute bottom-4 right-4 w-24 h-10 opacity-90 pointer-events-none">
-            <svg width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 100 40">
-                <path d="M0,35 L25,30 L50,25 L75,15 L100,5 L100,40 L0,40 Z" fill="url(#grad_stock)" />
-                <path d="M0,35 L25,30 L50,25 L75,15 L100,5" fill="none" stroke="currentColor" stroke-width="2.5" class="text-emerald-500" stroke-linejoin="round" />
-                <defs>
-                    <linearGradient id="grad_stock" x1="0%" y1="0%" x2="0%" y2="100%">
-                        <stop offset="0%" stop-color="currentColor" class="text-emerald-500" stop-opacity="0.25" />
-                        <stop offset="100%" stop-color="currentColor" class="text-emerald-500" stop-opacity="0" />
-                    </linearGradient>
-                </defs>
-            </svg>
         </div>
     </a>
 
@@ -182,7 +146,7 @@
             <p class="text-[28px] font-black text-main tracking-tight leading-none mb-3">
                 {{ data()!.totalProducts }}
             </p>
-            <p class="text-xs text-faint font-medium leading-tight">
+            <p class="text-sm text-faint font-medium leading-tight">
                 {{ 'DASHBOARD.METRIC_TOTAL_PRODUCTS_DESC' | translate }}
             </p>
         </div>
@@ -199,11 +163,13 @@
             </h3>
             <div class="flex items-center gap-3">
                 <span class="text-3xl font-black text-main leading-none">{{ chartTotal | currency:currency():'symbol-narrow':'1.0-0':locale }}</span>
+                @if (chartHasComparison) {
                 <span class="flex items-center gap-0.5 text-[10px] font-bold px-2 py-1 rounded-[8px]"
                       [ngClass]="chartPercentage >= 0 ? 'text-emerald-600 bg-emerald-50' : 'text-red-600 bg-red-50'">
                     <lucide-icon [name]="chartPercentage >= 0 ? 'arrow-up' : 'arrow-down'" [size]="12" [strokeWidth]="3"></lucide-icon>
                     {{ (chartPercentage >= 0 ? chartPercentage : -chartPercentage) | number:'1.0-1' }}%
                 </span>
+                }
             </div>
             <p class="text-xs font-medium text-faint mt-2">
                 {{ (currentPeriod() === '7D' ? 'DASHBOARD.CHART_VS_LAST_WEEK' : (currentPeriod() === '30D' ? 'DASHBOARD.CHART_VS_LAST_PERIOD_30D' : 'DASHBOARD.CHART_VS_LAST_PERIOD_90D')) | translate }}
@@ -264,7 +230,7 @@
                     <div class="flex flex-col flex-1 overflow-hidden gap-1.5">
                         <span class="text-sm font-bold text-main truncate">{{ product.name }}</span>
                         <div class="w-full bg-soft h-1.5 rounded-full overflow-hidden">
-                            <div class="bg-primary-500 h-full rounded-full" [style.width.%]="100 - ($index * 15)"></div>
+                            <div class="bg-primary-500 h-full rounded-full" [style.width.%]="(product.totalSold / topProductsMax()) * 100"></div>
                         </div>
                     </div>
                 </div>

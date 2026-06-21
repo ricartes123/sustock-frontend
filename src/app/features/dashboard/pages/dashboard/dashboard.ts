@@ -49,6 +49,11 @@ export class Dashboard {
   currentPeriod = signal<'7D' | '30D' | '90D'>('7D');
   chartTotal = 0;
   chartPercentage = 0;
+  chartHasComparison = false;
+  topProductsMax = computed(() => {
+    const products = this.data()?.topProducts ?? [];
+    return products.length > 0 ? products[0].totalSold : 1;
+  });
 
   public lineChartData: ChartConfiguration<'line'>['data'] = {
     labels: [],
@@ -178,8 +183,10 @@ export class Dashboard {
     
     if (previousTotal === 0) {
       this.chartPercentage = 0;
+      this.chartHasComparison = false;
     } else {
       this.chartPercentage = ((currentTotal - previousTotal) / previousTotal) * 100;
+      this.chartHasComparison = true;
     }
 
     this.lineChartData = {
