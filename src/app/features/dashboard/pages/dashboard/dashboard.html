@@ -12,9 +12,10 @@
         <div class="flex items-center gap-3 mb-2">
             <span class="text-sm text-faint font-medium">{{ today | date:'fullDate':undefined:locale }}</span>
         </div>
-        <h1 class="text-2xl sm:text-[32px] font-bold text-main tracking-tight leading-none mb-2">{{ 'DASHBOARD.OVERVIEW_TITLE' | translate }}</h1>
+        <h1 class="text-2xl sm:text-[32px] font-bold text-main tracking-tight leading-none mb-2">{{
+            'DASHBOARD.OVERVIEW_TITLE' | translate }}</h1>
     </div>
-    
+
 </div>
 
 <!-- Top CTAs / Quick Actions -->
@@ -27,45 +28,57 @@
 
         <a routerLink="/sales/new"
             class="min-w-[280px] sm:min-w-0 snap-start flex-shrink-0 bg-primary-600 hover:bg-primary-500 transition-all duration-300 rounded-2xl p-5 flex items-center justify-between text-white cursor-pointer shadow-lg shadow-primary-500/20 group relative overflow-hidden">
-            
+
             <div class="flex items-center gap-4">
-                <div class="bg-white/20 w-12 h-12 rounded-xl flex items-center justify-center backdrop-blur-sm shadow-inner group-hover:bg-white/30 transition-colors border border-white/10">
+                <div
+                    class="bg-white/20 w-12 h-12 rounded-xl flex items-center justify-center backdrop-blur-sm shadow-inner group-hover:bg-white/30 transition-colors border border-white/10">
                     <lucide-icon name="shopping-cart" [size]="24" strokeWidth="2.5" class="text-white"></lucide-icon>
                 </div>
                 <div class="flex flex-col text-left">
-                    <span class="font-bold text-[15px] text-white leading-tight">{{ 'DASHBOARD.NEW_SALE_CTA' | translate }}</span>
-                    <span class="text-xs text-white/80 font-medium mt-0.5">{{ 'DASHBOARD.NEW_SALE_DESC' | translate }}</span>
+                    <span class="font-bold text-[15px] text-white leading-tight">{{ 'DASHBOARD.NEW_SALE_CTA' | translate
+                        }}</span>
+                    <span class="text-xs text-white/80 font-medium mt-0.5">{{ 'DASHBOARD.NEW_SALE_DESC' | translate
+                        }}</span>
                 </div>
             </div>
-            <lucide-icon name="chevron-right" [size]="20" [strokeWidth]="2.5" class="text-white/80 group-hover:text-white transition-colors hidden sm:block"></lucide-icon>
+            <lucide-icon name="chevron-right" [size]="20" [strokeWidth]="2.5"
+                class="text-white/80 group-hover:text-white transition-colors hidden sm:block"></lucide-icon>
         </a>
 
         <a routerLink="/products" [queryParams]="{ action: 'quick-stock' }"
             class="min-w-[280px] sm:min-w-0 snap-start flex-shrink-0 bg-card hover:bg-emerald-500/10 border border-medium hover:border-emerald-500/40 transition-all duration-300 rounded-2xl p-5 flex items-center justify-between text-body cursor-pointer shadow-sm group">
             <div class="flex items-center gap-4">
-                <div class="bg-emerald-500 w-12 h-12 rounded-xl flex items-center justify-center shadow-inner group-hover:bg-emerald-600 transition-colors">
+                <div
+                    class="bg-emerald-500 w-12 h-12 rounded-xl flex items-center justify-center shadow-inner group-hover:bg-emerald-600 transition-colors">
                     <lucide-icon name="zap" [size]="24" strokeWidth="2.5" class="text-white"></lucide-icon>
                 </div>
                 <div class="flex flex-col text-left">
-                    <span class="font-bold text-[15px] text-main leading-tight">{{ 'DASHBOARD.QUICK_STOCK_CTA' | translate }}</span>
-                    <span class="text-xs text-faint font-medium mt-0.5">{{ 'DASHBOARD.QUICK_STOCK_DESC' | translate }}</span>
+                    <span class="font-bold text-[15px] text-main leading-tight">{{ 'DASHBOARD.QUICK_STOCK_CTA' |
+                        translate }}</span>
+                    <span class="text-xs text-faint font-medium mt-0.5">{{ 'DASHBOARD.QUICK_STOCK_DESC' | translate
+                        }}</span>
                 </div>
             </div>
-            <lucide-icon name="chevron-right" [size]="20" [strokeWidth]="2.5" class="text-faint group-hover:text-emerald-600 transition-colors hidden sm:block"></lucide-icon>
+            <lucide-icon name="chevron-right" [size]="20" [strokeWidth]="2.5"
+                class="text-faint group-hover:text-emerald-600 transition-colors hidden sm:block"></lucide-icon>
         </a>
 
         <a routerLink="/products" [queryParams]="{ action: 'new' }"
             class="min-w-[280px] sm:min-w-0 snap-start flex-shrink-0 bg-card hover:bg-blue-500/10 border border-medium hover:border-blue-500/40 transition-all duration-300 rounded-2xl p-5 flex items-center justify-between text-body cursor-pointer shadow-sm group">
             <div class="flex items-center gap-4">
-                <div class="bg-blue-600 w-12 h-12 rounded-xl flex items-center justify-center shadow-inner group-hover:bg-blue-700 transition-colors">
+                <div
+                    class="bg-blue-600 w-12 h-12 rounded-xl flex items-center justify-center shadow-inner group-hover:bg-blue-700 transition-colors">
                     <lucide-icon name="plus" [size]="24" strokeWidth="3" class="text-white"></lucide-icon>
                 </div>
                 <div class="flex flex-col text-left">
-                    <span class="font-bold text-[15px] text-main leading-tight">{{ 'DASHBOARD.NEW_PRODUCT_CTA' | translate }}</span>
-                    <span class="text-xs text-faint font-medium mt-0.5">{{ 'DASHBOARD.NEW_PRODUCT_DESC' | translate }}</span>
+                    <span class="font-bold text-[15px] text-main leading-tight">{{ 'DASHBOARD.NEW_PRODUCT_CTA' |
+                        translate }}</span>
+                    <span class="text-xs text-faint font-medium mt-0.5">{{ 'DASHBOARD.NEW_PRODUCT_DESC' | translate
+                        }}</span>
                 </div>
             </div>
-            <lucide-icon name="chevron-right" [size]="20" [strokeWidth]="2.5" class="text-faint group-hover:text-blue-600 transition-colors hidden sm:block"></lucide-icon>
+            <lucide-icon name="chevron-right" [size]="20" [strokeWidth]="2.5"
+                class="text-faint group-hover:text-blue-600 transition-colors hidden sm:block"></lucide-icon>
         </a>
     </div>
 </div>
@@ -77,8 +90,10 @@
     <a routerLink="/sales" [queryParams]="{ startDate: todayDateString, endDate: todayDateString }"
         class="bg-card p-5 rounded-3xl shadow-sm border border-medium flex flex-col justify-between hover:bg-card-hover hover:shadow-md transition-all cursor-pointer group relative overflow-hidden h-[140px]">
         <div class="flex items-start justify-between mb-2 z-10 relative">
-            <p class="text-[11px] font-bold text-main/60 uppercase tracking-wider">{{ 'DASHBOARD.METRIC_SALES_TODAY' | translate }}</p>
-            <div class="w-8 h-8 rounded-xl flex items-center justify-center bg-primary-soft text-primary-soft transition-colors group-hover:bg-primary-500/10">
+            <p class="text-[11px] font-bold text-main/60 uppercase tracking-wider">{{ 'DASHBOARD.METRIC_SALES_TODAY' |
+                translate }}</p>
+            <div
+                class="w-8 h-8 rounded-xl flex items-center justify-center bg-primary-soft text-primary-soft transition-colors group-hover:bg-primary-500/10">
                 <lucide-icon name="shopping-cart" [size]="16" [strokeWidth]="2.5"></lucide-icon>
             </div>
         </div>
@@ -96,11 +111,15 @@
     <a routerLink="/products" [queryParams]="{ lowStock: 'true' }"
         class="bg-card p-5 rounded-3xl shadow-sm border border-medium flex flex-col justify-between hover:bg-card-hover hover:shadow-md transition-all cursor-pointer group relative overflow-hidden h-[140px]">
         <!-- Subtle Red Glow Top Center -->
-        <div class="absolute -top-12 left-1/2 -translate-x-1/2 w-48 h-24 bg-red-400/10 rounded-full blur-2xl pointer-events-none"></div>
-        
+        <div
+            class="absolute -top-12 left-1/2 -translate-x-1/2 w-48 h-24 bg-red-400/10 rounded-full blur-2xl pointer-events-none">
+        </div>
+
         <div class="flex items-start justify-between mb-2 z-10 relative">
-            <p class="text-[11px] font-bold text-main/60 uppercase tracking-wider">{{ 'DASHBOARD.METRIC_LOW_STOCK' | translate }}</p>
-            <div class="w-8 h-8 rounded-xl flex items-center justify-center bg-red-50 text-red-500 dark:bg-red-500/15 dark:text-red-400 transition-colors group-hover:bg-red-100 dark:group-hover:bg-red-500/25">
+            <p class="text-[11px] font-bold text-main/60 uppercase tracking-wider">{{ 'DASHBOARD.METRIC_LOW_STOCK' |
+                translate }}</p>
+            <div
+                class="w-8 h-8 rounded-xl flex items-center justify-center bg-red-50 text-red-500 dark:bg-red-500/15 dark:text-red-400 transition-colors group-hover:bg-red-100 dark:group-hover:bg-red-500/25">
                 <lucide-icon name="alert-octagon" [size]="16" [strokeWidth]="2.5"></lucide-icon>
             </div>
         </div>
@@ -118,17 +137,20 @@
     <a routerLink="/products"
         class="bg-card p-5 rounded-3xl shadow-sm border border-medium flex flex-col justify-between hover:bg-card-hover hover:shadow-md transition-all cursor-pointer group relative overflow-hidden h-[140px]">
         <div class="flex items-start justify-between mb-2 z-10 relative">
-            <p class="text-[11px] font-bold text-main/60 uppercase tracking-wider">{{ 'DASHBOARD.METRIC_STOCK_VALUE' | translate }}</p>
-            <div class="w-8 h-8 rounded-xl flex items-center justify-center bg-emerald-50 text-emerald-500 dark:bg-emerald-500/15 dark:text-emerald-400 transition-colors group-hover:bg-emerald-100 dark:group-hover:bg-emerald-500/25">
+            <p class="text-[11px] font-bold text-main/60 uppercase tracking-wider">{{ 'DASHBOARD.METRIC_STOCK_VALUE' |
+                translate }}</p>
+            <div
+                class="w-8 h-8 rounded-xl flex items-center justify-center bg-emerald-50 text-emerald-500 dark:bg-emerald-500/15 dark:text-emerald-400 transition-colors group-hover:bg-emerald-100 dark:group-hover:bg-emerald-500/25">
                 <lucide-icon name="wallet" [size]="16" [strokeWidth]="2.5"></lucide-icon>
             </div>
         </div>
         <div class="z-10 relative">
-            <p class="text-[28px] font-black text-main tracking-tight leading-none mb-3">
+            <p class="text-[28px] font-black text-main tracking-tight leading-none mb-1.5">
                 {{ data()!.totalStockValue | currency:currency():'symbol-narrow':'1.0-0':locale }}
             </p>
-            <p class="text-sm text-faint font-medium max-w-[60%] leading-tight">
-                {{ 'DASHBOARD.METRIC_STOCK_VALUE_DESC' | translate }}
+            <p class="text-[10px] text-faint font-medium leading-tight mb-1">precio de venta</p>
+            <p class="text-xs font-semibold text-emerald-600 dark:text-emerald-400 leading-tight">
+                Costo: {{ data()!.costStockValue | currency:currency():'symbol-narrow':'1.0-0':locale }}
             </p>
         </div>
     </a>
@@ -137,8 +159,10 @@
     <a routerLink="/products"
         class="bg-card p-5 rounded-3xl shadow-sm border border-medium flex flex-col justify-between hover:bg-card-hover hover:shadow-md transition-all cursor-pointer group relative overflow-hidden h-[140px]">
         <div class="flex items-start justify-between mb-2 z-10 relative">
-            <p class="text-[11px] font-bold text-main/60 uppercase tracking-wider">{{ 'DASHBOARD.METRIC_TOTAL_PRODUCTS' | translate }}</p>
-            <div class="w-8 h-8 rounded-xl flex items-center justify-center bg-blue-50 text-blue-500 dark:bg-blue-500/15 dark:text-blue-400 transition-colors group-hover:bg-blue-100 dark:group-hover:bg-blue-500/25">
+            <p class="text-[11px] font-bold text-main/60 uppercase tracking-wider">{{ 'DASHBOARD.METRIC_TOTAL_PRODUCTS'
+                | translate }}</p>
+            <div
+                class="w-8 h-8 rounded-xl flex items-center justify-center bg-blue-50 text-blue-500 dark:bg-blue-500/15 dark:text-blue-400 transition-colors group-hover:bg-blue-100 dark:group-hover:bg-blue-500/25">
                 <lucide-icon name="box" [size]="16" [strokeWidth]="2.5"></lucide-icon>
             </div>
         </div>
@@ -159,47 +183,59 @@
     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
         <div>
             <h3 class="font-bold text-main/60 text-[11px] uppercase tracking-wider mb-2">
-                {{ (currentPeriod() === '7D' ? 'DASHBOARD.CHART_TITLE_7D' : (currentPeriod() === '30D' ? 'DASHBOARD.CHART_TITLE_30D' : 'DASHBOARD.CHART_TITLE_90D')) | translate }}
+                {{ (currentPeriod() === '7D' ? 'DASHBOARD.CHART_TITLE_7D' : (currentPeriod() === '30D' ?
+                'DASHBOARD.CHART_TITLE_30D' : 'DASHBOARD.CHART_TITLE_90D')) | translate }}
             </h3>
             <div class="flex items-center gap-3">
-                <span class="text-3xl font-black text-main leading-none">{{ chartTotal | currency:currency():'symbol-narrow':'1.0-0':locale }}</span>
+                <span class="text-3xl font-black text-main leading-none">{{ chartTotal |
+                    currency:currency():'symbol-narrow':'1.0-0':locale }}</span>
                 @if (chartHasComparison) {
                 <span class="flex items-center gap-0.5 text-[10px] font-bold px-2 py-1 rounded-[8px]"
-                      [ngClass]="chartPercentage >= 0 ? 'text-emerald-600 bg-emerald-50' : 'text-red-600 bg-red-50'">
-                    <lucide-icon [name]="chartPercentage >= 0 ? 'arrow-up' : 'arrow-down'" [size]="12" [strokeWidth]="3"></lucide-icon>
+                    [ngClass]="chartPercentage >= 0 ? 'text-emerald-600 bg-emerald-50' : 'text-red-600 bg-red-50'">
+                    <lucide-icon [name]="chartPercentage >= 0 ? 'arrow-up' : 'arrow-down'" [size]="12"
+                        [strokeWidth]="3"></lucide-icon>
                     {{ (chartPercentage >= 0 ? chartPercentage : -chartPercentage) | number:'1.0-1' }}%
                 </span>
                 }
             </div>
             <p class="text-xs font-medium text-faint mt-2">
-                {{ (currentPeriod() === '7D' ? 'DASHBOARD.CHART_VS_LAST_WEEK' : (currentPeriod() === '30D' ? 'DASHBOARD.CHART_VS_LAST_PERIOD_30D' : 'DASHBOARD.CHART_VS_LAST_PERIOD_90D')) | translate }}
+                {{ (currentPeriod() === '7D' ? 'DASHBOARD.CHART_VS_LAST_WEEK' : (currentPeriod() === '30D' ?
+                'DASHBOARD.CHART_VS_LAST_PERIOD_30D' : 'DASHBOARD.CHART_VS_LAST_PERIOD_90D')) | translate }}
             </p>
+            <div class="flex items-center gap-2 mt-3 pt-3 border-t border-soft">
+                <span class="w-3 h-0.5 rounded-full inline-block"
+                    [ngClass]="profitTotal >= 0 ? 'bg-emerald-500' : 'bg-red-500'"></span>
+                <span class="text-sm font-bold"
+                    [ngClass]="profitTotal >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-600 dark:text-red-400'">
+                    {{ profitTotal >= 0 ? 'Ganancia' : 'Pérdida' }}:
+                    {{ (profitTotal >= 0 ? profitTotal : -profitTotal) |
+                    currency:currency():'symbol-narrow':'1.0-0':locale }}
+                </span>
+                <span class="text-xs text-faint">bruta del período</span>
+            </div>
         </div>
 
         <div class="flex items-center bg-input p-1 rounded-xl">
             <button (click)="setPeriod('7D')"
-                    [ngClass]="currentPeriod() === '7D' ? 'bg-card-hover text-main shadow-sm' : 'text-faint hover:text-body'"
-                    class="px-3 py-1.5 text-xs font-bold rounded-lg transition-colors cursor-pointer">
+                [ngClass]="currentPeriod() === '7D' ? 'bg-card-hover text-main shadow-sm' : 'text-faint hover:text-body'"
+                class="px-3 py-1.5 text-xs font-bold rounded-lg transition-colors cursor-pointer">
                 {{ 'DASHBOARD.PERIOD_7D' | translate }}
             </button>
             <button (click)="setPeriod('30D')"
-                    [ngClass]="currentPeriod() === '30D' ? 'bg-card-hover text-main shadow-sm' : 'text-faint hover:text-body'"
-                    class="px-3 py-1.5 text-xs font-bold rounded-lg transition-colors cursor-pointer">
+                [ngClass]="currentPeriod() === '30D' ? 'bg-card-hover text-main shadow-sm' : 'text-faint hover:text-body'"
+                class="px-3 py-1.5 text-xs font-bold rounded-lg transition-colors cursor-pointer">
                 {{ 'DASHBOARD.PERIOD_30D' | translate }}
             </button>
             <button (click)="setPeriod('90D')"
-                    [ngClass]="currentPeriod() === '90D' ? 'bg-card-hover text-main shadow-sm' : 'text-faint hover:text-body'"
-                    class="px-3 py-1.5 text-xs font-bold rounded-lg transition-colors cursor-pointer">
+                [ngClass]="currentPeriod() === '90D' ? 'bg-card-hover text-main shadow-sm' : 'text-faint hover:text-body'"
+                class="px-3 py-1.5 text-xs font-bold rounded-lg transition-colors cursor-pointer">
                 {{ 'DASHBOARD.PERIOD_90D' | translate }}
             </button>
         </div>
     </div>
-    
+
     <div class="w-full h-[300px] sm:h-[350px]">
-        <canvas baseChart
-            [data]="lineChartData"
-            [options]="lineChartOptions"
-            [type]="'line'">
+        <canvas baseChart [data]="lineChartData" [options]="lineChartOptions" [type]="'line'">
         </canvas>
     </div>
 </div>
@@ -221,22 +257,26 @@
         } @else {
         <div class="flex flex-col gap-5 mt-2">
             @for(product of data()!.topProducts || []; track product.id) {
-            <a routerLink="/products" 
-               class="group flex items-center justify-between p-2.5 -mx-2 hover:bg-card-hover rounded-2xl transition-all duration-200 cursor-pointer">
+            <a routerLink="/products"
+                class="group flex items-center justify-between p-2.5 -mx-2 hover:bg-card-hover rounded-2xl transition-all duration-200 cursor-pointer">
                 <div class="flex items-center gap-3 flex-1 overflow-hidden">
-                    <div class="w-10 h-10 rounded-xl bg-primary-soft text-primary-soft font-bold text-sm flex items-center justify-center shrink-0">
+                    <div
+                        class="w-10 h-10 rounded-xl bg-primary-soft text-primary-soft font-bold text-sm flex items-center justify-center shrink-0">
                         {{ getInitials(product.name) }}
                     </div>
                     <div class="flex flex-col flex-1 overflow-hidden gap-1.5">
                         <span class="text-sm font-bold text-main truncate">{{ product.name }}</span>
                         <div class="w-full bg-soft h-1.5 rounded-full overflow-hidden">
-                            <div class="bg-primary-500 h-full rounded-full" [style.width.%]="(product.totalSold / topProductsMax()) * 100"></div>
+                            <div class="bg-primary-500 h-full rounded-full"
+                                [style.width.%]="(product.totalSold / topProductsMax()) * 100"></div>
                         </div>
                     </div>
                 </div>
                 <div class="flex items-center gap-3 shrink-0 ml-4">
                     <span class="text-xs font-semibold text-muted">{{ product.totalSold }} uds</span>
-                    <lucide-icon name="chevron-right" class="text-faint group-hover:translate-x-1 group-hover:text-primary-500 transition-all duration-200" [size]="16"></lucide-icon>
+                    <lucide-icon name="chevron-right"
+                        class="text-faint group-hover:translate-x-1 group-hover:text-primary-500 transition-all duration-200"
+                        [size]="16"></lucide-icon>
                 </div>
             </a>
             }
@@ -251,7 +291,9 @@
                 <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
                 <h3 class="font-bold text-main text-sm">{{ 'DASHBOARD.LATEST_SALES_TITLE' | translate }}</h3>
             </div>
-            <a routerLink="/sales" class="text-xs font-semibold text-primary-500 dark:text-primary-300 hover:underline">{{ 'DASHBOARD.SEE_ALL' | translate }}</a>
+            <a routerLink="/sales"
+                class="text-xs font-semibold text-primary-500 dark:text-primary-300 hover:underline">{{
+                'DASHBOARD.SEE_ALL' | translate }}</a>
         </div>
 
         @if((data()!.recentSales?.length ?? 0) === 0) {
@@ -261,14 +303,16 @@
         } @else {
         <div class="flex flex-col gap-5 mt-2">
             @for(sale of data()!.recentSales || []; track sale.id) {
-            <a routerLink="/sales" 
-               class="group flex items-center justify-between p-2.5 -mx-2 hover:bg-card-hover rounded-2xl transition-all duration-200 cursor-pointer">
+            <a routerLink="/sales"
+                class="group flex items-center justify-between p-2.5 -mx-2 hover:bg-card-hover rounded-2xl transition-all duration-200 cursor-pointer">
                 <div class="flex items-center gap-3 overflow-hidden">
-                    <div class="w-10 h-10 rounded-full bg-primary-soft text-primary-soft font-bold text-sm flex items-center justify-center shrink-0">
+                    <div
+                        class="w-10 h-10 rounded-full bg-primary-soft text-primary-soft font-bold text-sm flex items-center justify-center shrink-0">
                         {{ getInitials(sale.client?.name || 'Consumidor Final') }}
                     </div>
                     <div class="flex flex-col overflow-hidden">
-                        <span class="text-sm font-bold text-main truncate">{{ sale.client?.name || 'Consumidor Final' }}</span>
+                        <span class="text-sm font-bold text-main truncate">{{ sale.client?.name || 'Consumidor Final'
+                            }}</span>
                         <span class="text-xs text-faint mt-0.5">{{ sale.createdAt | date:'shortTime' }}</span>
                     </div>
                 </div>
@@ -276,7 +320,9 @@
                     <span class="text-sm font-bold text-emerald-600">
                         +{{ sale.totalAmount | currency:currency():'symbol-narrow':'1.0-0':locale }}
                     </span>
-                    <lucide-icon name="chevron-right" class="text-faint group-hover:translate-x-1 group-hover:text-primary-500 transition-all duration-200" [size]="16"></lucide-icon>
+                    <lucide-icon name="chevron-right"
+                        class="text-faint group-hover:translate-x-1 group-hover:text-primary-500 transition-all duration-200"
+                        [size]="16"></lucide-icon>
                 </div>
             </a>
             }
@@ -291,7 +337,9 @@
                 <span class="w-2 h-2 rounded-full bg-red-500"></span>
                 <h3 class="font-bold text-main text-sm">{{ 'DASHBOARD.LOW_STOCK_LIST_TITLE' | translate }}</h3>
             </div>
-            <a routerLink="/products" [queryParams]="{ lowStock: 'true' }" class="text-xs font-semibold text-primary-500 dark:text-primary-300 hover:underline">{{ 'DASHBOARD.MANAGE' | translate }}</a>
+            <a routerLink="/products" [queryParams]="{ lowStock: 'true' }"
+                class="text-xs font-semibold text-primary-500 dark:text-primary-300 hover:underline">{{
+                'DASHBOARD.MANAGE' | translate }}</a>
         </div>
 
         @if((data()!.lowStockProducts?.length ?? 0) === 0) {
@@ -301,10 +349,11 @@
         } @else {
         <div class="flex flex-col gap-5 mt-2">
             @for(product of data()!.lowStockProducts || []; track product.id) {
-            <a routerLink="/products" [queryParams]="{ lowStock: 'true' }" 
-               class="group flex items-center justify-between p-2.5 -mx-2 hover:bg-card-hover rounded-2xl transition-all duration-200 cursor-pointer">
+            <a routerLink="/products" [queryParams]="{ lowStock: 'true' }"
+                class="group flex items-center justify-between p-2.5 -mx-2 hover:bg-card-hover rounded-2xl transition-all duration-200 cursor-pointer">
                 <div class="flex items-center gap-3 overflow-hidden">
-                    <div class="w-10 h-10 rounded-xl bg-red-500/15 text-red-600 flex items-center justify-center shrink-0">
+                    <div
+                        class="w-10 h-10 rounded-xl bg-red-500/15 text-red-600 flex items-center justify-center shrink-0">
                         <lucide-icon name="alert-triangle" [size]="18"></lucide-icon>
                     </div>
                     <div class="flex flex-col overflow-hidden">
@@ -314,7 +363,9 @@
                 </div>
                 <div class="flex items-center gap-3 shrink-0 ml-4">
                     <span class="text-sm font-bold text-red-600">{{ product.stock }}</span>
-                    <lucide-icon name="chevron-right" class="text-faint group-hover:translate-x-1 group-hover:text-primary-500 transition-all duration-200" [size]="16"></lucide-icon>
+                    <lucide-icon name="chevron-right"
+                        class="text-faint group-hover:translate-x-1 group-hover:text-primary-500 transition-all duration-200"
+                        [size]="16"></lucide-icon>
                 </div>
             </a>
             }

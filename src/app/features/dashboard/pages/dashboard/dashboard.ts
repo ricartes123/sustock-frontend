@@ -26,9 +26,6 @@ export class Dashboard {
     effect(() => {
       const isDark = this.themeService.isDark();
       this.lineChartOptions = this.getChartOptions(isDark);
-      if (this.data()) {
-        this.updateChartData();
-      }
     });
   }
 
@@ -45,11 +42,12 @@ export class Dashboard {
     const day = String(d.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
   }
-  
+
   currentPeriod = signal<'7D' | '30D' | '90D'>('7D');
   chartTotal = 0;
   chartPercentage = 0;
   chartHasComparison = false;
+  profitTotal = 0;
   topProductsMax = computed(() => {
     const products = this.data()?.topProducts ?? [];
     return products.length > 0 ? products[0].totalSold : 1;
@@ -104,7 +102,7 @@ export class Dashboard {
           borderColor: isDark ? '#334155' : '#e2e8f0',
           borderWidth: 1,
           padding: 12,
-          displayColors: false,
+          displayColors: true,
         }
       }
     };
@@ -120,21 +118,23 @@ export class Dashboard {
     const period = this.currentPeriod();
     const dashboardData = this.data();
     const sales = dashboardData?.salesForChart || [];
-    
+
     const now = new Date();
     let days = 7;
     if (period === '30D') days = 30;
     if (period === '90D') days = 90;
-    
+
     const labels: string[] = [];
     const data: number[] = [];
+    const profitData: number[] = [];
     const dailyTotals: { [key: string]: number } = {};
-    
+    const dailyProfits: { [key: string]: number } = {};
+
     for (let i = days - 1; i >= 0; i--) {
       const d = new Date(now);
       d.setDate(now.getDate() - i);
       const dateString = d.toISOString().split('T')[0];
-      
+
       let label = '';
       if (days === 7) {
         label = d.toLocaleDateString(this.locale || 'es-ES', { weekday: 'short' });
@@ -142,36 +142,40 @@ export class Dashboard {
       } else {
         label = d.toLocaleDateString(this.locale || 'es-ES', { day: '2-digit', month: '2-digit' });
       }
-      
+
       labels.push(label);
       dailyTotals[dateString] = 0;
+      dailyProfits[dateString] = 0;
     }
-    
+
     sales.forEach(sale => {
       const saleDate = new Date(sale.createdAt).toISOString().split('T')[0];
       if (dailyTotals[saleDate] !== undefined) {
         dailyTotals[saleDate] += sale.totalAmount;
+        dailyProfits[saleDate] += (sale.grossProfit ?? 0);
       }
     });
-    
+
     for (let i = days - 1; i >= 0; i--) {
       const d = new Date(now);
       d.setDate(now.getDate() - i);
       const dateString = d.toISOString().split('T')[0];
       data.push(dailyTotals[dateString]);
+      profitData.push(dailyProfits[dateString]);
     }
 
     this.chartTotal = data.reduce((sum, val) => sum + val, 0);
+    this.profitTotal = profitData.reduce((sum, val) => sum + val, 0);
 
     let currentTotal = 0;
     let previousTotal = 0;
-    
+
     const currentStart = new Date(now);
     currentStart.setDate(now.getDate() - days);
-    
+
     const previousStart = new Date(now);
     previousStart.setDate(now.getDate() - (days * 2));
-    
+
     sales.forEach(sale => {
       const saleDate = new Date(sale.createdAt);
       if (saleDate >= currentStart && saleDate <= now) {
@@ -180,7 +184,7 @@ export class Dashboard {
         previousTotal += sale.totalAmount;
       }
     });
-    
+
     if (previousTotal === 0) {
       this.chartPercentage = 0;
       this.chartHasComparison = false;
@@ -206,7 +210,23 @@ export class Dashboard {
           pointHoverBorderColor: '#8b5cf6',
           pointRadius: days <= 7 ? 4 : 2,
           pointHoverRadius: days <= 7 ? 6 : 4,
-        }
+        },
+        {
+          data: profitData,
+          label: 'Ganancia bruta',
+          fill: false,
+          tension: 0.4,
+          borderColor: '#10b981',
+          backgroundColor: 'rgba(16, 185, 129, 0.05)',
+          borderWidth: 2,
+          borderDash: [6, 3],
+          pointBackgroundColor: '#10b981',
+          pointBorderColor: '#fff',
+          pointHoverBackgroundColor: '#fff',
+          pointHoverBorderColor: '#10b981',
+          pointRadius: days <= 7 ? 3 : 2,
+          pointHoverRadius: days <= 7 ? 5 : 3,
+        },
       ]
     };
   }
@@ -228,7 +248,7 @@ export class Dashboard {
       }
     });
   }
-  
+
   getInitials(name: string): string {
     if (!name) return '';
     const words = name.split(' ');
