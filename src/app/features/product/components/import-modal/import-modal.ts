@@ -4,6 +4,7 @@ import { Modal } from '../../../../shared/components/modal/modal';
 import { Button } from '../../../../shared/components/button/button';
 import { ProductService, ImportResult } from '../../services/product.service';
 import { HotToastService } from '@ngxpert/hot-toast';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-import-modal',
@@ -29,17 +30,41 @@ export class ImportModal {
   }
 
   downloadTemplate() {
-    const header = 'Nombre,SKU,Código de Barras,Precio de Venta,Precio de Costo,Stock,Stock Mínimo';
-    const example1 = 'Perfume Floral 50ml,PRF001,7790001234001,1500,800,10,2';
-    const example2 = 'Crema Hidratante,CRM001,7790001234002,850,420,20,5';
-    const csv = `${header}\n${example1}\n${example2}`;
-    const blob = new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8;' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'plantilla-productos.csv';
-    a.click();
-    URL.revokeObjectURL(url);
+    const rows = [
+      {
+        'Nombre': 'Perfume Floral 50ml',
+        'SKU': 'PRF001',
+        'Código de Barras': '7790001234001',
+        'Precio de Venta': 1500,
+        'Precio de Costo': 800,
+        'Stock': 10,
+        'Stock Mínimo': 2,
+      },
+      {
+        'Nombre': 'Crema Hidratante',
+        'SKU': 'CRM001',
+        'Código de Barras': '7790001234002',
+        'Precio de Venta': 850,
+        'Precio de Costo': 420,
+        'Stock': 20,
+        'Stock Mínimo': 5,
+      },
+    ];
+
+    const worksheet = XLSX.utils.json_to_sheet(rows);
+    worksheet['!cols'] = [
+      { wch: 28 },
+      { wch: 12 },
+      { wch: 20 },
+      { wch: 18 },
+      { wch: 18 },
+      { wch: 8 },
+      { wch: 14 },
+    ];
+
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Productos');
+    XLSX.writeFile(workbook, 'plantilla-productos.xlsx');
   }
 
   upload() {
