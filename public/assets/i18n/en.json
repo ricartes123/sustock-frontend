@@ -16,7 +16,8 @@
         "SHOWING": "Showing",
         "TO": "to",
         "OF": "of",
-        "RESULTS": "results"
+        "RESULTS": "results",
+        "OPTIONAL": "(optional)"
     },
     "SIDEBAR": {
         "DASHBOARD": "Dashboard",

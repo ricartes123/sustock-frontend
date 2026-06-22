@@ -35,7 +35,7 @@ El proyecto usa archivos de entorno en `src/environments/` para configurar la UR
 | Archivo | Configuración Angular | `apiUrl` |
 |---|---|---|
 | `environment.development.ts` | `development` (por defecto en `ng serve`) | `http://localhost:3000` |
-| `environment.ts` | `production` | `https://api.sustock.com` |
+| `environment.ts` | `production` | `https://api'` |
 | `environment.docker.ts` | `docker` | `/api` (proxy nginx) |
 
 No se requiere ningún archivo `.env` para el frontend. La configuración se inyecta en tiempo de compilación a través de `fileReplacements` en `angular.json`.

@@ -15,16 +15,20 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <!-- SKU -->
             <div>
-                <label class="block text-sm font-medium text-body mb-1">{{ 'PRODUCT_FORM.SKU' | translate
-                    }}</label>
+                <label class="block text-sm font-medium text-body mb-1">
+                    {{ 'PRODUCT_FORM.SKU' | translate }}
+                    <span class="text-xs text-muted font-normal ml-1">{{ 'COMMON.OPTIONAL' | translate }}</span>
+                </label>
                 <input type="text" formControlName="sku" [placeholder]="'PRODUCT_FORM.SKU_PLACEHOLDER' | translate"
                     class="w-full px-4 py-2 border border-strong rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/40 transition-all bg-input font-mono uppercase text-muted">
             </div>
 
             <!-- Barcode -->
             <div>
-                <label class="block text-sm font-medium text-body mb-1">{{ 'PRODUCT_FORM.BARCODE' |
-                    translate }}</label>
+                <label class="block text-sm font-medium text-body mb-1">
+                    {{ 'PRODUCT_FORM.BARCODE' | translate }}
+                    <span class="text-xs text-muted font-normal ml-1">{{ 'COMMON.OPTIONAL' | translate }}</span>
+                </label>
                 <input type="text" formControlName="barcode"
                     [placeholder]="'PRODUCT_FORM.BARCODE_PLACEHOLDER' | translate"
                     class="w-full px-4 py-2 border border-strong rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/40 transition-all bg-input font-mono text-muted">
@@ -66,8 +70,10 @@
 
             <!-- Minimum Stock Alert -->
             <div>
-                <label class="block text-sm font-medium text-body mb-1">{{ 'PRODUCT_FORM.LOW_STOCK_ALERT' |
-                    translate }}</label>
+                <label class="block text-sm font-medium text-body mb-1">
+                    {{ 'PRODUCT_FORM.LOW_STOCK_ALERT' | translate }}
+                    <span class="text-xs text-muted font-normal ml-1">{{ 'COMMON.OPTIONAL' | translate }}</span>
+                </label>
                 <input type="number" formControlName="stockMin" min="0"
                     class="w-full px-4 py-2 border border-strong rounded-lg text-sm text-main focus:outline-none focus:ring-2 focus:ring-primary-500/40 transition-all bg-input">
             </div>
