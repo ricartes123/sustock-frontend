@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output, inject, OnChanges, ChangeDetectorRef } from '@angular/core';
 import { CommonModule, CurrencyPipe, DatePipe } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
 import { Button } from '../../../../shared/components/button/button';
 import { Modal } from '../../../../shared/components/modal/modal';
 import { Client } from '../../../../core/models/client.model';
@@ -11,7 +10,7 @@ import { WorkspaceContextService } from '../../../../core/services/workspace-con
 @Component({
   selector: 'app-client-details-modal',
   standalone: true,
-  imports: [CommonModule, TranslateModule, Button, Modal, CurrencyPipe, DatePipe],
+  imports: [CommonModule, Button, Modal, CurrencyPipe, DatePipe],
   templateUrl: './client-details-modal.html'
 })
 export class ClientDetailsModal implements OnChanges {

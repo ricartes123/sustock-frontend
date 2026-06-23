@@ -3,14 +3,13 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Product } from '../../../../core/models/product.model';
 import { WorkspaceContextService } from '../../../../core/services/workspace-context.service';
-import { TranslateModule } from '@ngx-translate/core';
 import { Modal} from '../../../../shared/components/modal/modal';
 import { Button } from "../../../../shared/components/button/button";
 
 @Component({
     standalone: true,
     selector: 'app-product-form',
-    imports: [CommonModule, ReactiveFormsModule, TranslateModule, Modal, Button],
+    imports: [CommonModule, ReactiveFormsModule, Modal, Button],
     templateUrl: './product-form.html',
 })
 export class ProductForm implements OnInit {

@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output, OnChanges, SimpleChanges, inject, signal } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
 import { ProductService } from '../../services/product.service';
 import { Product } from '../../../../core/models/product.model';
 import { Button } from '../../../../shared/components/button/button';
@@ -16,11 +15,10 @@ import { PaginationComponent } from '../../../../shared/components/pagination/pa
     selector: 'app-product-history-modal',
     standalone: true,
     imports: [
-        CommonModule, 
-        TranslateModule, 
-        DatePipe, 
-        Button, 
-        Badge, 
+        CommonModule,
+        DatePipe,
+        Button,
+        Badge,
         Modal,
         PaginationComponent
     ],

@@ -38,10 +38,10 @@
                 [ngClass]="rla.isActive ?
                     'bg-primary-500 text-white font-medium' :
                     'text-nav hover:bg-surface-hover hover:text-body'"
-                [title]="isCollapsed ? (item.label | translate) : ''">
+                [title]="isCollapsed ? item.label : ''">
                 <lucide-icon [name]="item.icon" class="flex-shrink-0" [size]="20" [strokeWidth]="2"></lucide-icon>
                 @if (!isCollapsed) {
-                <span class="whitespace-nowrap">{{ item.label | translate }}</span>
+                <span class="whitespace-nowrap">{{ item.label }}</span>
                 }
             </a>
             }
@@ -49,7 +49,7 @@
 
         <nav class="flex flex-col gap-1 mt-auto border-t border-medium pt-4">
             @for (item of settingsItems; track item.route) {
-            <a [routerLink]="item.route" 
+            <a [routerLink]="item.route"
                 routerLinkActive
                 #rla="routerLinkActive"
                 [routerLinkActiveOptions]="{ exact: item.exact || false }"
@@ -57,10 +57,10 @@
                 [ngClass]="rla.isActive ?
                     'bg-primary-500 text-white font-medium' :
                     'text-nav hover:bg-surface-hover hover:text-body'"
-                [title]="isCollapsed ? (item.label | translate) : ''">
+                [title]="isCollapsed ? item.label : ''">
                 <lucide-icon [name]="item.icon" class="flex-shrink-0" [size]="20" [strokeWidth]="2"></lucide-icon>
                 @if (!isCollapsed) {
-                <span class="whitespace-nowrap">{{ item.label | translate }}</span>
+                <span class="whitespace-nowrap">{{ item.label }}</span>
                 }
             </a>
             }

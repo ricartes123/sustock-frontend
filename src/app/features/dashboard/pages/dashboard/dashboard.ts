@@ -6,7 +6,6 @@ import { WorkspaceContextService } from '../../../../core/services/workspace-con
 import { ThemeService } from '../../../../core/services/theme.service';
 
 import { RouterLink } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
 import { LucideAngularModule } from 'lucide-angular';
 import { BaseChartDirective } from 'ng2-charts';
 import { ChartConfiguration, ChartOptions } from 'chart.js';
@@ -14,7 +13,7 @@ import { ChartConfiguration, ChartOptions } from 'chart.js';
 @Component({
   standalone: true,
   selector: 'app-dashboard',
-  imports: [CommonModule, RouterLink, TranslateModule, LucideAngularModule, DatePipe, BaseChartDirective],
+  imports: [CommonModule, RouterLink, LucideAngularModule, DatePipe, BaseChartDirective],
   templateUrl: './dashboard.html',
 })
 export class Dashboard {

@@ -6,12 +6,11 @@ import { CommonModule } from '@angular/common';
 import { Modal } from '../../shared/components/modal/modal';
 import { Button } from '../../shared/components/button/button';
 import { LucideAngularModule } from 'lucide-angular';
-import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, RouterLink, Modal, Button, LucideAngularModule, TranslateModule],
+  imports: [CommonModule, RouterLink, Modal, Button, LucideAngularModule],
   templateUrl: './navbar.html',
 })
 export class Navbar {

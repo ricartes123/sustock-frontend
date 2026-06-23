@@ -1,13 +1,12 @@
 <app-modal [isOpen]="true"
-    [title]="isEditMode ? ('PRODUCT_FORM.TITLE_EDIT' | translate) : ('PRODUCT_FORM.TITLE_NEW' | translate)"
+    [title]="isEditMode ? 'Editar producto' : 'Nuevo producto'"
     (close)="onCancel()">
     <form [formGroup]="productForm" id="productForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-6">
 
         <!-- Name -->
         <div>
-            <label class="block text-sm font-medium text-body mb-1">{{ 'PRODUCT_FORM.NAME' | translate
-                }}</label>
-            <input type="text" formControlName="name" [placeholder]="'PRODUCT_FORM.NAME_PLACEHOLDER' | translate"
+            <label class="block text-sm font-medium text-body mb-1">Nombre del producto *</label>
+            <input type="text" formControlName="name" placeholder="Ej. Mouse inalámbrico"
                 class="w-full px-4 py-2 border border-strong rounded-lg text-sm text-main focus:outline-none focus:ring-2 focus:ring-primary-500/40 transition-all bg-input"
                 [class.border-red-300]="productForm.get('name')?.invalid && productForm.get('name')?.touched">
         </div>
@@ -16,21 +15,21 @@
             <!-- SKU -->
             <div>
                 <label class="block text-sm font-medium text-body mb-1">
-                    {{ 'PRODUCT_FORM.SKU' | translate }}
-                    <span class="text-xs text-muted font-normal ml-1">{{ 'COMMON.OPTIONAL' | translate }}</span>
+                    SKU
+                    <span class="text-xs text-muted font-normal ml-1">(opcional)</span>
                 </label>
-                <input type="text" formControlName="sku" [placeholder]="'PRODUCT_FORM.SKU_PLACEHOLDER' | translate"
+                <input type="text" formControlName="sku" placeholder="Ej. WM-001"
                     class="w-full px-4 py-2 border border-strong rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/40 transition-all bg-input font-mono uppercase text-muted">
             </div>
 
             <!-- Barcode -->
             <div>
                 <label class="block text-sm font-medium text-body mb-1">
-                    {{ 'PRODUCT_FORM.BARCODE' | translate }}
-                    <span class="text-xs text-muted font-normal ml-1">{{ 'COMMON.OPTIONAL' | translate }}</span>
+                    Código de barras
+                    <span class="text-xs text-muted font-normal ml-1">(opcional)</span>
                 </label>
                 <input type="text" formControlName="barcode"
-                    [placeholder]="'PRODUCT_FORM.BARCODE_PLACEHOLDER' | translate"
+                    placeholder="123456789"
                     class="w-full px-4 py-2 border border-strong rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/40 transition-all bg-input font-mono text-muted">
             </div>
         </div>
@@ -38,9 +37,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <!-- Cost Price -->
             <div>
-                <label class="block text-sm font-medium text-body mb-1">{{ 'PRODUCT_FORM.COST_PRICE' |
-                    translate }} ({{ currencySymbol }})
-                    *</label>
+                <label class="block text-sm font-medium text-body mb-1">Precio costo ({{ currencySymbol }}) *</label>
                 <input type="number" formControlName="costPrice" min="0" step="0.01"
                     class="w-full px-4 py-2 border border-strong rounded-lg text-sm text-main focus:outline-none focus:ring-2 focus:ring-primary-500/40 transition-all bg-input"
                     [class.border-red-300]="productForm.get('costPrice')?.invalid && productForm.get('costPrice')?.touched">
@@ -48,10 +45,7 @@
 
             <!-- Selling Price -->
             <div>
-                <label class="block text-sm font-medium text-body mb-1">{{ 'PRODUCT_FORM.SELLING_PRICE' |
-                    translate }} ({{ currencySymbol
-                    }})
-                    *</label>
+                <label class="block text-sm font-medium text-body mb-1">Precio venta ({{ currencySymbol }}) *</label>
                 <input type="number" formControlName="price" min="0" step="0.01"
                     class="w-full px-4 py-2 border border-strong rounded-lg text-sm text-main focus:outline-none focus:ring-2 focus:ring-primary-500/40 transition-all bg-input"
                     [class.border-red-300]="productForm.get('price')?.invalid && productForm.get('price')?.touched">
@@ -61,8 +55,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <!-- Current Stock -->
             <div>
-                <label class="block text-sm font-medium text-body mb-1">{{ 'PRODUCT_FORM.CURRENT_STOCK' |
-                    translate }}</label>
+                <label class="block text-sm font-medium text-body mb-1">Stock actual *</label>
                 <input type="number" formControlName="stock" min="0"
                     class="w-full px-4 py-2 border border-strong rounded-lg text-sm text-main focus:outline-none focus:ring-2 focus:ring-primary-500/40 transition-all bg-input"
                     [class.border-red-300]="productForm.get('stock')?.invalid && productForm.get('stock')?.touched">
@@ -71,8 +64,8 @@
             <!-- Minimum Stock Alert -->
             <div>
                 <label class="block text-sm font-medium text-body mb-1">
-                    {{ 'PRODUCT_FORM.LOW_STOCK_ALERT' | translate }}
-                    <span class="text-xs text-muted font-normal ml-1">{{ 'COMMON.OPTIONAL' | translate }}</span>
+                    Alerta de stock bajo
+                    <span class="text-xs text-muted font-normal ml-1">(opcional)</span>
                 </label>
                 <input type="number" formControlName="stockMin" min="0"
                     class="w-full px-4 py-2 border border-strong rounded-lg text-sm text-main focus:outline-none focus:ring-2 focus:ring-primary-500/40 transition-all bg-input">
@@ -83,7 +76,7 @@
     <!-- Footer Actions -->
     <ng-container modal-footer>
         <app-button variant="secondary" (click)="onCancel()">
-            {{ 'COMMON.CANCEL' | translate }}
+            Cancelar
         </app-button>
         <app-button variant="primary" (click)="onSubmit()" [disabled]="isSaving">
             @if (isSaving) {
@@ -94,10 +87,9 @@
                     d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
                 </path>
             </svg>
-            {{ 'PRODUCT_FORM.SAVING' | translate }}
+            Guardando...
             } @else {
-            {{ isEditMode ? ('PRODUCT_FORM.SAVE_CHANGES' | translate) : ('PRODUCT_FORM.CREATE_PRODUCT' | translate)
-            }}
+            {{ isEditMode ? 'Guardar cambios' : 'Crear producto' }}
             }
         </app-button>
     </ng-container>

@@ -10,7 +10,6 @@ import { DataWarning } from '../../../../shared/components/data-warning/data-war
 import { Modal } from '../../../../shared/components/modal/modal';
 import { LucideAngularModule } from 'lucide-angular';
 import { HotToastService } from '@ngxpert/hot-toast';
-import { TranslateService } from '@ngx-translate/core';
 import { Button } from '../../../../shared/components/button/button';
 import { Badge } from '../../../../shared/components/badge/badge';
 import { TableComponent } from '../../../../shared/components/table/table';
@@ -35,7 +34,6 @@ export class Sales implements OnInit {
   private route = inject(ActivatedRoute);
   public router = inject(Router); // Changed to public to use in template if needed, or we use a method
   private toast = inject(HotToastService);
-  private translate = inject(TranslateService);
   private destroyRef = inject(DestroyRef);
 
 
@@ -130,7 +128,7 @@ export class Sales implements OnInit {
         },
         error: (err) => {
           console.error(err);
-          this.toast.error(this.translate.instant('TOAST.ERROR_LOADING_SALES'));
+          this.toast.error('Error al cargar ventas');
         }
       });
   }
@@ -202,7 +200,7 @@ export class Sales implements OnInit {
       },
       error: (err) => {
         console.error('Error fetching sale details', err);
-        this.toast.error(this.translate.instant('TOAST.ERROR_FETCHING_SALE'));
+        this.toast.error('Hubo un error al obtener los detalles de la venta.');
         this.closeDetailsModal();
       }
     });
@@ -230,9 +228,9 @@ export class Sales implements OnInit {
     this.isReverting.set(true);
     this.salesService.remove(sale.id).pipe(
       this.toast.observe({
-        loading: this.translate.instant('TOAST.REVERTING_SALE'),
-        success: this.translate.instant('TOAST.SALE_REVERTED'),
-        error: this.translate.instant('TOAST.ERROR_REVERTING_SALE')
+        loading: 'Anulando venta...',
+        success: 'Venta anulada correctamente',
+        error: 'Hubo un problema al anular la venta.'
       }),
       finalize(() => {
         this.isReverting.set(false);

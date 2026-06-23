@@ -14,8 +14,6 @@ registerLocaleData(localeEsMx);
 import { provideRouter } from '@angular/router';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { jwtInterceptor } from './core/interceptors/jwt.interceptor';
-import { provideTranslateService, TranslateLoader } from '@ngx-translate/core';
-import { provideTranslateHttpLoader, TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { provideLucideIcons } from './core/providers/lucide-icons.provider';
 import { provideHotToastConfig } from '@ngxpert/hot-toast';
 import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
@@ -28,14 +26,6 @@ export const appConfig: ApplicationConfig = {
     { provide: LOCALE_ID, useValue: 'es-AR' },
     provideRouter(routes),
     provideHttpClient(withInterceptors([jwtInterceptor])),
-    provideTranslateService({
-      fallbackLang: 'es',
-      loader: {
-        provide: TranslateLoader,
-        useClass: TranslateHttpLoader
-      }
-    }),
-    provideTranslateHttpLoader(),
     provideLucideIcons(),
     provideHotToastConfig({
       position: 'top-center',

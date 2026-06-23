@@ -2,7 +2,6 @@ import { Component, inject, signal, computed, OnInit, DestroyRef } from '@angula
 import { ProductService } from '../../services/product.service';
 import { Product } from '../../../../core/models/product.model';
 import { CurrencyPipe, DatePipe, UpperCasePipe } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
 import { WorkspaceContextService } from '../../../../core/services/workspace-context.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -12,7 +11,6 @@ import { Button } from '../../../../shared/components/button/button';
 import { Badge } from '../../../../shared/components/badge/badge';
 import { LucideAngularModule } from 'lucide-angular';
 import { HotToastService } from '@ngxpert/hot-toast';
-import { TranslateService } from '@ngx-translate/core';
 import { finalize } from 'rxjs';
 import { DataWarning } from '../../../../shared/components/data-warning/data-warning';
 import { QuickStockModal } from '../../components/quick-stock-modal/quick-stock-modal';
@@ -33,7 +31,6 @@ import { PaginationComponent } from '../../../../shared/components/pagination/pa
     UpperCasePipe,
     FormsModule,
     ProductForm,
-    TranslateModule,
     Button,
     Badge,
     LucideAngularModule,
@@ -53,7 +50,6 @@ export class Products implements OnInit {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private toast = inject(HotToastService);
-  private translate = inject(TranslateService);
   private destroyRef = inject(DestroyRef);
 
   currency = computed(() => this.workspaceContext.currency);
@@ -209,9 +205,9 @@ export class Products implements OnInit {
     const newStatus = !product.isActive;
     this.productService.toggleStatus(product.id, newStatus).pipe(
       this.toast.observe({
-        loading: this.translate.instant('TOAST.UPDATING_STATUS'),
-        success: this.translate.instant('TOAST.STATUS_UPDATED'),
-        error: this.translate.instant('TOAST.ERROR_UPDATING_STATUS')
+        loading: 'Actualizando estado...',
+        success: 'Estado actualizado correctamente',
+        error: 'Error al actualizar el estado'
       }),
       finalize(() => {
         if (!newStatus) {
@@ -282,13 +278,9 @@ export class Products implements OnInit {
 
     request$.pipe(
       this.toast.observe({
-        loading: payload.id
-          ? this.translate.instant('TOAST.UPDATING_PRODUCT')
-          : this.translate.instant('TOAST.CREATING_PRODUCT'),
-        success: payload.id
-          ? this.translate.instant('TOAST.PRODUCT_UPDATED')
-          : this.translate.instant('TOAST.PRODUCT_CREATED'),
-        error: this.translate.instant('TOAST.ERROR_SAVING_PRODUCT')
+        loading: payload.id ? 'Actualizando producto...' : 'Creando producto...',
+        success: payload.id ? 'Producto actualizado correctamente' : 'Producto creado correctamente',
+        error: 'Error al guardar el producto'
       }),
       finalize(() => this.isSaving.set(false))
     ).subscribe({

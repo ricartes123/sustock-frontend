@@ -35,12 +35,12 @@
             class="text-secondary-100">Stock</span></h1>
       </div>
 
-      <h2 class="text-4xl lg:text-5xl font-bold mb-6 leading-tight" [innerHTML]="'AUTH.HERO_TITLE' | translate"></h2>
-      <p class="text-primary-100 text-lg mb-8 max-w-md">{{ 'AUTH.HERO_SUBTITLE' | translate }}</p>
+      <h2 class="text-4xl lg:text-5xl font-bold mb-6 leading-tight" [innerHTML]="'Innovadora <br><span class=&quot;text-transparent bg-clip-text bg-gradient-to-r from-purple-200 to-indigo-200&quot;>gestión de inventarios.</span>'"></h2>
+      <p class="text-primary-100 text-lg mb-8 max-w-md">Tomá control absoluto de tu espacio de trabajo. Administrá varios depósitos, rastreá stock bajo y coordiná tu equipo de forma impecable en un solo lugar.</p>
     </div>
 
     <div class="relative z-10 text-sm text-primary-200">
-      {{ 'AUTH.COPYRIGHT' | translate }}
+      © 2026 Ecosistema SuStock. Todos los derechos reservados.
     </div>
   </div>
 
@@ -64,10 +64,10 @@
 
       <div class="mb-10 text-center md:text-left">
         <h2 class="text-3xl font-bold text-main mb-2">
-          {{ isLoginMode ? ('AUTH.WELCOME_BACK' | translate) : ('AUTH.CREATE_ACCOUNT' | translate) }}
+          {{ isLoginMode ? 'Bienvenido/a de vuelta' : 'Creá una cuenta' }}
         </h2>
         <p class="text-faint">
-          {{ isLoginMode ? ('AUTH.LOGIN_SUBTITLE' | translate) : ('AUTH.REGISTER_SUBTITLE' | translate) }}
+          {{ isLoginMode ? 'Ingresá tus datos para acceder a tu entorno.' : 'Poné en marcha tu entorno de trabajo en segundos.' }}
         </p>
       </div>
 
@@ -76,16 +76,16 @@
         @if (!isLoginMode) {
         <div class="grid grid-cols-2 gap-4">
           <div>
-            <label class="block text-sm font-medium text-body mb-1">{{ 'AUTH.FIRST_NAME' | translate }}</label>
+            <label class="block text-sm font-medium text-body mb-1">Nombre</label>
             <input type="text" [(ngModel)]="firstName" name="firstName"
-              [placeholder]="'AUTH.FIRST_NAME_PLACEHOLDER' | translate"
+              placeholder="Juana"
               class="w-full border border-medium px-4 py-2.5 rounded-lg text-sm text-main bg-input focus:outline-none focus:ring-2 focus:ring-primary-500/40 focus:border-primary-500 transition-all"
               required />
           </div>
           <div>
-            <label class="block text-sm font-medium text-body mb-1">{{ 'AUTH.LAST_NAME' | translate }}</label>
+            <label class="block text-sm font-medium text-body mb-1">Apellido</label>
             <input type="text" [(ngModel)]="lastName" name="lastName"
-              [placeholder]="'AUTH.LAST_NAME_PLACEHOLDER' | translate"
+              placeholder="Pérez"
               class="w-full border border-medium px-4 py-2.5 rounded-lg text-sm text-main bg-input focus:outline-none focus:ring-2 focus:ring-primary-500/40 focus:border-primary-500 transition-all"
               required />
           </div>
@@ -93,14 +93,14 @@
 
         <div class="grid grid-cols-3 gap-4">
           <div class="col-span-2">
-            <label class="block text-sm font-medium text-body mb-1">{{ 'AUTH.WORKSPACE_NAME' | translate }}</label>
+            <label class="block text-sm font-medium text-body mb-1">Nombre del espacio de trabajo</label>
             <input type="text" [(ngModel)]="workspaceName" name="workspaceName"
-              [placeholder]="'AUTH.WORKSPACE_NAME_PLACEHOLDER' | translate"
+              placeholder="Acme Inc."
               class="w-full border border-medium px-4 py-2.5 rounded-lg text-sm text-main bg-input focus:outline-none focus:ring-2 focus:ring-primary-500/40 focus:border-primary-500 transition-all"
               required />
           </div>
           <div>
-            <label class="block text-sm font-medium text-body mb-1">{{ 'AUTH.CURRENCY' | translate }}</label>
+            <label class="block text-sm font-medium text-body mb-1">Moneda</label>
             <select [(ngModel)]="currency" name="currency"
               class="w-full border border-medium px-4 py-2.5 rounded-lg text-sm text-main bg-input focus:outline-none focus:ring-2 focus:ring-primary-500/40 focus:border-primary-500 transition-all cursor-pointer"
               required>
@@ -116,14 +116,14 @@
         }
 
         <div>
-          <label class="block text-sm font-medium text-main mb-1">{{ 'AUTH.EMAIL' | translate }}</label>
-          <input type="email" [(ngModel)]="email" name="email" [placeholder]="'AUTH.EMAIL_PLACEHOLDER' | translate"
+          <label class="block text-sm font-medium text-main mb-1">Correo electrónico</label>
+          <input type="email" [(ngModel)]="email" name="email" placeholder="vos@empresa.com"
             class="w-full border border-medium px-4 py-2.5 text-main bg-input rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/40 focus:border-primary-500 transition-all"
             required />
         </div>
 
         <div>
-          <label class="block text-sm font-medium text-main mb-1">{{ 'AUTH.PASSWORD' | translate }}</label>
+          <label class="block text-sm font-medium text-main mb-1">Contraseña</label>
           <div class="relative">
             <input [type]="showPassword() ? 'text' : 'password'" [(ngModel)]="password" name="password"
               placeholder="••••••••"
@@ -176,10 +176,10 @@
                 d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
               </path>
             </svg>
-            {{ 'AUTH.PROCESSING' | translate }}
+            Procesando...
           </span>
           } @else {
-          {{ isLoginMode ? ('AUTH.SIGN_IN_BTN' | translate) : ('AUTH.REGISTER_BTN' | translate) }}
+          {{ isLoginMode ? 'Iniciar sesión' : 'Crear cuenta' }}
           }
         </app-button>
 
@@ -187,10 +187,10 @@
 
       <!-- Toggle State -->
       <div class="mt-8 text-center text-sm text-faint">
-        {{ isLoginMode ? ('AUTH.DONT_HAVE_ACCOUNT' | translate) : ('AUTH.ALREADY_HAVE_ACCOUNT' | translate) }}
+        {{ isLoginMode ? '¿No tenés una cuenta?' : '¿Ya tenés una cuenta?' }}
         <button type="button" (click)="toggleMode()"
           class="text-primary-600 font-semibold hover:text-primary-800 transition-colors ml-1 focus:outline-none">
-          {{ isLoginMode ? ('AUTH.SIGN_UP_FREE' | translate) : ('AUTH.LOG_IN_HERE' | translate) }}
+          {{ isLoginMode ? 'Registrate gratis' : 'Ingresá acá' }}
         </button>
       </div>
 

@@ -1,7 +1,6 @@
 import { Component, inject, signal, computed } from '@angular/core';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { TranslateModule } from '@ngx-translate/core';
 import { Movement } from '../../../../core/models/movement.model';
 import { MovementService } from '../../services/movement.service';
 import { PaginationMeta } from '../../../../core/models/pagination-meta.model';
@@ -17,7 +16,7 @@ import { PaginationComponent } from '../../../../shared/components/pagination/pa
 
 @Component({
   selector: 'app-movements',
-  imports: [CommonModule, FormsModule, TranslateModule, TableComponent, Button, Badge, LucideAngularModule, SearchInput, Modal, CurrencyPipe, PaginationComponent],
+  imports: [CommonModule, FormsModule, TableComponent, Button, Badge, LucideAngularModule, SearchInput, Modal, CurrencyPipe, PaginationComponent],
   templateUrl: './movements.html',
   styleUrl: './movements.css',
 })

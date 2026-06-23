@@ -1,7 +1,6 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
 
 // Feature components
@@ -17,7 +16,6 @@ import { Client } from '../../../../core/models/client.model';
 import { PaginationMeta } from '../../../../core/models/pagination-meta.model';
 import { ClientsService } from '../../services/clients.service';
 import { HotToastService } from '@ngxpert/hot-toast';
-import { TranslateService } from '@ngx-translate/core';
 
 import { ClientFormModal } from '../../components/client-form-modal/client-form-modal';
 import { ClientDetailsModal } from '../../components/client-details-modal/client-details-modal';
@@ -29,7 +27,6 @@ import { PaginationComponent } from '../../../../shared/components/pagination/pa
   imports: [
     CommonModule,
     FormsModule,
-    TranslateModule,
     RouterModule,
     TableComponent,
     SearchInput,
@@ -46,7 +43,6 @@ import { PaginationComponent } from '../../../../shared/components/pagination/pa
 export class ClientsComponent implements OnInit {
   private clientsService = inject(ClientsService);
   private toastService = inject(HotToastService);
-  private translate = inject(TranslateService);
 
   // State
   clients = signal<Client[]>([]);
@@ -84,7 +80,7 @@ export class ClientsComponent implements OnInit {
       },
       error: (err) => {
         console.error('Error loading clients', err);
-        this.toastService.error(this.translate.instant('TOAST.ERROR_LOADING_CLIENTS'));
+        this.toastService.error('Error al cargar clientes');
         this.loading.set(false);
       }
     });
@@ -172,10 +168,10 @@ export class ClientsComponent implements OnInit {
       // Restore directly
       this.clientsService.restore(client.id).subscribe({
         next: () => {
-          this.toastService.success(this.translate.instant('TOAST.CLIENT_RESTORED'));
+          this.toastService.success('Cliente restaurado correctamente');
           this.loadClients();
         },
-        error: () => this.toastService.error(this.translate.instant('TOAST.ERROR_RESTORING_CLIENT'))
+        error: () => this.toastService.error('Error al restaurar cliente')
       });
     }
   }
@@ -187,13 +183,13 @@ export class ClientsComponent implements OnInit {
     this.isArchiving.set(true);
     this.clientsService.remove(client.id).subscribe({
       next: () => {
-        this.toastService.success(this.translate.instant('TOAST.CLIENT_ARCHIVED'));
+        this.toastService.success('Cliente archivado correctamente');
         this.isArchiving.set(false);
         this.closeArchiveWarning();
         this.loadClients();
       },
       error: () => {
-        this.toastService.error(this.translate.instant('TOAST.ERROR_ARCHIVING_CLIENT'));
+        this.toastService.error('Error al archivar cliente');
         this.isArchiving.set(false);
         this.closeArchiveWarning();
       }

@@ -8,7 +8,6 @@ import { MovementService } from '../../services/movement.service';
 import { CreateMovementDto } from '../../../../core/models/movement.model';
 import { DataWarning } from '../../../../shared/components/data-warning/data-warning';
 import { HotToastService } from '@ngxpert/hot-toast';
-import { TranslateService } from '@ngx-translate/core';
 import { Subject, debounceTime, distinctUntilChanged, finalize } from 'rxjs';
 
 @Component({
@@ -22,7 +21,6 @@ export class MovementCreate implements OnInit {
     private movementService = inject(MovementService);
     private router = inject(Router);
     private toast = inject(HotToastService);
-    private translate = inject(TranslateService);
 
     // Product search
     searchQuery = '';
@@ -111,17 +109,17 @@ export class MovementCreate implements OnInit {
 
         this.movementService.create(payload).pipe(
             this.toast.observe({
-                loading: this.translate.instant('TOAST.REGISTERING_MOVEMENT'),
-                success: this.translate.instant('TOAST.MOVEMENT_REGISTERED'),
+                loading: 'Registrando movimiento...',
+                success: 'Movimiento registrado correctamente',
                 error: (e: unknown) => {
                     const err = e as { error?: { message?: string | string[] } };
                     if (typeof err.error?.message === 'string' && err.error.message.includes('Stock insuficiente')) {
-                        return this.translate.instant('TOAST.STOCK_WARNING_DETECTED');
+                        return 'Advertencia de stock detectada';
                     }
                     if (err.error?.message) {
                         return Array.isArray(err.error.message) ? err.error.message.join(', ') : err.error.message;
                     }
-                    return this.translate.instant('TOAST.ERROR_REGISTERING_MOVEMENT');
+                    return 'Error al registrar el movimiento';
                 }
             }),
             finalize(() => this.isSubmitting = false)

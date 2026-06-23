@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../../../core/services/auth.service';
 import { WorkspaceService } from '../../../workspace/services/workspace.service';
 import { WorkspaceContextService } from '../../../../core/services/workspace-context.service';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { switchMap, tap, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { HotToastService } from '@ngxpert/hot-toast';
@@ -13,7 +12,7 @@ import { Button } from '../../../../shared/components/button/button';
 @Component({
   standalone: true,
   selector: 'app-login',
-  imports: [FormsModule, TranslateModule, Button],
+  imports: [FormsModule, Button],
   templateUrl: './login.html',
 })
 
@@ -23,7 +22,6 @@ export class Login {
   private workspaceService = inject(WorkspaceService);
   private workspaceContext = inject(WorkspaceContextService);
   private toast = inject(HotToastService);
-  private translate = inject(TranslateService);
 
   email = '';
   password = '';
@@ -62,7 +60,7 @@ export class Login {
       }).pipe(
         switchMap(() => this.auth.login({ email: this.email, password: this.password })),
         catchError((err) => {
-          this.error = this.translate.instant('ERRORS.REGISTER_SUCCESS_LOGIN_FAIL');
+          this.error = 'Registro exitoso, pero falló el inicio de sesión automático. Por favor inicie sesión manualmente.';
           this.loading = false;
           this.toggleMode();
           return throwError(() => err);
@@ -77,17 +75,16 @@ export class Login {
       tap((workspaces) => this.workspaceContext.initialize(workspaces))
     ).subscribe({
       next: () => {
-        this.toast.success(this.translate.instant('TOAST.WELCOME'));
+        this.toast.success('¡Bienvenido/a!');
         this.router.navigate(['/']);
       },
       error: (err) => {
-        // Only override error if it wasn't already set by the auto-login catchError
         if (!this.error) {
           const errObj = err.error?.message;
           const exactError = Array.isArray(errObj) ? errObj[0] : errObj;
-          this.error = exactError || (this.isLoginMode ? this.translate.instant('ERRORS.INVALID_CREDENTIALS') : this.translate.instant('ERRORS.REGISTER_FAILED'));
+          this.error = exactError || (this.isLoginMode ? 'Credenciales inválidas' : 'Error al registrarse');
         }
-        this.toast.error(this.error || this.translate.instant('TOAST.ERROR'));
+        this.toast.error(this.error || 'Error');
         this.loading = false;
       }
     });

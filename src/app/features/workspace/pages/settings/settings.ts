@@ -5,9 +5,7 @@ import { WorkspaceContextService } from '../../../../core/services/workspace-con
 import { WorkspaceService } from '../../services/workspace.service';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../../../core/services/auth.service';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { HotToastService } from '@ngxpert/hot-toast';
-import { LanguageService } from '../../../../core/services/language.service';
 import { LucideAngularModule } from 'lucide-angular';
 
 interface ExchangeRateResponse {
@@ -17,7 +15,7 @@ interface ExchangeRateResponse {
 @Component({
     standalone: true,
     selector: 'app-settings',
-    imports: [FormsModule, CommonModule, TranslateModule, LucideAngularModule],
+    imports: [FormsModule, CommonModule, LucideAngularModule],
     templateUrl: './settings.html'
 })
 export class Settings implements OnInit {
@@ -26,11 +24,8 @@ export class Settings implements OnInit {
     authService = inject(AuthService);
     http = inject(HttpClient);
     toast = inject(HotToastService);
-    translate = inject(TranslateService);
-    languageService = inject(LanguageService);
 
     selectedCurrency = 'ARS';
-    selectedLanguage = 'es';
     showConversionModal = signal(false);
 
     conversionMode = signal<'NONE' | 'MANUAL' | 'AUTO'>('NONE');
@@ -45,37 +40,21 @@ export class Settings implements OnInit {
         if (active) {
             this.selectedCurrency = active.currency;
         }
-        this.selectedLanguage = this.languageService.currentLanguage;
     }
 
     get hasCurrencyChanged() {
         return this.selectedCurrency !== this.workspaceContext.activeWorkspace()?.currency;
     }
 
-    get hasLanguageChanged() {
-        return this.selectedLanguage !== this.languageService.currentLanguage;
-    }
-
     get hasChanges() {
-        return this.hasCurrencyChanged || this.hasLanguageChanged;
+        return this.hasCurrencyChanged;
     }
 
     onSaveInitiated() {
         if (!this.hasChanges) return;
-
-        if (this.hasCurrencyChanged) {
-            this.showConversionModal.set(true);
-            // Si cambian a auto, reseteamos el request
-            this.conversionMode.set('NONE');
-            this.apiRate.set(null);
-        } else {
-            this.saveOnlyLanguage();
-        }
-    }
-
-    saveOnlyLanguage() {
-        this.languageService.setLanguage(this.selectedLanguage as 'es' | 'en');
-        this.toast.success(this.translate.instant('TOAST.CONFIG_SAVED'));
+        this.showConversionModal.set(true);
+        this.conversionMode.set('NONE');
+        this.apiRate.set(null);
     }
 
     setMode(mode: 'NONE' | 'MANUAL' | 'AUTO') {
@@ -99,12 +78,12 @@ export class Settings implements OnInit {
                 if (rate) {
                     this.apiRate.set(rate);
                 } else {
-                    this.apiError.set(this.translate.instant('TOAST.NO_EXCHANGE_RATE'));
+                    this.apiError.set('No hay tipo de cambio disponible para este par de monedas.');
                 }
                 this.loading.set(false);
             },
             error: () => {
-                this.apiError.set(this.translate.instant('TOAST.EXCHANGE_API_ERROR'));
+                this.apiError.set('Error al conectar con la API de tipo de cambio.');
                 this.loading.set(false);
             }
         });
@@ -115,13 +94,13 @@ export class Settings implements OnInit {
 
         if (this.conversionMode() === 'MANUAL') {
             if (!this.manualRate() || this.manualRate()! <= 0) {
-                this.toast.error(this.translate.instant('TOAST.INVALID_MULTIPLIER'));
+                this.toast.error('Por favor ingrese un multiplicador de conversión válido.');
                 return;
             }
             finalRate = this.manualRate()!;
         } else if (this.conversionMode() === 'AUTO') {
             if (!this.apiRate()) {
-                this.toast.error(this.translate.instant('TOAST.EXCHANGE_NOT_LOADED'));
+                this.toast.error('El tipo de cambio aún no se ha cargado.');
                 return;
             }
             finalRate = this.apiRate()!;
@@ -132,10 +111,6 @@ export class Settings implements OnInit {
 
         this.workspaceService.updateCurrency(bId, this.selectedCurrency, finalRate).subscribe({
             next: () => {
-                if (this.hasLanguageChanged) {
-                    this.languageService.setLanguage(this.selectedLanguage as 'es' | 'en');
-                }
-                // En vez de reload, actualizamos el perfil
                 this.authService.fetchProfile().subscribe({
                     next: (user) => {
                         this.authService.setUser(user);
@@ -144,25 +119,25 @@ export class Settings implements OnInit {
                                 this.workspaceContext.initialize(workspaces);
                                 this.showConversionModal.set(false);
                                 this.loading.set(false);
-                                this.toast.success(this.translate.instant('TOAST.CONFIG_SAVED'));
-                                window.location.reload(); // Quick refresh to ensure UI takes the new symbols via CurrencyPipe everywhere
+                                this.toast.success('Configuración guardada');
+                                window.location.reload();
                             },
                             error: () => {
                                 this.loading.set(false);
-                                this.toast.error(this.translate.instant('TOAST.CURRENCY_UPDATE_ERROR'));
+                                this.toast.error('Error al actualizar moneda');
                             }
                         });
                     },
                     error: () => {
                         this.loading.set(false);
-                        this.toast.error(this.translate.instant('TOAST.CURRENCY_UPDATE_ERROR'));
+                        this.toast.error('Error al actualizar moneda');
                     }
                 });
             },
             error: (err) => {
                 console.error(err);
                 this.loading.set(false);
-                this.toast.error(err.error?.message || this.translate.instant('TOAST.CURRENCY_UPDATE_ERROR'));
+                this.toast.error(err.error?.message || 'Error al actualizar moneda');
             }
         });
     }

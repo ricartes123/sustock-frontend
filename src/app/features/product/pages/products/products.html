@@ -1,9 +1,9 @@
 <div class="flex items-center justify-between mb-6">
     <div class="flex items-center gap-3">
-        <h2 class="text-2xl font-bold text-main">{{ 'PRODUCTS.TITLE' | translate }}</h2>
+        <h2 class="text-2xl font-bold text-main">Productos</h2>
         @if (isLowStockFilter()) {
         <app-badge variant="error" size="md">
-            {{ 'PRODUCTS.LOW_STOCK' | translate | uppercase }}
+            STOCK BAJO
         </app-badge>
         }
     </div>
@@ -16,12 +16,12 @@
                 <line x1="18" y1="6" x2="6" y2="18"></line>
                 <line x1="6" y1="6" x2="18" y2="18"></line>
             </svg>
-            {{ 'COMMON.CLEAR_FILTERS' | translate }}
+            Limpiar filtros
         </app-button>
         }
 
         <app-button variant="success" (click)="isQuickStockModalOpen.set(true)" icon="plus">
-            {{ 'DASHBOARD.QUICK_STOCK_CTA' | translate }}
+            Ingreso rápido
         </app-button>
 
         @if (isAdmin()) {
@@ -29,7 +29,7 @@
             Importar Excel
         </app-button>
         <app-button variant="primary" (click)="openCreateModal()" icon="plus">
-            {{ 'PRODUCTS.NEW_PRODUCT' | translate }}
+            Nuevo producto
         </app-button>
         }
     </div>
@@ -40,58 +40,57 @@
     <app-search-input
         [(ngModel)]="searchQuery"
         (search)="applyFilters()"
-        [placeholder]="'PRODUCTS.SEARCH_PLACEHOLDER' | translate"
+        placeholder="Buscá productos por nombre, sku, o código de barras..."
         class="flex-1">
     </app-search-input>
     <div class="flex flex-wrap sm:flex-nowrap items-center gap-2">
         @if (isAdmin()) {
         <select [(ngModel)]="formStatusFilter" (change)="applyFilters()"
             class="bg-input border border-strong text-body text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block p-2 outline-none cursor-pointer">
-            <option value="ACTIVE">{{ 'PRODUCTS.ACTIVE' | translate }}</option>
-            <option value="INACTIVE">{{ 'PRODUCTS.ARCHIVED' | translate }}</option>
-            <option value="ALL">{{ 'PRODUCTS.ALL_STATUS' | translate }}</option>
+            <option value="ACTIVE">Activo</option>
+            <option value="INACTIVE">Archivado</option>
+            <option value="ALL">Todos los estados</option>
         </select>
         }
 
         <select [(ngModel)]="stockFilter" (change)="applyFilters()"
             class="bg-input border border-strong text-body text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block p-2 outline-none cursor-pointer">
-            <option value="ALL">{{ 'PRODUCTS.ALL_STOCK' | translate }}</option>
-            <option value="LOW_STOCK">{{ 'PRODUCTS.LOW_STOCK' | translate }}</option>
+            <option value="ALL">Todo el stock</option>
+            <option value="LOW_STOCK">Stock bajo</option>
         </select>
 
         <app-button variant="primary" (click)="applyFilters()">
-            {{ 'COMMON.SEARCH' | translate }}
+            Buscar
         </app-button>
     </div>
 </div>
 
-<app-table [isLoading]="loading()" [loadingText]="'COMMON.LOADING' | translate"
+<app-table [isLoading]="loading()" loadingText="Cargando..."
     [isEmpty]="!loading() && products().length === 0" emptyIcon="package-open"
-    [emptyTitle]="isLowStockFilter() ? ('PRODUCTS.NO_LOW_STOCK' | translate) : (searchQuery || currentStatusFilter() !== 'ACTIVE' ? ('PRODUCTS.NO_SEARCH_RESULTS' | translate) : ('PRODUCTS.NO_PRODUCTS' | translate))"
-    [emptyDescription]="isLowStockFilter() ? ('PRODUCTS.NO_LOW_STOCK_DESC' | translate) : (searchQuery || currentStatusFilter() !== 'ACTIVE' ? ('PRODUCTS.NO_SEARCH_RESULTS_DESC' | translate) : ('PRODUCTS.NO_PRODUCTS_DESC' | translate))"
+    [emptyTitle]="isLowStockFilter() ? 'Sin productos con stock bajo' : (searchQuery || currentStatusFilter() !== 'ACTIVE' ? 'No se encontraron productos' : 'Aún no hay productos.')"
+    [emptyDescription]="isLowStockFilter() ? '¡Buen trabajo! Todos tus productos tienen stock suficiente.' : (searchQuery || currentStatusFilter() !== 'ACTIVE' ? 'Probá cambiando los filtros o el término de búsqueda.' : 'Comenzá creando tu primer producto para gestionar tu inventario.')"
     [showEmptyAction]="!isLowStockFilter() && !searchQuery && currentStatusFilter() === 'ACTIVE'">
 
     <ng-container empty-actions>
         @if (isAdmin()) {
         <app-button variant="primary" (click)="openCreateModal()" icon="plus">
-            {{ 'PRODUCTS.NEW_PRODUCT' | translate }}
+            Nuevo producto
         </app-button>
         }
     </ng-container>
 
     <thead table-header class="bg-card-hover border-b border-soft">
         <tr>
-            <th class="p-4 text-sm font-semibold text-muted">{{ 'PRODUCTS.TABLE.PRODUCT' | translate }}</th>
-            <th class="p-4 text-sm font-semibold text-muted">{{ 'PRODUCT_FORM.SKU' | translate }}</th>
-            <th class="p-4 text-sm font-semibold text-muted">{{ 'PRODUCT_FORM.BARCODE' | translate }}</th>
-            <th class="p-4 text-sm font-semibold text-muted">{{ 'PRODUCTS.TABLE.COST_PRICE' | translate }}</th>
-            <th class="p-4 text-sm font-semibold text-muted">{{ 'PRODUCTS.TABLE.SELLING_PRICE' | translate }}
-            </th>
-            <th class="p-4 text-sm font-semibold text-muted">{{ 'PRODUCTS.TABLE.STOCK' | translate }}</th>
-            <th class="p-4 text-sm font-semibold text-muted">{{ 'PRODUCTS.TABLE.ALERT_STOCK' | translate }}</th>
-            <th class="p-4 text-sm font-semibold text-muted">{{ 'PRODUCTS.TABLE.CREATED' | translate }}</th>
+            <th class="p-4 text-sm font-semibold text-muted">Producto</th>
+            <th class="p-4 text-sm font-semibold text-muted">SKU</th>
+            <th class="p-4 text-sm font-semibold text-muted">Código de barras</th>
+            <th class="p-4 text-sm font-semibold text-muted">Precio costo</th>
+            <th class="p-4 text-sm font-semibold text-muted">Precio venta</th>
+            <th class="p-4 text-sm font-semibold text-muted">Stock</th>
+            <th class="p-4 text-sm font-semibold text-muted">Alerta Mín.</th>
+            <th class="p-4 text-sm font-semibold text-muted">Creado</th>
             @if (isAdmin()) {
-            <th class="p-4 text-sm font-semibold text-muted text-right">{{ 'COMMON.ACTIONS' | translate }}</th>
+            <th class="p-4 text-sm font-semibold text-muted text-right">Acciones</th>
             }
         </tr>
     </thead>
@@ -103,7 +102,7 @@
                 <div class="font-medium text-main">{{ product.name }}</div>
                 @if (!product.isActive) {
                 <app-badge variant="neutral" class="mt-1">
-                    {{ 'PRODUCTS.ARCHIVED' | translate }}
+                    Archivado
                 </app-badge>
                 }
             </td>
@@ -144,23 +143,23 @@
                 <div class="flex items-center justify-end gap-2">
 
                     <app-button variant="icon-success" (click)="openQuickStockForProduct(product)"
-                        [title]="'DASHBOARD.QUICK_STOCK_CTA' | translate">
+                        title="Ingreso rápido">
                         <lucide-icon name="plus" [size]="16" [strokeWidth]="2"></lucide-icon>
                     </app-button>
 
                     <app-button variant="icon" (click)="openHistoryModal(product)"
-                        [title]="'PRODUCTS.HISTORY' | translate">
+                        title="Historial">
                         <lucide-icon name="clock" [size]="16" [strokeWidth]="2"></lucide-icon>
                     </app-button>
 
                     <app-button variant="icon-primary" (click)="openEditModal(product)"
-                        [title]="'COMMON.EDIT' | translate">
+                        title="Editar">
                         <lucide-icon name="pencil" [size]="16" [strokeWidth]="2"></lucide-icon>
                     </app-button>
 
                     <app-button [variant]="product.isActive ? 'icon-danger' : 'icon-primary'"
                         (click)="toggleProductStatus(product)"
-                        [title]="product.isActive ? ('COMMON.ARCHIVE' | translate) : ('COMMON.RESTORE' | translate)">
+                        [title]="product.isActive ? 'Archivar' : 'Restaurar'">
                         @if (product.isActive) {
                         <lucide-icon name="archive" [size]="16" [strokeWidth]="2"></lucide-icon>
                         } @else {
@@ -176,9 +175,9 @@
 </app-table>
 
 @if (products().length > 0 && meta()) {
-  <app-pagination 
-    [currentPage]="page()" 
-    [totalPages]="meta()!.totalPages" 
+  <app-pagination
+    [currentPage]="page()"
+    [totalPages]="meta()!.totalPages"
     [totalItems]="meta()!.total"
     [limit]="limit()"
     (pageChange)="page.set($event); loadProducts()">
@@ -192,7 +191,7 @@
 }
 
 <app-data-warning [visible]="isArchiveWarningOpen()" [isLoading]="isArchiving()"
-    [title]="'PRODUCTS.ARCHIVE_WARNING_TITLE' | translate" [message]="'PRODUCTS.ARCHIVE_WARNING_MESSAGE' | translate"
+    title="Archivar Producto" message="¿Estás seguro de que querés archivar este producto?"
     (confirm)="confirmArchive()" (cancel)="closeArchiveWarning()">
 </app-data-warning>
 

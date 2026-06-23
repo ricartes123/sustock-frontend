@@ -5,7 +5,6 @@ import { filter } from 'rxjs';
 import { AuthService } from './core/services/auth.service';
 import { WorkspaceService } from './features/workspace/services/workspace.service';
 import { WorkspaceContextService } from './core/services/workspace-context.service';
-import { LanguageService } from './core/services/language.service';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +16,6 @@ export class App implements OnInit {
   private auth = inject(AuthService);
   private workspaceService = inject(WorkspaceService);
   private workspaceContext = inject(WorkspaceContextService);
-  private languageService = inject(LanguageService);
   private router = inject(Router);
   private document = inject(DOCUMENT);
 

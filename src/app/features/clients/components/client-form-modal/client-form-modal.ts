@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, Output, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Button } from '../../../../shared/components/button/button';
 import { Modal } from '../../../../shared/components/modal/modal';
 import { Client, CreateClientDto, UpdateClientDto } from '../../../../core/models/client.model';
@@ -12,7 +11,7 @@ import { finalize } from 'rxjs';
 @Component({
   selector: 'app-client-form-modal',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, TranslateModule, Button, Modal],
+  imports: [CommonModule, ReactiveFormsModule, Button, Modal],
   templateUrl: './client-form-modal.html'
 })
 export class ClientFormModal implements OnInit {
@@ -24,7 +23,6 @@ export class ClientFormModal implements OnInit {
   private fb = inject(FormBuilder);
   private clientsService = inject(ClientsService);
   private toast = inject(HotToastService);
-  private translate = inject(TranslateService);
 
   form!: FormGroup;
   isSaving = false;
@@ -62,9 +60,9 @@ export class ClientFormModal implements OnInit {
 
     request$.pipe(
       this.toast.observe({
-        loading: this.client ? this.translate.instant('TOAST.UPDATING_CLIENT') : this.translate.instant('TOAST.CREATING_CLIENT'),
-        success: this.client ? this.translate.instant('TOAST.CLIENT_UPDATED') : this.translate.instant('TOAST.CLIENT_CREATED'),
-        error: this.translate.instant('TOAST.ERROR_SAVING_CLIENT')
+        loading: this.client ? 'Actualizando cliente...' : 'Creando cliente...',
+        success: this.client ? 'Cliente actualizado' : 'Cliente creado',
+        error: 'Error al guardar el cliente'
       }),
       finalize(() => this.isSaving = false)
     ).subscribe({

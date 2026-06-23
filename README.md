@@ -1,6 +1,6 @@
 # SuStock — Frontend
 
-Interfaz web del sistema de gestión de inventario **SuStock**. Construida con Angular 21 usando componentes standalone, Tailwind CSS v4 y soporte multilenguaje (español / inglés). Consume la API REST del backend y gestiona productos, ventas, movimientos de stock y clientes en tiempo real.
+Interfaz web del sistema de gestión de inventario **SuStock**. Construida con Angular 21 usando componentes standalone y Tailwind CSS v4. Consume la API REST del backend y gestiona productos, ventas, movimientos de stock y clientes en tiempo real.
 
 ---
 
@@ -11,7 +11,6 @@ Interfaz web del sistema de gestión de inventario **SuStock**. Construida con A
 | Angular | 21 | Framework frontend |
 | TypeScript | 5.9 | Lenguaje |
 | Tailwind CSS | 4 | Estilos utilitarios |
-| @ngx-translate | 17 | Internacionalización (i18n) |
 | lucide-angular | 0.575 | Iconografía |
 | @ngxpert/hot-toast | 6 | Notificaciones toast |
 | RxJS | 7.8 | Programación reactiva |
@@ -90,10 +89,6 @@ docker compose up --build frontend
 ```
 sustock-frontend/
 ├── public/
-│   └── assets/
-│       └── i18n/
-│           ├── es.json        # Traducciones en español
-│           └── en.json        # Traducciones en inglés
 ├── src/
 │   ├── environments/
 │   │   ├── environment.ts              # Producción
@@ -101,12 +96,12 @@ sustock-frontend/
 │   │   └── environment.docker.ts       # Contenedor Docker
 │   └── app/
 │       ├── app.routes.ts      # Rutas lazy-loaded de la aplicación
-│       ├── app.config.ts      # Providers: HTTP, interceptors, i18n, locale
+│       ├── app.config.ts      # Providers: HTTP, interceptors, locale
 │       ├── app.ts             # Componente raíz
 │       ├── core/
 │       │   ├── guards/        # AuthGuard (protección de rutas)
 │       │   ├── interceptors/  # JwtInterceptor (token + x-workspace-id)
-│       │   ├── services/      # AuthService, WorkspaceContextService, LanguageService
+│       │   ├── services/      # AuthService, WorkspaceContextService
 │       │   └── models/        # Interfaces TypeScript que reflejan los modelos del backend
 │       ├── features/          # Funcionalidades lazy-loaded por ruta
 │       │   ├── auth/          # Página de login y registro
@@ -119,7 +114,7 @@ sustock-frontend/
 │       ├── layout/
 │       │   ├── dashboard-layout/  # Layout principal autenticado
 │       │   ├── navbar/            # Barra superior con perfil y logout
-│       │   └── sidebar/           # Navegación lateral con selector de idioma
+│       │   └── sidebar/           # Navegación lateral principal
 │       └── shared/
 │           ├── components/    # Button, Modal, Badge, Table, SearchInput, EmptyState, DataWarning
 │           ├── directives/
@@ -137,20 +132,6 @@ sustock-frontend/
 2. El backend devuelve un **JWT** que se almacena como signal en `AuthService`
 3. `JwtInterceptor` agrega automáticamente `Authorization: Bearer <token>` y `x-workspace-id: <id>` a cada request saliente
 4. `AuthGuard` protege todas las rutas bajo el layout autenticado; redirige a `/login` si no hay token
-
----
-
-## Internacionalización (i18n)
-
-Los textos de la aplicación se cargan desde `public/assets/i18n/`. Para agregar un nuevo idioma:
-
-1. Crear `public/assets/i18n/<codigo>.json` con las mismas claves que `es.json`
-2. Registrar el idioma en `LanguageService`
-3. Agregar la opción en el selector del sidebar
-
-El idioma por defecto es español (`es`). El usuario puede cambiarlo desde el sidebar y la preferencia se persiste en `localStorage`.
-
----
 
 ## Scripts disponibles
 

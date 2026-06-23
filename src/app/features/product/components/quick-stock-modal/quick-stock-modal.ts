@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, Output, ViewChild, ElementRef, HostListener, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ProductService } from '../../services/product.service';
 import { Product } from '../../../../core/models/product.model';
 import { MovementService } from '../../../movement/services/movement.service';
@@ -14,7 +13,7 @@ import { Modal } from '../../../../shared/components/modal/modal';
 @Component({
     selector: 'app-quick-stock-modal',
     standalone: true,
-    imports: [CommonModule, FormsModule, TranslateModule, Button, Modal],
+    imports: [CommonModule, FormsModule, Button, Modal],
     templateUrl: './quick-stock-modal.html'
 })
 export class QuickStockModal {
@@ -30,7 +29,6 @@ export class QuickStockModal {
     private productService = inject(ProductService);
     private movementService = inject(MovementService);
     private toast = inject(HotToastService);
-    private translate = inject(TranslateService);
 
     searchQuery = signal('');
     searchResults = signal<Product[]>([]);
@@ -120,11 +118,11 @@ export class QuickStockModal {
             productId: product.id
         }).pipe(
             this.toast.observe({
-                loading: this.translate.instant('TOAST.REGISTERING_STOCK'),
-                success: this.translate.instant('TOAST.STOCK_UPDATED'),
+                loading: 'Registrando ingreso...',
+                success: 'Stock actualizado correctamente',
                 error: (e: unknown) => {
                     const err = e as { error?: { message?: string } };
-                    return err.error?.message || this.translate.instant('TOAST.ERROR_UPDATING_STOCK');
+                    return err.error?.message || 'Error al actualizar el stock';
                 }
             }),
             finalize(() => this.isSubmitting.set(false))

@@ -1,6 +1,6 @@
-<app-modal [isOpen]="visible" [title]="'PRODUCTS.QUICK_STOCK_TITLE' | translate" (close)="onClose()" maxWidth="max-w-md">
+<app-modal [isOpen]="visible" title="Ingreso rápido de stock" (close)="onClose()" maxWidth="max-w-md">
     <div class="overflow-visible">
-        <p class="text-sm text-faint mb-4">{{ 'PRODUCTS.QUICK_STOCK_SUBTITLE' | translate }}</p>
+        <p class="text-sm text-faint mb-4">Añadí más unidades a tu inventario fácilmente</p>
 
         @if (!selectedProduct()) {
         <!-- Search Input Wrapper -->
@@ -8,7 +8,7 @@
             <div class="relative">
                 <input type="text"
                     class="form-input w-full pl-10 py-3 text-sm border border-strong focus:ring-2 focus:ring-primary-500/40 focus:border-primary-500 rounded-xl bg-input text-main transition-colors shadow-sm"
-                    [placeholder]="'PRODUCTS.SEARCH_PRODUCT_STOCK' | translate" [ngModel]="searchQuery()"
+                    placeholder="Buscá el producto por nombre, SKU o código..." [ngModel]="searchQuery()"
                     (ngModelChange)="onSearchChange($event)"
                     (focus)="searchQuery().length >= 1 ? showDropdown.set(true) : null" />
                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -86,8 +86,7 @@
 
         <div class="space-y-4">
             <div>
-                <label class="block text-sm font-medium text-body mb-1">{{ 'PRODUCTS.ADD_QUANTITY' | translate
-                    }}</label>
+                <label class="block text-sm font-medium text-body mb-1">Cantidad a ingresar</label>
                 <input type="number" [(ngModel)]="quantity" placeholder="0" [min]="1"
                     class="form-input w-full border border-strong rounded-lg focus:border-primary-500 focus:ring-2 focus:ring-primary-500/40 p-2 text-sm bg-input text-main">
             </div>
@@ -98,14 +97,14 @@
     <!-- Footer -->
     <ng-container modal-footer>
         <app-button variant="secondary" (click)="onClose()">
-            {{ 'COMMON.CANCEL' | translate }}
+            Cancelar
         </app-button>
         <app-button variant="primary" (click)="submit()"
             [disabled]="!selectedProduct() || !quantity() || quantity()! <= 0 || isSubmitting()">
             @if (isSubmitting()) {
-            {{ 'COMMON.LOADING' | translate }}
+            Cargando...
             } @else {
-            {{ 'PRODUCTS.REGISTER_STOCK' | translate }}
+            Registrar ingreso
             }
         </app-button>
     </ng-container>

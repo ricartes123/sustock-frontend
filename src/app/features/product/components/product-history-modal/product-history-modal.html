@@ -1,7 +1,7 @@
-<app-modal [isOpen]="visible" [title]="'PRODUCTS.PRODUCT_HISTORY_TITLE' | translate" (close)="onClose()" maxWidth="max-w-4xl">
+<app-modal [isOpen]="visible" title="Historial del producto" (close)="onClose()" maxWidth="max-w-4xl">
     <div>
         <p class="text-sm text-faint mb-4">
-            {{ 'PRODUCTS.PRODUCT_HISTORY_SUBTITLE' | translate:{ product: product?.name } }}
+            Registro de movimientos para {{ product?.name }}
         </p>
 
         @if (isLoading()) {
@@ -117,7 +117,7 @@
     <!-- Footer -->
     <ng-container modal-footer>
         <app-button variant="secondary" (click)="onClose()">
-            {{ 'COMMON.CANCEL' | translate }}
+            Cancelar
         </app-button>
     </ng-container>
 </app-modal>

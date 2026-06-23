@@ -1,7 +1,6 @@
 import { Component, HostBinding } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
 import { LucideAngularModule } from 'lucide-angular';
 
 export interface NavItem {
@@ -14,7 +13,7 @@ export interface NavItem {
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, CommonModule, TranslateModule, LucideAngularModule],
+  imports: [RouterLink, RouterLinkActive, CommonModule, LucideAngularModule],
   templateUrl: './sidebar.html',
 })
 export class Sidebar {
@@ -22,15 +21,15 @@ export class Sidebar {
   isCollapsed = false;
 
   menuItems: NavItem[] = [
-    { icon: 'layout-dashboard', label: 'SIDEBAR.DASHBOARD', route: '/', exact: true },
-    { icon: 'box', label: 'SIDEBAR.PRODUCTS', route: '/products' },
-    { icon: 'shopping-cart', label: 'SIDEBAR.SALES', route: '/sales' },
-    { icon: 'arrow-right-left', label: 'SIDEBAR.MOVEMENTS', route: '/movements' },
-    { icon: 'users', label: 'SIDEBAR.CLIENTS', route: '/clients' },
+    { icon: 'layout-dashboard', label: 'Panel', route: '/', exact: true },
+    { icon: 'box', label: 'Productos', route: '/products' },
+    { icon: 'shopping-cart', label: 'Ventas', route: '/sales' },
+    { icon: 'arrow-right-left', label: 'Movimientos', route: '/movements' },
+    { icon: 'users', label: 'Clientes', route: '/clients' },
   ];
 
   settingsItems: NavItem[] = [
-    { icon: 'settings', label: 'SIDEBAR.SETTINGS', route: '/settings' },
+    { icon: 'settings', label: 'Configuración', route: '/settings' },
   ];
 
   @HostBinding('class') get hostClasses() {
