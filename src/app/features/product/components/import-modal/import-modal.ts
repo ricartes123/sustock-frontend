@@ -6,6 +6,24 @@ import { ProductService, ImportResult } from '../../services/product.service';
 import { HotToastService } from '@ngxpert/hot-toast';
 import * as XLSX from 'xlsx';
 
+const ALLOWED_EXTENSIONS = ['.xlsx', '.xls', '.csv'];
+// Same limit as the backend upload interceptor
+const MAX_FILE_SIZE_BYTES = 5 * 1024 * 1024;
+
+function validateImportFile(file: File): string | null {
+  const name = file.name.toLowerCase();
+  if (!ALLOWED_EXTENSIONS.some(ext => name.endsWith(ext))) {
+    return 'Formato no soportado. Subí un archivo .xlsx, .xls o .csv.';
+  }
+  if (file.size > MAX_FILE_SIZE_BYTES) {
+    return 'El archivo supera los 5 MB permitidos.';
+  }
+  if (file.size === 0) {
+    return 'El archivo está vacío.';
+  }
+  return null;
+}
+
 @Component({
   selector: 'app-import-modal',
   standalone: true,
@@ -26,6 +44,17 @@ export class ImportModal {
   onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
     const file = input.files?.[0] ?? null;
+
+    if (file) {
+      const error = validateImportFile(file);
+      if (error) {
+        this.toast.error(error);
+        input.value = '';
+        this.selectedFile.set(null);
+        return;
+      }
+    }
+
     this.selectedFile.set(file);
   }
 
