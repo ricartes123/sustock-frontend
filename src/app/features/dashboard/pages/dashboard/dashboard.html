@@ -91,7 +91,7 @@
         </div>
         <div class="z-10 relative">
             <p class="text-[28px] font-black text-main tracking-tight leading-none mb-3">
-                {{ (data()!.salesToday ?? 0) | currency:currency():'symbol-narrow':'1.0-0':locale }}
+                {{ (data()!.salesToday ?? 0) | currency:currency():'symbol-narrow':'1.0-2':locale }}
             </p>
             <p class="text-sm text-faint font-medium max-w-[60%] leading-tight">
                 {{ data()!.salesTodayCount ?? 0 }} ventas registradas
@@ -136,11 +136,11 @@
         </div>
         <div class="z-10 relative">
             <p class="text-[28px] font-black text-main tracking-tight leading-none mb-1.5">
-                {{ data()!.totalStockValue | currency:currency():'symbol-narrow':'1.0-0':locale }}
+                {{ data()!.totalStockValue | currency:currency():'symbol-narrow':'1.0-2':locale }}
             </p>
             <p class="text-[10px] text-faint font-medium leading-tight mb-1">precio de venta</p>
             <p class="text-xs font-semibold text-emerald-600 dark:text-emerald-400 leading-tight">
-                Costo: {{ (data()!.costStockValue ?? 0) | currency:currency():'symbol-narrow':'1.0-0':locale }}
+                Costo: {{ (data()!.costStockValue ?? 0) | currency:currency():'symbol-narrow':'1.0-2':locale }}
             </p>
         </div>
     </a>
@@ -176,7 +176,7 @@
             </h3>
             <div class="flex items-center gap-3">
                 <span class="text-3xl font-black text-main leading-none">{{ chartTotal |
-                    currency:currency():'symbol-narrow':'1.0-0':locale }}</span>
+                    currency:currency():'symbol-narrow':'1.0-2':locale }}</span>
                 @if (chartHasComparison) {
                 <span class="flex items-center gap-0.5 text-[10px] font-bold px-2 py-1 rounded-[8px]"
                     [ngClass]="chartPercentage >= 0 ? 'text-emerald-600 bg-emerald-50' : 'text-red-600 bg-red-50'">
@@ -196,7 +196,7 @@
                     [ngClass]="profitTotal >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-600 dark:text-red-400'">
                     {{ profitTotal >= 0 ? 'Ganancia' : 'Pérdida' }}:
                     {{ (profitTotal >= 0 ? profitTotal : -profitTotal) |
-                    currency:currency():'symbol-narrow':'1.0-0':locale }}
+                    currency:currency():'symbol-narrow':'1.0-2':locale }}
                 </span>
                 <span class="text-xs text-faint">bruta del período</span>
             </div>
@@ -304,7 +304,7 @@
                 </div>
                 <div class="flex items-center gap-3 shrink-0 ml-4">
                     <span class="text-sm font-bold text-emerald-600">
-                        +{{ sale.totalAmount | currency:currency():'symbol-narrow':'1.0-0':locale }}
+                        +{{ sale.totalAmount | currency:currency():'symbol-narrow':'1.0-2':locale }}
                     </span>
                     <lucide-icon name="chevron-right"
                         class="text-faint group-hover:translate-x-1 group-hover:text-primary-500 transition-all duration-200"

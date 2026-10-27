@@ -116,9 +116,9 @@
                 </td>
                 <td class="p-4">
                     @if (sale.status === 'CANCELLED') {
-                        <span class="font-semibold text-faint line-through">{{ sale.totalAmount | currency:currency():'symbol-narrow':'1.0-0':locale() }}</span>
+                        <span class="font-semibold text-faint line-through">{{ sale.totalAmount | currency:currency():'symbol-narrow':'1.0-2':locale() }}</span>
                     } @else {
-                        <span class="font-semibold text-green-600">{{ sale.totalAmount | currency:currency():'symbol-narrow':'1.0-0':locale() }}</span>
+                        <span class="font-semibold text-green-600">{{ sale.totalAmount | currency:currency():'symbol-narrow':'1.0-2':locale() }}</span>
                     }
                 </td>
                 <td class="p-4">
