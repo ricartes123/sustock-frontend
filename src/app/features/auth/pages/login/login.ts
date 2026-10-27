@@ -29,14 +29,15 @@ export class Login {
   workspaceName = '';
   currency = 'ARS';
 
-  isLoginMode = true;
-  error: string | null = null;
-  loading = false;
+  // Signals: the app is zoneless, so plain fields changed in HTTP callbacks would not re-render
+  isLoginMode = signal(true);
+  error = signal<string | null>(null);
+  loading = signal(false);
   showPassword = signal(false);
 
   toggleMode() {
-    this.isLoginMode = !this.isLoginMode;
-    this.error = null;
+    this.isLoginMode.update(value => !value);
+    this.error.set(null);
   }
 
   togglePassword() {
@@ -44,10 +45,10 @@ export class Login {
   }
 
   onSubmit() {
-    this.loading = true;
-    this.error = null;
+    this.loading.set(true);
+    this.error.set(null);
 
-    const authRequest$ = this.isLoginMode
+    const authRequest$ = this.isLoginMode()
       ? this.auth.login({ email: this.email, password: this.password })
       : this.auth.register({
         email: this.email,
@@ -67,13 +68,11 @@ export class Login {
         this.router.navigate(['/']);
       },
       error: (err) => {
-        if (!this.error) {
-          const errObj = err.error?.message;
-          const exactError = Array.isArray(errObj) ? errObj[0] : errObj;
-          this.error = exactError || (this.isLoginMode ? 'Credenciales inválidas' : 'Error al registrarse');
-        }
-        this.toast.error(this.error || 'Error');
-        this.loading = false;
+        const errObj = err.error?.message;
+        const exactError = Array.isArray(errObj) ? errObj[0] : errObj;
+        this.error.set(exactError || (this.isLoginMode() ? 'Credenciales inválidas' : 'Error al registrarse'));
+        this.toast.error(this.error()!);
+        this.loading.set(false);
       }
     });
   }
