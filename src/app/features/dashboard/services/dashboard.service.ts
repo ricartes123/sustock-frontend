@@ -9,8 +9,11 @@ export class DashboardService {
     private http = inject(HttpClient);
 
     getDashboard(): Observable<DashboardData> {
+        // "Today" and "this month" are computed server-side in the user's time zone
+        const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
         return this.http.get<DashboardData>(
-            `${environment.apiUrl}/dashboard`
+            `${environment.apiUrl}/dashboard`,
+            { params: { tz } }
         );
     }
 }
