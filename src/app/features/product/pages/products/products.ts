@@ -1,5 +1,5 @@
 import { Component, inject, signal, computed, OnInit, DestroyRef } from '@angular/core';
-import { ProductService } from '../../services/product.service';
+import { ProductService, ProductStatusFilter } from '../../services/product.service';
 import { Product } from '../../../../core/models/product.model';
 import { CurrencyPipe, DatePipe, UpperCasePipe } from '@angular/common';
 import { WorkspaceContextService } from '../../../../core/services/workspace-context.service';
@@ -61,7 +61,7 @@ export class Products implements OnInit {
   limit = signal(7);
   loading = signal(true);
   isLowStockFilter = signal<boolean>(false);
-  currentStatusFilter = signal<'ALL' | 'ACTIVE' | 'INACTIVE'>('ACTIVE');
+  currentStatusFilter = signal<ProductStatusFilter>('ACTIVE');
 
   searchQuery = '';
   stockFilter = 'ALL';
@@ -120,7 +120,7 @@ export class Products implements OnInit {
       this.searchQuery = params['search'] || '';
 
       const status = params['status'];
-      if (status === 'INACTIVE' || status === 'ALL' || status === 'ACTIVE') {
+      if (status === 'ARCHIVED' || status === 'ALL' || status === 'ACTIVE') {
         this.currentStatusFilter.set(status);
         this.formStatusFilter = status;
       } else {
