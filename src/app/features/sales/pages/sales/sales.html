@@ -116,9 +116,9 @@
                 </td>
                 <td class="p-4">
                     @if (sale.status === 'CANCELLED') {
-                        <span class="font-semibold text-faint line-through">{{ sale.totalAmount | currency:currency():'symbol-narrow':'1.0-2':locale() }}</span>
+                        <span class="font-semibold text-faint line-through">{{ sale.totalAmount | currency:currency():'symbol-narrow':'1.2-2':locale() }}</span>
                     } @else {
-                        <span class="font-semibold text-green-600">{{ sale.totalAmount | currency:currency():'symbol-narrow':'1.0-2':locale() }}</span>
+                        <span class="font-semibold text-green-600">{{ sale.totalAmount | currency:currency():'symbol-narrow':'1.2-2':locale() }}</span>
                     }
                 </td>
                 <td class="p-4">
@@ -256,15 +256,15 @@
                                 {{item.product.barcode}}</span> }
                         </td>
                         <td class="py-3 px-4 text-center text-muted font-medium">{{ item.quantity }}</td>
-                        <td class="py-3 px-4 text-right text-muted">{{ item.price | currency:currency():'symbol-narrow':'1.0-2':locale() }}</td>
-                        <td class="py-3 px-4 text-right font-medium text-main">{{ (item.price * item.quantity) | currency:currency():'symbol-narrow':'1.0-2':locale() }}</td>
+                        <td class="py-3 px-4 text-right text-muted">{{ item.price | currency:currency():'symbol-narrow':'1.2-2':locale() }}</td>
+                        <td class="py-3 px-4 text-right font-medium text-main">{{ (item.price * item.quantity) | currency:currency():'symbol-narrow':'1.2-2':locale() }}</td>
                     </tr>
                     }
                 </tbody>
                 <tfoot class="bg-card-hover border-t border-medium">
                     <tr>
                         <td colspan="3" class="py-4 px-4 text-right font-semibold text-muted">Total Venta</td>
-                        <td class="py-4 px-4 text-right font-bold text-lg text-primary-600 dark:text-primary-300">{{ detail.totalAmount | currency:currency():'symbol-narrow':'1.0-2':locale() }}</td>
+                        <td class="py-4 px-4 text-right font-bold text-lg text-primary-600 dark:text-primary-300">{{ detail.totalAmount | currency:currency():'symbol-narrow':'1.2-2':locale() }}</td>
                     </tr>
                 </tfoot>
             </table>
