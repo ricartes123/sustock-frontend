@@ -6,6 +6,10 @@ import { WorkspaceContextService } from '../../../../core/services/workspace-con
 import { Modal} from '../../../../shared/components/modal/modal';
 import { Button } from "../../../../shared/components/button/button";
 
+// Mirrors the backend DTO: prices with up to 2 decimals, whole-unit stock
+const MONEY_PATTERN = /^\d+(\.\d{1,2})?$/;
+const INTEGER_PATTERN = /^\d+$/;
+
 @Component({
     standalone: true,
     selector: 'app-product-form',
@@ -28,10 +32,10 @@ export class ProductForm implements OnInit {
             name: [this.product?.name || '', [Validators.required, Validators.maxLength(100)]],
             sku: [this.product?.sku || ''],
             barcode: [this.product?.barcode || ''],
-            price: [this.product?.price ?? null, [Validators.required, Validators.min(0)]],
-            costPrice: [this.product?.costPrice ?? null, [Validators.required, Validators.min(0)]],
-            stock: [this.product?.stock ?? null, [Validators.required, Validators.min(0)]],
-            stockMin: [this.product?.stockMin ?? null, [Validators.min(0)]],
+            price: [this.product?.price ?? null, [Validators.required, Validators.min(0), Validators.pattern(MONEY_PATTERN)]],
+            costPrice: [this.product?.costPrice ?? null, [Validators.required, Validators.min(0), Validators.pattern(MONEY_PATTERN)]],
+            stock: [this.product?.stock ?? null, [Validators.required, Validators.min(0), Validators.pattern(INTEGER_PATTERN)]],
+            stockMin: [this.product?.stockMin ?? null, [Validators.min(0), Validators.pattern(INTEGER_PATTERN)]],
         });
     }
 

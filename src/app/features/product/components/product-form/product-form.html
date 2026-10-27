@@ -68,7 +68,8 @@
                     <span class="text-xs text-muted font-normal ml-1">(opcional)</span>
                 </label>
                 <input type="number" formControlName="stockMin" min="0"
-                    class="w-full px-4 py-2 border border-strong rounded-lg text-sm text-main focus:outline-none focus:ring-2 focus:ring-primary-500/40 transition-all bg-input">
+                    class="w-full px-4 py-2 border border-strong rounded-lg text-sm text-main focus:outline-none focus:ring-2 focus:ring-primary-500/40 transition-all bg-input"
+                    [class.border-red-300]="productForm.get('stockMin')?.invalid && productForm.get('stockMin')?.touched">
             </div>
         </div>
     </form>
