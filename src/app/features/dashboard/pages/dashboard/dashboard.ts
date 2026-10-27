@@ -7,7 +7,7 @@ import { ThemeService } from '../../../../core/services/theme.service';
 
 import { RouterLink } from '@angular/router';
 import { LucideAngularModule } from 'lucide-angular';
-import { BaseChartDirective } from 'ng2-charts';
+import { BaseChartDirective, provideCharts, withDefaultRegisterables } from 'ng2-charts';
 import { ChartConfiguration, ChartOptions } from 'chart.js';
 import { HotToastService } from '@ngxpert/hot-toast';
 
@@ -15,6 +15,8 @@ import { HotToastService } from '@ngxpert/hot-toast';
   standalone: true,
   selector: 'app-dashboard',
   imports: [CommonModule, RouterLink, LucideAngularModule, DatePipe, BaseChartDirective],
+  // Registered here so Chart.js ships in the lazy dashboard chunk, not the initial bundle
+  providers: [provideCharts(withDefaultRegisterables())],
   templateUrl: './dashboard.html',
 })
 export class Dashboard {

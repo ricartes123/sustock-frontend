@@ -17,7 +17,6 @@ import { apiInterceptor } from './core/interceptors/api.interceptor';
 import { initializeSession } from './core/initializers/session.initializer';
 import { provideLucideIcons } from './core/providers/lucide-icons.provider';
 import { provideHotToastConfig } from '@ngxpert/hot-toast';
-import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 
 import { routes } from './app.routes';
 
@@ -40,6 +39,5 @@ export const appConfig: ApplicationConfig = {
         boxShadow: '0 10px 25px rgba(0,0,0,0.3)'
       }
     }),
-    provideCharts(withDefaultRegisterables())
   ]
 };
