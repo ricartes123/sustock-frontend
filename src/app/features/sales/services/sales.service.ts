@@ -35,11 +35,12 @@ export class SalesService {
         if (search) {
             params = params.set('search', search);
         }
+        // Dates come as local YYYY-MM-DD; send the local day boundaries as instants
         if (startDate) {
-            params = params.set('startDate', startDate);
+            params = params.set('startDate', new Date(`${startDate}T00:00:00`).toISOString());
         }
         if (endDate) {
-            params = params.set('endDate', endDate);
+            params = params.set('endDate', new Date(`${endDate}T23:59:59.999`).toISOString());
         }
         if (minAmount !== undefined && minAmount !== null) {
             params = params.set('minAmount', minAmount.toString());
