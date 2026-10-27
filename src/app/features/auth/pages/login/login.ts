@@ -1,6 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from '../../../../core/services/auth.service';
 import { WorkspaceService } from '../../../workspace/services/workspace.service';
 import { WorkspaceContextService } from '../../../../core/services/workspace-context.service';
@@ -67,13 +68,32 @@ export class Login {
         this.toast.success('¡Bienvenido/a!');
         this.router.navigate(['/']);
       },
-      error: (err) => {
-        const errObj = err.error?.message;
-        const exactError = Array.isArray(errObj) ? errObj[0] : errObj;
-        this.error.set(exactError || (this.isLoginMode() ? 'Credenciales inválidas' : 'Error al registrarse'));
+      error: (err: HttpErrorResponse) => {
+        this.error.set(this.describeError(err));
         this.toast.error(this.error()!);
         this.loading.set(false);
       }
     });
+  }
+
+  // A 404/5xx/network failure means the API is unreachable (e.g. another process on its port),
+  // which must not be reported as wrong credentials.
+  private describeError(err: HttpErrorResponse): string {
+    if (err.status === 0 || err.status === 404 || err.status >= 500) {
+      return 'No se pudo conectar con el servidor. Intentá de nuevo en unos minutos.';
+    }
+
+    if (err.status === 401) {
+      return 'Email o contraseña incorrectos.';
+    }
+
+    const message = err.error?.message;
+    const detail = Array.isArray(message) ? message[0] : message;
+
+    if (detail === 'Email already in use') {
+      return 'Ya existe una cuenta con ese email.';
+    }
+
+    return detail ? `Revisá los datos ingresados: ${detail}` : 'No se pudo completar la operación.';
   }
 }
