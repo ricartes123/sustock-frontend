@@ -1,110 +1,144 @@
-import { Component, inject, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
+import { Component, inject, signal, computed, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { ProductService } from '../../../../features/product/services/product.service';
 import { Product } from '../../../../core/models/product.model';
 import { MovementService } from '../../services/movement.service';
-import { CreateMovementDto } from '../../../../core/models/movement.model';
+import { CreateMovementDto, MovementType } from '../../../../core/models/movement.model';
 import { DataWarning } from '../../../../shared/components/data-warning/data-warning';
 import { HotToastService } from '@ngxpert/hot-toast';
-import { Subject, debounceTime, distinctUntilChanged, finalize } from 'rxjs';
+import { catchError, debounceTime, distinctUntilChanged, finalize, of, switchMap, tap } from 'rxjs';
+
+// An adjustment sets the final stock, so it may legitimately be 0
+const minQuantity = (type: MovementType) => (type === 'ADJUSTMENT' ? 0 : 1);
 
 @Component({
     selector: 'app-movement-create',
     standalone: true,
-    imports: [CommonModule, FormsModule, DataWarning],
+    imports: [CommonModule, ReactiveFormsModule, DataWarning],
     templateUrl: './movement-create.html',
 })
-export class MovementCreate implements OnInit {
+export class MovementCreate {
+    private fb = inject(NonNullableFormBuilder);
     private productService = inject(ProductService);
     private movementService = inject(MovementService);
     private router = inject(Router);
     private toast = inject(HotToastService);
 
     // Product search
-    searchQuery = '';
-    searchSubject = new Subject<string>();
-    searchResults: Product[] = [];
-    isSearching = false;
-    showDropdown = false;
+    searchControl = this.fb.control('');
+    searchResults = signal<Product[]>([]);
+    isSearching = signal(false);
+    showDropdown = signal(false);
 
-    // Selected Product
-    selectedProduct: Product | null = null;
+    selectedProduct = signal<Product | null>(null);
 
-    // Movement details
-    movementType: 'IN' | 'OUT' | 'ADJUSTMENT' = 'ADJUSTMENT';
-    quantity: number = 1;
-    reason: string = '';
+    form = this.fb.group({
+        type: this.fb.control<MovementType>('ADJUSTMENT'),
+        quantity: this.fb.control(1, [Validators.required, Validators.min(minQuantity('ADJUSTMENT'))]),
+        reason: this.fb.control(''),
+    });
+
+    private formValue = toSignal(this.form.valueChanges, { initialValue: this.form.getRawValue() });
+
+    resultingStock = computed(() => {
+        const product = this.selectedProduct();
+        if (!product) return 0;
+
+        const { type, quantity } = this.formValue();
+        const amount = quantity ?? 0;
+
+        if (type === 'IN') return product.stock + amount;
+        if (type === 'OUT') return product.stock - amount;
+        return amount;
+    });
 
     // Warning Modal
-    showWarning = false;
-    warningMessage = '';
+    showWarning = signal(false);
+    warningMessage = signal('');
 
-    isSubmitting = false;
+    isSubmitting = signal(false);
 
     @ViewChild('searchContainer') searchContainer!: ElementRef;
 
     @HostListener('document:click', ['$event'])
     clickout(event: Event) {
         if (this.searchContainer && !this.searchContainer.nativeElement.contains(event.target)) {
-            this.showDropdown = false;
+            this.showDropdown.set(false);
         }
     }
 
-    ngOnInit() {
-        this.searchSubject.pipe(
+    constructor() {
+        this.form.controls.type.valueChanges.pipe(takeUntilDestroyed()).subscribe(type => {
+            const quantity = this.form.controls.quantity;
+            quantity.setValidators([Validators.required, Validators.min(minQuantity(type))]);
+            quantity.updateValueAndValidity();
+        });
+
+        this.searchControl.valueChanges.pipe(
+            tap(query => {
+                this.showDropdown.set(query.length >= 2);
+                if (query.length < 2) this.searchResults.set([]);
+            }),
             debounceTime(300),
-            distinctUntilChanged()
-        ).subscribe(query => {
-            this.performSearch(query);
+            distinctUntilChanged(),
+            // switchMap drops stale responses when the user keeps typing
+            switchMap(query => {
+                if (query.length < 2) return of(null);
+
+                this.isSearching.set(true);
+                return this.productService.getAll(1, 10, query, false, 'ACTIVE').pipe(
+                    catchError(() => {
+                        this.toast.error('No se pudieron buscar productos.');
+                        return of(null);
+                    }),
+                    finalize(() => this.isSearching.set(false))
+                );
+            }),
+            takeUntilDestroyed()
+        ).subscribe(res => {
+            if (res) this.searchResults.set(res.data);
         });
     }
 
-    onSearchChange(query: string) {
-        this.searchQuery = query;
-        if (query.length >= 2) {
-            this.showDropdown = true;
-            this.searchSubject.next(query);
-        } else {
-            this.searchResults = [];
-            this.showDropdown = false;
+    onSearchFocus() {
+        if (!this.selectedProduct() && this.searchControl.value.length >= 2) {
+            this.showDropdown.set(true);
         }
-    }
-
-    performSearch(query: string) {
-        this.isSearching = true;
-        this.productService.getAll(1, 10, query, false, 'ACTIVE').subscribe({
-            next: (res) => {
-                this.searchResults = res.data;
-                this.isSearching = false;
-            },
-            error: () => this.isSearching = false
-        });
     }
 
     selectProduct(product: Product) {
-        this.selectedProduct = product;
-        this.showDropdown = false;
-        this.searchQuery = '';
-        // reset defaults for the new product
-        this.quantity = 1;
+        this.selectedProduct.set(product);
+        this.showDropdown.set(false);
+        this.searchResults.set([]);
+        this.searchControl.setValue('', { emitEvent: false });
+        this.searchControl.disable({ emitEvent: false });
+        this.form.controls.quantity.setValue(1);
     }
 
     clearProduct() {
-        this.selectedProduct = null;
+        this.selectedProduct.set(null);
+        this.searchControl.enable({ emitEvent: false });
+    }
+
+    setType(type: MovementType) {
+        this.form.controls.type.setValue(type);
     }
 
     confirmMovement() {
-        if (!this.selectedProduct || this.quantity <= 0) return;
+        const product = this.selectedProduct();
+        if (!product || this.form.invalid) return;
 
-        this.isSubmitting = true;
+        const { type, quantity, reason } = this.form.getRawValue();
+        this.isSubmitting.set(true);
 
         const payload: CreateMovementDto = {
-            type: this.movementType,
-            quantity: this.quantity,
-            reason: this.reason,
-            productId: this.selectedProduct.id
+            type,
+            quantity,
+            reason,
+            productId: product.id
         };
 
         this.movementService.create(payload).pipe(
@@ -122,32 +156,25 @@ export class MovementCreate implements OnInit {
                     return 'Error al registrar el movimiento';
                 }
             }),
-            finalize(() => this.isSubmitting = false)
+            finalize(() => this.isSubmitting.set(false))
         ).subscribe({
             next: () => {
                 this.router.navigate(['/movements']);
             },
             error: (err) => {
                 if (err.error?.message && typeof err.error.message === 'string' && err.error.message.includes('Stock insuficiente')) {
-                    this.warningMessage = err.error.message;
-                    this.showWarning = true;
+                    this.warningMessage.set(err.error.message);
+                    this.showWarning.set(true);
                 }
             }
         });
     }
 
-    get resultingStock(): number {
-        if (!this.selectedProduct) return 0;
-        if (this.movementType === 'IN') return this.selectedProduct.stock + this.quantity;
-        if (this.movementType === 'OUT') return this.selectedProduct.stock - this.quantity;
-        return this.quantity; // ADJUSTMENT mode
-    }
-
     onWarningCancel() {
-        this.showWarning = false;
+        this.showWarning.set(false);
     }
 
     onWarningConfirm() {
-        this.showWarning = false;
+        this.showWarning.set(false);
     }
 }

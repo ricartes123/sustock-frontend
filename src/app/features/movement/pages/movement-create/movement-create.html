@@ -18,11 +18,9 @@
                     <div class="relative">
                         <input type="text"
                             class="form-input w-full pl-10 border border-strong focus:ring-2 focus:ring-primary-500/40 rounded-lg"
-                            [ngClass]="selectedProduct ? 'bg-input opacity-50 cursor-not-allowed' : 'bg-input'"
-                            placeholder="Escribí el nombre, SKU o código de barras..." [ngModel]="searchQuery"
-                            (ngModelChange)="onSearchChange($event)"
-                            (focus)="!selectedProduct && searchQuery.length >= 2 ? showDropdown = true : null"
-                            [disabled]="selectedProduct !== null">
+                            [ngClass]="selectedProduct() ? 'bg-input opacity-50 cursor-not-allowed' : 'bg-input'"
+                            placeholder="Escribí el nombre, SKU o código de barras..." [formControl]="searchControl"
+                            (focus)="onSearchFocus()">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                             <svg class="h-5 w-5 text-faint" viewBox="0 0 20 20" fill="currentColor">
                                 <path fill-rule="evenodd"
@@ -30,7 +28,7 @@
                                     clip-rule="evenodd" />
                             </svg>
                         </div>
-                        @if (selectedProduct) {
+                        @if (selectedProduct()) {
                         <button
                             class="absolute inset-y-0 right-0 pr-3 flex items-center text-faint hover:text-red-500"
                             (click)="clearProduct()">
@@ -43,20 +41,20 @@
                     </div>
 
                     <!-- Dropdown -->
-                    @if (showDropdown) {
+                    @if (showDropdown()) {
                     <div
                         class="absolute z-10 mt-1 w-full bg-card shadow-lg rounded-md border border-medium max-h-60 overflow-y-auto">
-                        @if (isSearching) {
+                        @if (isSearching()) {
                         <div class="p-3 text-sm text-faint text-center">
                             Buscando...</div>
                         }
-                        @if (!isSearching && searchResults.length === 0) {
+                        @if (!isSearching() && searchResults().length === 0) {
                         <div class="p-3 text-sm text-faint text-center">No se encontraron productos
                         </div>
                         }
-                        @if (!isSearching && searchResults.length > 0) {
+                        @if (!isSearching() && searchResults().length > 0) {
                         <ul>
-                            @for (p of searchResults; track p.id) {
+                            @for (p of searchResults(); track p.id) {
                             <li (click)="selectProduct(p)"
                                 class="cursor-pointer hover:bg-card-hover p-3 border-b border-soft last:border-0">
                                 <div class="flex justify-between items-center">
@@ -83,15 +81,15 @@
             </div>
 
             <!-- Selected Product Summary -->
-            @if (selectedProduct) {
+            @if (selectedProduct(); as product) {
             <div
                 class="bg-card shadow-sm rounded-xl border border-medium p-5">
                 <div class="flex items-start justify-between">
                     <div>
-                        <h3 class="text-lg font-bold text-main">{{ selectedProduct.name }}
+                        <h3 class="text-lg font-bold text-main">{{ product.name }}
                         </h3>
                         <p class="text-sm text-body mt-1">Stock original en sistema:
-                            <strong>{{ selectedProduct.stock }}</strong> unidades</p>
+                            <strong>{{ product.stock }}</strong> unidades</p>
                     </div>
                     <div class="text-right">
                         <span
@@ -105,7 +103,7 @@
         </div>
 
         <!-- Right Column: Settings & Confirm -->
-        <div class="space-y-6" [ngClass]="{'opacity-50 pointer-events-none': !selectedProduct}">
+        <div class="space-y-6" [ngClass]="{'opacity-50 pointer-events-none': !selectedProduct()}" [formGroup]="form">
             <div
                 class="bg-card shadow-sm rounded-xl border border-medium p-5">
                 <h2 class="font-semibold text-main mb-4">Detalles del Movimiento</h2>
@@ -114,14 +112,14 @@
                     <label class="block text-sm font-medium text-body mb-1">Tipo de
                         Movimiento</label>
                     <div class="grid grid-cols-3 gap-2">
-                        <button (click)="movementType = 'IN'"
-                            [ngClass]="movementType === 'IN' ? 'bg-green-100 text-green-800 border-green-200 ring-2 ring-green-500' : 'bg-input text-faint border-medium'"
+                        <button type="button" (click)="setType('IN')"
+                            [ngClass]="form.controls.type.value === 'IN' ? 'bg-green-100 text-green-800 border-green-200 ring-2 ring-green-500' : 'bg-input text-faint border-medium'"
                             class="border rounded-lg p-2 text-sm font-medium transition-all">Ingreso (+)</button>
-                        <button (click)="movementType = 'OUT'"
-                            [ngClass]="movementType === 'OUT' ? 'bg-red-100 text-red-800 border-red-200 ring-2 ring-red-500' : 'bg-input text-faint border-medium'"
+                        <button type="button" (click)="setType('OUT')"
+                            [ngClass]="form.controls.type.value === 'OUT' ? 'bg-red-100 text-red-800 border-red-200 ring-2 ring-red-500' : 'bg-input text-faint border-medium'"
                             class="border rounded-lg p-2 text-sm font-medium transition-all">Egreso (-)</button>
-                        <button (click)="movementType = 'ADJUSTMENT'"
-                            [ngClass]="movementType === 'ADJUSTMENT' ? 'bg-yellow-100 text-yellow-800 border-yellow-200 ring-2 ring-yellow-500' : 'bg-input text-faint border-medium'"
+                        <button type="button" (click)="setType('ADJUSTMENT')"
+                            [ngClass]="form.controls.type.value === 'ADJUSTMENT' ? 'bg-yellow-100 text-yellow-800 border-yellow-200 ring-2 ring-yellow-500' : 'bg-input text-faint border-medium'"
                             class="border rounded-lg p-2 text-sm font-medium transition-all">Ajuste Fijo (=)</button>
                     </div>
                 </div>
@@ -129,9 +127,9 @@
                 <div class="mb-4 flex gap-4">
                     <div class="flex-1">
                         <label class="block text-sm font-medium text-body mb-1">
-                            {{ movementType === 'ADJUSTMENT' ? 'Stock Final' : 'Cantidad a afectar' }}
+                            {{ form.controls.type.value === 'ADJUSTMENT' ? 'Stock Final' : 'Cantidad a afectar' }}
                         </label>
-                        <input type="number" [(ngModel)]="quantity" min="1"
+                        <input type="number" formControlName="quantity" [min]="form.controls.type.value === 'ADJUSTMENT' ? 0 : 1"
                             class="form-input w-full bg-input border-strong rounded-lg">
                     </div>
 
@@ -139,8 +137,8 @@
                         class="flex-1 bg-app rounded-lg p-3 text-center border border-medium">
                         <span class="block text-xs text-faint mb-1 focus:outline-none">Stock Resultante</span>
                         <span class="block text-2xl font-bold"
-                            [ngClass]="resultingStock < 0 ? 'text-red-500' : 'text-main'">
-                            {{ resultingStock }}
+                            [ngClass]="resultingStock() < 0 ? 'text-red-500' : 'text-main'">
+                            {{ resultingStock() }}
                         </span>
                     </div>
                 </div>
@@ -148,20 +146,20 @@
                 <div class="mb-5">
                     <label class="block text-sm font-medium text-body mb-1">Motivo
                         (Opcional)</label>
-                    <textarea [(ngModel)]="reason" rows="2"
+                    <textarea formControlName="reason" rows="2"
                         class="form-textarea w-full bg-input border-strong rounded-lg"
                         placeholder="Ej. Corrección de inventario por mercadería vencida..."></textarea>
                 </div>
 
-                <button (click)="confirmMovement()" [disabled]="!selectedProduct || isSubmitting || quantity <= 0"
+                <button type="button" (click)="confirmMovement()" [disabled]="!selectedProduct() || isSubmitting() || form.invalid"
                     class="btn w-full bg-primary-600 hover:bg-primary-700 text-white rounded-lg py-3 font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
-                    {{ isSubmitting ? 'Procesando...' : 'Guardar Movimiento' }}
+                    {{ isSubmitting() ? 'Procesando...' : 'Guardar Movimiento' }}
                 </button>
             </div>
         </div>
     </div>
 </div>
 
-<app-data-warning [visible]="showWarning" [message]="warningMessage" (cancel)="onWarningCancel()"
+<app-data-warning [visible]="showWarning()" [message]="warningMessage()" (cancel)="onWarningCancel()"
     (confirm)="onWarningConfirm()">
 </app-data-warning>
