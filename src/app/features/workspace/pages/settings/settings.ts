@@ -104,10 +104,15 @@ export class Settings implements OnInit {
             finalRate = this.apiRate()!;
         }
 
-        const bId = this.workspaceContext.activeWorkspace()!.id;
+        const workspace = this.workspaceContext.activeWorkspace();
+        if (!workspace) {
+            this.toast.error('No hay un espacio de trabajo activo.');
+            return;
+        }
+
         this.loading.set(true);
 
-        this.workspaceService.updateCurrency(bId, this.selectedCurrency, finalRate).subscribe({
+        this.workspaceService.updateCurrency(workspace.id, this.selectedCurrency, finalRate).subscribe({
             next: () => {
                 // Reloading re-runs the session initializer, which refreshes profile and workspaces
                 window.location.reload();

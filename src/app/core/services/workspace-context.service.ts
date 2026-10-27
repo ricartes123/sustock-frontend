@@ -28,13 +28,13 @@ export class WorkspaceContextService {
     const savedId = localStorage.getItem('activeWorkspaceId');
     const found = workspaces.find(b => b.id === savedId);
 
-    this._activeWorkspace.set(found ?? workspaces[0] ?? null);
+    const active = found ?? workspaces[0] ?? null;
+    this._activeWorkspace.set(active);
 
-    if (this._activeWorkspace()) {
-      localStorage.setItem(
-        'activeWorkspaceId',
-        this._activeWorkspace()!.id
-      );
+    if (active) {
+      localStorage.setItem('activeWorkspaceId', active.id);
+    } else {
+      localStorage.removeItem('activeWorkspaceId');
     }
   }
 
