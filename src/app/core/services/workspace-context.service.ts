@@ -18,8 +18,8 @@ export class WorkspaceContextService {
 
     if (!user || !active) return false;
 
-    // Si el ID del negocio activo está en la lista de negocios propios del usuario, es admin.
-    return user.workspaces.some(b => b.id === active.id);
+    return user.workspaces.some(b => b.id === active.id) ||
+      user.teamMemberships.some(m => m.workspace.id === active.id && m.role !== 'STAFF');
   });
 
   initialize(workspaces: Workspace[]) {

@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { WorkspaceContextService } from '../../../../core/services/workspace-context.service';
 import { WorkspaceService } from '../../services/workspace.service';
 import { HttpClient } from '@angular/common/http';
-import { AuthService } from '../../../../core/services/auth.service';
 import { HotToastService } from '@ngxpert/hot-toast';
 import { LucideAngularModule } from 'lucide-angular';
 
@@ -21,7 +20,6 @@ interface ExchangeRateResponse {
 export class Settings implements OnInit {
     workspaceContext = inject(WorkspaceContextService);
     workspaceService = inject(WorkspaceService);
-    authService = inject(AuthService);
     http = inject(HttpClient);
     toast = inject(HotToastService);
 
@@ -111,28 +109,8 @@ export class Settings implements OnInit {
 
         this.workspaceService.updateCurrency(bId, this.selectedCurrency, finalRate).subscribe({
             next: () => {
-                this.authService.fetchProfile().subscribe({
-                    next: (user) => {
-                        this.authService.setUser(user);
-                        this.workspaceService.getAll().subscribe({
-                            next: (workspaces) => {
-                                this.workspaceContext.initialize(workspaces);
-                                this.showConversionModal.set(false);
-                                this.loading.set(false);
-                                this.toast.success('Configuración guardada');
-                                window.location.reload();
-                            },
-                            error: () => {
-                                this.loading.set(false);
-                                this.toast.error('Error al actualizar moneda');
-                            }
-                        });
-                    },
-                    error: () => {
-                        this.loading.set(false);
-                        this.toast.error('Error al actualizar moneda');
-                    }
-                });
+                // Reloading re-runs the session initializer, which refreshes profile and workspaces
+                window.location.reload();
             },
             error: (err) => {
                 console.error(err);

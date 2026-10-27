@@ -4,8 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../../../core/services/auth.service';
 import { WorkspaceService } from '../../../workspace/services/workspace.service';
 import { WorkspaceContextService } from '../../../../core/services/workspace-context.service';
-import { switchMap, tap, catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
+import { switchMap, tap } from 'rxjs/operators';
 import { HotToastService } from '@ngxpert/hot-toast';
 import { Button } from '../../../../shared/components/button/button';
 
@@ -57,20 +56,9 @@ export class Login {
         lastName: this.lastName,
         workspaceName: this.workspaceName,
         currency: this.currency,
-      }).pipe(
-        switchMap(() => this.auth.login({ email: this.email, password: this.password })),
-        catchError((err) => {
-          this.error = 'Registro exitoso, pero falló el inicio de sesión automático. Por favor inicie sesión manualmente.';
-          this.loading = false;
-          this.toggleMode();
-          return throwError(() => err);
-        })
-      );
+      });
 
     authRequest$.pipe(
-      tap((res) => this.auth.setToken(res.accessToken)),
-      switchMap(() => this.auth.fetchProfile()),
-      tap((user) => this.auth.setUser(user)),
       switchMap(() => this.workspaceService.getAll()),
       tap((workspaces) => this.workspaceContext.initialize(workspaces))
     ).subscribe({

@@ -1,4 +1,4 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners, LOCALE_ID} from '@angular/core';
+import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideAppInitializer, LOCALE_ID} from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import localeEsAr from '@angular/common/locales/es-AR';
 import localeDe from '@angular/common/locales/de';
@@ -13,7 +13,8 @@ registerLocaleData(localePt);
 registerLocaleData(localeEsMx);
 import { provideRouter } from '@angular/router';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { jwtInterceptor } from './core/interceptors/jwt.interceptor';
+import { apiInterceptor } from './core/interceptors/api.interceptor';
+import { initializeSession } from './core/initializers/session.initializer';
 import { provideLucideIcons } from './core/providers/lucide-icons.provider';
 import { provideHotToastConfig } from '@ngxpert/hot-toast';
 import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
@@ -25,7 +26,8 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     { provide: LOCALE_ID, useValue: 'es-AR' },
     provideRouter(routes),
-    provideHttpClient(withInterceptors([jwtInterceptor])),
+    provideHttpClient(withInterceptors([apiInterceptor])),
+    provideAppInitializer(initializeSession),
     provideLucideIcons(),
     provideHotToastConfig({
       position: 'top-center',
