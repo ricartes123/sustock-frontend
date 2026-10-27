@@ -9,6 +9,7 @@ import { RouterLink } from '@angular/router';
 import { LucideAngularModule } from 'lucide-angular';
 import { BaseChartDirective } from 'ng2-charts';
 import { ChartConfiguration, ChartOptions } from 'chart.js';
+import { HotToastService } from '@ngxpert/hot-toast';
 
 @Component({
   standalone: true,
@@ -20,6 +21,7 @@ export class Dashboard {
   private dashboardService = inject(DashboardService);
   private workspaceContext = inject(WorkspaceContextService);
   private themeService = inject(ThemeService);
+  private toast = inject(HotToastService);
 
   constructor() {
     effect(() => {
@@ -244,6 +246,7 @@ export class Dashboard {
       },
       error: () => {
         this.loading.set(false);
+        this.toast.error('No se pudo cargar el resumen del panel.');
       }
     });
   }

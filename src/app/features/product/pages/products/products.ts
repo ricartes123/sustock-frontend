@@ -108,7 +108,10 @@ export class Products implements OnInit {
         this.meta.set(res.meta);
         this.loading.set(false);
       },
-      error: () => this.loading.set(false),
+      error: () => {
+        this.loading.set(false);
+        this.toast.error('No se pudieron cargar los productos.');
+      },
     });
   }
 
