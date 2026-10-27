@@ -18,9 +18,8 @@
                     <div class="relative">
                         <input type="text"
                             class="form-input w-full pl-11 py-3 text-sm md:text-base border border-strong focus:ring-2 focus:ring-primary-500/40 focus:border-primary-500 rounded-xl bg-input text-main transition-colors shadow-sm"
-                            placeholder="Escribí el nombre, SKU o código de barras..." [ngModel]="searchQuery()"
-                            (ngModelChange)="onSearchChange($event)"
-                            (focus)="searchQuery().length >= 2 ? showDropdown.set(true) : null" />
+                            placeholder="Escribí el nombre, SKU o código de barras..." [formControl]="searchControl"
+                            (focus)="onSearchFocus()" />
                         <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                             <svg class="h-5 w-5 text-faint" viewBox="0 0 20 20" fill="currentColor">
                                 <path fill-rule="evenodd"
@@ -28,10 +27,10 @@
                                     clip-rule="evenodd" />
                             </svg>
                         </div>
-                        @if (searchQuery().length > 0) {
-                        <button
+                        @if (searchControl.value.length > 0) {
+                        <button type="button"
                             class="absolute inset-y-0 right-0 pr-4 flex items-center text-faint hover:text-muted focus:outline-none"
-                            (click)="onSearchChange('')">
+                            (click)="clearSearch()">
                             <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M6 18L18 6M6 6l12 12" />
@@ -59,14 +58,14 @@
                         </div>
                         }
 
-                        @if (!isSearching() && searchResults().length === 0 && searchQuery().length >= 2) {
+                        @if (!isSearching() && searchResults().length === 0 && searchControl.value.length >= 2) {
                         <div class="p-6 text-center text-sm text-faint">
                             <svg class="mx-auto h-12 w-12 text-faint mb-3" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                                     d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
                             </svg>
-                            No se encontraron productos que coincidan con "{{ searchQuery() }}"
+                            No se encontraron productos que coincidan con "{{ searchControl.value }}"
                         </div>
                         }
 
@@ -121,11 +120,11 @@
                     </h2>
                     <span
                         class="inline-flex items-center justify-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-surface border border-medium text-main">
-                        {{ items().length }} items
+                        {{ itemsValue().length }} items
                     </span>
                 </div>
 
-                @if (items().length === 0) {
+                @if (itemsValue().length === 0) {
                 <div class="flex-1 flex flex-col items-center justify-center p-8 text-center bg-app">
                     <div
                         class="w-20 h-20 bg-input border border-soft shadow-sm rounded-full flex items-center justify-center mb-4">
@@ -140,7 +139,7 @@
                 </div>
                 }
 
-                @if (items().length > 0) {
+                @if (itemsValue().length > 0) {
                 <div class="overflow-x-auto flex-1">
                     <table class="w-full text-sm text-left">
                         <thead class="bg-card-hover text-muted uppercase text-xs font-semibold border-b border-medium">
@@ -154,19 +153,20 @@
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-soft">
-                            @for (item of items(); track item.product.id; let i = $index) {
-                            <tr class="hover:bg-card-hover transition-colors group">
+                            @for (group of items.controls; track group.controls.productId.value; let i = $index) {
+                            @let product = products()[group.controls.productId.value];
+                            <tr class="hover:bg-card-hover transition-colors group" [formGroup]="group">
                                 <td class="px-5 py-4 text-center text-faint text-xs">{{ i + 1 }}</td>
                                 <td class="px-5 py-4">
                                     <div class="font-medium text-main mb-0.5">{{
-                                        item.product.name }}</div>
-                                    <div class="text-xs text-faint">SKU: {{ item.product.sku || '-' }}</div>
+                                        product.name }}</div>
+                                    <div class="text-xs text-faint">SKU: {{ product.sku || '-' }}</div>
                                 </td>
                                 <td class="px-5 py-4">
                                     <div class="flex items-center justify-center">
                                         <input type="number"
                                             class="form-input w-20 text-center text-sm border border-strong rounded-lg focus:ring-2 focus:ring-primary-500/40 focus:border-primary-500 bg-input text-main font-medium"
-                                            [ngModel]="item.quantity" (ngModelChange)="updateQuantity(i, $event)"
+                                            formControlName="quantity"
                                             min="1" />
                                     </div>
                                 </td>
@@ -175,23 +175,23 @@
                                         <span class="text-muted text-sm">$</span>
                                         <input type="number"
                                             class="form-input w-24 text-right text-sm border border-strong rounded-lg focus:ring-2 focus:ring-primary-500/40 focus:border-primary-500 bg-input font-medium"
-                                            [ngClass]="item.unitPrice < item.product.price ? 'text-orange-500' : 'text-main'"
-                                            [ngModel]="item.unitPrice" (ngModelChange)="updateUnitPrice(i, $event)"
-                                            min="0" step="0.01" />
+                                            [ngClass]="group.controls.unitPrice.invalid ? 'text-red-500 border-red-500' : (isDiscounted(group) ? 'text-orange-500' : 'text-main')"
+                                            formControlName="unitPrice" (blur)="roundUnitPrice(group)"
+                                            min="0" [max]="product.price" step="0.01" />
                                     </div>
-                                    @if (item.unitPrice < item.product.price) { <div
+                                    @if (isDiscounted(group)) { <div
                                         class="text-xs text-faint text-right mt-0.5 line-through">
-                                        ${{ item.product.price | number:'1.2-2' }}
+                                        ${{ product.price | number:'1.2-2' }}
                 </div>
                 }
                 </td>
                 <td class="px-5 py-4 text-right font-semibold whitespace-nowrap text-main">
-                    ${{ (item.unitPrice * item.quantity) | number:'1.2-2' }}
+                    ${{ lineTotal(group) | number:'1.2-2' }}
                 </td>
                 <td class="px-5 py-4 text-center">
                     <button
                         class="p-2 text-faint hover:text-red-500 hover:bg-red-500/10 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-red-500/40 opacity-0 group-hover:opacity-100"
-                        (click)="removeItem(i)" title="Eliminar producto">
+                        type="button" (click)="removeItem(i)" title="Eliminar producto">
                         <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                                 d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -223,7 +223,7 @@
                     Cliente (Opcional)
                 </label>
                 <div class="relative">
-                    <select [ngModel]="selectedClientId()" (ngModelChange)="selectedClientId.set($event)"
+                    <select [formControl]="clientControl"
                         class="form-select w-full pl-10 py-2.5 border border-strong rounded-lg focus:ring-2 focus:ring-primary-500/40 focus:border-primary-500 bg-input text-main transition-colors text-sm cursor-pointer shadow-sm appearance-none">
                         <option value="">Consumidor Final</option>
                         @for (c of clients(); track c.id) {
@@ -270,7 +270,7 @@
             </div>
 
             <app-button variant="primary" size="lg" (click)="confirmSale()"
-                [disabled]="items().length === 0 || isSubmitting()"
+                [disabled]="itemsValue().length === 0 || isSubmitting()"
                 class="w-full flex font-semibold shadow-sm overflow-hidden group">
                 <span class="flex items-center justify-center w-full gap-2">
                     @if (isSubmitting()) {
