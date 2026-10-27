@@ -1,7 +1,7 @@
 import { Component, inject, signal, computed, OnInit, DestroyRef } from '@angular/core';
 import { ProductService, ProductStatusFilter } from '../../services/product.service';
 import { Product } from '../../../../core/models/product.model';
-import { CurrencyPipe, DatePipe, UpperCasePipe } from '@angular/common';
+import { CurrencyPipe, DatePipe } from '@angular/common';
 import { WorkspaceContextService } from '../../../../core/services/workspace-context.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -28,7 +28,6 @@ import { PaginationComponent } from '../../../../shared/components/pagination/pa
   imports: [
     CurrencyPipe,
     DatePipe,
-    UpperCasePipe,
     FormsModule,
     ProductForm,
     Button,
