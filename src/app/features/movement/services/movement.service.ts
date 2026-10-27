@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
 import { Observable } from 'rxjs';
 import { Movement, CreateMovementDto } from '../../../core/models/movement.model';
@@ -16,12 +16,12 @@ export class MovementService {
         return this.http.post<Movement>(this.apiUrl, data);
     }
 
-    getAll(workspaceId: string, page = 1, limit = 10, type?: string): Observable<PaginationMeta<Movement>> {
-        let url = `${this.apiUrl}?workspaceId=${workspaceId}&page=${page}&limit=${limit}`;
+    getAll(page = 1, limit = 10, type?: string): Observable<PaginationMeta<Movement>> {
+        let params = new HttpParams().set('page', page).set('limit', limit);
         if (type) {
-            url += `&type=${type}`;
+            params = params.set('type', type);
         }
-        return this.http.get<PaginationMeta<Movement>>(url);
+        return this.http.get<PaginationMeta<Movement>>(this.apiUrl, { params });
     }
 
     getProductMovements(productId: string, page = 1, limit = 10, type?: string): Observable<PaginationMeta<Movement>> {

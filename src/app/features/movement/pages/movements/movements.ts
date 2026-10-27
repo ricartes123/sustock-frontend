@@ -58,7 +58,6 @@ export class Movements {
     this.loading.set(true);
 
     this.movementService.getAll(
-      this.workspaceContext.activeWorkspace()!.id,
       this.page(),
       this.limit(),
       this.selectedType || undefined,
