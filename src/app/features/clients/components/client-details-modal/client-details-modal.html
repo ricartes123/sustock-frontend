@@ -34,26 +34,26 @@
         <div class="grid grid-cols-3 gap-4 mb-4">
             <div class="bg-input border border-soft p-4 rounded-xl shadow-sm text-center">
                 <p class="text-xs text-faint mb-1 font-medium">Ventas totales</p>
-                <p class="text-2xl font-bold text-main">{{ totalSales }}</p>
+                <p class="text-2xl font-bold text-main">{{ totalSales() }}</p>
             </div>
             <div class="bg-input border border-soft p-4 rounded-xl shadow-sm text-center">
                 <p class="text-xs text-faint mb-1 font-medium">Ticket promedio</p>
-                <p class="text-2xl font-bold text-primary-600">{{ averageTicket | currency:currency:'symbol-narrow':'1.2-2':locale }}</p>
+                <p class="text-2xl font-bold text-primary-600">{{ averageTicket() | currency:currency:'symbol-narrow':'1.2-2':locale }}</p>
             </div>
             <div class="bg-input border border-soft p-4 rounded-xl shadow-sm text-center">
                 <p class="text-xs text-faint mb-1 font-medium">Monto total invertido</p>
-                <p class="text-2xl font-bold text-green-600">{{ totalSpent | currency:currency:'symbol-narrow':'1.2-2':locale }}</p>
+                <p class="text-2xl font-bold text-green-600">{{ totalSpent() | currency:currency:'symbol-narrow':'1.2-2':locale }}</p>
             </div>
         </div>
 
         <!-- Historial de Ventas -->
         <h4 class="text-sm font-bold text-main uppercase tracking-wider !mb-2">Historial de Ventas</h4>
 
-        @if (loadingSales) {
+        @if (loadingSales()) {
             <div class="flex justify-center items-center py-8">
                 <div class="w-6 h-6 border-2 border-primary-500 rounded-full border-t-transparent animate-spin"></div>
             </div>
-        } @else if (sales && sales.length > 0) {
+        } @else if (sales().length > 0) {
             <div class="border border-medium rounded-xl overflow-hidden">
                 <table class="w-full text-left text-sm">
                     <thead class="bg-card-hover border-b border-medium">
@@ -64,7 +64,7 @@
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-soft">
-                        @for (sale of sales; track sale.id) {
+                        @for (sale of sales(); track sale.id) {
                         <tr class="hover:bg-card-hover transition">
                             <td class="py-3 px-4">
                                 <span class="font-medium text-main">{{ sale.createdAt | date:'shortDate' }}</span>
@@ -88,15 +88,15 @@
             </div>
         }
 
-        @if (sales.length > 0 && totalPages > 1) {
+        @if (sales().length > 0 && totalPages() > 1) {
         <div class="flex justify-between items-center mt-4 border-t border-soft pt-4">
-            <app-button variant="secondary" size="sm" (click)="prevPage()" [disabled]="page === 1">
+            <app-button variant="secondary" size="sm" (click)="prevPage()" [disabled]="page() === 1">
                 Anterior
             </app-button>
             <span class="text-sm text-muted font-medium">
-                Página {{ page }} de {{ totalPages }}
+                Página {{ page() }} de {{ totalPages() }}
             </span>
-            <app-button variant="secondary" size="sm" (click)="nextPage()" [disabled]="page === totalPages">
+            <app-button variant="secondary" size="sm" (click)="nextPage()" [disabled]="page() === totalPages()">
                 Siguiente
             </app-button>
         </div>
