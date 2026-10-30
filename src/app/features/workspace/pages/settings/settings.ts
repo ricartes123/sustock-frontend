@@ -45,7 +45,7 @@ export class Settings implements OnInit {
     }
 
     get hasChanges() {
-        return this.hasCurrencyChanged;
+        return this.workspaceContext.isOwner() && this.hasCurrencyChanged;
     }
 
     onSaveInitiated() {

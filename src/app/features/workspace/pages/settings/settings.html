@@ -22,8 +22,8 @@
                 <label class="block text-sm font-medium text-body mb-2">Moneda base</label>
                 <p class="text-xs text-faint mb-4 leading-relaxed">Determina el símbolo usado en los indicadores del panel y precios de productos. Al cambiarla, aparecerá la opción para ajustar o convertir los precios existentes.</p>
 
-                <select [(ngModel)]="selectedCurrency"
-                    class="w-full border border-strong px-4 py-3 rounded-xl text-sm text-main focus:outline-none focus:ring-2 focus:ring-primary-500/40 focus:border-primary-500 transition-all cursor-pointer bg-input hover:bg-surface">
+                <select [(ngModel)]="selectedCurrency" [disabled]="!workspaceContext.isOwner()"
+                    class="w-full border border-strong px-4 py-3 rounded-xl text-sm text-main focus:outline-none focus:ring-2 focus:ring-primary-500/40 focus:border-primary-500 transition-all cursor-pointer bg-input hover:bg-surface disabled:opacity-60 disabled:cursor-not-allowed">
                     <option value="ARS">ARS ($)</option>
                     <option value="USD">USD ($)</option>
                     <option value="EUR">EUR (€)</option>
@@ -31,6 +31,13 @@
                     <option value="BRL">BRL (R$)</option>
                     <option value="MXN">MXN ($)</option>
                 </select>
+
+                @if (!workspaceContext.isOwner()) {
+                <p class="flex items-center gap-1.5 text-xs text-faint mt-3">
+                    <lucide-icon name="info" [size]="14"></lucide-icon>
+                    Solo el dueño del espacio de trabajo puede cambiar la moneda.
+                </p>
+                }
 
             </div>
         </div>

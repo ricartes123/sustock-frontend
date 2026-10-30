@@ -12,13 +12,20 @@ export class WorkspaceContextService {
   workspaces = this._workspaces.asReadonly();
   activeWorkspace = this._activeWorkspace.asReadonly();
 
+  isOwner = computed(() => {
+    const user = this.authService.user();
+    const active = this._activeWorkspace();
+
+    return !!user && !!active && user.workspaces.some(b => b.id === active.id);
+  });
+
   isAdmin = computed(() => {
     const user = this.authService.user();
     const active = this._activeWorkspace();
 
     if (!user || !active) return false;
 
-    return user.workspaces.some(b => b.id === active.id) ||
+    return this.isOwner() ||
       user.teamMemberships.some(m => m.workspace.id === active.id && m.role !== 'STAFF');
   });
 

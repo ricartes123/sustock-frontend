@@ -48,4 +48,15 @@ describe('WorkspaceContextService', () => {
     user.set({ ...base, workspaces: [], teamMemberships: [{ role: 'STAFF', workspace: ws('a') }] });
     expect(service.isAdmin()).toBe(false);
   });
+
+  it('treats only the workspace owner as owner', () => {
+    service.initialize([ws('a')]);
+    const base = { id: 'u', email: 'e', firstName: 'f', lastName: 'l' };
+
+    user.set({ ...base, workspaces: [ws('a')], teamMemberships: [] });
+    expect(service.isOwner()).toBe(true);
+
+    user.set({ ...base, workspaces: [], teamMemberships: [{ role: 'ADMIN', workspace: ws('a') }] });
+    expect(service.isOwner()).toBe(false);
+  });
 });
