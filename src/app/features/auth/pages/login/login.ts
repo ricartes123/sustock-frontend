@@ -87,6 +87,10 @@ export class Login {
       return 'Email o contraseña incorrectos.';
     }
 
+    if (err.status === 429) {
+      return 'Demasiados intentos. Esperá un minuto y volvé a intentar.';
+    }
+
     const message = err.error?.message;
     const detail = Array.isArray(message) ? message[0] : message;
 

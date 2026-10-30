@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpErrorResponse } from '@angular/common/http';
 
 import { Login } from './login';
 
@@ -19,5 +20,10 @@ describe('Login', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('explains rate limiting instead of blaming the form data', () => {
+    const message = component['describeError'](new HttpErrorResponse({ status: 429, error: { message: 'ThrottlerException: Too Many Requests' } }));
+    expect(message).toBe('Demasiados intentos. Esperá un minuto y volvé a intentar.');
   });
 });
