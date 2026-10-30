@@ -10,6 +10,7 @@ import { MovementService } from '../../../movement/services/movement.service';
 import { PaginationMeta } from '../../../../core/models/pagination-meta.model';
 import { Modal } from '../../../../shared/components/modal/modal';
 import { PaginationComponent } from '../../../../shared/components/pagination/pagination';
+import { HotToastService } from '@ngxpert/hot-toast';
 
 @Component({
     selector: 'app-product-history-modal',
@@ -31,6 +32,7 @@ export class ProductHistoryModal implements OnChanges {
 
     private productService = inject(ProductService);
     private movementsService = inject(MovementService);
+    private toast = inject(HotToastService);
 
     meta = signal<PaginationMeta<Movement>['meta'] | null>(null);
     movements = signal<Movement[]>([]);
@@ -57,7 +59,7 @@ export class ProductHistoryModal implements OnChanges {
                     this.movements.set(res.data || []);
                     this.meta.set(res.meta);
                 },
-                error: () => {}
+                error: () => this.toast.error('No se pudo cargar el historial del producto.')
             });
     }
 

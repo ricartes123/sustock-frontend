@@ -13,6 +13,7 @@ import { SearchInput } from '../../../../shared/components/search-input/search-i
 import { WorkspaceContextService } from '../../../../core/services/workspace-context.service';
 import { Modal } from '../../../../shared/components/modal/modal';
 import { PaginationComponent } from '../../../../shared/components/pagination/pagination';
+import { HotToastService } from '@ngxpert/hot-toast';
 
 @Component({
   selector: 'app-movements',
@@ -23,6 +24,7 @@ import { PaginationComponent } from '../../../../shared/components/pagination/pa
 export class Movements {
   private movementService = inject(MovementService);
   private workspaceContext = inject(WorkspaceContextService);
+  private toast = inject(HotToastService);
 
   currency = computed(() => this.workspaceContext.currency);
   locale = computed(() => this.workspaceContext.locale);
@@ -67,7 +69,10 @@ export class Movements {
         this.meta.set(res.meta);
         this.loading.set(false);
       },
-      error: () => this.loading.set(false),
+      error: () => {
+        this.loading.set(false);
+        this.toast.error('No se pudieron cargar los movimientos.');
+      },
     });
   }
 
