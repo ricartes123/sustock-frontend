@@ -1,6 +1,23 @@
 # SuStock — Frontend
 
-Interfaz web del sistema de gestión de inventario **SuStock**. Construida con Angular 21 usando componentes standalone y Tailwind CSS v4. Consume la API REST del backend y gestiona productos, ventas, movimientos de stock y clientes en tiempo real.
+Interfaz web del sistema de gestión de inventario **SuStock**: un SaaS multi-tenant donde cada negocio administra su catálogo, stock, ventas, clientes y equipo desde un dashboard. Construida con Angular 21 *zoneless*, componentes standalone, signals y Tailwind CSS v4.
+
+**Demo en vivo:** https://sustock.vercel.app — usuario `demo@sustock.com`, contraseña `demo1234`
+
+> La API corre en el plan gratuito de Render, que se suspende tras 15 minutos sin uso: la primera carga puede tardar ~50 segundos.
+
+Backend: [ricartes123/sustock-backend](https://github.com/ricartes123/sustock-backend)
+
+---
+
+## Funcionalidades
+
+- **Dashboard:** ventas del día, valor del stock a precio de venta y de costo, productos más vendidos, alertas de stock bajo y gráfico de ventas.
+- **Productos:** CRUD, búsqueda, filtros por estado y stock bajo, archivado y restauración, historial por producto, carga rápida de stock e importación desde Excel/CSV.
+- **Movimientos:** entradas, salidas y ajustes de stock con historial.
+- **Ventas:** carga con descuentos por ítem, asignación a cliente, anulación con reposición de stock y filtro por fechas.
+- **Clientes:** gestión y detalle de compras.
+- **Espacio de trabajo:** moneda y tema claro/oscuro. La API ya soporta equipos con roles (OWNER / ADMIN / STAFF); la pantalla de gestión del equipo está pendiente.
 
 ---
 
@@ -8,14 +25,14 @@ Interfaz web del sistema de gestión de inventario **SuStock**. Construida con A
 
 | Tecnología | Versión | Uso |
 |---|---|---|
-| Angular | 21 | Framework frontend |
+| Angular | 21 | Framework (zoneless, standalone, signals) |
 | TypeScript | 5.9 | Lenguaje |
 | Tailwind CSS | 4 | Estilos utilitarios |
+| ng2-charts / Chart.js | — | Gráficos del dashboard |
 | lucide-angular | 0.575 | Iconografía |
 | @ngxpert/hot-toast | 6 | Notificaciones toast |
 | RxJS | 7.8 | Programación reactiva |
 | Vitest | 4 | Tests unitarios |
-| Angular CLI | 21 | Toolchain |
 
 ---
 
@@ -23,64 +40,48 @@ Interfaz web del sistema de gestión de inventario **SuStock**. Construida con A
 
 - **Node.js** ≥ 22 ([descargar](https://nodejs.org))
 - **npm** ≥ 10
-- El **backend de SuStock** corriendo (local en `:3000` o vía Docker)
+- El **backend de SuStock** corriendo en `http://127.0.0.1:3000` (ver su README)
 
 ---
 
-## Configuración de entornos
-
-El proyecto usa archivos de entorno en `src/environments/` para configurar la URL de la API según el contexto de ejecución:
-
-| Archivo | Configuración Angular | `apiUrl` |
-|---|---|---|
-| `environment.development.ts` | `development` (por defecto en `ng serve`) | `http://localhost:3000` |
-| `environment.ts` | `production` | `https://api'` |
-| `environment.docker.ts` | `docker` | `/api` (proxy nginx) |
-
-No se requiere ningún archivo `.env` para el frontend. La configuración se inyecta en tiempo de compilación a través de `fileReplacements` en `angular.json`.
-
----
-
-## Cómo correr localmente (sin Docker)
-
-### 1. Instalar dependencias
+## Cómo correr localmente
 
 ```bash
-cd sustock-frontend
 npm install
-```
-
-### 2. Verificar que el backend esté corriendo
-
-La configuración de desarrollo apunta a `http://localhost:3000`. Asegurarse de tener el backend iniciado antes de levantar el frontend.
-
-### 3. Iniciar el servidor de desarrollo
-
-```bash
 npm start
 ```
 
-La aplicación queda disponible en `http://localhost:4200` con hot-reload activado.
+La aplicación queda disponible en `http://localhost:4200`.
+
+No se necesita ningún `.env`. La app llama siempre a `/api`:
+
+| Entorno | Quién resuelve `/api` | Destino |
+|---|---|---|
+| Desarrollo (`ng serve`) | Proxy de Angular (`proxy.conf.json`) | `http://127.0.0.1:3000` |
+| Producción | Rewrite de Vercel (`vercel.json`) | API en Render |
+
+Como el navegador ve todo en el mismo origen, la cookie de sesión funciona sin configurar CORS. El proxy apunta a `127.0.0.1` y no a `localhost` a propósito: en Windows `localhost` resuelve primero a IPv6, y otro proceso escuchando en `[::]:3000` capturaría las peticiones.
 
 ---
 
-## Cómo correr con Docker
+## Flujo de autenticación
 
-La forma recomendada es levantar el proyecto completo desde la raíz del monorepo:
+1. El usuario se registra o inicia sesión en `/login`. El backend responde con una cookie httpOnly `access_token`: el token nunca es accesible desde JavaScript.
+2. Al arrancar, `initializeSession` (registrado con `provideAppInitializer`) consulta `/auth/me` y los espacios de trabajo antes de la primera navegación, así la sesión se restaura al recargar la página.
+3. `apiInterceptor` agrega `withCredentials` y el header `x-workspace-id` a las peticiones a `/api`. Ante un `401`, cierra la sesión y redirige a `/login`.
+4. `authGuard` protege las rutas del layout autenticado.
 
-```bash
-cd ..                         # ir a la raíz SuStock/
-cp .env.example .env          # configurar variables
-docker compose up --build
-```
+`AuthService` solo guarda el perfil del usuario en un signal.
 
-En Docker, el frontend se sirve mediante **nginx** en el puerto `${FRONTEND_PORT:-80}`. Nginx actúa como proxy inverso: las peticiones a `/api/*` se redirigen automáticamente a `http://backend:3000/*`, por lo que no se requiere ninguna configuración de CORS adicional.
+---
 
-Para reconstruir solo el frontend:
+## Decisiones técnicas
 
-```bash
-docker compose up --build frontend
-```
+- **Zoneless:** no hay Zone.js. Todo estado que cambia en callbacks asíncronos (HTTP, timers) vive en signals para que la vista se actualice.
+- **Formularios reactivos:** `ReactiveFormsModule` con `NonNullableFormBuilder`. Los CRUD se abren en modales.
+- **Dinero en centavos:** los cálculos de montos en el cliente se hacen en enteros (`Math.round(x * 100)`); el backend es la fuente de verdad. Los importes se muestran con `CurrencyPipe` en la moneda del workspace y 2 decimales.
+- **Búsquedas:** se usa `switchMap` para descartar respuestas viejas al escribir.
+- **Rutas lazy:** cada feature se carga con `loadComponent`, y los gráficos solo se cargan en el dashboard.
 
 ---
 
@@ -88,56 +89,51 @@ docker compose up --build frontend
 
 ```
 sustock-frontend/
-├── public/
-├── src/
-│   ├── environments/
-│   │   ├── environment.ts              # Producción
-│   │   ├── environment.development.ts  # Desarrollo local
-│   │   └── environment.docker.ts       # Contenedor Docker
-│   └── app/
-│       ├── app.routes.ts      # Rutas lazy-loaded de la aplicación
-│       ├── app.config.ts      # Providers: HTTP, interceptors, locale
-│       ├── app.ts             # Componente raíz
-│       ├── core/
-│       │   ├── guards/        # AuthGuard (protección de rutas)
-│       │   ├── interceptors/  # JwtInterceptor (token + x-workspace-id)
-│       │   ├── services/      # AuthService, WorkspaceContextService
-│       │   └── models/        # Interfaces TypeScript que reflejan los modelos del backend
-│       ├── features/          # Funcionalidades lazy-loaded por ruta
-│       │   ├── auth/          # Página de login y registro
-│       │   ├── dashboard/     # Panel de métricas y acciones rápidas
-│       │   ├── product/       # Catálogo, historial y carga rápida de stock
-│       │   ├── movement/      # Lista y creación de movimientos
-│       │   ├── sales/         # Lista, detalle y anulación de ventas
-│       │   ├── clients/       # Gestión de clientes y detalles de compras
-│       │   └── workspace/     # Configuración del espacio de trabajo
-│       ├── layout/
-│       │   ├── dashboard-layout/  # Layout principal autenticado
-│       │   ├── navbar/            # Barra superior con perfil y logout
-│       │   └── sidebar/           # Navegación lateral principal
-│       └── shared/
-│           ├── components/    # Button, Modal, Badge, Table, SearchInput, EmptyState, DataWarning
-│           ├── directives/
-│           ├── pipes/
-│           └── utils/
-├── Dockerfile                 # Build multi-stage (node build → nginx:alpine)
-└── nginx.conf                 # SPA fallback + proxy /api → backend
+├── proxy.conf.json            # Proxy de desarrollo /api → 127.0.0.1:3000
+├── vercel.json                # Rewrite /api → Render + fallback de SPA
+└── src/
+    ├── environments/
+    │   ├── environment.ts              # Build de producción
+    │   └── environment.development.ts  # ng serve
+    └── app/
+        ├── app.config.ts      # Providers: HTTP + apiInterceptor, inicializador de sesión
+        ├── app.routes.ts      # Rutas lazy-loaded
+        ├── core/
+        │   ├── initializers/  # Restauración de sesión y workspaces
+        │   ├── guards/        # authGuard
+        │   ├── interceptors/  # apiInterceptor (cookie, x-workspace-id, 401)
+        │   ├── services/      # AuthService, WorkspaceContextService, ThemeService
+        │   └── models/        # Interfaces que reflejan los modelos del backend
+        ├── features/
+        │   ├── auth/          # Login y registro
+        │   ├── dashboard/     # Métricas y gráficos
+        │   ├── product/       # Catálogo, formulario e importación
+        │   ├── movement/      # Lista y carga de movimientos
+        │   ├── sales/         # Lista, carga, detalle y anulación de ventas
+        │   ├── clients/       # Clientes y detalle de compras
+        │   └── workspace/     # Configuración del espacio de trabajo
+        ├── layout/            # Layout autenticado, navbar y sidebar
+        └── shared/
+            └── components/    # Button, Modal, Badge, Table, Pagination, SearchInput, EmptyState, DataWarning
 ```
 
 ---
 
-## Flujo de autenticación
+## Tests
 
-1. El usuario se registra o inicia sesión en `/login`
-2. El backend devuelve un **JWT** que se almacena como signal en `AuthService`
-3. `JwtInterceptor` agrega automáticamente `Authorization: Bearer <token>` y `x-workspace-id: <id>` a cada request saliente
-4. `AuthGuard` protege todas las rutas bajo el layout autenticado; redirige a `/login` si no hay token
+```bash
+npm run test
+```
+
+Los tests (Vitest) cubren el flujo de sesión: `authGuard`, `apiInterceptor` y `WorkspaceContextService`.
+
+---
 
 ## Scripts disponibles
 
 | Script | Descripción |
 |---|---|
-| `npm start` | Inicia el servidor de desarrollo en `localhost:4200` |
+| `npm start` | Servidor de desarrollo en `localhost:4200` con proxy a la API |
 | `npm run build` | Compila para producción en `dist/` |
 | `npm run watch` | Compila en modo watch (development) |
 | `npm run test` | Ejecuta los tests con Vitest |
