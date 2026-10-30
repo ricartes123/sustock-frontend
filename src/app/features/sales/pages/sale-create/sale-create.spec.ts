@@ -15,6 +15,7 @@ const product = (id: string, price: number): Product => ({
 
 describe('SaleCreate', () => {
   const productService = { getAll: vi.fn() };
+  const clientsService = { findAll: vi.fn() };
   const salesService = { create: vi.fn() };
   const router = { navigate: vi.fn() };
   const toast = { error: vi.fn(), observe: vi.fn(() => (source: unknown) => source) };
@@ -25,7 +26,7 @@ describe('SaleCreate', () => {
     TestBed.configureTestingModule({
       providers: [
         { provide: ProductService, useValue: productService },
-        { provide: ClientsService, useValue: { findAll: () => of({ data: [], meta: {} }) } },
+        { provide: ClientsService, useValue: clientsService },
         { provide: SalesService, useValue: salesService },
         { provide: Router, useValue: router },
         { provide: HotToastService, useValue: toast },
@@ -129,6 +130,37 @@ describe('SaleCreate', () => {
 
       expect(productService.getAll).not.toHaveBeenCalled();
       expect(component.showDropdown()).toBe(false);
+    });
+  });
+
+  describe('client search', () => {
+    beforeEach(() => vi.useFakeTimers());
+    afterEach(() => vi.useRealTimers());
+
+    const client = { id: 'c1', name: 'Ana', workspaceId: 'w1', createdAt: '', updatedAt: '' };
+
+    it('does not preload clients', () => {
+      expect(clientsService.findAll).not.toHaveBeenCalled();
+    });
+
+    it('searches a small page of active clients after the debounce', () => {
+      clientsService.findAll.mockReturnValue(of({ data: [client], meta: {} }));
+
+      component.clientSearchControl.setValue('an');
+      vi.advanceTimersByTime(300);
+
+      expect(clientsService.findAll).toHaveBeenCalledWith(1, 8, 'an', 'ACTIVE');
+      expect(component.clientResults().map(c => c.id)).toEqual(['c1']);
+    });
+
+    it('selecting and clearing a client drives the sale clientId', () => {
+      component.selectClient(client);
+      expect(component.clientControl.value).toBe('c1');
+      expect(component.showClientDropdown()).toBe(false);
+
+      component.clearClient();
+      expect(component.clientControl.value).toBe('');
+      expect(component.selectedClient()).toBeNull();
     });
   });
 });

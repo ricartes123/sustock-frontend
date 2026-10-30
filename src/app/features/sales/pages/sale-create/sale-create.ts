@@ -49,8 +49,12 @@ export class SaleCreate {
   // Form state
   // ─────────────────────────────
 
-  clients = signal<Client[]>([]);
   clientControl = this.fb.control('');
+  selectedClient = signal<Client | null>(null);
+  clientSearchControl = this.fb.control('');
+  clientResults = signal<Client[]>([]);
+  isSearchingClients = signal(false);
+  showClientDropdown = signal(false);
 
   searchControl = this.fb.control('');
   searchResults = signal<Product[]>([]);
@@ -88,6 +92,7 @@ export class SaleCreate {
   );
 
   @ViewChild('searchContainer') searchContainer!: ElementRef;
+  @ViewChild('clientContainer') clientContainer?: ElementRef;
 
   @HostListener('document:click', ['$event'])
   clickout(event: Event) {
@@ -95,11 +100,15 @@ export class SaleCreate {
       !this.searchContainer.nativeElement.contains(event.target)) {
       this.showDropdown.set(false);
     }
+    if (this.clientContainer &&
+      !this.clientContainer.nativeElement.contains(event.target)) {
+      this.showClientDropdown.set(false);
+    }
   }
 
   constructor() {
-    this.loadClients();
     this.setupSearch();
+    this.setupClientSearch();
   }
 
   // ─────────────────────────────
@@ -132,13 +141,49 @@ export class SaleCreate {
     });
   }
 
-  private loadClients() {
-    this.clientsService.findAll(1, 1000, '', 'ACTIVE')
-      .pipe(takeUntilDestroyed())
-      .subscribe({
-        next: res => this.clients.set(res.data),
-        error: () => this.toast.error('No se pudieron cargar los clientes.')
-      });
+  private setupClientSearch() {
+    this.clientSearchControl.valueChanges.pipe(
+      tap(query => {
+        this.showClientDropdown.set(query.length >= 2);
+        if (query.length < 2) this.clientResults.set([]);
+      }),
+      debounceTime(300),
+      distinctUntilChanged(),
+      switchMap(query => {
+        if (query.length < 2) return of(null);
+
+        this.isSearchingClients.set(true);
+        return this.clientsService.findAll(1, 8, query, 'ACTIVE').pipe(
+          catchError(() => {
+            this.toast.error('No se pudieron buscar clientes.');
+            return of(null);
+          }),
+          finalize(() => this.isSearchingClients.set(false))
+        );
+      }),
+      takeUntilDestroyed()
+    ).subscribe(res => {
+      if (res) this.clientResults.set(res.data);
+    });
+  }
+
+  onClientSearchFocus() {
+    if (this.clientSearchControl.value.length >= 2) {
+      this.showClientDropdown.set(true);
+    }
+  }
+
+  selectClient(client: Client) {
+    this.selectedClient.set(client);
+    this.clientControl.setValue(client.id);
+    this.showClientDropdown.set(false);
+    this.clientResults.set([]);
+    this.clientSearchControl.setValue('', { emitEvent: false });
+  }
+
+  clearClient() {
+    this.selectedClient.set(null);
+    this.clientControl.setValue('');
   }
 
   // ─────────────────────────────
