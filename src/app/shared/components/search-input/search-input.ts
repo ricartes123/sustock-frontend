@@ -23,22 +23,20 @@ export class SearchInput implements ControlValueAccessor {
 
     value: string = '';
     
-    onChange = (value: string) => {};
-    onTouched = () => {};
+    onChange: (value: string) => void = () => {};
+    onTouched: () => void = () => {};
 
     writeValue(value: string): void {
         this.value = value;
     }
 
-    registerOnChange(fn: any): void {
+    registerOnChange(fn: (value: string) => void): void {
         this.onChange = fn;
     }
 
-    registerOnTouched(fn: any): void {
+    registerOnTouched(fn: () => void): void {
         this.onTouched = fn;
     }
-
-    setDisabledState(isDisabled: boolean): void {}
 
     onValueChange(newValue: string): void {
         this.value = newValue;

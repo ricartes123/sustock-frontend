@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
 import { Observable } from 'rxjs';
 import { Sale, CreateSaleDto } from '../../../core/models/sale.model';
+import { PaginationMeta } from '../../../core/models/pagination-meta.model';
 
 @Injectable({
     providedIn: 'root'
@@ -24,7 +25,7 @@ export class SalesService {
         endDate?: string,
         minAmount?: number,
         maxAmount?: number
-    ): Observable<{ data: Sale[], meta: any }> {
+    ): Observable<PaginationMeta<Sale>> {
         let params = new HttpParams()
             .set('page', page.toString())
             .set('limit', limit.toString());
@@ -49,7 +50,7 @@ export class SalesService {
             params = params.set('maxAmount', maxAmount.toString());
         }
 
-        return this.http.get<{ data: Sale[], meta: any }>(this.apiUrl, { params });
+        return this.http.get<PaginationMeta<Sale>>(this.apiUrl, { params });
     }
 
     findOne(id: string): Observable<Sale> {

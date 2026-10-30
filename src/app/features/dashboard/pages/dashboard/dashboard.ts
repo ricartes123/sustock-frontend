@@ -138,7 +138,7 @@ export class Dashboard {
       d.setDate(now.getDate() - i);
       const dateString = d.toISOString().split('T')[0];
 
-      let label = '';
+      let label: string;
       if (days === 7) {
         label = d.toLocaleDateString(this.locale || 'es-ES', { weekday: 'short' });
         label = label.charAt(0).toUpperCase() + label.slice(1);

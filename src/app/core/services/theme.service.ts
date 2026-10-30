@@ -23,7 +23,7 @@ export class ThemeService {
         });
     }
 
-    private transitionTimeout: any;
+    private transitionTimeout: ReturnType<typeof setTimeout> | undefined;
 
     toggle() {
         if (this.transitionTimeout) {

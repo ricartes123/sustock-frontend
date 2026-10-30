@@ -71,7 +71,7 @@ export class Sales implements OnInit {
     if (input && typeof input.showPicker === 'function') {
       try {
         input.showPicker();
-      } catch (e) {
+      } catch {
         // Fallback silenciado
       }
     }

@@ -4,6 +4,11 @@ import { environment } from '../../../../environments/environment';
 import { Observable } from 'rxjs';
 import { Client, CreateClientDto, UpdateClientDto } from '../../../core/models/client.model';
 import { Sale } from '../../../core/models/sale.model';
+import { PaginationMeta } from '../../../core/models/pagination-meta.model';
+
+export interface ClientSalesPage extends PaginationMeta<Sale> {
+    meta: PaginationMeta<Sale>['meta'] & { totalAmount: number; averageTicket: number };
+}
 
 @Injectable({
     providedIn: 'root'
@@ -16,7 +21,7 @@ export class ClientsService {
         return this.http.post<Client>(this.apiUrl, data);
     }
 
-    findAll(page: number = 1, limit: number = 10, search?: string, status: string = 'ACTIVE'): Observable<{ data: Client[], meta: any }> {
+    findAll(page: number = 1, limit: number = 10, search?: string, status: string = 'ACTIVE'): Observable<PaginationMeta<Client>> {
         let params = new HttpParams()
             .set('page', page.toString())
             .set('limit', limit.toString())
@@ -26,7 +31,7 @@ export class ClientsService {
             params = params.set('search', search);
         }
 
-        return this.http.get<{ data: Client[], meta: any }>(this.apiUrl, { params });
+        return this.http.get<PaginationMeta<Client>>(this.apiUrl, { params });
     }
 
     findOne(id: string): Observable<Client> {
@@ -45,11 +50,11 @@ export class ClientsService {
         return this.http.post<Client>(`${this.apiUrl}/${id}/restore`, {});
     }
 
-    getClientSales(clientId: string, page: number = 1, limit: number = 10): Observable<{ data: Sale[], meta: any }> {
+    getClientSales(clientId: string, page: number = 1, limit: number = 10): Observable<ClientSalesPage> {
         const params = new HttpParams()
             .set('page', page.toString())
             .set('limit', limit.toString());
 
-        return this.http.get<{ data: Sale[], meta: any }>(`${environment.apiUrl}/sales/${clientId}/sales`, { params });
+        return this.http.get<ClientSalesPage>(`${environment.apiUrl}/sales/${clientId}/sales`, { params });
     }
 }
