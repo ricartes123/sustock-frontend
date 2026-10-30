@@ -51,8 +51,10 @@
                                 <app-badge variant="info">Reposición</app-badge>
                             } @else if (mov.type === 'IN') {
                                 <app-badge variant="success">Ingreso</app-badge>
-                            } @else if (mov.type === 'OUT') {
+                            } @else if (mov.type === 'OUT' && mov.sale) {
                                 <app-badge variant="error">Venta</app-badge>
+                            } @else if (mov.type === 'OUT') {
+                                <app-badge variant="error">Salida</app-badge>
                             } @else {
                                 <app-badge variant="warning">Ajuste</app-badge>
                             }

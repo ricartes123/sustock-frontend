@@ -18,7 +18,7 @@
         class="border border-strong rounded-lg px-3 py-2 text-sm text-body bg-input focus:outline-none focus:ring-2 focus:ring-indigo-300">
         <option value="">Todos los tipos</option>
         <option value="IN">Entrada</option>
-        <option value="OUT">Venta</option>
+        <option value="OUT">Salida / Venta</option>
         <option value="ADJUSTMENT">Ajuste</option>
     </select>
     <div class="flex flex-wrap sm:flex-nowrap items-center gap-2">
@@ -59,8 +59,10 @@
                         <app-badge variant="info" size="md">Reposición</app-badge>
                     } @else if (mov.type === 'IN') {
                         <app-badge variant="success" size="md">Entrada</app-badge>
-                    } @else if (mov.type === 'OUT') {
+                    } @else if (mov.type === 'OUT' && mov.sale) {
                         <app-badge variant="error" size="md">Venta</app-badge>
+                    } @else if (mov.type === 'OUT') {
+                        <app-badge variant="error" size="md">Salida</app-badge>
                     } @else if (mov.type === 'ADJUSTMENT') {
                         <app-badge variant="neutral" size="md">Ajuste</app-badge>
                     }
@@ -129,8 +131,10 @@
                         <app-badge variant="info" size="md">Reposición</app-badge>
                     } @else if (mov.type === 'IN') {
                         <app-badge variant="success" size="md">Entrada</app-badge>
-                    } @else if (mov.type === 'OUT') {
+                    } @else if (mov.type === 'OUT' && mov.sale) {
                         <app-badge variant="error" size="md">Venta</app-badge>
+                    } @else if (mov.type === 'OUT') {
+                        <app-badge variant="error" size="md">Salida</app-badge>
                     } @else if (mov.type === 'ADJUSTMENT') {
                         <app-badge variant="neutral" size="md">Ajuste</app-badge>
                     }
