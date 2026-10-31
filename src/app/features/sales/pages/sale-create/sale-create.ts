@@ -7,7 +7,7 @@ import {
   ElementRef,
   HostListener
 } from '@angular/core';
-import { CommonModule, DecimalPipe } from '@angular/common';
+import { CommonModule, CurrencyPipe } from '@angular/common';
 import { FormControl, FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ProductService } from '../../../../features/product/services/product.service';
@@ -20,6 +20,7 @@ import { catchError, debounceTime, distinctUntilChanged, finalize, map, of, swit
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { HotToastService } from '@ngxpert/hot-toast';
 import { Button } from '../../../../shared/components/button/button';
+import { WorkspaceContextService } from '../../../../core/services/workspace-context.service';
 
 type SaleItemForm = FormGroup<{
   productId: FormControl<string>;
@@ -33,7 +34,7 @@ const toCents = (amount: number | string | null) => Math.round(Number(amount ?? 
 @Component({
   selector: 'app-sale-create',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, DataWarning, DecimalPipe, Button],
+  imports: [CommonModule, ReactiveFormsModule, DataWarning, CurrencyPipe, Button],
   templateUrl: './sale-create.html',
 })
 export class SaleCreate {
@@ -44,6 +45,11 @@ export class SaleCreate {
   private salesService = inject(SalesService);
   private router = inject(Router);
   private toast = inject(HotToastService);
+  private workspaceContext = inject(WorkspaceContextService);
+
+  currency = computed(() => this.workspaceContext.currency);
+  currencySymbol = computed(() => this.workspaceContext.currencySymbol);
+  locale = computed(() => this.workspaceContext.locale);
 
   // ─────────────────────────────
   // Form state

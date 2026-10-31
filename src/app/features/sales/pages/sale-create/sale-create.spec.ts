@@ -7,6 +7,7 @@ import { ProductService } from '../../../product/services/product.service';
 import { ClientsService } from '../../../clients/services/clients.service';
 import { SalesService } from '../../services/sales.service';
 import { Product } from '../../../../core/models/product.model';
+import { WorkspaceContextService } from '../../../../core/services/workspace-context.service';
 
 const product = (id: string, price: number): Product => ({
   id, name: id, price, costPrice: 0, stock: 10, stockMin: 0,
@@ -30,6 +31,7 @@ describe('SaleCreate', () => {
         { provide: SalesService, useValue: salesService },
         { provide: Router, useValue: router },
         { provide: HotToastService, useValue: toast },
+        { provide: WorkspaceContextService, useValue: { currency: 'ARS', currencySymbol: '$', locale: 'es-AR' } },
       ],
     });
     component = TestBed.runInInjectionContext(() => new SaleCreate());
