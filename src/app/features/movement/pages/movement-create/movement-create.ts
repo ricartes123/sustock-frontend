@@ -36,8 +36,8 @@ export class MovementCreate {
     selectedProduct = signal<Product | null>(null);
 
     form = this.fb.group({
-        type: this.fb.control<MovementType>('ADJUSTMENT'),
-        quantity: this.fb.control(1, [Validators.required, Validators.min(minQuantity('ADJUSTMENT'))]),
+        type: this.fb.control<MovementType>('IN'),
+        quantity: this.fb.control(1, [Validators.required, Validators.min(minQuantity('IN'))]),
         reason: this.fb.control(''),
     });
 
