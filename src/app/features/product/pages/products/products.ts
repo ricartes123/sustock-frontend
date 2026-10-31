@@ -12,7 +12,7 @@ import { Badge } from '../../../../shared/components/badge/badge';
 import { LucideAngularModule } from 'lucide-angular';
 import { HotToastService } from '@ngxpert/hot-toast';
 import { finalize } from 'rxjs';
-import { DataWarning } from '../../../../shared/components/data-warning/data-warning';
+import { ConfirmDialog } from '../../../../shared/components/confirm-dialog/confirm-dialog';
 import { QuickStockModal } from '../../components/quick-stock-modal/quick-stock-modal';
 import { ProductHistoryModal } from '../../components/product-history-modal/product-history-modal';
 import { ImportModal } from '../../components/import-modal/import-modal';
@@ -33,7 +33,7 @@ import { PaginationComponent } from '../../../../shared/components/pagination/pa
     Button,
     Badge,
     LucideAngularModule,
-    DataWarning,
+    ConfirmDialog,
     QuickStockModal,
     ProductHistoryModal,
     ImportModal,

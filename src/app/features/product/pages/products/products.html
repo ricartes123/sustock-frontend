@@ -190,10 +190,11 @@
 </app-product-form>
 }
 
-<app-data-warning [visible]="isArchiveWarningOpen()" [isLoading]="isArchiving()"
-    title="Archivar Producto" message="¿Estás seguro de que querés archivar este producto?"
-    (confirm)="confirmArchive()" (cancel)="closeArchiveWarning()">
-</app-data-warning>
+<app-confirm-dialog [visible]="isArchiveWarningOpen()" [isLoading]="isArchiving()"
+    title="Archivar producto" [detail]="productToArchive()?.name ?? ''"
+    message="Deja de aparecer en el catálogo y no se puede vender. Podés restaurarlo cuando quieras desde el filtro «Archivado»."
+    confirmLabel="Archivar" (confirm)="confirmArchive()" (cancel)="closeArchiveWarning()">
+</app-confirm-dialog>
 
 <app-quick-stock-modal [visible]="isQuickStockModalOpen()" [preselectedProduct]="productForQuickStock()" (close)="closeQuickStockModal($event)">
 </app-quick-stock-modal>

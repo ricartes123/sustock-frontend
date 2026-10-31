@@ -152,10 +152,11 @@
   </app-pagination>
 }
 
-<app-data-warning [visible]="isArchiveWarningOpen()" [isLoading]="isArchiving()"
-    title="Archivar Cliente" message="¿Estás seguro de que deseas archivar este cliente? Se ocultará de las vistas principales."
-    (confirm)="confirmArchive()" (cancel)="closeArchiveWarning()">
-</app-data-warning>
+<app-confirm-dialog [visible]="isArchiveWarningOpen()" [isLoading]="isArchiving()"
+    title="Archivar cliente" [detail]="clientToArchive()?.name ?? ''"
+    message="Deja de aparecer en la lista de clientes y al registrar ventas. Podés restaurarlo cuando quieras desde el filtro «Archivados»."
+    confirmLabel="Archivar" (confirm)="confirmArchive()" (cancel)="closeArchiveWarning()">
+</app-confirm-dialog>
 
 <app-client-form-modal
     [visible]="isFormModalOpen()"

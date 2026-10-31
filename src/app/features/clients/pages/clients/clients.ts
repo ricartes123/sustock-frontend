@@ -9,7 +9,7 @@ import { SearchInput } from '../../../../shared/components/search-input/search-i
 import { Button } from '../../../../shared/components/button/button';
 import { Badge } from '../../../../shared/components/badge/badge';
 import { LucideAngularModule } from 'lucide-angular';
-import { DataWarning } from '../../../../shared/components/data-warning/data-warning';
+import { ConfirmDialog } from '../../../../shared/components/confirm-dialog/confirm-dialog';
 
 // Models and Services
 import { Client } from '../../../../core/models/client.model';
@@ -34,7 +34,7 @@ import { PaginationComponent } from '../../../../shared/components/pagination/pa
     Button,
     Badge,
     LucideAngularModule,
-    DataWarning,
+    ConfirmDialog,
     ClientFormModal,
     ClientDetailsModal,
     PaginationComponent

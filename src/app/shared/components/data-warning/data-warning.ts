@@ -12,7 +12,6 @@ export class DataWarning {
     @Input() visible = false;
     @Input() message = '';
     @Input() title = 'Advertencia de Inventario';
-    @Input() isLoading = false;
 
     @Output() confirm = new EventEmitter<void>();
     @Output() cancel = new EventEmitter<void>();

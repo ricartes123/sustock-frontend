@@ -6,7 +6,7 @@ import { SalesService } from '../../services/sales.service';
 import { Sale } from '../../../../core/models/sale.model';
 import { finalize } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { DataWarning } from '../../../../shared/components/data-warning/data-warning';
+import { ConfirmDialog } from '../../../../shared/components/confirm-dialog/confirm-dialog';
 import { Modal } from '../../../../shared/components/modal/modal';
 import { LucideAngularModule } from 'lucide-angular';
 import { HotToastService } from '@ngxpert/hot-toast';
@@ -23,7 +23,7 @@ import { PaginationComponent } from '../../../../shared/components/pagination/pa
   standalone: true,
   imports: [
     CommonModule, RouterLink, DatePipe, CurrencyPipe,
-    FormsModule, DataWarning, Modal, Button, Badge, LucideAngularModule,
+    FormsModule, ConfirmDialog, Modal, Button, Badge, LucideAngularModule,
     TableComponent, SearchInput, PaginationComponent
   ],
   templateUrl: './sales.html'
@@ -178,9 +178,6 @@ export class Sales implements OnInit {
     }
   }
 
-  // Warning & Revert
-  showWarning = signal(false);
-  warningMessage = signal('¿Estás seguro que deseas anular esta venta? La acción generará movimientos de entrada y podría impactar las estadísticas de tu inventario.');
   saleToRevert = signal<Sale | null>(null);
   isReverting = signal(false);
 
@@ -214,12 +211,10 @@ export class Sales implements OnInit {
 
   triggerRevert(sale: Sale) {
     this.saleToRevert.set(sale);
-    this.showWarning.set(true);
   }
 
   cancelRevert() {
     this.saleToRevert.set(null);
-    this.showWarning.set(false);
   }
 
   confirmRevert() {
@@ -235,7 +230,6 @@ export class Sales implements OnInit {
       }),
       finalize(() => {
         this.isReverting.set(false);
-        this.showWarning.set(false);
         this.saleToRevert.set(null);
       })
     ).subscribe({

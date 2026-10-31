@@ -165,10 +165,12 @@
   </app-pagination>
 }
 
-@if (showWarning()) {
-<app-data-warning [visible]="true" [message]="warningMessage()" [isLoading]="isReverting()" (cancel)="cancelRevert()"
-    (confirm)="confirmRevert()">
-</app-data-warning>
+@if (saleToRevert(); as sale) {
+<app-confirm-dialog [visible]="true" title="Anular venta"
+    [detail]="(sale.totalAmount | currency:currency():'symbol-narrow':'1.2-2':locale()) + ' · ' + (sale.client?.name || 'Consumidor Final') + ' · ' + (sale.createdAt | date:'dd/MM/yy HH:mm')"
+    message="Los productos de esta venta vuelven al stock y la venta deja de contar en tus estadísticas. No se puede deshacer."
+    confirmLabel="Anular venta" [isLoading]="isReverting()" (cancel)="cancelRevert()" (confirm)="confirmRevert()">
+</app-confirm-dialog>
 }
 
 <!-- Sale Details Modal -->
