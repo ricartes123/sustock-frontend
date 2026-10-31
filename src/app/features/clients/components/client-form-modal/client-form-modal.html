@@ -34,15 +34,15 @@
                 </div>
             </div>
         </div>
-            <ng-container modal-footer>
-        <app-button variant="secondary" type="button" (click)="close.emit()" [disabled]="isSaving">
+    </form>
+
+    <ng-container modal-footer>
+        <app-button variant="secondary" (click)="close.emit()" [disabled]="isSaving">
             Cancelar
         </app-button>
-        <app-button variant="primary" type="submit" [disabled]="isSaving">
+        <app-button variant="primary" (click)="onSubmit()" [disabled]="isSaving">
             Guardar
         </app-button>
     </ng-container>
-    </form>
-
 </app-modal>
 }
