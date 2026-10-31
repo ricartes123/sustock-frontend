@@ -5,7 +5,7 @@ import { Product } from '../../../../core/models/product.model';
 import { Button } from '../../../../shared/components/button/button';
 import { Badge } from '../../../../shared/components/badge/badge';
 import { finalize } from 'rxjs';
-import { Movement } from '../../../../core/models/movement.model';
+import { Movement, movementKind } from '../../../../core/models/movement.model';
 import { MovementService } from '../../../movement/services/movement.service';
 import { PaginationMeta } from '../../../../core/models/pagination-meta.model';
 import { Modal } from '../../../../shared/components/modal/modal';
@@ -29,6 +29,8 @@ export class ProductHistoryModal implements OnChanges {
     @Input() visible = false;
     @Input() product: Product | null = null;
     @Output() close = new EventEmitter<void>();
+
+    movementKind = movementKind;
 
     private productService = inject(ProductService);
     private movementsService = inject(MovementService);

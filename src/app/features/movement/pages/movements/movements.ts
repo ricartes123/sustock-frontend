@@ -1,7 +1,7 @@
 import { Component, inject, signal, computed } from '@angular/core';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Movement } from '../../../../core/models/movement.model';
+import { Movement, movementKind } from '../../../../core/models/movement.model';
 import { MovementService } from '../../services/movement.service';
 import { PaginationMeta } from '../../../../core/models/pagination-meta.model';
 
@@ -28,6 +28,7 @@ export class Movements {
 
   currency = computed(() => this.workspaceContext.currency);
   locale = computed(() => this.workspaceContext.locale);
+  movementKind = movementKind;
 
   movements = signal<Movement[]>([]);
   meta = signal<PaginationMeta<Movement>['meta'] | null>(null);

@@ -47,23 +47,14 @@
                             <span class="text-xs text-faint">{{ mov.createdAt | date:'shortDate' }}</span>
                         </td>
                         <td class="px-4 py-3">
-                            @if (mov.type === 'IN' && mov.sale) {
-                                <app-badge variant="info">Reposición</app-badge>
-                            } @else if (mov.type === 'IN') {
-                                <app-badge variant="success">Ingreso</app-badge>
-                            } @else if (mov.type === 'OUT' && mov.sale) {
-                                <app-badge variant="error">Venta</app-badge>
-                            } @else if (mov.type === 'OUT') {
-                                <app-badge variant="error">Salida</app-badge>
-                            } @else {
-                                <app-badge variant="warning">Ajuste</app-badge>
-                            }
+                            @let kind = movementKind(mov);
+                            <app-badge [variant]="kind.variant">{{ kind.label }}</app-badge>
                         </td>
                         <td class="px-4 py-3 font-semibold"
                             [ngClass]="{
                                 'text-green-600': mov.type === 'IN',
                                 'text-red-600': mov.type === 'OUT',
-                                'text-amber-600': mov.type === 'ADJUSTMENT'
+                                'text-muted': mov.type === 'ADJUSTMENT'
                             }">
                             @if (mov.type === 'IN') {
                                 +{{ mov.quantity }}
