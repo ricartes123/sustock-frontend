@@ -2,7 +2,7 @@
 
 Interfaz web del sistema de gestión de inventario **SuStock**: un SaaS multi-tenant donde cada negocio administra su catálogo, stock, ventas, clientes y equipo desde un dashboard. Construida con Angular 21 *zoneless*, componentes standalone, signals y Tailwind CSS v4.
 
-**Demo en vivo:** https://sustock.vercel.app — usuario `demo@sustock.com`, contraseña `demo1234`
+**Demo en vivo:** https://sustock.vercel.app (credenciales de acceso a pedido)
 
 > La API corre en el plan gratuito de Render, que se suspende tras 15 minutos sin uso: la primera carga puede tardar ~50 segundos.
 
