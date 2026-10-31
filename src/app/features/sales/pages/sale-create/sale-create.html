@@ -337,3 +337,9 @@
 <app-data-warning [visible]="showWarning()" [message]="warningMessage()" (cancel)="onWarningCancel()"
     (confirm)="onWarningConfirm()">
 </app-data-warning>
+
+<app-confirm-dialog [visible]="isLeaveDialogOpen()" title="¿Salir sin registrar la venta?"
+    message="Los productos que agregaste al carrito se van a perder."
+    confirmLabel="Salir sin registrar" cancelLabel="Seguir con la venta"
+    (confirm)="leaveSale()" (cancel)="stayOnSale()">
+</app-confirm-dialog>

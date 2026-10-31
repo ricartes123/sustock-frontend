@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { HotToastService } from '@ngxpert/hot-toast';
-import { of, throwError } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { SaleCreate } from './sale-create';
 import { ProductService } from '../../../product/services/product.service';
 import { ClientsService } from '../../../clients/services/clients.service';
@@ -163,6 +163,56 @@ describe('SaleCreate', () => {
       component.clearClient();
       expect(component.clientControl.value).toBe('');
       expect(component.selectedClient()).toBeNull();
+    });
+  });
+  describe('leaving the page', () => {
+    const decision = (result: boolean | Observable<boolean>) => {
+      let value: boolean | undefined;
+      if (typeof result === 'boolean') return result;
+      result.subscribe(v => (value = v));
+      return value;
+    };
+
+    it('lets the user leave freely with an empty cart', () => {
+      expect(component.canDeactivate()).toBe(true);
+    });
+
+    it('asks before discarding a filled cart and respects the answer', () => {
+      component.selectProduct(product('p1', 100));
+
+      let result = component.canDeactivate();
+      expect(component.isLeaveDialogOpen()).toBe(true);
+      let answer: boolean | undefined;
+      (result as Observable<boolean>).subscribe(v => (answer = v));
+      component.stayOnSale();
+      expect(answer).toBe(false);
+      expect(component.isLeaveDialogOpen()).toBe(false);
+
+      result = component.canDeactivate();
+      (result as Observable<boolean>).subscribe(v => (answer = v));
+      component.leaveSale();
+      expect(answer).toBe(true);
+    });
+
+    it('does not ask once the sale is registered', () => {
+      salesService.create.mockReturnValue(of({ id: 's1' }));
+      component.selectProduct(product('p1', 100));
+
+      component.confirmSale();
+
+      expect(decision(component.canDeactivate())).toBe(true);
+      expect(component.isLeaveDialogOpen()).toBe(false);
+    });
+
+    it('warns the browser before closing the tab with a filled cart', () => {
+      const empty = new Event('beforeunload', { cancelable: true }) as BeforeUnloadEvent;
+      component.onBeforeUnload(empty);
+      expect(empty.defaultPrevented).toBe(false);
+
+      component.selectProduct(product('p1', 100));
+      const filled = new Event('beforeunload', { cancelable: true }) as BeforeUnloadEvent;
+      component.onBeforeUnload(filled);
+      expect(filled.defaultPrevented).toBe(true);
     });
   });
 });

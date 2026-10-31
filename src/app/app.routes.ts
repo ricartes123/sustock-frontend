@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth.guard';
+import { pendingChangesGuard } from './core/guards/pending-changes.guard';
 
 export const routes: Routes = [
     {
@@ -62,6 +63,7 @@ export const routes: Routes = [
                 loadComponent: () =>
                     import('./features/sales/pages/sale-create/sale-create')
                         .then(m => m.SaleCreate),
+                canDeactivate: [pendingChangesGuard],
                 data: { title: 'SIDEBAR.NEW_SALE' }
             },
             {

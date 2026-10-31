@@ -16,7 +16,8 @@ import { ClientsService } from '../../../../features/clients/services/clients.se
 import { Client } from '../../../../core/models/client.model';
 import { SalesService } from '../../services/sales.service';
 import { DataWarning } from '../../../../shared/components/data-warning/data-warning';
-import { catchError, debounceTime, distinctUntilChanged, finalize, map, of, switchMap, tap } from 'rxjs';
+import { Observable, Subject, catchError, debounceTime, distinctUntilChanged, finalize, map, of, switchMap, take, tap } from 'rxjs';
+import { ConfirmDialog } from '../../../../shared/components/confirm-dialog/confirm-dialog';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { HotToastService } from '@ngxpert/hot-toast';
 import { Button } from '../../../../shared/components/button/button';
@@ -34,7 +35,7 @@ const toCents = (amount: number | string | null) => Math.round(Number(amount ?? 
 @Component({
   selector: 'app-sale-create',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, DataWarning, CurrencyPipe, Button],
+  imports: [CommonModule, ReactiveFormsModule, DataWarning, ConfirmDialog, CurrencyPipe, Button],
   templateUrl: './sale-create.html',
 })
 export class SaleCreate {
@@ -79,6 +80,10 @@ export class SaleCreate {
   warningMessage = signal('');
 
   isSubmitting = signal(false);
+
+  isLeaveDialogOpen = signal(false);
+  private leaveDecision?: Subject<boolean>;
+  private saleRegistered = false;
 
   // ─────────────────────────────
   // Computed
@@ -290,6 +295,7 @@ export class SaleCreate {
       finalize(() => this.isSubmitting.set(false))
     ).subscribe({
       next: () => {
+        this.saleRegistered = true;
         this.router.navigate(['/sales']);
       },
       error: (err) => {
@@ -307,5 +313,40 @@ export class SaleCreate {
 
   onWarningConfirm() {
     this.showWarning.set(false);
+  }
+
+  // ─────────────────────────────
+  // Leaving with a filled cart
+  // ─────────────────────────────
+
+  canDeactivate(): boolean | Observable<boolean> {
+    if (!this.hasUnsavedSale()) return true;
+
+    this.leaveDecision = new Subject<boolean>();
+    this.isLeaveDialogOpen.set(true);
+    return this.leaveDecision.pipe(take(1));
+  }
+
+  stayOnSale() {
+    this.resolveLeave(false);
+  }
+
+  leaveSale() {
+    this.resolveLeave(true);
+  }
+
+  @HostListener('window:beforeunload', ['$event'])
+  onBeforeUnload(event: BeforeUnloadEvent) {
+    if (this.hasUnsavedSale()) event.preventDefault();
+  }
+
+  private hasUnsavedSale() {
+    return this.items.length > 0 && !this.saleRegistered;
+  }
+
+  private resolveLeave(leave: boolean) {
+    this.isLeaveDialogOpen.set(false);
+    this.leaveDecision?.next(leave);
+    this.leaveDecision = undefined;
   }
 }
