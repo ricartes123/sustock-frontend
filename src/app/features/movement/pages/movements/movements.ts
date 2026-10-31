@@ -1,6 +1,7 @@
 import { Component, inject, signal, computed } from '@angular/core';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 import { Movement, movementKind } from '../../../../core/models/movement.model';
 import { MovementService } from '../../services/movement.service';
 import { PaginationMeta } from '../../../../core/models/pagination-meta.model';
@@ -17,7 +18,7 @@ import { HotToastService } from '@ngxpert/hot-toast';
 
 @Component({
   selector: 'app-movements',
-  imports: [CommonModule, FormsModule, TableComponent, Button, Badge, LucideAngularModule, SearchInput, Modal, CurrencyPipe, PaginationComponent],
+  imports: [CommonModule, FormsModule, RouterLink, TableComponent, Button, Badge, LucideAngularModule, SearchInput, Modal, CurrencyPipe, PaginationComponent],
   templateUrl: './movements.html',
   styleUrl: './movements.css',
 })
