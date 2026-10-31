@@ -124,6 +124,7 @@
                         <lucide-icon name="pencil" [size]="16" [strokeWidth]="2"></lucide-icon>
                     </app-button>
 
+                    @if (isAdmin()) {
                     <app-button [variant]="client.isActive !== false ? 'icon-danger' : 'icon-primary'"
                         (click)="toggleClientStatus(client)"
                         [title]="client.isActive !== false ? 'Archivar' : 'Restaurar'">
@@ -133,6 +134,7 @@
                         <lucide-icon name="archive-restore" [size]="16" [strokeWidth]="2"></lucide-icon>
                         }
                     </app-button>
+                    }
                 </div>
             </td>
         </tr>

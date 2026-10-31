@@ -50,6 +50,7 @@ export class Sales implements OnInit {
 
   currency = computed(() => this.workspaceContext.currency);
   locale = computed(() => this.workspaceContext.locale);
+  isAdmin = computed(() => this.workspaceContext.isAdmin());
 
   sales = signal<Sale[]>([]);
   meta = signal<PaginationMeta<Sale>['meta'] | null>(null);

@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -15,6 +15,7 @@ import { DataWarning } from '../../../../shared/components/data-warning/data-war
 import { Client } from '../../../../core/models/client.model';
 import { PaginationMeta } from '../../../../core/models/pagination-meta.model';
 import { ClientsService } from '../../services/clients.service';
+import { WorkspaceContextService } from '../../../../core/services/workspace-context.service';
 import { HotToastService } from '@ngxpert/hot-toast';
 
 import { ClientFormModal } from '../../components/client-form-modal/client-form-modal';
@@ -43,6 +44,9 @@ import { PaginationComponent } from '../../../../shared/components/pagination/pa
 export class ClientsComponent implements OnInit {
   private clientsService = inject(ClientsService);
   private toastService = inject(HotToastService);
+  private workspaceContext = inject(WorkspaceContextService);
+
+  isAdmin = computed(() => this.workspaceContext.isAdmin());
 
   // State
   clients = signal<Client[]>([]);
