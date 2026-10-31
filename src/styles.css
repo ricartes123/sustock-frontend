@@ -136,7 +136,7 @@ body {
     --ss-text-body:       #334155;   /* slate-700 — texto primario */
     --ss-text-muted:      #64748b;   /* slate-500 — etiquetas, cabeceras */
     --ss-text-nav:        #64748b;   /* slate-500 — alias compat */
-    --ss-text-faint:      #081a34;   /* slate-400 — placeholder, deshabilitado */
+    --ss-text-faint:      #64748b;   /* slate-500 — placeholder, deshabilitado (slate-400 no llega a 4.5:1 sobre blanco) */
 
     --ss-border-soft:     #f1f5f9;   /* slate-100 — divisores entre filas */
     --ss-border-medium:   #e2e8f0;   /* slate-200 — bordes de tarjeta */
