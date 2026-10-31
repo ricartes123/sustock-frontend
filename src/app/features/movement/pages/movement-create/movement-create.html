@@ -17,7 +17,7 @@
                 <div class="relative" #searchContainer>
                     <div class="relative">
                         <input type="text"
-                            class="form-input w-full pl-10 border border-strong focus:ring-2 focus:ring-primary-500/40 rounded-lg"
+                            class="w-full pl-10 pr-10 py-2 border border-strong rounded-lg text-sm text-main focus:outline-none focus:ring-2 focus:ring-primary-500/40 transition-all"
                             [ngClass]="selectedProduct() ? 'bg-input opacity-50 cursor-not-allowed' : 'bg-input'"
                             placeholder="Escribí el nombre, SKU o código de barras..." [formControl]="searchControl"
                             (focus)="onSearchFocus()">
@@ -130,7 +130,7 @@
                             {{ form.controls.type.value === 'ADJUSTMENT' ? 'Stock Final' : 'Cantidad a afectar' }}
                         </label>
                         <input type="number" formControlName="quantity" [min]="form.controls.type.value === 'ADJUSTMENT' ? 0 : 1"
-                            class="form-input w-full bg-input border-strong rounded-lg">
+                            class="w-full px-4 py-2 border border-strong rounded-lg text-sm text-main focus:outline-none focus:ring-2 focus:ring-primary-500/40 transition-all bg-input">
                     </div>
 
                     <div
@@ -147,12 +147,12 @@
                     <label class="block text-sm font-medium text-body mb-1">Motivo
                         (Opcional)</label>
                     <textarea formControlName="reason" rows="2"
-                        class="form-textarea w-full bg-input border-strong rounded-lg"
+                        class="w-full px-4 py-2 border border-strong rounded-lg text-sm text-main focus:outline-none focus:ring-2 focus:ring-primary-500/40 transition-all bg-input"
                         placeholder="Ej. Corrección de inventario por mercadería vencida..."></textarea>
                 </div>
 
                 <button type="button" (click)="confirmMovement()" [disabled]="!selectedProduct() || isSubmitting() || form.invalid"
-                    class="btn w-full bg-primary-600 hover:bg-primary-700 text-white rounded-lg py-3 font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                    class="w-full bg-primary-600 hover:bg-primary-700 text-white rounded-lg py-3 font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
                     {{ isSubmitting() ? 'Procesando...' : 'Guardar Movimiento' }}
                 </button>
             </div>

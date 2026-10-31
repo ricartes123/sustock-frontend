@@ -17,7 +17,7 @@
                 <div class="relative" #searchContainer>
                     <div class="relative">
                         <input type="text"
-                            class="form-input w-full pl-11 py-3 text-sm md:text-base border border-strong focus:ring-2 focus:ring-primary-500/40 focus:border-primary-500 rounded-xl bg-input text-main transition-colors shadow-sm"
+                            class="w-full pl-11 py-3 text-sm md:text-base border border-strong focus:ring-2 focus:ring-primary-500/40 focus:border-primary-500 rounded-xl bg-input text-main transition-colors shadow-sm"
                             placeholder="Escribí el nombre, SKU o código de barras..." [formControl]="searchControl"
                             (focus)="onSearchFocus()" />
                         <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
@@ -165,7 +165,7 @@
                                 <td class="px-5 py-4">
                                     <div class="flex items-center justify-center">
                                         <input type="number"
-                                            class="form-input w-20 text-center text-sm border border-strong rounded-lg focus:ring-2 focus:ring-primary-500/40 focus:border-primary-500 bg-input text-main font-medium"
+                                            class="w-20 text-center text-sm border border-strong rounded-lg focus:ring-2 focus:ring-primary-500/40 focus:border-primary-500 bg-input text-main font-medium"
                                             formControlName="quantity"
                                             min="1" />
                                     </div>
@@ -174,7 +174,7 @@
                                     <div class="flex items-center justify-end gap-1">
                                         <span class="text-muted text-sm">$</span>
                                         <input type="number"
-                                            class="form-input w-24 text-right text-sm border border-strong rounded-lg focus:ring-2 focus:ring-primary-500/40 focus:border-primary-500 bg-input font-medium"
+                                            class="w-24 text-right text-sm border border-strong rounded-lg focus:ring-2 focus:ring-primary-500/40 focus:border-primary-500 bg-input font-medium"
                                             [ngClass]="group.controls.unitPrice.invalid ? 'text-red-500 border-red-500' : (isDiscounted(group) ? 'text-orange-500' : 'text-main')"
                                             formControlName="unitPrice" (blur)="roundUnitPrice(group)"
                                             min="0" [max]="product.price" step="0.01" />
@@ -239,7 +239,7 @@
                         } @else {
                         <input type="text" [formControl]="clientSearchControl" (focus)="onClientSearchFocus()"
                             placeholder="Consumidor Final (buscá un cliente)"
-                            class="form-input w-full pl-10 py-2.5 border border-strong rounded-lg focus:ring-2 focus:ring-primary-500/40 focus:border-primary-500 bg-input text-main transition-colors text-sm shadow-sm" />
+                            class="w-full pl-10 py-2.5 border border-strong rounded-lg focus:ring-2 focus:ring-primary-500/40 focus:border-primary-500 bg-input text-main transition-colors text-sm shadow-sm" />
                         }
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                             <svg class="h-5 w-5 text-faint" fill="none" viewBox="0 0 24 24" stroke="currentColor">

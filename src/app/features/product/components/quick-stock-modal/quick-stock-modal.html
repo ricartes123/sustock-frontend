@@ -7,7 +7,7 @@
         <div class="relative" #searchContainer>
             <div class="relative">
                 <input type="text"
-                    class="form-input w-full pl-10 py-3 text-sm border border-strong focus:ring-2 focus:ring-primary-500/40 focus:border-primary-500 rounded-xl bg-input text-main transition-colors shadow-sm"
+                    class="w-full pl-10 py-3 text-sm border border-strong focus:ring-2 focus:ring-primary-500/40 focus:border-primary-500 rounded-xl bg-input text-main transition-colors shadow-sm"
                     placeholder="Buscá el producto por nombre, SKU o código..." [ngModel]="searchQuery()"
                     (ngModelChange)="onSearchChange($event)"
                     (focus)="searchQuery().length >= 1 ? showDropdown.set(true) : null" />
@@ -88,7 +88,7 @@
             <div>
                 <label class="block text-sm font-medium text-body mb-1">Cantidad a ingresar</label>
                 <input type="number" [(ngModel)]="quantity" placeholder="0" [min]="1"
-                    class="form-input w-full border border-strong rounded-lg focus:border-primary-500 focus:ring-2 focus:ring-primary-500/40 p-2 text-sm bg-input text-main">
+                    class="w-full border border-strong rounded-lg focus:border-primary-500 focus:ring-2 focus:ring-primary-500/40 p-2 text-sm bg-input text-main">
             </div>
         </div>
         }
