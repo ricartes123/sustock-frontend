@@ -125,7 +125,7 @@
 
             <td class="p-4">
                 <app-badge [variant]="product.stock > product.stockMin ? 'success' : 'error'"
-                    [title]="'Alert threshold: ' + product.stockMin" size="lg">
+                    [title]="'Stock mínimo: ' + product.stockMin" size="lg">
                     {{ product.stock }}
                 </app-badge>
             </td>
