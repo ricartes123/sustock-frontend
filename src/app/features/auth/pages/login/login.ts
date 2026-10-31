@@ -29,6 +29,7 @@ export class Login {
   lastName = '';
   workspaceName = '';
   currency = 'ARS';
+  readonly minPasswordLength = 8;
 
   // Signals: the app is zoneless, so plain fields changed in HTTP callbacks would not re-render
   isLoginMode = signal(true);
@@ -46,6 +47,11 @@ export class Login {
   }
 
   onSubmit() {
+    if (!this.isLoginMode() && this.password.length < this.minPasswordLength) {
+      this.error.set(`La contraseña debe tener al menos ${this.minPasswordLength} caracteres.`);
+      return;
+    }
+
     this.loading.set(true);
     this.error.set(null);
 

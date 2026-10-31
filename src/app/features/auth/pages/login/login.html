@@ -135,6 +135,9 @@
               }
             </button>
           </div>
+          @if (!isLoginMode()) {
+          <p class="text-xs text-faint mt-1">Mínimo {{ minPasswordLength }} caracteres.</p>
+          }
         </div>
 
         @if (error()) {
