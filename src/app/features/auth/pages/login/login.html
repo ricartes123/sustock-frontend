@@ -60,15 +60,15 @@
         @if (!isLoginMode()) {
         <div class="grid grid-cols-2 gap-4">
           <div>
-            <label class="block text-sm font-medium text-body mb-1">Nombre</label>
-            <input type="text" [(ngModel)]="firstName" name="firstName"
+            <label for="firstName" class="block text-sm font-medium text-body mb-1">Nombre</label>
+            <input id="firstName" type="text" [(ngModel)]="firstName" name="firstName" autocomplete="given-name"
               placeholder="Juana"
               class="w-full border border-medium px-4 py-2.5 rounded-lg text-sm text-main bg-input focus:outline-none focus:ring-2 focus:ring-primary-500/40 focus:border-primary-500 transition-all"
               required />
           </div>
           <div>
-            <label class="block text-sm font-medium text-body mb-1">Apellido</label>
-            <input type="text" [(ngModel)]="lastName" name="lastName"
+            <label for="lastName" class="block text-sm font-medium text-body mb-1">Apellido</label>
+            <input id="lastName" type="text" [(ngModel)]="lastName" name="lastName" autocomplete="family-name"
               placeholder="Pérez"
               class="w-full border border-medium px-4 py-2.5 rounded-lg text-sm text-main bg-input focus:outline-none focus:ring-2 focus:ring-primary-500/40 focus:border-primary-500 transition-all"
               required />
@@ -77,15 +77,15 @@
 
         <div class="grid grid-cols-3 gap-4">
           <div class="col-span-2">
-            <label class="block text-sm font-medium text-body mb-1">Nombre del espacio de trabajo</label>
-            <input type="text" [(ngModel)]="workspaceName" name="workspaceName"
+            <label for="workspaceName" class="block text-sm font-medium text-body mb-1">Nombre del espacio de trabajo</label>
+            <input id="workspaceName" type="text" [(ngModel)]="workspaceName" name="workspaceName" autocomplete="organization"
               placeholder="Acme Inc."
               class="w-full border border-medium px-4 py-2.5 rounded-lg text-sm text-main bg-input focus:outline-none focus:ring-2 focus:ring-primary-500/40 focus:border-primary-500 transition-all"
               required />
           </div>
           <div>
-            <label class="block text-sm font-medium text-body mb-1">Moneda</label>
-            <select [(ngModel)]="currency" name="currency"
+            <label for="currency" class="block text-sm font-medium text-body mb-1">Moneda</label>
+            <select id="currency" [(ngModel)]="currency" name="currency"
               class="w-full border border-medium px-4 py-2.5 rounded-lg text-sm text-main bg-input focus:outline-none focus:ring-2 focus:ring-primary-500/40 focus:border-primary-500 transition-all cursor-pointer"
               required>
               <option value="ARS">ARS ($)</option>
@@ -100,26 +100,28 @@
         }
 
         <div>
-          <label class="block text-sm font-medium text-main mb-1">Correo electrónico</label>
-          <input type="email" [(ngModel)]="email" name="email" placeholder="vos@empresa.com"
+          <label for="email" class="block text-sm font-medium text-main mb-1">Correo electrónico</label>
+          <input id="email" type="email" [(ngModel)]="email" name="email" autocomplete="email" placeholder="vos@empresa.com"
             class="w-full border border-medium px-4 py-2.5 text-main bg-input rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/40 focus:border-primary-500 transition-all"
             required />
         </div>
 
         <div>
-          <label class="block text-sm font-medium text-main mb-1">Contraseña</label>
+          <label for="password" class="block text-sm font-medium text-main mb-1">Contraseña</label>
           <div class="relative">
-            <input [type]="showPassword() ? 'text' : 'password'" [(ngModel)]="password" name="password"
+            <input id="password" [type]="showPassword() ? 'text' : 'password'" [(ngModel)]="password" name="password"
+              [attr.autocomplete]="isLoginMode() ? 'current-password' : 'new-password'"
               placeholder="••••••••"
               class="w-full border border-medium px-4 py-2.5 text-main bg-input rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500/40 focus:border-primary-500 transition-all pr-12"
               required />
 
             <button type="button" (click)="togglePassword()"
-              class="absolute right-3 top-1/2 -translate-y-1/2 text-faint hover:text-muted focus:outline-none cursor-pointer p-1">
+              [attr.aria-label]="showPassword() ? 'Ocultar contraseña' : 'Mostrar contraseña'" [attr.aria-pressed]="showPassword()"
+              class="absolute right-3 top-1/2 -translate-y-1/2 text-faint hover:text-muted rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 cursor-pointer p-1">
               @if (showPassword()) {
               <!-- Eye Off Icon -->
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path
                   d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24">
                 </path>
@@ -128,7 +130,7 @@
               } @else {
               <!-- Eye Icon -->
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
                 <circle cx="12" cy="12" r="3"></circle>
               </svg>
@@ -176,7 +178,7 @@
       <div class="mt-8 text-center text-sm text-faint">
         {{ isLoginMode() ? '¿No tenés una cuenta?' : '¿Ya tenés una cuenta?' }}
         <button type="button" (click)="toggleMode()"
-          class="text-primary-600 font-semibold hover:text-primary-800 transition-colors ml-1 focus:outline-none">
+          class="text-primary-600 font-semibold hover:text-primary-800 transition-colors ml-1 rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40">
           {{ isLoginMode() ? 'Registrate gratis' : 'Ingresá acá' }}
         </button>
       </div>

@@ -4,15 +4,15 @@
     <!-- Backdrop click catcher -->
     <div class="fixed inset-0" (click)="onClose()"></div>
 
-    <div
+    <div role="dialog" aria-modal="true" [attr.aria-labelledby]="titleId"
         class="relative bg-surface rounded-2xl shadow-xl w-full overflow-hidden flex flex-col max-h-[90vh] z-10 transform transition-all {{maxWidth}} {{minHeight}}">
 
         <!-- Header -->
         <div class="flex items-center justify-between px-6 py-4 border-b border-soft bg-surface">
-            <h3 class="text-xl font-bold text-main">
+            <h3 [id]="titleId" class="text-xl font-bold text-main">
                 {{ title }}
             </h3>
-            <button (click)="onClose()"
+            <button type="button" (click)="onClose()" aria-label="Cerrar"
                 class="text-faint hover:text-red-500 transition-colors p-1.5 rounded-lg cursor-pointer hover:bg-red-500/10 flex-shrink-0">
                 <lucide-icon name="x" [size]="20" [strokeWidth]="2"></lucide-icon>
             </button>

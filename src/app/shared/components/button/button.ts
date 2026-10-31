@@ -19,12 +19,22 @@ export class Button {
     @Input() icon?: string;
     @Input() iconPosition: 'left' | 'right' = 'left';
     @Input() class: string = '';
+    @Input() title?: string;
+    @Input() ariaLabel?: string;
+
+    get isIconOnly(): boolean {
+        return this.variant.startsWith('icon');
+    }
+
+    // Icon-only buttons have no text, so their tooltip doubles as the accessible name.
+    get accessibleName(): string | null {
+        return this.ariaLabel ?? (this.isIconOnly ? this.title ?? null : null);
+    }
 
     get classes(): string {
         const baseClasses = 'cursor-pointer inline-flex items-center justify-center font-medium transition-colors focus:outline-none focus:ring-2';
 
-        const isIconVariant = this.variant.startsWith('icon');
-        const sizeClasses = isIconVariant ? 'p-1.5 rounded-lg' : {
+        const sizeClasses = this.isIconOnly ? 'p-1.5 rounded-lg' : {
             'sm': 'px-3 py-1.5 text-sm rounded-md',
             'md': 'px-4 py-2 text-sm rounded-lg',
             'lg': 'px-5 py-2.5 text-base rounded-lg'

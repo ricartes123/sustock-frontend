@@ -166,7 +166,7 @@
                                     <div class="flex items-center justify-center">
                                         <input type="number"
                                             class="w-20 text-center text-sm border border-strong rounded-lg focus:ring-2 focus:ring-primary-500/40 focus:border-primary-500 bg-input text-main font-medium"
-                                            formControlName="quantity"
+                                            formControlName="quantity" [attr.aria-label]="'Cantidad de ' + product.name"
                                             min="1" />
                                     </div>
                                 </td>
@@ -177,6 +177,7 @@
                                             class="w-24 text-right text-sm border border-strong rounded-lg focus:ring-2 focus:ring-primary-500/40 focus:border-primary-500 bg-input font-medium"
                                             [ngClass]="group.controls.unitPrice.invalid ? 'text-red-500 border-red-500' : (isDiscounted(group) ? 'text-orange-500' : 'text-main')"
                                             formControlName="unitPrice" (blur)="roundUnitPrice(group)"
+                                            [attr.aria-label]="'Precio unitario de ' + product.name"
                                             min="0" [max]="product.price" step="0.01" />
                                     </div>
                                     @if (isDiscounted(group)) { <div
@@ -190,8 +191,9 @@
                 </td>
                 <td class="px-5 py-4 text-center">
                     <button
-                        class="p-2 text-faint hover:text-red-500 hover:bg-red-500/10 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-red-500/40 opacity-0 group-hover:opacity-100"
-                        type="button" (click)="removeItem(i)" title="Eliminar producto">
+                        class="p-2 text-faint hover:text-red-500 hover:bg-red-500/10 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-red-500/40 opacity-0 group-hover:opacity-100 focus:opacity-100"
+                        type="button" (click)="removeItem(i)" title="Eliminar producto"
+                        [attr.aria-label]="'Quitar ' + product.name + ' de la venta'">
                         <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                                 d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />

@@ -1,4 +1,5 @@
-<button [type]="type" [disabled]="disabled" [class]="classes">
+<button [type]="type" [disabled]="disabled" [class]="classes" [attr.title]="title ?? null"
+    [attr.aria-label]="accessibleName">
 
     <lucide-icon *ngIf="icon && iconPosition === 'left'" [name]="icon"
         [size]="size === 'sm' || variant === 'icon' ? 16 : 18" [strokeWidth]="2"
